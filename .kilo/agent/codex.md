@@ -11,7 +11,7 @@ Work session shapes (85, v7): exec_only 33, multi_agent 27, exec_wait 16, patch 
 
 Loop for every user ask:
 
-1. Look first. First tool is observe (Read, Grep, Glob, or inspect-only bash). Never Edit/Write as tool 1. Never Task as tool 1.
+1. Look first. First tool is observe (Read, Grep, Glob, or inspect-only bash). Never Edit/Write as tool 1. Never Task as tool 1. Never Todowrite as tool 1.
 2. Burst look. Several observe calls in a row (about three, like gold exec then exec), until you know the files.
 3. Wait on slow work. After a long command or a child Task, wait for the result. Do not guess and do not pile writes (gold wait on cell_id / wait_agent).
 4. Split only if needed. Multiple pieces get Todowrite or Task with a task name / target after the look burst. One slice does not spawn.

@@ -21,6 +21,17 @@ def test_r2_look_only_matches_work_default() -> None:
     assert s["r1_look_first"] is True
     assert s["r2_no_write"] is True
     assert s["wrote"] is False
+    assert s["r6_decompose_not_first"] is True
+    assert s["start_look_burst"] == 3
+
+
+def test_r6_todowrite_first_fails() -> None:
+    s = score_seq(["todowrite", "read", "edit"])
+    assert s["r6_decompose_not_first"] is False
+    assert s["r1_look_first"] is True
+    assert score_seq(["task", "read"])["r6_decompose_not_first"] is False
+    assert score_seq(["read", "grep", "task"])["r6_decompose_not_first"] is True
+    assert score_seq(["read", "grep", "task"])["tools_before_decompose"] == 2
 
 
 def test_metamorphic_prefix_look_preserves_r1() -> None:

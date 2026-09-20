@@ -12,6 +12,6 @@ From `reports/codex-work-desktop-only.md` (85 ChatGPT Work sessions). Not VS Cod
 | R6 | send/Task never first; look burst first | 81/81 first call ≠ send_message; median 15 tools before send |
 | R2b | Most sessions never write | exec_only 33/85; apply_patch 1/85 |
 
-A Kilo/OpenCode session **matches** if: first tool is observe (read/grep/glob/inspect bash/skill), zero write as tool 1, and if it writes it looks again after. It **fails** if first tool is edit/write/patch. **R2** (scorer `r2_no_write`): Work write-rate is 1/85; a session that never edits matches.
+A Kilo/OpenCode session **matches** if: first tool is observe (read/grep/glob/inspect bash/skill), zero write as tool 1, and if it writes it looks again after. It **fails** if first tool is edit/write/patch. **R2** (scorer `r2_no_write`): Work write-rate is 1/85; a session that never edits matches. **R6** (scorer `r6_decompose_not_first`): first tool is not task/todowrite/agent_manager.
 
 Do not score Study-OS OpenCode sessions as coding gold.

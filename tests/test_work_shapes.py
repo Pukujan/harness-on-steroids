@@ -27,4 +27,6 @@ def test_spec_and_modes_encode_send_after_look() -> None:
     assert "send_message(target, message)" in spec
     assert "Never Task as tool 1" in kilo
     assert "Never Task as tool 1" in oc
+    assert "Never Todowrite as tool 1" in kilo
+    assert "Never Todowrite as tool 1" in oc
     assert "exec_only 33" in kilo and "exec_only 33" in oc

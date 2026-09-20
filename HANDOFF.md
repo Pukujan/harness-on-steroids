@@ -14,7 +14,9 @@ Primary: **ChatGPT Work** `codex_work_desktop` (85 sessions). First tool `exec` 
 
 VS Code Codex (16) is shell↔patch — **not** Work gold.
 
-Kilo/OpenCode **imitate** Work via `.kilo/agent/codex.md` and `.opencode/agent/codex.md`. Scorer: `src/score_session.py` (R1 look-first, **R2 no-write**). Pattern: `spec/future-agent-pattern.md`.
+Kilo/OpenCode **imitate** Work via `.kilo/agent/codex.md` and `.opencode/agent/codex.md`. Scorer: `src/score_session.py` (R1 look-first, **R2 no-write**, **R6 decompose-not-first**). Pattern: `spec/future-agent-pattern.md`.
+
+**v8 gap:** Kilo write-rate 0.88 vs Work 0.01. OpenCode R6 16/24 (todowrite/task first). Never Todowrite as tool 1.
 
 Pytest owner-gate must stay green. Standing goal: `python -m src.goal_cli`. Do not shadow Kilo’s reserved `/goal`.
 
