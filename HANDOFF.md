@@ -18,6 +18,8 @@ Primary: **ChatGPT Work** `codex_work_desktop` (**87** sessions). `apply_patch` 
 
 **v22:** `codex-gold-behavior.md` regenerated on 1521. Do not average originators. 1518 snapshot in `reports/versions/v22/`.
 
+**v23:** deep pass on 1521: js_cell **29231**, write-first-exec 1. Work still primary.
+
 VS Code Codex (16) is shell↔patch — **not** Work gold.
 
 Kilo/OpenCode **imitate** Work via `.kilo/agent/codex.md` and `.opencode/agent/codex.md`. Scorer: `src/score_session.py` (R1 look-first, **R2 no-write**, **R6 decompose-not-first**). Pattern: `spec/future-agent-pattern.md`.

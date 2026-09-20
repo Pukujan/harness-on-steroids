@@ -42,3 +42,4 @@ How this project actually proceeds. Append-only. No message bodies.
 - v20 refreshed kilo/opencode sqlite copies. Kilo 20 sessions, work_match 1/20. Fail still R2+R4+R5. Codex mode not the scored agent. Snapshot `reports/versions/v20/`.
 - v21 originator recount on 1521. Desktop 1106, work 95 files, vscode 16 (patch 718 unchanged). Snapshot `reports/versions/v21/`.
 - v22 regenerated `codex-gold-behavior.md` on 1521 (lines 355679). 1518 snapshot kept. Explicit do-not-average-originators. Snapshot `reports/versions/v22/`.
+- v23 deep pass restored: js_cell 29231 / 1521 files. Work still primary. Snapshot `reports/versions/v23/`.
