@@ -41,3 +41,4 @@ How this project actually proceeds. Append-only. No message bodies.
 - v19 corpus delta: 3 new hashed rollouts (2 Work exec-only, 1 Codex Desktop). Work 87. Self-score 81/83. Spec sandwich marked vscode. Snapshot `reports/versions/v19/`. Do not commit `data/`.
 - v20 refreshed kilo/opencode sqlite copies. Kilo 20 sessions, work_match 1/20. Fail still R2+R4+R5. Codex mode not the scored agent. Snapshot `reports/versions/v20/`.
 - v21 originator recount on 1521. Desktop 1106, work 95 files, vscode 16 (patch 718 unchanged). Snapshot `reports/versions/v21/`.
+- v22 regenerated `codex-gold-behavior.md` on 1521 (lines 355679). 1518 snapshot kept. Explicit do-not-average-originators. Snapshot `reports/versions/v22/`.

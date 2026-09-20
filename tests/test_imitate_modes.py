@@ -23,7 +23,10 @@ def test_kilo_and_opencode_codex_modes_exist_and_match() -> None:
         assert n in kt and n in ot, n
     assert "Do not patch first" in st
     assert "exec → exec → exec" in st or "exec -> exec -> exec" in st
-    assert "1518" in report.read_text(encoding="utf-8")
+    rt = report.read_text(encoding="utf-8")
+    assert "1521" in rt
+    assert "Do not average originators" in rt
+    assert "codex_work_desktop" in rt
     work = (ROOT / "reports" / "codex-work-desktop-only.md").read_text(encoding="utf-8")
     assert "codex_work_desktop" in work
     assert "with apply_patch: **1**" in work
