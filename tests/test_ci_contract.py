@@ -44,5 +44,6 @@ def test_workflow_exists_and_is_not_a_noop() -> None:
         "test_plan_by_originator.py",
         "test_originator_dashboard.py",
         "test_shell_by_originator.py",
+        "test_js_by_originator.py",
     ):
         assert name in text, name

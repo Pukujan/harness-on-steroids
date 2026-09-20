@@ -83,3 +83,5 @@ jobs:
         run: pytest tests/test_originator_dashboard.py
       - name: shell-by-originator
         run: pytest tests/test_shell_by_originator.py
+      - name: js-by-originator
+        run: pytest tests/test_js_by_originator.py
