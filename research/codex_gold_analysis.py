@@ -86,6 +86,7 @@ def main() -> int:
         if i % 50 == 0:
             write_status("gold_analysis", progress=f"{i}/{len(files)}", lines=n_lines)
         seq: list[str] = []
+        file_orig: str | None = None
         saw_decomp = False
         saw_mut = False
         saw_exec = False
@@ -108,7 +109,7 @@ def main() -> int:
                     if t == "session_meta":
                         orig = payload.get("originator")
                         if isinstance(orig, str):
-                            originators[orig] += 1
+                            file_orig = orig
                     if t == "turn_context":
                         cm = payload.get("collaboration_mode")
                         if isinstance(cm, dict):
@@ -131,6 +132,8 @@ def main() -> int:
         except OSError:
             continue
         n_ok += 1
+        if file_orig:
+            originators[file_orig] += 1
         if seq:
             first_tools[seq[0]] += 1
             for a, b in zip(seq, seq[1:]):

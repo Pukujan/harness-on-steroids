@@ -46,3 +46,4 @@ How this project actually proceeds. Append-only. No message bodies.
 - v24 empty Work sessions: 4/87, 14–25 lines, no calls. 95 originator rows ≠ 87 files. Snapshot `reports/versions/v24/`.
 - v25 session_meta: 79×1 + 8×2 = 95. Modes: stop if nothing to look up. Snapshot `reports/versions/v25/`.
 - v26 originator files counted once: Work 87, Desktop 1103. Snapshot `reports/versions/v26/`.
+- v27 gold-behavior originator table aligned to one-file-once (Work 87). Snapshot `reports/versions/v27/`.

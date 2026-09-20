@@ -26,6 +26,8 @@ Primary: **ChatGPT Work** `codex_work_desktop` (**87** sessions). `apply_patch` 
 
 **v26:** originator table is one file once. Work **87**, Desktop 1103, vscode 16.
 
+**v27:** `codex-gold-behavior.md` originator counts match files (Work 87), not session_meta rows.
+
 VS Code Codex (16) is shell↔patch — **not** Work gold.
 
 Kilo/OpenCode **imitate** Work via `.kilo/agent/codex.md` and `.opencode/agent/codex.md`. Scorer: `src/score_session.py` (R1 look-first, **R2 no-write**, **R6 decompose-not-first**). Pattern: `spec/future-agent-pattern.md`.
