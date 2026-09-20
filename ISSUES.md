@@ -71,35 +71,38 @@ Status: `open` | `in_progress` | `done`
 
 ### 8. Full Codex gold-behavior analysis
 
-- **Status:** in_progress
+- **Status:** done
 - **Goal:** Parse **all** hashed Codex JSONL. How Codex splits tasks and chains tools. No bodies in git.
 - **Files:** `reports/codex-gold-behavior.md`
-- **Command:** analysis covers all `data/raw/codex/*.jsonl` (hashed **1521**; Work 87)
-- **Notes:** originator split in `reports/codex-by-originator.md`. Gold snapshot still records the 1518 generation.
-- **Pass:** report exists; states file count; task-split + tool-chain sections
+- **Command:** `pytest tests/test_imitate_modes.py tests/test_work_vs_vscode.py -q`
+- **Notes:** hashed **1521**; Work **87** files; originator split in `reports/codex-by-originator.md`. 1518 snapshot in `reports/versions/v22/`.
+- **Pass:** report exists; states file count 1521; task-split + tool-chain sections; Work not averaged with vscode
 - **Parent:** 1
 
 ### 9. Imitate-Codex mode spec
 
-- **Status:** in_progress
+- **Status:** done
 - **Goal:** `spec/codex-imitate-mode.md` from issue 8, not from SWE-bench papers.
 - **Files:** `spec/codex-imitate-mode.md`
+- **Command:** `pytest tests/test_imitate_modes.py -q`
 - **Pass:** spec lists required harness states (decompose, research, tool chain, verify) for both products
 - **Parent:** 8
 
 ### 10. Kilo Codex-imitate mode
 
-- **Status:** in_progress
+- **Status:** done
 - **Goal:** Selectable Kilo agent/mode using whatever model Kilo is using now.
-- **Files:** `.kilo/agent/*.md` and/or global Kilo agent
+- **Files:** `.kilo/agent/codex.md` and global `~/.config/kilo/agent/codex.md`
+- **Command:** `pytest tests/test_imitate_modes.py tests/test_work_shapes.py -q`
 - **Pass:** mode exists and encodes spec 9
 - **Parent:** 9
 
 ### 11. OpenCode Codex-imitate mode
 
-- **Status:** in_progress
+- **Status:** done
 - **Goal:** Same behavior in OpenCode build mode, including free models.
-- **Files:** OpenCode agent/instruction in project or user OpenCode config
+- **Files:** `.opencode/agent/codex.md` and global OpenCode agent
+- **Command:** `pytest tests/test_imitate_modes.py tests/test_metamorphic.py -q`
 - **Pass:** mode exists and is differentially equivalent to issue 10 on spec 9
 - **Parent:** 9
 
@@ -107,8 +110,10 @@ Status: `open` | `in_progress` | `done`
 
 - **Status:** in_progress
 - **Goal:** Repeat: measure Kilo+OpenCode sessions against Codex gold process → patch modes → measure again. Stop only when owner says the harness behavior matches.
-- **Files:** `spec/iteration-loop.md`, later `reports/imitate-gap.md`
-- **Pass:** loop documented; gap report after modes exist
+- **Files:** `spec/iteration-loop.md`, `reports/imitate-gap.md`, `src/score_session.py`
+- **Command:** `pytest tests/test_iteration_loop.py tests/test_score_session.py -q`
+- **Notes:** work_match Work 81/83, Kilo 1/20, OpenCode 4/24. Owner has not said match.
+- **Pass:** loop documented; gap report after modes exist; owner-accepted match
 - **Parent:** 10, 11
 
 ## Rules for agents
