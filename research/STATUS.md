@@ -1,8 +1,7 @@
 # Status
 
-- updated: 2026-09-20T06:35:00Z
-- phase: error_then_look_in_spec
-- after_fail: shell 446 vs patch 59
-- kilo_first_tool: mostly read (n=17)
-- pytest: keep green
+- updated: 2026-09-20T10:02:00Z
+- phase: originator_split_work_is_primary_gold
+- work_desktop: exec+wait+js+spawn, almost no apply_patch
+- vscode: shell↔patch (n=16, do not overwrite Work)
 - continue_until: 2026-09-22T05:58:00Z
