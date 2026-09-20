@@ -9,7 +9,7 @@ def test_matched_task_spec_forbids_swebench_and_bodies() -> None:
         "not only who called which tool",
         "Never commit message bodies",
         "Do not stand up SWE-bench",
-        "not run",
+        "not complete",
     ):
         assert n in spec, n
 
