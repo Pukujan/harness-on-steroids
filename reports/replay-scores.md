@@ -13,10 +13,10 @@ v64. Work process from JSONL. Kilo/OpenCode/morph columns **pending** (not repla
 | 2bde00530ddd | yes | none | yes/none/partial | yes/none | yes |
 | 633c140546c0 | yes | none | pending | pending | pending |
 | 6b1cd28c4803 | yes | none | yes/none/yes | yes/none | pending |
-| 6e412585c223 | yes | none | pending | pending | pending |
+| 6e412585c223 | yes | none | yes/none/yes | pending | yes |
 | 6eb8631b71ff | yes | none | no/R2+R5/partial | timeout | pending |
 | 74841f3cc419 | yes | none | pending | pending | pending |
-| 76b12d5e1a66 | yes | none | pending | pending | pending |
+| 76b12d5e1a66 | yes | none | yes/none/yes | pending | yes |
 | 8d42bc26b8ea | yes | none | pending | pending | pending |
 | a5842562d1c9 | yes | none | pending | pending | pending |
 | b7e6393f4c14 | yes | none | pending | pending | pending |
