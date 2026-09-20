@@ -24,5 +24,6 @@ def test_workflow_exists_and_is_not_a_noop() -> None:
         "test_score_session.py",
         "test_future_agent_pattern.py",
         "test_work_vs_vscode.py",
+        "test_work_shapes.py",
     ):
         assert name in text, name

@@ -43,7 +43,7 @@ def _tools(db: Path) -> dict[str, list[str]]:
 
 def score_seq(seq: list[str]) -> dict:
     if not seq:
-        return {"r1": None, "r5_wait": False, "wrote": False}
+        return {"r1": None, "r5_wait": False, "wrote": False, "r2_no_write": True}
     first = seq[0]
     r1 = first not in WRITE
     wrote = any(x in WRITE for x in seq)
@@ -55,6 +55,7 @@ def score_seq(seq: list[str]) -> dict:
     return {
         "first": first,
         "r1_look_first": r1,
+        "r2_no_write": not wrote,
         "wrote": wrote,
         "look_after_write": look_after,
         "multi_piece": waitish or seq.count("task") > 0,
@@ -65,6 +66,7 @@ def summarize(db: Path, skip_prefixes: tuple[str, ...] = ("study-os",)) -> dict:
     seqs = _tools(db)
     n = 0
     r1_ok = 0
+    r2_ok = 0
     write_first = 0
     wrote_n = 0
     sandwich = 0
@@ -83,6 +85,8 @@ def summarize(db: Path, skip_prefixes: tuple[str, ...] = ("study-os",)) -> dict:
             r1_ok += 1
         else:
             write_first += 1
+        if s["r2_no_write"]:
+            r2_ok += 1
         if s["wrote"]:
             wrote_n += 1
             if s["look_after_write"]:
@@ -92,6 +96,8 @@ def summarize(db: Path, skip_prefixes: tuple[str, ...] = ("study-os",)) -> dict:
         "sessions_with_tools": n,
         "skipped_study_os": skipped,
         "r1_look_first": r1_ok,
+        "r2_no_write": r2_ok,
+        "write_rate": (wrote_n / n) if n else 0.0,
         "write_first": write_first,
         "wrote": wrote_n,
         "sandwich_look_after_write": sandwich,

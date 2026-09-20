@@ -104,7 +104,7 @@ Status: `open` | `in_progress` | `done`
 
 ### 12. Iteration loop until behavior matches
 
-- **Status:** open
+- **Status:** in_progress
 - **Goal:** Repeat: measure Kilo+OpenCode sessions against Codex gold process → patch modes → measure again. Stop only when owner says the harness behavior matches.
 - **Files:** `spec/iteration-loop.md`, later `reports/imitate-gap.md`
 - **Pass:** loop documented; gap report after modes exist

@@ -16,6 +16,8 @@ for name in ("kilo.db", "opencode.db"):
     lines.append("")
     lines.append(f"- sessions_with_tools: **{out['sessions_with_tools']}**")
     lines.append(f"- R1 look-first: **{out['r1_look_first']}**")
+    lines.append(f"- R2 no-write: **{out.get('r2_no_write', 0)}**")
+    lines.append(f"- write-rate: **{out.get('write_rate', 0):.2f}** (Work gold 1/85 ≈ 0.01)")
     lines.append(f"- write-first: **{out['write_first']}**")
     lines.append(f"- skipped_study_os: **{out.get('skipped_study_os', 0)}**")
     lines.append(f"- wrote: **{out.get('wrote', 0)}**")
