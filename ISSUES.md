@@ -112,8 +112,8 @@ Status: `open` | `in_progress` | `done`
 - **Goal:** Score Kilo/OpenCode on the **same Work tasks** (observable result, verification, research), not only tool-name histograms. Bodies stay gitignored.
 - **Files:** `spec/matched-task-eval.md`, `reports/work-session-index.md`
 - **Command:** `pytest tests/test_matched_task_eval.py -q`
-- **Notes:** Index of 87 Work sessions. Extract script `research/extract_replay.py`. `/goal` text in `spec/matched-task-goal.md`. Replay **not run**.
-- **Pass:** extract works; owner runs `/goal` from `spec/matched-task-goal.md`; at least one Kilo + one OpenCode outcome score
+- **Notes:** Primary set is **22 long threads** (16×6–20 turns, 6×21+), not 8 singles. Goal: `spec/matched-task-goal.md`. Morphs + outcome vs Work execution. Replay of 22 **not complete**.
+- **Pass:** 22 hashes listed; metamorphic tests stay; Kilo+OpenCode long replays scored (hashes only in git)
 - **Parent:** 12
 
 ### 12. Iteration loop until behavior matches

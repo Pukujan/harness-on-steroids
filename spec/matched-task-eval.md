@@ -1,32 +1,31 @@
 # Matched-task eval (owner want)
 
-Owner: tool-call histograms are **not** the result. Want Kilo and OpenCode to run **the same Work tasks** and be scored on **observable work**, not only who called which tool.
+Owner: tool-call histograms are **not** the result. Want Kilo and OpenCode to run **the same Work tasks** as **long threads** and be scored on **observable work** and **Work’s own execution**, not only who called which tool.
 
 ## Gold still
 
-Local ChatGPT Work transcripts (`codex_work_desktop`). Not vscode. Not SWE-bench. Not a new public exam. Not re-testing Codex on Harbor.
+Local ChatGPT Work transcripts (`codex_work_desktop`). Not vscode. Not SWE-bench. Not Harbor. Not re-testing Codex on a public bench.
 
-## What to compare (when replay exists)
+## Primary set (not the 8 singles)
 
-For a Work session (hashed id only in git):
+- **16** sessions with 6–20 user turns
+- **6** sessions with 21+ user turns
+- List: `reports/work-long-replay-set.md`
+- 8 single-turn sessions are **smoke only**
 
-1. **Process** — existing R1–R6 / work_match (keep).
-2. **Research** — did it look before changing anything (already R1/R3).
-3. **Verification** — did it look/run after a change (R5 sandwich).
-4. **Outcome** — files changed, tests run, whether the ask was addressed. Outcome needs a local replay; bodies stay in `data/raw/` (gitignored).
+## What to compare
+
+For each hash:
+
+1. **Process** — R1–R6 / work_match (keep; cheap CI).
+2. **Research / verification** — look before change; look/run after change.
+3. **Outcome vs that Work run** — did Kilo/OpenCode address the same asks (files, tests, checks), not “same bytes as Codex.”
+4. **Metamorphic morphs** — paraphrase the ask (gitignored); same scores must not collapse; `tests/test_metamorphic.py` stays for docs/modes.
 
 ## Privacy
 
-- Never commit message bodies, raw JSONL, or sqlite.
-- Replay prompts, if used, live only under gitignored `data/replay/`.
-- Git may hold: session hash, turn counts, tool names, scores.
-
-## Not this
-
-- Do not paste Work user text into git or into this spec.
-- Do not stand up SWE-bench as the project.
-- Do not claim outcome match until replay exists.
+Never commit message bodies. Do not stand up SWE-bench as the project. Replay + morphs only under `data/replay/`. Git: hashes, counts, scores without quotes.
 
 ## Status
 
-Index: `reports/work-session-index.md`. Extract: `python research/extract_replay.py` → `data/replay/` (gitignored). Goal prompt: `spec/matched-task-goal.md`. Replay into Kilo/OpenCode **not run** until you `/goal` that prompt.
+Extract exists locally for 82/87. Long-set list is in git. Full 22-thread Kilo+OpenCode replay **not complete**.

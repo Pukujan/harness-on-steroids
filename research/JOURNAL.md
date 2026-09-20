@@ -81,3 +81,4 @@ How this project actually proceeds. Append-only. No message bodies.
 - v59 replay buckets from user_turn counts: 8 single-ask, 16 in 6–20, 6 long. No prompts. Snapshot `reports/versions/v59/`.
 - v60 PLAN F + AGENTS: matched-task outcome is owner goal; process tests stay; replay not run. Snapshot `reports/versions/v60/`.
 - v61 extract_replay.py + spec/matched-task-goal.md for owner `/goal`. Snapshot `reports/versions/v61/`.
+- v62 primary exam is 22 long Work threads + morphs, not 8 singles. Snapshot `reports/versions/v62/`.

@@ -95,3 +95,5 @@ jobs:
         run: pytest tests/test_work_replay_buckets.py
       - name: extract-replay
         run: pytest tests/test_extract_replay.py
+      - name: long-replay-set
+        run: pytest tests/test_long_replay_set.py
