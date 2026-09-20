@@ -3,6 +3,12 @@ from pathlib import Path
 ROOT = Path(__file__).resolve().parents[1]
 
 
+def test_spec_table_matches_patch_rates() -> None:
+    spec = (ROOT / "spec" / "codex-imitate-mode.md").read_text(encoding="utf-8")
+    for n in ("**1/83**", "**1/994**", "**31/105**", "**12/13**"):
+        assert n in spec, n
+
+
 def test_patch_rates_do_not_average() -> None:
     text = (ROOT / "reports" / "codex-patch-by-originator.md").read_text(encoding="utf-8")
     for n in (
