@@ -69,3 +69,5 @@ jobs:
         run: pytest tests/test_exec_vs_work.py
       - name: desktop-vs-work
         run: pytest tests/test_desktop_vs_work.py
+      - name: vscode-vs-work
+        run: pytest tests/test_vscode_vs_work.py
