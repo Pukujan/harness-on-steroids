@@ -2,18 +2,20 @@
 
 **Owner wins:** `AGENTS.md` → `PLAN.md` → `ISSUES.md` → `CONTINUE.md`.
 
-## 48-hour no-stop
+## 20h loop (now)
 
-Until **2026-09-22T05:58:00Z**. Do not wait. Do not self-stop. Do not SWE-bench.
+Until **2026-09-21T12:05:00Z** (then 48h deadline **2026-09-22T05:58:00Z**). 10-minute wakeup chain if paused. Do not SWE-bench. Do not wait.
 
-## Current
+## Current gold (do not average)
 
-Gold loop on 1518 files: **`exec` is JS cells** (30044/30373), **`wait` is `cell_id`**, **`shell_command` is cwd shell**, edits sandwiched, spawn rare and named.
+Primary: **ChatGPT Work** `codex_work_desktop` (85 sessions). First tool `exec` 76. `apply_patch` in **1** session. Multi-agent send/spawn **26**. After fail: shell 4, no patch.
 
-Spec + `.kilo/agent/codex.md` + `.opencode/agent/codex.md` updated so both products **imitate** that gold. Pytest must stay green.
+VS Code Codex (16) is shell↔patch — **not** Work gold.
 
-Still open: error-then-look, plan-mode subset, measure live Kilo/OpenCode against the new mapping. `/goal` engine standing, not complete.
+Kilo/OpenCode **imitate** Work via `.kilo/agent/codex.md` and `.opencode/agent/codex.md`. Scorer: `src/score_session.py`. Pattern: `spec/future-agent-pattern.md`.
+
+Pytest owner-gate must stay green. Standing goal: `python -m src.goal_cli`. Do not shadow Kilo’s reserved `/goal`.
 
 ## Do not
 
-Commit `data/` or bodies. Restart `codex_gold_analysis.py` only if the gold report is missing.
+Commit `data/` or bodies.
