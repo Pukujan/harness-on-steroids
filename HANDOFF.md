@@ -8,9 +8,9 @@ Until **2026-09-21T12:05:00Z** (then 48h deadline **2026-09-22T05:58:00Z**). 10-
 
 ## Current gold (do not average)
 
-Primary: **ChatGPT Work** `codex_work_desktop` (85 sessions). First tool `exec` 76. `apply_patch` in **1** session. Multi-agent send/spawn **26**. After fail: shell 4, no patch.
+Primary: **ChatGPT Work** `codex_work_desktop` (**87** sessions). `apply_patch` in **1**. Multi-agent send/spawn **26**. After fail: shell 4, no patch. Hashed jsonl **1521**.
 
-**v7 shapes** (`reports/codex-work-shapes.md`): exec_only 33, multi_agent 27, exec_wait 16, patch 1. First call never send. Median 15 tools before `send_message(target, message)`. spawn_agent in **2** sessions. Median exec burst 3.
+**v19 shapes:** exec_only **35**, multi_agent 27, exec_wait 16, patch 1. First call never send (83/83). Median 15 before send. spawn 2. Median exec burst 3.
 
 VS Code Codex (16) is shell↔patch — **not** Work gold.
 

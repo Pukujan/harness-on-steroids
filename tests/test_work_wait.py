@@ -6,7 +6,7 @@ ROOT = Path(__file__).resolve().parents[1]
 def test_work_wait_report_locks_v9() -> None:
     text = (ROOT / "reports" / "codex-work-wait.md").read_text(encoding="utf-8")
     for n in (
-        "Sessions: **85** with wait: **31**",
+        "Sessions: **87** with wait: **31**",
         "median length **3**",
         "apply_patch **0**",
         "wait **218**",

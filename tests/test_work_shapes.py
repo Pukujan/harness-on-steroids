@@ -6,13 +6,13 @@ ROOT = Path(__file__).resolve().parents[1]
 def test_work_shapes_report_locks_v7() -> None:
     text = (ROOT / "reports" / "codex-work-shapes.md").read_text(encoding="utf-8")
     for n in (
-        "Sessions: **85**",
-        "| exec_only | 33 |",
+        "Sessions: **87**",
+        "| exec_only | 35 |",
         "| multi_agent | 27 |",
         "| patch | 1 |",
         "send_message sessions: **25**",
         "spawn_agent sessions: **2**",
-        "first tool is not send_message: **81** / 81",
+        "first tool is not send_message: **83** / 83",
         "median tools before first send_message: **15**",
         "`message,target`",
         "`cell_id,max_tokens,yield_time_ms`",
@@ -29,4 +29,4 @@ def test_spec_and_modes_encode_send_after_look() -> None:
     assert "Never Task as tool 1" in oc
     assert "Never Todowrite as tool 1" in kilo
     assert "Never Todowrite as tool 1" in oc
-    assert "exec_only 33" in kilo and "exec_only 33" in oc
+    assert "exec_only 35" in kilo and "exec_only 35" in oc

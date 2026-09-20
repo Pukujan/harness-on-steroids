@@ -2,9 +2,9 @@
 
 Keys and counts only. No bodies. v9.
 
-Sessions: **85** with wait: **31**
-- exec-runs: **361** median length **3**
-- after an exec-run: wait **218**, send_message **53**, apply_patch **0**, end **57**
+Sessions: **87** with wait: **31**
+- exec-runs: **363** median length **3**
+- after an exec-run: wait **218**, send_message **53**, apply_patch **0**, end **59**
 
 ## exec-run length buckets
 
@@ -17,15 +17,15 @@ Sessions: **85** with wait: **31**
 | 5 | 15 |
 | 6-10 | 45 |
 | 11-20 | 30 |
-| 21-50 | 37 |
-| 51+ | 22 |
+| 21-50 | 38 |
+| 51+ | 23 |
 
 ## next tool after an exec-run
 
 | next | count |
 | --- | --- |
 | wait | 218 |
-| <end> | 57 |
+| <end> | 59 |
 | send_message | 53 |
 | js | 23 |
 | wait_agent | 5 |

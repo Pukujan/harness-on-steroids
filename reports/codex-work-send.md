@@ -2,7 +2,7 @@
 
 Counts only. No bodies. v12.
 
-Sessions: **85**
+Sessions: **87**
 - send_message: **25**
 - spawn_agent: **2**
 - both send and spawn: **1**

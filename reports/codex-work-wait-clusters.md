@@ -2,7 +2,7 @@
 
 Counts only. No bodies. v11.
 
-Sessions: **85** with wait: **31** with wait-run length ≥2: **18**
+Sessions: **87** with wait: **31** with wait-run length ≥2: **18**
 - wait-runs: **222** median **1**
 - wait_agent-runs: **19** median **1**
 

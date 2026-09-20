@@ -20,10 +20,10 @@ def test_map_work_shell_patch_fails() -> None:
 def test_work_self_score_report_locks_v17() -> None:
     text = (ROOT / "reports" / "work-gold-self-score.md").read_text(encoding="utf-8")
     for n in (
-        "work_match: 79 / 81",
-        "r1_look_first | 81 / 81",
-        "r4_no_todowrite | 81 / 81",
-        "| read | 79 |",
+        "work_match: 81 / 83",
+        "r1_look_first | 83 / 83",
+        "r4_no_todowrite | 83 / 83",
+        "| read | 81 |",
         "| bash | 2 |",
     ):
         assert n in text, n

@@ -6,7 +6,7 @@ ROOT = Path(__file__).resolve().parents[1]
 def test_work_wait_clusters_locks_v11() -> None:
     text = (ROOT / "reports" / "codex-work-wait-clusters.md").read_text(encoding="utf-8")
     for n in (
-        "Sessions: **85** with wait: **31** with wait-run length ≥2: **18**",
+        "Sessions: **87** with wait: **31** with wait-run length ≥2: **18**",
         "wait-runs: **222** median **1**",
         "| exec | 211 |",
         "| 3 | 73 |",

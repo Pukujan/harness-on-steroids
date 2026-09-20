@@ -2,8 +2,8 @@
 
 Keys and counts only. No bodies. v10.
 
-Sessions with calls: **81** / 85
-- with exec: **79**
+Sessions with calls: **83** / 87
+- with exec: **81**
 - with js: **5** (also have exec: **5**)
 - with shell_command: **2** (also apply_patch: **1**)
 
@@ -11,7 +11,7 @@ Sessions with calls: **81** / 85
 
 | tool | count |
 | --- | --- |
-| exec | 7345 |
+| exec | 7566 |
 | wait | 457 |
 | js | 81 |
 | send_message | 70 |

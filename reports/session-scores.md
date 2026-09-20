@@ -16,7 +16,7 @@ No bodies. Work: never send first; apply_patch after exec-run 0; write-rate 0.01
 - wrote-without-task: **13**
 - R6 decompose-not-first: **16**
 - decompose-first: **1**
-- write-rate: **0.88** (Work gold 1/85 ≈ 0.01)
+- write-rate: **0.88** (Work gold 1/87 ≈ 0.01)
 - write-first: **0**
 - median start look-burst: **20** (Work exec-run median 3)
 - median tools before write: **39**
@@ -56,7 +56,7 @@ No bodies. Work: never send first; apply_patch after exec-run 0; write-rate 0.01
 - wrote-without-task: **9**
 - R6 decompose-not-first: **16**
 - decompose-first: **8**
-- write-rate: **0.54** (Work gold 1/85 ≈ 0.01)
+- write-rate: **0.54** (Work gold 1/87 ≈ 0.01)
 - write-first: **1**
 - median start look-burst: **4** (Work exec-run median 3)
 - median tools before write: **18**
