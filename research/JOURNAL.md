@@ -48,3 +48,4 @@ How this project actually proceeds. Append-only. No message bodies.
 - v26 originator files counted once: Work 87, Desktop 1103. Snapshot `reports/versions/v26/`.
 - v27 gold-behavior originator table aligned to one-file-once (Work 87). Snapshot `reports/versions/v27/`.
 - v28 ISSUES 8–11 done (analysis, spec, both modes). 12 in_progress: owner has not said match. Snapshot `reports/versions/v28/`.
+- v29 `.kilo/command/goal.md` `agent: codex` like OpenCode. Snapshot `reports/versions/v29/`.

@@ -59,3 +59,5 @@ jobs:
         run: pytest tests/test_work_self_score.py
       - name: work-empty
         run: pytest tests/test_work_empty.py
+      - name: goal-uses-codex-agent
+        run: pytest tests/test_goal_uses_codex_agent.py

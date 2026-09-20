@@ -1,5 +1,6 @@
 ---
 description: Standing /goal loop (Codex/Hermes). Set, tick, gates. Does not stop until done or budget.
+agent: codex
 ---
 
 This is the harness-on-steroids goal engine, not a one-shot prompt.

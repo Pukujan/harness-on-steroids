@@ -32,5 +32,6 @@ def test_workflow_exists_and_is_not_a_noop() -> None:
         "test_work_plan.py",
         "test_work_self_score.py",
         "test_work_empty.py",
+        "test_goal_uses_codex_agent.py",
     ):
         assert name in text, name

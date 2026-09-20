@@ -9,6 +9,7 @@ Layers, top wins on conflict. Codex gold is the behavior layer, not a public exa
 | Machine spec | `spec/owner.v1.json`, `spec/codex-imitate-mode.md`, `spec/goal-loop.v1.json` | Testable claims |
 | Product context | `kilo.json` `instructions` | Load AGENTS.md then PLAN.md |
 | Behavior | `.kilo/agent/codex.md`, `.opencode/agent/codex.md` | Look first, burst, wait, sandwich, look-after-fail |
+| /goal | `.kilo/command/goal.md`, `.opencode/command/goal.md` | `agent: codex` so the standing loop uses the imitate mode |
 | Engine | `src/goal_loop.py` | Standing goal, gates before done, persist |
 | Proof | `tests/`, `.github/workflows/owner-gate.yml` | Properties, holdout, mutation, metamorphic, differential, fuzz |
 
