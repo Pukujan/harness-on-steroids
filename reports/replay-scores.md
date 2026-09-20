@@ -11,7 +11,7 @@ v64. Work process from JSONL. Kilo/OpenCode/morph columns **pending** (not repla
 | 1b09f49da9b9 | no | R3 | yes/none/yes | pending | pending |
 | 28372e365066 | yes | none | pending | pending | yes |
 | 2bde00530ddd | yes | none | yes/none/partial | yes/none | yes |
-| 633c140546c0 | yes | none | pending | pending | pending |
+| 633c140546c0 | yes | none | yes/none/partial | pending | pending |
 | 6b1cd28c4803 | yes | none | yes/none/yes | yes/none | pending |
 | 6e412585c223 | yes | none | yes/none/yes | pending | yes |
 | 6eb8631b71ff | yes | none | no/R2+R5/partial | timeout | pending |
@@ -20,7 +20,7 @@ v64. Work process from JSONL. Kilo/OpenCode/morph columns **pending** (not repla
 | 8d42bc26b8ea | yes | none | pending | pending | pending |
 | a5842562d1c9 | yes | none | pending | pending | pending |
 | b7e6393f4c14 | yes | none | pending | pending | pending |
-| bd179678f540 | yes | none | pending | pending | pending |
+| bd179678f540 | yes | none | yes/none/partial | pending | pending |
 | f37de8488162 | yes | none | pending | pending | pending |
 
 ## holdout (6)
