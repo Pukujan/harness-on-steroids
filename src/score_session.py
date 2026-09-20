@@ -61,14 +61,20 @@ def score_seq(seq: list[str]) -> dict:
     }
 
 
-def summarize(db: Path) -> dict:
+def summarize(db: Path, skip_prefixes: tuple[str, ...] = ("study-os",)) -> dict:
     seqs = _tools(db)
     n = 0
     r1_ok = 0
     write_first = 0
+    wrote_n = 0
+    sandwich = 0
+    skipped = 0
     firsts = Counter()
     for seq in seqs.values():
         if not seq:
+            continue
+        if any(any(x.startswith(p) for p in skip_prefixes) for x in seq):
+            skipped += 1
             continue
         n += 1
         s = score_seq(seq)
@@ -77,10 +83,17 @@ def summarize(db: Path) -> dict:
             r1_ok += 1
         else:
             write_first += 1
+        if s["wrote"]:
+            wrote_n += 1
+            if s["look_after_write"]:
+                sandwich += 1
     return {
         "db": db.name,
         "sessions_with_tools": n,
+        "skipped_study_os": skipped,
         "r1_look_first": r1_ok,
         "write_first": write_first,
+        "wrote": wrote_n,
+        "sandwich_look_after_write": sandwich,
         "firsts": firsts.most_common(8),
     }

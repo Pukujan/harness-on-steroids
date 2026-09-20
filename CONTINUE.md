@@ -2,7 +2,7 @@
 
 Deadline: **2026-09-22T05:58:00Z** (48 hours from 2026-09-20T05:58:00Z).
 
-**20-hour analysis floor:** do not stop the gold-analysis / imitate iteration before **2026-09-21T02:35:00Z**. Fuzz, metamorphic, and differential tests must stay in CI. Recode interpretations into `reports/versions/`, do not only overwrite.
+**20-hour analysis floor:** do not stop the gold-analysis / imitate iteration before **2026-09-21T12:05:00Z** (20h from 2026-09-20T16:05Z). Fuzz, metamorphic, and differential tests must stay in CI. Recode interpretations into `reports/versions/`, do not only overwrite.
 
 The owner ordered continuous work. Agents do not stop, wait for approval, ask for a “continue” message, or pause because a watchdog prompt is stale.
 

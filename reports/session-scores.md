@@ -7,6 +7,9 @@ No bodies.
 - sessions_with_tools: **17**
 - R1 look-first: **17**
 - write-first: **0**
+- skipped_study_os: **0**
+- wrote: **15**
+- sandwich look-after-write: **15**
 
 | first | n |
 | --- | --- |
@@ -18,17 +21,19 @@ No bodies.
 
 ## opencode.db
 
-- sessions_with_tools: **77**
-- R1 look-first: **76**
+- sessions_with_tools: **24**
+- R1 look-first: **23**
 - write-first: **1**
+- skipped_study_os: **53**
+- wrote: **13**
+- sandwich look-after-write: **12**
 
 | first | n |
 | --- | --- |
-| study-os-replay_request_problem_expansion | 27 |
 | bash | 10 |
-| study-os-replay_get_problem_turn | 10 |
 | todowrite | 6 |
-| study-os-replay_status | 4 |
-| study-os_status | 4 |
-| study-os-replay_submit_problem_response | 2 |
-| study-os-replay_start_session | 2 |
+| glob | 2 |
+| task | 2 |
+| read | 2 |
+| webfetch | 1 |
+| write | 1 |

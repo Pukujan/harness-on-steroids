@@ -26,6 +26,21 @@ def test_differential_empty_vs_write() -> None:
     assert score_seq(["patch"])["r1_look_first"] is False
 
 
+def test_skip_study_os_prefix() -> None:
+    from src.score_session import summarize
+    from unittest.mock import patch
+
+    fake = {
+        "a": ["read", "edit"],
+        "b": ["study-os-replay_status", "bash"],
+    }
+    with patch("src.score_session._tools", return_value=fake):
+        out = summarize(Path("x.db"))
+    assert out["skipped_study_os"] == 1
+    assert out["sessions_with_tools"] == 1
+    assert out["r1_look_first"] == 1
+
+
 def test_kilo_copy_look_first_if_present() -> None:
     db = ROOT / "data" / "raw" / "sqlite" / "kilo.db"
     if not db.is_file():
