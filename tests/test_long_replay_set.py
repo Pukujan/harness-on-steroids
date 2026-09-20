@@ -17,6 +17,7 @@ def test_long_set_is_22_hashes_no_bodies() -> None:
 
 def test_goal_is_long_not_singles() -> None:
     g = (ROOT / "spec" / "matched-task-goal.md").read_text(encoding="utf-8")
-    assert "long Work threads" in g
-    assert "8 singles are optional smoke" in g
+    assert "16 Work threads" in g
+    assert "Hidden holdout" in g
     assert "test_metamorphic.py" in g
+    assert "Do not tune Codex mode text to holdout hashes" in g

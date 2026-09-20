@@ -64,7 +64,7 @@ Tool-call histograms are **not** the final result. Replay **the same local Work 
 
 Prompts live only under gitignored `data/replay/`. Never commit bodies. Not SWE-bench. Not a public exam. Not re-testing Codex on Harbor.
 
-Spec: `spec/matched-task-eval.md`. Index: `reports/work-session-index.md`. Replay **not run** until this step executes.
+Spec: `spec/matched-task-eval.md`. Index: `reports/work-session-index.md`. Long set: `reports/work-long-replay-set.md`. Holdout: `reports/work-long-holdout.md`. Morph = stretch eval (paraphrase / multi-turn), not a JS file. Replay **not complete**.
 
 ## Explicitly out
 

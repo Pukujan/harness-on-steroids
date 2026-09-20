@@ -1,31 +1,36 @@
 # Matched-task eval (owner want)
 
-Owner: tool-call histograms are **not** the result. Want Kilo and OpenCode to run **the same Work tasks** as **long threads** and be scored on **observable work** and **Work’s own execution**, not only who called which tool.
+Owner: tool-call histograms are **not** the result. Want Kilo and OpenCode to run **the same Work tasks** as **long threads** and be scored on **observable work** vs Work’s execution.
 
 ## Gold still
 
-Local ChatGPT Work transcripts (`codex_work_desktop`). Not vscode. Not SWE-bench. Not Harbor. Not re-testing Codex on a public bench.
+`codex_work_desktop`. Not vscode. Not SWE-bench. Not Harbor.
 
-## Primary set (not the 8 singles)
+## Morph (not a JS file)
 
-- **16** sessions with 6–20 user turns
-- **6** sessions with 21+ user turns
-- List: `reports/work-long-replay-set.md`
-- 8 single-turn sessions are **smoke only**
+**Morph** = stretch the eval without leaving the main goal:
 
-## What to compare
+- **Vertical:** same Work jobs, deeper score (research, verification, outcome), multi-turn, not one-shot.
+- **Horizontal:** more sessions + **adversarial paraphrases** of the ask (gitignored `data/replay/<hash>/morphs/`). Same job, warped wording; harness should still look, wait/send, verify.
+- **Scope control:** still imitate Work in Kilo and OpenCode only. No new product. No SWE-bench.
 
-For each hash:
+Fuzz goal extents after `tests/test_metamorphic.py` stays green. Beware **task/test overfitting**.
 
-1. **Process** — R1–R6 / work_match (keep; cheap CI).
-2. **Research / verification** — look before change; look/run after change.
-3. **Outcome vs that Work run** — did Kilo/OpenCode address the same asks (files, tests, checks), not “same bytes as Codex.”
-4. **Metamorphic morphs** — paraphrase the ask (gitignored); same scores must not collapse; `tests/test_metamorphic.py` stays for docs/modes.
+## Sets
+
+- Develop: 16 hashes (6–20 user turns) — `reports/work-long-holdout.md`
+- Hidden holdout: 6 hashes (21+) — score last
+- 8 singles: smoke only
+- Owner-doc holdout + mutation tests: keep (`tests/test_hidden_holdout.py`, `tests/test_mutations.py`)
+
+## Compare
+
+Process R1–R6 (CI). Outcome vs that Work run. Morphs must not collapse scores. Document harness diffs so they reproduce on both products.
 
 ## Privacy
 
-Never commit message bodies. Do not stand up SWE-bench as the project. Replay + morphs only under `data/replay/`. Git: hashes, counts, scores without quotes.
+Never commit message bodies. Do not stand up SWE-bench as the project.
 
 ## Status
 
-Extract exists locally for 82/87. Long-set list is in git. Full 22-thread Kilo+OpenCode replay **not complete**.
+22 hashes listed. Holdout split listed. Full Kilo+OpenCode long replay **not complete**.

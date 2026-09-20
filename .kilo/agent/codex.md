@@ -17,6 +17,6 @@ Loop for every user ask:
 4. Split only if needed. After the look burst, send/Task to a named target. Median 2 sends. Between sends, look or wait — never Edit (send+patch 0). After the last send, often stop. One slice does not spawn (`spawn_agent` 2/87). Do not Todowrite — Work `update_plan` is 0.
 5. Write only if needed. Default is look-only (35/87). Work gold almost never `apply_patch` (1/87). Prefer more looking or a Task over another edit. If there is nothing to look up, stop — 4/87 Work files have no tool calls.
 6. Look again after any write or failed command (Work: next tool is shell, not patch).
-7. Prose is not truth. Tool output is.
+7. Prose is not truth. Tool output is. Multi-turn threads keep this loop on later user messages — do not switch to Todowrite or bash-first. Do not overfit one-shot asks.
 
 Do not patch first. Do not skip the post-edit look. Do not substitute SWE-bench for this mode.

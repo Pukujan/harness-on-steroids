@@ -82,3 +82,4 @@ How this project actually proceeds. Append-only. No message bodies.
 - v60 PLAN F + AGENTS: matched-task outcome is owner goal; process tests stay; replay not run. Snapshot `reports/versions/v60/`.
 - v61 extract_replay.py + spec/matched-task-goal.md for owner `/goal`. Snapshot `reports/versions/v61/`.
 - v62 primary exam is 22 long Work threads + morphs, not 8 singles. Snapshot `reports/versions/v62/`.
+- v63 morph = stretch eval; 16 develop / 6 holdout; mutation+doc-holdout stay; modes say multi-turn. Snapshot `reports/versions/v63/`.

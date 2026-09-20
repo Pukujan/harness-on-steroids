@@ -97,3 +97,5 @@ jobs:
         run: pytest tests/test_extract_replay.py
       - name: long-replay-set
         run: pytest tests/test_long_replay_set.py
+      - name: long-holdout
+        run: pytest tests/test_long_holdout.py
