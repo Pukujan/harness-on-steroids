@@ -85,3 +85,4 @@ How this project actually proceeds. Append-only. No message bodies.
 - v63 morph = stretch eval; 16 develop / 6 holdout; mutation+doc-holdout stay; modes say multi-turn. Snapshot `reports/versions/v63/`.
 - v64 Work process scores for 22 hashes; kilo/opencode/morph pending. Snapshot `reports/versions/v64/`.
 - Live develop Kilo replays in this worktree: most look-first fail_mask none; 6eb8 wrote (R2+R5). OpenCode scored on a few hashes. Morph files on several. Holdout not scored on copies yet.
+- Human README: problem framing (harness not model), what we copied from Work, reproducibility, components, status, related research without SWE-bench-as-project.
