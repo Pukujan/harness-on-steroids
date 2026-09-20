@@ -21,6 +21,21 @@ LOOK = {
 }
 LOOKISH = LOOK | {"bash"}
 DECOMPOSE = {"task", "todowrite", "agent_manager"}
+RELATIONS = (
+    ("R1", "r1_look_first"),
+    ("R2", "r2_no_write"),
+    ("R3", "r3_read_first"),
+    ("R4", "r4_no_todowrite"),
+    ("R5", "r5_no_write_after_look_run"),
+    ("R6", "r6_decompose_not_first"),
+)
+
+
+def fail_mask(s: dict) -> str:
+    failed = [name for name, key in RELATIONS if not s.get(key)]
+    return "+".join(failed) if failed else "none"
+
+
 WORK_MAP = {
     "exec": "read",
     "js": "read",
@@ -116,6 +131,7 @@ def score_seq(seq: list[str]) -> dict:
             "tools_before_write": None,
             "tools_before_decompose": None,
             "work_match": False,
+            "fail_mask": "empty",
         }
     first = seq[0]
     r1 = first not in WRITE
@@ -143,6 +159,16 @@ def score_seq(seq: list[str]) -> dict:
         "r5_no_write_after_look_run": r5,
         "r4_no_todowrite": r4,
         "work_match": work_match,
+        "fail_mask": fail_mask(
+            {
+                "r1_look_first": r1,
+                "r2_no_write": r2,
+                "r3_read_first": r3,
+                "r4_no_todowrite": r4,
+                "r5_no_write_after_look_run": r5,
+                "r6_decompose_not_first": r6,
+            }
+        ),
         "wrote_without_task": wrote and not has_task,
         "wrote": wrote,
         "look_after_write": look_after,
@@ -172,6 +198,7 @@ def summarize(db: Path, skip_prefixes: tuple[str, ...] = ("study-os",)) -> dict:
     sandwich = 0
     skipped = 0
     firsts = Counter()
+    masks: Counter = Counter()
     bursts: list[int] = []
     before_write: list[int] = []
     before_decomp: list[int] = []
@@ -184,6 +211,7 @@ def summarize(db: Path, skip_prefixes: tuple[str, ...] = ("study-os",)) -> dict:
         n += 1
         s = score_seq(seq)
         firsts[s["first"]] += 1
+        masks[s["fail_mask"]] += 1
         bursts.append(int(s["start_look_burst"]))
         if s["r1_look_first"]:
             r1_ok += 1
@@ -248,4 +276,5 @@ def summarize(db: Path, skip_prefixes: tuple[str, ...] = ("study-os",)) -> dict:
             and score_seq(seq)["multi_piece"]
         ),
         "firsts": firsts.most_common(8),
+        "fail_masks": masks.most_common(12),
     }

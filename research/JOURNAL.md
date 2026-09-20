@@ -37,3 +37,4 @@ How this project actually proceeds. Append-only. No message bodies.
 - v15 R3 read-first (not bash). Kilo 15/17, OpenCode 5/24 bash-first 10. Modes: do not bash as tool 1. Snapshot `reports/versions/v15/`.
 - v16 work_match = R1∧R2∧R3∧R4∧R5∧R6. Kilo 1/17 (0.06), OpenCode 4/24 (0.17). Iteration loop metric. Snapshot `reports/versions/v16/`.
 - v17 Work self-score (`research/score_work_gold.py`): mapped R1–R6 **79/81 (0.98)**. Confirms scorer. Snapshot `reports/versions/v17/`.
+- v18 fail_mask on live copies. Kilo 10/17 R2+R4+R5. OpenCode bash-first stacks. Snapshot `reports/versions/v18/`.

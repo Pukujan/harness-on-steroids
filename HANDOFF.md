@@ -36,6 +36,8 @@ Kilo/OpenCode **imitate** Work via `.kilo/agent/codex.md` and `.opencode/agent/c
 
 **v17:** Work self-score **79/81 (0.98)**. Scorer is the right exam. Copies should move toward 0.98.
 
+**v18:** fail_mask. Kilo dominant **R2+R4+R5** (10/17). OpenCode **R3** (bash-first) stacked with todo/write.
+
 Pytest owner-gate must stay green. Standing goal: `python -m src.goal_cli`. Do not shadow Kilo’s reserved `/goal`.
 
 ## Do not

@@ -16,6 +16,13 @@ def test_r1_read_first_passes() -> None:
     assert s["r2_no_write"] is False
 
 
+def test_fail_mask_names_missing_relations() -> None:
+    assert score_seq(["read", "grep"])["fail_mask"] == "none"
+    assert "R2" in score_seq(["read", "edit"])["fail_mask"]
+    assert "R3" in score_seq(["bash", "read"])["fail_mask"]
+    assert score_seq([])["fail_mask"] == "empty"
+
+
 def test_work_match_requires_all_relations() -> None:
     assert score_seq(["read", "grep", "glob"])["work_match"] is True
     assert score_seq(["bash", "read"])["work_match"] is False

@@ -41,5 +41,10 @@ for name in ("kilo.db", "opencode.db"):
     for k, v in out["firsts"]:
         lines.append(f"| {k} | {v} |")
     lines.append("")
+    lines.append("| fail_mask | n |")
+    lines.append("| --- | --- |")
+    for k, v in out.get("fail_masks") or []:
+        lines.append(f"| {k} | {v} |")
+    lines.append("")
 (ROOT / "reports" / "session-scores.md").write_text("\n".join(lines), encoding="utf-8")
 print("wrote reports/session-scores.md")
