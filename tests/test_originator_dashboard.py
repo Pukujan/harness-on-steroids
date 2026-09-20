@@ -14,3 +14,8 @@ def test_dashboard_keeps_originators_unmixed() -> None:
         "Do not imitate nonempty exec",
     ):
         assert n in text, n
+    spec = (ROOT / "spec" / "codex-imitate-mode.md").read_text(encoding="utf-8")
+    handoff = (ROOT / "HANDOFF.md").read_text(encoding="utf-8")
+    assert "codex-originator-dashboard.md" in spec
+    assert "codex-originator-dashboard.md" in handoff
+    assert "do not average" in handoff.lower()

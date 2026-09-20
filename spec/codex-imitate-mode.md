@@ -1,6 +1,6 @@
 # Codex-imitate mode spec
 
-Source: `reports/codex-gold-behavior.md`, `reports/codex-patch-by-originator.md`, `reports/codex-work-shapes.md`. Hashed corpus **1521** files. Not SWE-bench papers.
+Source: `reports/codex-originator-dashboard.md`, `reports/codex-gold-behavior.md`, `reports/codex-work-shapes.md`. Hashed corpus **1521** files. Not SWE-bench papers.
 
 Kilo and OpenCode both ship a selectable **codex** agent. Same states. Do not pin a model (current Kilo model / OpenCode free build mode).
 

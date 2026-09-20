@@ -65,3 +65,4 @@ How this project actually proceeds. Append-only. No message bodies.
 - v43 send-by-originator: Work 25 send / 2 spawn; vscode 0/0. Snapshot `reports/versions/v43/`.
 - v44 plan-by-originator: Work update_plan 0; exec 11; vscode 6. Snapshot `reports/versions/v44/`.
 - v45 originator dashboard one-pager. Snapshot `reports/versions/v45/`.
+- v46 HANDOFF/spec point at the dashboard as current gold. Compacted v-list. Snapshot `reports/versions/v46/`.
