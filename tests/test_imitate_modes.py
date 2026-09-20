@@ -30,6 +30,9 @@ def test_kilo_and_opencode_codex_modes_exist_and_match() -> None:
     assert "| js_cell | 29231 |" in rt
     assert "| codex_work_desktop | 87 |" in rt
     assert "one file once" in rt
+    first = rt.split("## first tool in session")[-1].split("## tool bigrams")[0]
+    assert "| exec | 1131 |" in first
+    assert "create_thread" not in first
     work = (ROOT / "reports" / "codex-work-desktop-only.md").read_text(encoding="utf-8")
     assert "codex_work_desktop" in work
     assert "with apply_patch: **1**" in work

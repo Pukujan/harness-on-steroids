@@ -43,14 +43,12 @@ def write_status(phase: str, **extra: object) -> None:
 
 
 def tool_name(payload: dict) -> str | None:
+    t = payload.get("type")
+    if t not in {"custom_tool_call", "function_call"}:
+        return None
     n = payload.get("name")
     if isinstance(n, str) and 0 < len(n) < 80:
         return n
-    t = payload.get("type")
-    if t in {"custom_tool_call", "function_call"}:
-        n = payload.get("name")
-        if isinstance(n, str):
-            return n
     return None
 
 
