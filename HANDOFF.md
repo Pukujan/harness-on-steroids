@@ -22,6 +22,8 @@ Primary: **ChatGPT Work** `codex_work_desktop` (**87** sessions). `apply_patch` 
 
 **v24:** 4/87 Work files have no tool calls (short threads). Originator 95 is session_meta rows.
 
+**v25:** 95 = 79 files ×1 meta + 8 ×2. Modes: if nothing to look up, stop.
+
 VS Code Codex (16) is shell↔patch — **not** Work gold.
 
 Kilo/OpenCode **imitate** Work via `.kilo/agent/codex.md` and `.opencode/agent/codex.md`. Scorer: `src/score_session.py` (R1 look-first, **R2 no-write**, **R6 decompose-not-first**). Pattern: `spec/future-agent-pattern.md`.

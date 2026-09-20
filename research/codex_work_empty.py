@@ -20,12 +20,15 @@ def main() -> None:
     top_types = Counter()
     payload_types = Counter()
     lines_per: list[int] = []
+    meta_hist: Counter = Counter()
+    meta_rows = 0
     for path in sorted(CODEX.glob("*.jsonl")):
         orig = None
         seq: list[str] = []
         types: Counter = Counter()
         ptypes: Counter = Counter()
         nlines = 0
+        nmeta = 0
         with path.open("r", encoding="utf-8", errors="replace") as fh:
             for line in fh:
                 nlines += 1
@@ -38,6 +41,7 @@ def main() -> None:
                 if isinstance(t, str):
                     types[t] += 1
                 if obj.get("type") == "session_meta":
+                    nmeta += 1
                     o = payload.get("originator")
                     if isinstance(o, str):
                         orig = o
@@ -53,6 +57,8 @@ def main() -> None:
         if orig != WANT:
             continue
         n += 1
+        meta_hist[nmeta] += 1
+        meta_rows += nmeta
         if seq:
             continue
         empty += 1
@@ -62,10 +68,11 @@ def main() -> None:
     lines = [
         "# ChatGPT Work sessions with no tool calls",
         "",
-        "Counts only. No bodies. v24.",
+        "Counts only. No bodies. v25.",
         "",
         f"Work files: **{n}** empty of calls: **{empty}**",
         f"- line counts: {sorted(lines_per)}",
+        f"- session_meta rows: **{meta_rows}** (files with 1 meta: **{meta_hist.get(1, 0)}**; with 2: **{meta_hist.get(2, 0)}**)",
         "",
         "## top-level types (empty files)",
         "",
@@ -87,8 +94,9 @@ def main() -> None:
         "",
         "## interpretation",
         "",
-        "Empty Work files are still Work gold sessions (opened, little or no tool use).",
-        "Do not treat them as vscode sandwich. Do not drop them from the 87/95 counts.",
+        "Empty Work files are short (14–25 lines): messages and task_started/complete, **no tool calls**.",
+        "Originator **95** is session_meta rows (79 files ×1 + 8 files ×2). Tool-call analysis uses **87** files.",
+        "If there is nothing to look up, stop. Do not spawn or patch.",
         "",
     ]
     OUT.write_text("\n".join(lines), encoding="utf-8")
