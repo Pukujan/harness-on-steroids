@@ -64,3 +64,4 @@ How this project actually proceeds. Append-only. No message bodies.
 - v42 wait-by-originator: Work 31/83, vscode 0/13. Snapshot `reports/versions/v42/`.
 - v43 send-by-originator: Work 25 send / 2 spawn; vscode 0/0. Snapshot `reports/versions/v43/`.
 - v44 plan-by-originator: Work update_plan 0; exec 11; vscode 6. Snapshot `reports/versions/v44/`.
+- v45 originator dashboard one-pager. Snapshot `reports/versions/v45/`.
