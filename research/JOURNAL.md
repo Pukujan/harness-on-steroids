@@ -78,3 +78,4 @@ How this project actually proceeds. Append-only. No message bodies.
 - v56 fail_mask by coding agent. Kilo code R2+R4+R5=5. OpenCode build R2+R3+R4+R5=6. Snapshot `reports/versions/v56/`.
 - v57 full pytest 90 green. ISSUES 12 points at agent rollups. Snapshot `reports/versions/v57/`.
 - v58 matched-task eval spec + Work session index (87 hashes, counts only, no bodies). Replay not run. Snapshot `reports/versions/v58/`.
+- v59 replay buckets from user_turn counts: 8 single-ask, 16 in 6–20, 6 long. No prompts. Snapshot `reports/versions/v59/`.

@@ -91,3 +91,5 @@ jobs:
         run: pytest tests/test_fail_mask_by_agent.py
       - name: matched-task-eval
         run: pytest tests/test_matched_task_eval.py
+      - name: work-replay-buckets
+        run: pytest tests/test_work_replay_buckets.py
