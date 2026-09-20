@@ -21,6 +21,32 @@ LOOK = {
 }
 LOOKISH = LOOK | {"bash"}
 DECOMPOSE = {"task", "todowrite", "agent_manager"}
+WORK_MAP = {
+    "exec": "read",
+    "js": "read",
+    "wait": "bash",
+    "shell_command": "bash",
+    "apply_patch": "edit",
+    "update_plan": "todowrite",
+    "send_message": "task",
+    "spawn_agent": "task",
+    "wait_agent": "task",
+    "list_agents": "task",
+    "followup_task": "task",
+    "create_thread": "task",
+    "multi_agent_v1": "task",
+    "interrupt_agent": "task",
+}
+
+
+def map_work_seq(seq: list[str]) -> list[str]:
+    """Map Codex Work tool names onto the Kilo/OpenCode scorer alphabet. No bodies."""
+    out: list[str] = []
+    for t in seq:
+        m = WORK_MAP.get(t)
+        if m:
+            out.append(m)
+    return out
 
 
 def _first_index(seq: list[str], names: set[str]) -> int | None:

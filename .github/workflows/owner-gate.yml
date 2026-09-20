@@ -55,3 +55,5 @@ jobs:
         run: pytest tests/test_work_send.py
       - name: work-plan
         run: pytest tests/test_work_plan.py
+      - name: work-self-score
+        run: pytest tests/test_work_self_score.py
