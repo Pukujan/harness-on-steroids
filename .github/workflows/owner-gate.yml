@@ -93,3 +93,5 @@ jobs:
         run: pytest tests/test_matched_task_eval.py
       - name: work-replay-buckets
         run: pytest tests/test_work_replay_buckets.py
+      - name: extract-replay
+        run: pytest tests/test_extract_replay.py

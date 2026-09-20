@@ -14,7 +14,7 @@ Primary: **ChatGPT Work** `codex_work_desktop` (**87** files / **83** with calls
 
 Do not imitate vscode (12/13 patch, 0 wait, 0 send) or nonempty `codex_exec` (31/105 patch, 11 plan). Desktop patch 1/994 — not the sandwich.
 
-Hashed jsonl **1521**. Versions: `reports/versions/v7`–`v56`. Spec: `spec/codex-imitate-mode.md`. Modes: `.kilo/agent/codex.md`, `.opencode/agent/codex.md`. Scorer: `src/score_session.py`. Issue 12: process match. Issue **13** / PLAN **F**: matched-task **outcome** on the same Work asks. Spec + index exist. Replay **not run**. Keep R1–R6 tests. No bodies in git.
+Hashed jsonl **1521**. Versions: `reports/versions/v7`–`v56`. Spec: `spec/codex-imitate-mode.md`. Modes: `.kilo/agent/codex.md`, `.opencode/agent/codex.md`. Scorer: `src/score_session.py`. Issue 12: process match. Issue **13** / PLAN **F**: matched-task outcome. Copy-paste `/goal` from `spec/matched-task-goal.md`. Extract: `python research/extract_replay.py` → gitignored `data/replay/` (82/87 have user text). Replay into Kilo/OpenCode **not run**.
 
 Pytest owner-gate must stay green. Standing goal: `python -m src.goal_cli`. Do not shadow Kilo’s reserved `/goal`.
 

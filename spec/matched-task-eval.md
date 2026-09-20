@@ -29,4 +29,4 @@ For a Work session (hashed id only in git):
 
 ## Status
 
-Index of Work sessions (structure only): `reports/work-session-index.md`. Replay not run yet.
+Index: `reports/work-session-index.md`. Extract: `python research/extract_replay.py` → `data/replay/` (gitignored). Goal prompt: `spec/matched-task-goal.md`. Replay into Kilo/OpenCode **not run** until you `/goal` that prompt.
