@@ -22,6 +22,8 @@ Kilo/OpenCode **imitate** Work via `.kilo/agent/codex.md` and `.opencode/agent/c
 
 **v10:** Work cwd `shell_command` in **2/85**; js in 5 (next to exec). Prefer Read/Grep/Glob. Synced global Kilo/OpenCode `agent/codex.md` off the project files (they still had the vscode sandwich).
 
+**v11:** wait-runs 222, 18/31 wait sessions cluster ≥2; after wait-run exec 211, never patch. You may wait more than once.
+
 Pytest owner-gate must stay green. Standing goal: `python -m src.goal_cli`. Do not shadow Kilo’s reserved `/goal`.
 
 ## Do not

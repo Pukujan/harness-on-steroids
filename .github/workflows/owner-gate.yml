@@ -49,3 +49,5 @@ jobs:
         run: pytest tests/test_work_wait.py
       - name: work-js-shell
         run: pytest tests/test_work_js_shell.py
+      - name: work-wait-clusters
+        run: pytest tests/test_work_wait_clusters.py

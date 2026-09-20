@@ -13,7 +13,7 @@ Loop for every user ask:
 
 1. Look first. First tool is observe (Read, Grep, Glob). Inspect-only bash is allowed but is not Work's default — cwd `shell_command` is **2/85**. Never Edit/Write as tool 1. Never Task as tool 1. Never Todowrite as tool 1.
 2. Burst look. Several Read/Grep/Glob calls in a row (about three, like gold exec then exec). `js` is rare (5/85) and sits next to exec, not instead of looking.
-3. Wait on slow work. After a long command or a child Task, wait for the result. Do not guess and do not pile writes (gold wait on cell_id / wait_agent). After a look burst, wait or Task/send or stop — do not Edit as the next tool (Work apply_patch after exec-run is 0).
+3. Wait on slow work. After a long command or a child Task, wait for the result. Do not guess and do not pile writes (gold wait on cell_id / wait_agent). You may wait more than once (18/31 wait sessions have a cluster ≥2). After wait, look or Task — do not Edit (wait-run then exec 211, apply_patch 0). After a look burst, wait or Task/send or stop — do not Edit as the next tool (Work apply_patch after exec-run is 0).
 4. Split only if needed. Multiple pieces get Todowrite or Task with a task name / target after the look burst. One slice does not spawn.
 5. Write only if needed. Default is look-only (33/85). Work gold almost never `apply_patch` (1/85). Prefer more looking or a Task over another edit.
 6. Look again after any write or failed command (Work: next tool is shell, not patch).
