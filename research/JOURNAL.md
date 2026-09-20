@@ -67,3 +67,4 @@ How this project actually proceeds. Append-only. No message bodies.
 - v45 originator dashboard one-pager. Snapshot `reports/versions/v45/`.
 - v46 HANDOFF/spec point at the dashboard as current gold. Compacted v-list. Snapshot `reports/versions/v46/`.
 - v47 spec table expanded to patch/wait/send/plan. Full pytest green. Snapshot `reports/versions/v47/`.
+- v48 shell-by-originator: Work 2/83, vscode 13/13, exec 45/105 (37 first). Snapshot `reports/versions/v48/`.
