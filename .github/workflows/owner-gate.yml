@@ -41,3 +41,5 @@ jobs:
         run: pytest tests/test_score_session.py
       - name: future-agent-pattern
         run: pytest tests/test_future_agent_pattern.py
+      - name: work-vs-vscode
+        run: pytest tests/test_work_vs_vscode.py
