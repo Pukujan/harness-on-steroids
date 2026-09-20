@@ -14,4 +14,4 @@ From `reports/codex-work-desktop-only.md` (85 ChatGPT Work sessions). Not VS Cod
 
 A Kilo/OpenCode session **matches** if: first tool is observe (read/grep/glob/inspect bash/skill), zero write as tool 1, and if it writes it looks again after. It **fails** if first tool is edit/write/patch. **R2** (scorer `r2_no_write`): Work write-rate is 1/85; a session that never edits matches. **R5** (scorer `r5_no_write_after_look_run`): a look-run is not followed by edit/write/patch. **R3** (scorer `r3_read_first`): first tool is read/grep/glob/skill/recall, not bash. **R4** (scorer `r4_no_todowrite`): session has no todowrite (Work `update_plan` 0). **R6** (scorer `r6_decompose_not_first`): first tool is not task/todowrite/agent_manager.
 
-Do not score Study-OS OpenCode sessions as coding gold.
+**Work-match:** R1 ∧ R2 ∧ R3 ∧ R4 ∧ R5 ∧ R6 (`score_seq()["work_match"]`). Owner still decides stop. Do not score Study-OS OpenCode sessions as coding gold.

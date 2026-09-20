@@ -11,6 +11,7 @@ def test_iteration_loop_spec_exists() -> None:
         "OpenCode mode",
         "Differential check",
         "Gap report",
+        "work_match",
         "Do not start coding first",
         "Decompose into tasks",
     ):

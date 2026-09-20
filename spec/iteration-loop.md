@@ -10,6 +10,7 @@ loop i = 1, 2, 3, ...
   4. Encode the same spec into OpenCode mode (including free models, build mode)
   5. Differential check: Kilo mode vs OpenCode mode vs spec (same required states)
   6. Measure Kilo + OpenCode sessions with the same process metrics as Codex
+     (scorer work_match = R1∧R2∧R3∧R4∧R5∧R6)
   7. Gap report: where they still do not imitate Codex
   8. If owner says match → stop. Else patch modes and goto 3
 ```

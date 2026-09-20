@@ -89,6 +89,7 @@ def score_seq(seq: list[str]) -> dict:
             "start_look_burst": 0,
             "tools_before_write": None,
             "tools_before_decompose": None,
+            "work_match": False,
         }
     first = seq[0]
     r1 = first not in WRITE
@@ -101,14 +102,21 @@ def score_seq(seq: list[str]) -> dict:
     if wrote and wi is not None:
         look_after = any(x in LOOKISH for x in seq[wi + 1 :])
     di = _first_index(seq, DECOMPOSE)
+    r3 = first in LOOK
+    r6 = first not in DECOMPOSE
+    r5 = not write_after_look_run(seq)
+    r4 = not has_todo
+    r2 = not wrote
+    work_match = bool(r1 and r2 and r3 and r4 and r5 and r6)
     return {
         "first": first,
         "r1_look_first": r1,
-        "r3_read_first": first in LOOK,
-        "r2_no_write": not wrote,
-        "r6_decompose_not_first": first not in DECOMPOSE,
-        "r5_no_write_after_look_run": not write_after_look_run(seq),
-        "r4_no_todowrite": not has_todo,
+        "r3_read_first": r3,
+        "r2_no_write": r2,
+        "r6_decompose_not_first": r6,
+        "r5_no_write_after_look_run": r5,
+        "r4_no_todowrite": r4,
+        "work_match": work_match,
         "wrote_without_task": wrote and not has_task,
         "wrote": wrote,
         "look_after_write": look_after,
@@ -128,6 +136,7 @@ def summarize(db: Path, skip_prefixes: tuple[str, ...] = ("study-os",)) -> dict:
     r5_ok = 0
     r4_ok = 0
     r3_ok = 0
+    match_n = 0
     bash_first = 0
     write_first = 0
     wrote_without_task_n = 0
@@ -156,6 +165,8 @@ def summarize(db: Path, skip_prefixes: tuple[str, ...] = ("study-os",)) -> dict:
             write_first += 1
         if s["r3_read_first"]:
             r3_ok += 1
+        if s["work_match"]:
+            match_n += 1
         if s["first"] == "bash":
             bash_first += 1
         if s["r2_no_write"]:
@@ -186,6 +197,8 @@ def summarize(db: Path, skip_prefixes: tuple[str, ...] = ("study-os",)) -> dict:
         "skipped_study_os": skipped,
         "r1_look_first": r1_ok,
         "r3_read_first": r3_ok,
+        "work_match": match_n,
+        "work_match_rate": (match_n / n) if n else 0.0,
         "bash_first": bash_first,
         "r2_no_write": r2_ok,
         "r6_decompose_not_first": r6_ok,

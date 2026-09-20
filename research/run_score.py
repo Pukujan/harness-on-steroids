@@ -15,6 +15,7 @@ for name in ("kilo.db", "opencode.db"):
     lines.append(f"## {name}")
     lines.append("")
     lines.append(f"- sessions_with_tools: **{out['sessions_with_tools']}**")
+    lines.append(f"- **Work-match (R1∧R2∧R3∧R4∧R5∧R6): {out.get('work_match', 0)}** / {out['sessions_with_tools']} ({out.get('work_match_rate', 0):.2f})")
     lines.append(f"- R1 look-first: **{out['r1_look_first']}**")
     lines.append(f"- R3 read-first (not bash): **{out.get('r3_read_first', 0)}** (Work first=exec 79, shell 2)")
     lines.append(f"- bash-first: **{out.get('bash_first', 0)}**")

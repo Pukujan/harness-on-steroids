@@ -35,3 +35,4 @@ How this project actually proceeds. Append-only. No message bodies.
 - v13 Work plan (`research/codex_work_plan.py`): update_plan 0, request_user_input 0, plan-mode 0. Modes: do not Todowrite. Snapshot `reports/versions/v13/`.
 - v14 R4 scorer `r4_no_todowrite`; todowrite dropped from multi_piece. Kilo 7/17 R4 (10 todo sessions), OpenCode 11/24. Snapshot `reports/versions/v14/`.
 - v15 R3 read-first (not bash). Kilo 15/17, OpenCode 5/24 bash-first 10. Modes: do not bash as tool 1. Snapshot `reports/versions/v15/`.
+- v16 work_match = R1∧R2∧R3∧R4∧R5∧R6. Kilo 1/17 (0.06), OpenCode 4/24 (0.17). Iteration loop metric. Snapshot `reports/versions/v16/`.

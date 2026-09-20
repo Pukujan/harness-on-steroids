@@ -32,6 +32,8 @@ Kilo/OpenCode **imitate** Work via `.kilo/agent/codex.md` and `.opencode/agent/c
 
 **v15:** R3 read-first not bash. Kilo 15/17. OpenCode **5/24** (bash-first 10). Do not bash as tool 1.
 
+**v16:** work_match = R1∧R2∧R3∧R4∧R5∧R6. Kilo **1/17**, OpenCode **4/24**. Owner decides stop.
+
 Pytest owner-gate must stay green. Standing goal: `python -m src.goal_cli`. Do not shadow Kilo’s reserved `/goal`.
 
 ## Do not

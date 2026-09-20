@@ -16,6 +16,15 @@ def test_r1_read_first_passes() -> None:
     assert s["r2_no_write"] is False
 
 
+def test_work_match_requires_all_relations() -> None:
+    assert score_seq(["read", "grep", "glob"])["work_match"] is True
+    assert score_seq(["bash", "read"])["work_match"] is False
+    assert score_seq(["read", "edit"])["work_match"] is False
+    assert score_seq(["read", "todowrite"])["work_match"] is False
+    assert score_seq(["todowrite", "read"])["work_match"] is False
+    assert score_seq([])["work_match"] is False
+
+
 def test_r3_bash_first_fails_read_first() -> None:
     assert score_seq(["read", "bash"])["r3_read_first"] is True
     assert score_seq(["bash", "read"])["r3_read_first"] is False
