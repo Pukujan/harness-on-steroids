@@ -40,7 +40,7 @@ Dominant chains: `exec → exec → exec` (26809 exec-exec pairs), `exec → wai
 3. **Wait on slow work.** After a long command or child: wait for the result (`wait`/`cell_id`, `wait_agent`). Do not pile more writes.
 4. **Sandwich edits.** After every write, look again (`apply_patch → shell_command`).
 5. **Split only if multi-piece.** Todowrite / Task with a named slice. One slice does not spawn.
-6. **After a failed command, look again.** Gold next tool after nonzero exit: `shell_command` 446 vs `apply_patch` 59. Do not immediately write more.
+6. **After a failed command, look again.** Full corpus: `shell_command` 446 vs `apply_patch` 59. **Work-only:** 5 fails, next tool `shell_command` 4, **no patch**. Do not immediately write more.
 7. **Plan-like turns do not patch.** Plan-mode tool mix is exec/wait/shell/`request_user_input` — **zero** `apply_patch` in that slice.
 8. **Prose is not truth.** Tool output is.
 9. **Same states in Kilo and OpenCode.**

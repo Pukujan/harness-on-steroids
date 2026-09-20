@@ -27,4 +27,7 @@ def test_kilo_and_opencode_codex_modes_exist_and_match() -> None:
     work = (ROOT / "reports" / "codex-work-desktop-only.md").read_text(encoding="utf-8")
     assert "codex_work_desktop" in work
     assert "with apply_patch: **1**" in work
+    err = (ROOT / "reports" / "codex-work-errors.md").read_text(encoding="utf-8")
+    assert "failed outputs: **5**" in err
+    assert "| shell_command | 4 |" in err
     assert "Primary gold" in st or "codex_work_desktop" in st
