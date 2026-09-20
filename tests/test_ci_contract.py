@@ -47,5 +47,6 @@ def test_workflow_exists_and_is_not_a_noop() -> None:
         "test_js_by_originator.py",
         "test_work_match_by_agent.py",
         "test_fail_mask_by_agent.py",
+        "test_matched_task_eval.py",
     ):
         assert name in text, name

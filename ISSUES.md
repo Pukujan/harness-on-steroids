@@ -106,6 +106,16 @@ Status: `open` | `in_progress` | `done`
 - **Pass:** mode exists and is differentially equivalent to issue 10 on spec 9
 - **Parent:** 9
 
+### 13. Matched-task outcome eval (owner)
+
+- **Status:** in_progress
+- **Goal:** Score Kilo/OpenCode on the **same Work tasks** (observable result, verification, research), not only tool-name histograms. Bodies stay gitignored.
+- **Files:** `spec/matched-task-eval.md`, `reports/work-session-index.md`
+- **Command:** `pytest tests/test_matched_task_eval.py -q`
+- **Notes:** Index of 87 Work sessions exists (counts only). Replay into Kilo/OpenCode **not run**. Not SWE-bench.
+- **Pass:** spec + body-free index; replay still owner-gated
+- **Parent:** 12
+
 ### 12. Iteration loop until behavior matches
 
 - **Status:** in_progress
@@ -119,5 +129,5 @@ Status: `open` | `in_progress` | `done`
 ## Rules for agents
 
 - Do not close 1–7 by deleting tests.
-- Do not replace 8–12 with SWE-bench, Harbor, or a new Codex-clone product.
+- Do not replace 8–13 with SWE-bench, Harbor, or a new Codex-clone product.
 - Do not commit `data/` or message bodies.

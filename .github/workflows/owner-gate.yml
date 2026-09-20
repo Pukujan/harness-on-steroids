@@ -89,3 +89,5 @@ jobs:
         run: pytest tests/test_work_match_by_agent.py
       - name: fail-mask-by-agent
         run: pytest tests/test_fail_mask_by_agent.py
+      - name: matched-task-eval
+        run: pytest tests/test_matched_task_eval.py

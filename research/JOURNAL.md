@@ -77,3 +77,4 @@ How this project actually proceeds. Append-only. No message bodies.
 - v55 work_match by agent: kilo code 1/13; opencode build 3/19. Snapshot `reports/versions/v55/`.
 - v56 fail_mask by coding agent. Kilo code R2+R4+R5=5. OpenCode build R2+R3+R4+R5=6. Snapshot `reports/versions/v56/`.
 - v57 full pytest 90 green. ISSUES 12 points at agent rollups. Snapshot `reports/versions/v57/`.
+- v58 matched-task eval spec + Work session index (87 hashes, counts only, no bodies). Replay not run. Snapshot `reports/versions/v58/`.

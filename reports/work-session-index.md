@@ -1,0 +1,97 @@
+# Work session index (structure only)
+
+v58. Hashed prefix, turn counts, first tool, patch bit. **No bodies.**
+
+Work files: **87**
+
+| hash12 | user_turns | asst_turns | tool_calls | first | patch |
+| --- | --- | --- | --- | --- | --- |
+| 05bb7d18ebb9 | 2 | 4 | 18 | exec | 0 |
+| 0aecd1eabdf2 | 33 | 153 | 769 | exec | 0 |
+| 0d4eb3dca580 | 5 | 3 | 14 | exec | 0 |
+| 0d6ca4607eaf | 8 | 8 | 16 | exec | 0 |
+| 0ededd4367af | 0 | 2 | 21 | exec | 0 |
+| 1142e45b5234 | 3 | 5 | 12 | exec | 0 |
+| 1442d08cf2d3 | 52 | 405 | 2936 | exec | 0 |
+| 1602d12688dd | 1 | 1 | 7 | exec | 0 |
+| 178a71ff67bf | 1 | 1 | 1 | exec | 0 |
+| 1a415bc257e5 | 9 | 13 | 23 | exec | 0 |
+| 1b09f49da9b9 | 13 | 15 | 18 | shell_command | 0 |
+| 228af2bd4c2f | 0 | 8 | 60 | exec | 0 |
+| 244142e386e9 | 4 | 21 | 175 | exec | 0 |
+| 28372e365066 | 13 | 23 | 90 | exec | 0 |
+| 2bde00530ddd | 8 | 7 | 8 | exec | 0 |
+| 2c6cd54785dd | 2 | 1 | 0 | (none) | 0 |
+| 2d611053a80f | 3 | 25 | 244 | exec | 0 |
+| 2ff303f23c5a | 3 | 2 | 0 | (none) | 0 |
+| 352629262aea | 2 | 4 | 10 | exec | 0 |
+| 35f4b2370a11 | 2 | 3 | 10 | exec | 0 |
+| 3a749176fae1 | 34 | 90 | 313 | exec | 0 |
+| 3b21730c1412 | 4 | 2 | 13 | exec | 0 |
+| 3cc8ec2c894f | 2 | 16 | 34 | shell_command | 1 |
+| 41b39227517d | 3 | 90 | 345 | exec | 0 |
+| 4599b5421b6a | 4 | 18 | 117 | exec | 0 |
+| 45ca341b6f6c | 23 | 72 | 321 | exec | 0 |
+| 46b0c7b7c957 | 5 | 5 | 20 | exec | 0 |
+| 47dd32fa66b0 | 2 | 1 | 17 | exec | 0 |
+| 4824ca167bc6 | 2 | 3 | 2 | exec | 0 |
+| 49a1cd218649 | 5 | 6 | 44 | exec | 0 |
+| 4b1c0ca21e8a | 1 | 17 | 45 | exec | 0 |
+| 4c235dfbf014 | 3 | 12 | 25 | exec | 0 |
+| 555f9c94ba8e | 21 | 54 | 105 | exec | 0 |
+| 55fd1ef9b613 | 33 | 70 | 280 | exec | 0 |
+| 563d18f4611d | 1 | 4 | 12 | exec | 0 |
+| 565eed54dd17 | 2 | 14 | 57 | exec | 0 |
+| 56b6649c20f7 | 3 | 2 | 3 | exec | 0 |
+| 5818927578e4 | 1 | 8 | 42 | exec | 0 |
+| 5c9b459ceed8 | 1 | 2 | 11 | exec | 0 |
+| 5d2ead557e09 | 2 | 7 | 53 | exec | 0 |
+| 6237d667f0c6 | 2 | 3 | 13 | exec | 0 |
+| 63300aa52b0c | 5 | 5 | 19 | exec | 0 |
+| 633c140546c0 | 16 | 33 | 80 | exec | 0 |
+| 6b1cd28c4803 | 6 | 8 | 31 | exec | 0 |
+| 6e412585c223 | 6 | 11 | 42 | exec | 0 |
+| 6eb8631b71ff | 10 | 11 | 8 | exec | 0 |
+| 6f4a5e141f25 | 2 | 5 | 19 | exec | 0 |
+| 7190840eebd8 | 3 | 6 | 34 | exec | 0 |
+| 74841f3cc419 | 6 | 24 | 89 | exec | 0 |
+| 750f7b45a279 | 5 | 9 | 16 | exec | 0 |
+| 75509733b67f | 5 | 0 | 0 | (none) | 0 |
+| 76b12d5e1a66 | 6 | 7 | 26 | exec | 0 |
+| 7e809339e1b7 | 5 | 5 | 23 | exec | 0 |
+| 7f56d46f949a | 2 | 3 | 7 | exec | 0 |
+| 81cea63e74c0 | 2 | 7 | 28 | exec | 0 |
+| 88a3a5440811 | 2 | 1 | 12 | exec | 0 |
+| 8d42bc26b8ea | 8 | 31 | 177 | exec | 0 |
+| 9256da3129c3 | 2 | 5 | 8 | exec | 0 |
+| 95a04b948f82 | 3 | 7 | 17 | exec | 0 |
+| 9c64fff11d60 | 4 | 4 | 17 | exec | 0 |
+| a396cd042936 | 4 | 2 | 5 | exec | 0 |
+| a5842562d1c9 | 15 | 35 | 129 | exec | 0 |
+| ab03eebeb707 | 0 | 14 | 165 | exec | 0 |
+| af732b84f707 | 4 | 6 | 27 | exec | 0 |
+| b2a580188889 | 2 | 15 | 71 | exec | 0 |
+| b3a60c536264 | 2 | 3 | 17 | exec | 0 |
+| b58472a3d535 | 4 | 12 | 69 | exec | 0 |
+| b6b22142ff72 | 3 | 23 | 144 | exec | 0 |
+| b7e6393f4c14 | 6 | 11 | 42 | exec | 0 |
+| ba888c9641f3 | 3 | 2 | 2 | exec | 0 |
+| bd179678f540 | 8 | 6 | 24 | exec | 0 |
+| be09ce0b9871 | 4 | 3 | 22 | exec | 0 |
+| c49c1557ae6b | 0 | 2 | 73 | exec | 0 |
+| c7230d75d324 | 2 | 1 | 0 | (none) | 0 |
+| caebcf53a29e | 1 | 6 | 23 | exec | 0 |
+| d137083a4578 | 2 | 4 | 15 | exec | 0 |
+| d70d8fe0ccff | 2 | 4 | 6 | exec | 0 |
+| da82d2742b29 | 2 | 2 | 4 | exec | 0 |
+| e9376209f8de | 2 | 2 | 14 | exec | 0 |
+| eb427243486f | 2 | 3 | 22 | exec | 0 |
+| f3166477ba87 | 2 | 5 | 22 | exec | 0 |
+| f37de8488162 | 10 | 21 | 172 | exec | 0 |
+| f63e9bf8c658 | 2 | 11 | 35 | exec | 0 |
+| f7334426ef38 | 4 | 41 | 179 | exec | 0 |
+| f978916fde98 | 0 | 4 | 15 | exec | 0 |
+| f9b083f65251 | 4 | 1 | 17 | exec | 0 |
+| ff4e67dc24aa | 1 | 1 | 8 | exec | 0 |
+
+Replay of these asks into Kilo/OpenCode is **not** in this file.
