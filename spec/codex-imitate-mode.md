@@ -4,7 +4,7 @@ Source: `reports/codex-gold-behavior.md`, `reports/codex-exec-shape.md`, `report
 
 Kilo and OpenCode both ship a selectable **codex** agent. Same states. Do not pin a model (current Kilo model / OpenCode free build mode).
 
-**Primary gold slice is `codex_work_desktop` (ChatGPT Work),** 87 sessions (hashed corpus 1521). `apply_patch` in **1** session. Multi-agent send/spawn **26**. The shell↔patch sandwich is **vscode** (n=16) plus nonempty **`codex_exec` (31/105 patch)**. Codex Desktop patch is **1/994** nonempty files — do not treat Desktop as the sandwich. Do not let those minorities overwrite Work.
+**Primary gold slice is `codex_work_desktop` (ChatGPT Work),** 87 sessions (hashed corpus 1521). `apply_patch` in **1** session. Multi-agent send/spawn **26**. The shell↔patch sandwich is **VS Code** Codex (n=16) plus nonempty **`codex_exec` (31/105 patch)**. Codex Desktop patch is **1/994** nonempty files — do not treat Desktop as the sandwich. Do not let those minorities overwrite Work.
 
 **v19 session shapes** (`reports/codex-work-shapes.md`, calls only): exclusive archetypes exec_only **35**, multi_agent **27**, exec_wait **16**, js **4**, empty **4**, patch **1**. First call is never `send_message` (83/83). Median **15** tools before first send, **3** consecutive execs per burst. Multi-piece is `send_message(target, message)` (25 sessions). `spawn_agent` is **2** sessions.
 
