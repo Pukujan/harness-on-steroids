@@ -87,3 +87,5 @@ jobs:
         run: pytest tests/test_js_by_originator.py
       - name: work-match-by-agent
         run: pytest tests/test_work_match_by_agent.py
+      - name: fail-mask-by-agent
+        run: pytest tests/test_fail_mask_by_agent.py

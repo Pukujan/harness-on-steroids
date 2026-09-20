@@ -75,3 +75,4 @@ How this project actually proceeds. Append-only. No message bodies.
 - v53 kilo.db refresh: still code/plan, no codex slug. Issue 12 notes updated. Snapshot `reports/versions/v53/`.
 - v54 opencode.db: 153 sessions, no codex slug (build/luna/…). Snapshot `reports/versions/v54/`.
 - v55 work_match by agent: kilo code 1/13; opencode build 3/19. Snapshot `reports/versions/v55/`.
+- v56 fail_mask by coding agent. Kilo code R2+R4+R5=5. OpenCode build R2+R3+R4+R5=6. Snapshot `reports/versions/v56/`.
