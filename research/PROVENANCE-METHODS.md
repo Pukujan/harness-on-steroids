@@ -10,6 +10,7 @@ Not a substitute for Codex gold. Methods for **20h+ iteration**: measure, versio
 | Codex CLI `/goal` + Hermes Persistent Goals | Standing objective, **judge after every turn**, gates before done, budget then pause, persist | Pretending a markdown `/goal` is that engine |
 | SWE-bench Verified (OpenAI) | Hidden tests are for **public** tasks; eval quality matters | Using it as this project’s gold |
 | FOSSIL / PAM decision lineage (this machine, internal) | Record *why* a spec version won (counts + hashes), not only the file | Mixing hades product into this repo |
+| W3C PROV (Groth & Moreau, 2013) | Provenance = entities, activities, people that produced a thing; versioning and derivation are first-class. Our `reports/versions/` + git commits are a cheap PROV bundle | Do not implement full PROV-O RDF in this repo unless it earns a measurement |
 
 There is no oracle for “did the agent behave like Codex” except **process relations** on traces (look-first, wait-on-cell, sandwich edit, look-after-fail) plus **mechanical gates**. That is why metamorphic + differential + fuzz belong here.
 
