@@ -55,3 +55,4 @@ How this project actually proceeds. Append-only. No message bodies.
 - v33 empty-by-originator: 326/1521 no calls; codex_exec 210/315 empty; Work 4/87. Snapshot `reports/versions/v33/`.
 - v34 empty codex_exec: 210/315, median 9 lines, messages+task_started. Not Work. Snapshot `reports/versions/v34/`.
 - v35 nonempty exec vs Work: exec 31/105 patch vs Work 1/83. Snapshot `reports/versions/v35/`.
+- v36 Desktop vs Work: Desktop patch in 1/994 nonempty files (186 calls in that one). Sandwich is vscode/exec, not Desktop. Snapshot `reports/versions/v36/`.
