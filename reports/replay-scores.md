@@ -7,14 +7,14 @@ v64. Work process from JSONL. Kilo/OpenCode/morph columns **pending** (not repla
 | hash12 | work_match | fail_mask | kilo | opencode | morph |
 | --- | --- | --- | --- | --- | --- |
 | 0d6ca4607eaf | yes | none | yes/none/partial | yes/none | yes |
-| 1a415bc257e5 | yes | none | pending | pending | yes |
+| 1a415bc257e5 | yes | none | yes/none/partial | pending | yes |
 | 1b09f49da9b9 | no | R3 | pending | pending | pending |
 | 28372e365066 | yes | none | pending | pending | yes |
 | 2bde00530ddd | yes | none | yes/none/partial | yes/none | yes |
 | 633c140546c0 | yes | none | pending | pending | pending |
 | 6b1cd28c4803 | yes | none | pending | pending | pending |
 | 6e412585c223 | yes | none | pending | pending | pending |
-| 6eb8631b71ff | yes | none | pending | pending | pending |
+| 6eb8631b71ff | yes | none | no/R2+R5/partial | timeout | pending |
 | 74841f3cc419 | yes | none | pending | pending | pending |
 | 76b12d5e1a66 | yes | none | pending | pending | pending |
 | 8d42bc26b8ea | yes | none | pending | pending | pending |
