@@ -4,6 +4,8 @@ Generated: 2026-09-20T06:01:56Z
 
 Local Codex/ChatGPT Work transcripts are gold. No message bodies.
 
+Hashed now **1521** (v19 copy-hash delta). This snapshot was generated at 1518 files. Live originator table: `reports/codex-by-originator.md`.
+
 - hashed files: **1518** / 1518
 - lines: **351780**
 - bad json lines: **0**

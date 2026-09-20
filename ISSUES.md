@@ -74,7 +74,8 @@ Status: `open` | `in_progress` | `done`
 - **Status:** in_progress
 - **Goal:** Parse **all** hashed Codex JSONL. How Codex splits tasks and chains tools. No bodies in git.
 - **Files:** `reports/codex-gold-behavior.md`
-- **Command:** analysis covers all `data/raw/codex/*.jsonl` (expect ~1518)
+- **Command:** analysis covers all `data/raw/codex/*.jsonl` (hashed **1521**; Work 87)
+- **Notes:** originator split in `reports/codex-by-originator.md`. Gold snapshot still records the 1518 generation.
 - **Pass:** report exists; states file count; task-split + tool-chain sections
 - **Parent:** 1
 

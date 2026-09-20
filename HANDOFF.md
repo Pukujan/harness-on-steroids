@@ -14,6 +14,8 @@ Primary: **ChatGPT Work** `codex_work_desktop` (**87** sessions). `apply_patch` 
 
 **v20:** refreshed kilo.db. Sessions 20, work_match **1/20**. Mode patches did not lift the score; scored sessions are not the Codex agent.
 
+**v21:** originator table on 1521 files. Work 95 metas / 87 tool sessions. vscode patch 718 unchanged.
+
 VS Code Codex (16) is shell↔patch — **not** Work gold.
 
 Kilo/OpenCode **imitate** Work via `.kilo/agent/codex.md` and `.opencode/agent/codex.md`. Scorer: `src/score_session.py` (R1 look-first, **R2 no-write**, **R6 decompose-not-first**). Pattern: `spec/future-agent-pattern.md`.

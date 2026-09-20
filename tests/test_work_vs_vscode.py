@@ -13,9 +13,11 @@ def test_work_almost_never_patches() -> None:
 
 def test_vscode_is_the_patch_sandwich() -> None:
     by = (ROOT / "reports" / "codex-by-originator.md").read_text(encoding="utf-8")
+    assert "Files scanned: **1521**" in by
     assert "| apply_patch | 718 |" in by
     assert "| shell_command | 5562 |" in by
     assert "codex_vscode" in by
+    assert "| codex_work_desktop | 95 |" in by
 
 
 def test_spec_prefers_work_over_vscode() -> None:
