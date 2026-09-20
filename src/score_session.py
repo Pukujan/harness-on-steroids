@@ -84,6 +84,7 @@ def score_seq(seq: list[str]) -> dict:
             "r6_decompose_not_first": True,
             "r5_no_write_after_look_run": True,
             "r4_no_todowrite": True,
+            "r3_read_first": True,
             "wrote_without_task": False,
             "start_look_burst": 0,
             "tools_before_write": None,
@@ -103,6 +104,7 @@ def score_seq(seq: list[str]) -> dict:
     return {
         "first": first,
         "r1_look_first": r1,
+        "r3_read_first": first in LOOK,
         "r2_no_write": not wrote,
         "r6_decompose_not_first": first not in DECOMPOSE,
         "r5_no_write_after_look_run": not write_after_look_run(seq),
@@ -125,6 +127,8 @@ def summarize(db: Path, skip_prefixes: tuple[str, ...] = ("study-os",)) -> dict:
     r6_ok = 0
     r5_ok = 0
     r4_ok = 0
+    r3_ok = 0
+    bash_first = 0
     write_first = 0
     wrote_without_task_n = 0
     todo_n = 0
@@ -150,6 +154,10 @@ def summarize(db: Path, skip_prefixes: tuple[str, ...] = ("study-os",)) -> dict:
             r1_ok += 1
         else:
             write_first += 1
+        if s["r3_read_first"]:
+            r3_ok += 1
+        if s["first"] == "bash":
+            bash_first += 1
         if s["r2_no_write"]:
             r2_ok += 1
         if s["r6_decompose_not_first"]:
@@ -177,6 +185,8 @@ def summarize(db: Path, skip_prefixes: tuple[str, ...] = ("study-os",)) -> dict:
         "sessions_with_tools": n,
         "skipped_study_os": skipped,
         "r1_look_first": r1_ok,
+        "r3_read_first": r3_ok,
+        "bash_first": bash_first,
         "r2_no_write": r2_ok,
         "r6_decompose_not_first": r6_ok,
         "r5_no_write_after_look_run": r5_ok,

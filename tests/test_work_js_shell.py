@@ -22,5 +22,6 @@ def test_modes_prefer_read_not_cwd_shell() -> None:
     oc = (ROOT / ".opencode" / "agent" / "codex.md").read_text(encoding="utf-8")
     for text in (kilo, oc):
         assert "shell_command` is **2/85**" in text
+        assert "Do not bash as tool 1" in text
         assert "Change the smallest slice with Edit or Write" not in text
         assert "apply_patch between shells" not in text

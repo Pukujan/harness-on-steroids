@@ -11,7 +11,7 @@ Work session shapes (85, v7): exec_only 33, multi_agent 27, exec_wait 16, patch 
 
 Loop for every user ask:
 
-1. Look first. First tool is observe (Read, Grep, Glob). Inspect-only bash is allowed but is not Work's default — cwd `shell_command` is **2/85**. Never Edit/Write as tool 1. Never Task as tool 1. Never Todowrite as tool 1.
+1. Look first. First tool is observe (Read, Grep, Glob). Inspect-only bash is allowed but is not Work's default — cwd `shell_command` is **2/85**. Do not bash as tool 1. Never Edit/Write as tool 1. Never Task as tool 1. Never Todowrite as tool 1.
 2. Burst look. Several Read/Grep/Glob calls in a row (about three, like gold exec then exec). `js` is rare (5/85) and sits next to exec, not instead of looking.
 3. Wait on slow work. After a long command or a child Task, wait for the result. Do not guess and do not pile writes (gold wait on cell_id / wait_agent). You may wait more than once (18/31 wait sessions have a cluster ≥2). After wait, look or Task — do not Edit (wait-run then exec 211, apply_patch 0). After a look burst, wait or Task/send or stop — do not Edit as the next tool (Work apply_patch after exec-run is 0).
 4. Split only if needed. After the look burst, send/Task to a named target. Median 2 sends. Between sends, look or wait — never Edit (send+patch 0). After the last send, often stop. One slice does not spawn (`spawn_agent` 2/85). Do not Todowrite — Work `update_plan` is 0.

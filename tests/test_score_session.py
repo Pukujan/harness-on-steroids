@@ -16,6 +16,12 @@ def test_r1_read_first_passes() -> None:
     assert s["r2_no_write"] is False
 
 
+def test_r3_bash_first_fails_read_first() -> None:
+    assert score_seq(["read", "bash"])["r3_read_first"] is True
+    assert score_seq(["bash", "read"])["r3_read_first"] is False
+    assert score_seq(["bash", "read"])["r1_look_first"] is True
+
+
 def test_r2_look_only_matches_work_default() -> None:
     s = score_seq(["read", "grep", "bash"])
     assert s["r1_look_first"] is True

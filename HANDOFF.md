@@ -30,6 +30,8 @@ Kilo/OpenCode **imitate** Work via `.kilo/agent/codex.md` and `.opencode/agent/c
 
 **v14:** Scorer R4 no-todowrite. Kilo **7/17** (10 todowrite sessions). OpenCode 11/24. Todowrite no longer counts as multi_piece.
 
+**v15:** R3 read-first not bash. Kilo 15/17. OpenCode **5/24** (bash-first 10). Do not bash as tool 1.
+
 Pytest owner-gate must stay green. Standing goal: `python -m src.goal_cli`. Do not shadow Kilo’s reserved `/goal`.
 
 ## Do not

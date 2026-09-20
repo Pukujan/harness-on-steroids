@@ -34,3 +34,4 @@ How this project actually proceeds. Append-only. No message bodies.
 - v12 send topology (`research/codex_work_send.py`): send 25/85, median 2, first index 15; spawn 2; send+patch 0; after last send end 18. Spec task-split now Work send, not mixed-corpus spawn. Snapshot `reports/versions/v12/`.
 - v13 Work plan (`research/codex_work_plan.py`): update_plan 0, request_user_input 0, plan-mode 0. Modes: do not Todowrite. Snapshot `reports/versions/v13/`.
 - v14 R4 scorer `r4_no_todowrite`; todowrite dropped from multi_piece. Kilo 7/17 R4 (10 todo sessions), OpenCode 11/24. Snapshot `reports/versions/v14/`.
+- v15 R3 read-first (not bash). Kilo 15/17, OpenCode 5/24 bash-first 10. Modes: do not bash as tool 1. Snapshot `reports/versions/v15/`.
