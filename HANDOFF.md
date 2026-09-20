@@ -52,6 +52,8 @@ Primary: **ChatGPT Work** `codex_work_desktop` (**87** sessions). `apply_patch` 
 
 **v39:** vscode nonempty 12/13 patch, 13/13 shell-first.
 
+**v40:** patch rates Work 1/83, Desktop 1/994, exec 31/105, vscode 12/13.
+
 VS Code Codex (16) is shell↔patch — **not** Work gold.
 
 Kilo/OpenCode **imitate** Work via `.kilo/agent/codex.md` and `.opencode/agent/codex.md`. Scorer: `src/score_session.py` (R1 look-first, **R2 no-write**, **R6 decompose-not-first**). Pattern: `spec/future-agent-pattern.md`.

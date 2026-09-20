@@ -59,3 +59,4 @@ How this project actually proceeds. Append-only. No message bodies.
 - v37 spec: sandwich is vscode + nonempty exec (31/105), not Desktop (1/994). Snapshot `reports/versions/v37/`.
 - v38 live captions: Work first exec 81 / shell 2; R6 83/83. Snapshot `reports/versions/v38/`.
 - v39 vscode vs Work: 12/13 nonempty vscode patch, all shell-first. Snapshot `reports/versions/v39/`.
+- v40 patch-by-originator table: Work 1/83, Desktop 1/994, exec 31/105, vscode 12/13. Snapshot `reports/versions/v40/`.

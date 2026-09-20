@@ -38,5 +38,6 @@ def test_workflow_exists_and_is_not_a_noop() -> None:
         "test_exec_vs_work.py",
         "test_desktop_vs_work.py",
         "test_vscode_vs_work.py",
+        "test_patch_by_originator.py",
     ):
         assert name in text, name
