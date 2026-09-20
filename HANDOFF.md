@@ -14,7 +14,7 @@ Primary: **ChatGPT Work** `codex_work_desktop` (**87** files / **83** with calls
 
 Do not imitate vscode (12/13 patch, 0 wait, 0 send) or nonempty `codex_exec` (31/105 patch, 11 plan). Desktop patch 1/994 — not the sandwich.
 
-Hashed jsonl **1521**. Versions: `reports/versions/v7`–`v45`. Spec: `spec/codex-imitate-mode.md`. Modes: `.kilo/agent/codex.md`, `.opencode/agent/codex.md`. Scorer: `src/score_session.py`. Issue 12 open: Kilo work_match 1/13 after skipping plan-agent. Owner decides match.
+Hashed jsonl **1521**. Versions: `reports/versions/v7`–`v52`. Spec: `spec/codex-imitate-mode.md`. Modes: `.kilo/agent/codex.md`, `.opencode/agent/codex.md`. Scorer: `src/score_session.py`. Issue 12 open: Kilo work_match 1/13; sqlite agents still `code`/`plan`, no `codex` slug. Owner decides match.
 
 Pytest owner-gate must stay green. Standing goal: `python -m src.goal_cli`. Do not shadow Kilo’s reserved `/goal`.
 

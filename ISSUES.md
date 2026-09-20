@@ -112,7 +112,7 @@ Status: `open` | `in_progress` | `done`
 - **Goal:** Repeat: measure Kilo+OpenCode sessions against Codex gold process → patch modes → measure again. Stop only when owner says the harness behavior matches.
 - **Files:** `spec/iteration-loop.md`, `reports/imitate-gap.md`, `src/score_session.py`
 - **Command:** `pytest tests/test_iteration_loop.py tests/test_score_session.py -q`
-- **Notes:** work_match Work 81/83, Kilo 1/20, OpenCode 4/24. Owner has not said match.
+- **Notes:** work_match Work 81/83, Kilo **1/13** (skip plan-agent). Live kilo.db 2026-09-20T18:22Z still `agent=code` 14 / `plan` 7 — no `codex` slug yet even though `/goal` sets `agent: codex`. OpenCode 4/21. Owner has not said match.
 - **Pass:** loop documented; gap report after modes exist; owner-accepted match
 - **Parent:** 10, 11
 
