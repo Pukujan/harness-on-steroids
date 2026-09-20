@@ -85,3 +85,5 @@ jobs:
         run: pytest tests/test_shell_by_originator.py
       - name: js-by-originator
         run: pytest tests/test_js_by_originator.py
+      - name: work-match-by-agent
+        run: pytest tests/test_work_match_by_agent.py

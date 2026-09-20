@@ -74,3 +74,4 @@ How this project actually proceeds. Append-only. No message bodies.
 - v52 spec js column. Snapshot `reports/versions/v52/`.
 - v53 kilo.db refresh: still code/plan, no codex slug. Issue 12 notes updated. Snapshot `reports/versions/v53/`.
 - v54 opencode.db: 153 sessions, no codex slug (build/luna/…). Snapshot `reports/versions/v54/`.
+- v55 work_match by agent: kilo code 1/13; opencode build 3/19. Snapshot `reports/versions/v55/`.
