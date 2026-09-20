@@ -1,0 +1,15 @@
+{
+  "comment": "Current facts: research-first measurement, not authorized software projectization.",
+  "software": false,
+  "nontrivial": true,
+  "projectization": false,
+  "reusable_systems_possible": true,
+  "multi_session": true,
+  "agent_assisted": true,
+  "horizontal_scope_risk": true,
+  "empirical_quality_claims": false,
+  "benchmark_or_dataset_use": false,
+  "hidden_confirmatory_evaluation": false,
+  "consequential_decisions": false,
+  "durable_provenance_and_decision_lineage": true
+}

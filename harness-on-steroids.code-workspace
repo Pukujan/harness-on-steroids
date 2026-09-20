@@ -1,0 +1,22 @@
+{
+  "folders": [
+    {
+      "name": "harness-on-steroids",
+      "path": "."
+    }
+  ],
+  "settings": {
+    "files.exclude": {
+      "**/__pycache__": true,
+      "**/.venv": true
+    },
+    "search.exclude": {
+      "**/node_modules": true,
+      "**/.venv": true,
+      "data/raw": true
+    },
+    "files.associations": {
+      "*.jsonl": "jsonl"
+    }
+  }
+}

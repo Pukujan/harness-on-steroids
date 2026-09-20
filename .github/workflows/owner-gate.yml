@@ -1,0 +1,37 @@
+name: owner-gate
+
+on:
+  push:
+  pull_request:
+  workflow_dispatch:
+
+jobs:
+  owner-gate:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: "3.12"
+      - name: install
+        run: pip install pytest
+      - name: properties
+        run: pytest tests/test_properties.py
+      - name: hidden-holdout
+        run: pytest tests/test_hidden_holdout.py
+      - name: mutations
+        run: pytest tests/test_mutations.py
+      - name: metamorphic
+        run: pytest tests/test_metamorphic.py
+      - name: differential
+        run: pytest tests/test_differential.py
+      - name: iteration-loop
+        run: pytest tests/test_iteration_loop.py
+      - name: ci-contract
+        run: pytest tests/test_ci_contract.py
+      - name: imitate-modes
+        run: pytest tests/test_imitate_modes.py
+      - name: goal-loop
+        run: pytest tests/test_goal_loop.py
+      - name: goal-fuzz
+        run: pytest tests/test_goal_fuzz.py

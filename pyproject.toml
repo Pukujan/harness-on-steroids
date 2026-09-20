@@ -1,0 +1,13 @@
+[project]
+name = "harness-on-steroids"
+version = "0.0.1"
+requires-python = ">=3.11"
+description = "Codex-transcript gold analysis; Kilo and OpenCode imitate"
+
+[project.optional-dependencies]
+dev = ["pytest>=8.0"]
+
+[tool.pytest.ini_options]
+testpaths = ["tests"]
+pythonpath = ["."]
+addopts = "-q"

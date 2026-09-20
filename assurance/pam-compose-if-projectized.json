@@ -1,0 +1,42 @@
+{
+  "pin": "Pukujan/project-assurance-modules@72872c31c606f4783d1012f2d4dc842d747f5788",
+  "facts": "assurance/pam-facts-if-projectized.json",
+  "note": "This is the prior preflight shape. Do not freeze. It assumes authorized software projectization.",
+  "modules": [
+    {
+      "disposition": "required",
+      "module_id": "continuity.structured-handoff",
+      "version": "0.1.0"
+    },
+    {
+      "disposition": "required",
+      "module_id": "projectization.build-vs-reuse",
+      "version": "0.2.0"
+    },
+    {
+      "disposition": "required",
+      "module_id": "projectization.scope-boundary",
+      "version": "0.1.0"
+    },
+    {
+      "disposition": "required",
+      "module_id": "planning.foundation",
+      "version": "0.1.0"
+    },
+    {
+      "disposition": "required",
+      "module_id": "engineering.swe-ci-foundation",
+      "version": "0.1.0"
+    },
+    {
+      "disposition": "required",
+      "module_id": "benchmark.integrity",
+      "version": "0.1.0"
+    },
+    {
+      "disposition": "required",
+      "module_id": "provenance.decision-lineage",
+      "version": "0.1.0"
+    }
+  ]
+}

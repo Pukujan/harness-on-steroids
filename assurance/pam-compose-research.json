@@ -1,0 +1,44 @@
+{
+  "pin": "Pukujan/project-assurance-modules@72872c31c606f4783d1012f2d4dc842d747f5788",
+  "facts": "assurance/pam-facts-research.json",
+  "modules": [
+    {
+      "disposition": "required",
+      "module_id": "continuity.structured-handoff",
+      "rationale": "Material work is expected to span sessions/agents or agent-assisted execution.",
+      "version": "0.1.0"
+    },
+    {
+      "disposition": "recommended",
+      "module_id": "provenance.decision-lineage",
+      "rationale": "The project explicitly values durable decision/research lineage without declaring a consequential acceptance boundary.",
+      "version": "0.1.0"
+    }
+  ],
+  "profiles": [
+    {
+      "disposition": "not_selected",
+      "profile_id": "benchmark.empirical-work",
+      "rationale": "Declared project facts do not satisfy this profile selector.",
+      "version": "0.1.0"
+    },
+    {
+      "disposition": "selected",
+      "profile_id": "continuity.material-work",
+      "rationale": "Declared project facts satisfy this profile selector.",
+      "version": "0.1.0"
+    },
+    {
+      "disposition": "not_selected",
+      "profile_id": "projectization.software",
+      "rationale": "Declared project facts do not satisfy this profile selector.",
+      "version": "0.2.0"
+    },
+    {
+      "disposition": "selected",
+      "profile_id": "provenance.material-decisions",
+      "rationale": "Declared project facts satisfy this profile selector.",
+      "version": "0.1.0"
+    }
+  ]
+}

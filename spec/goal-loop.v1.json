@@ -1,0 +1,24 @@
+{
+  "schema": "harness-on-steroids/goal-loop/1.0.0",
+  "title": "Standing /goal loop (Codex + Hermes semantics)",
+  "inspired_by": [
+    "Codex CLI 0.128.0 /goal",
+    "Hermes Agent Persistent Goals"
+  ],
+  "commands": ["/goal", "/goal status", "/goal pause", "/goal resume", "/goal clear", "/subgoal", "/goal gate add"],
+  "verdicts": ["done", "continue", "blocked", "wait"],
+  "defaults": {
+    "max_turns": 20,
+    "gate_retries": 3
+  },
+  "rules": [
+    "A real user message preempts auto-continue",
+    "Judge fail-open: judge error => continue, never wedge",
+    "Gates run before the judge; any non-zero exit => continue, not done",
+    "Done requires explicit completion evidence, not vibe",
+    "Budget exhausted => pause, never silent exit",
+    "State persists across process restart",
+    "Setting a new goal replaces the old one and clears subgoals"
+  ],
+  "contract_fields": ["outcome", "verification", "constraints", "boundaries", "stop_when"]
+}

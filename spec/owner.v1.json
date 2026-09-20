@@ -1,0 +1,65 @@
+{
+  "schema": "harness-on-steroids/owner-spec/1.0.0",
+  "title": "Owner invariants — Codex gold, imitate in Kilo and OpenCode",
+  "no_exception": true,
+  "read_order": ["AGENTS.md", "PLAN.md", "HANDOFF.md", "ISSUES.md"],
+  "gold": {
+    "corpus": "local ChatGPT Work / Codex desktop JSONL",
+    "source_label": "source=codex_work",
+    "enough_data": true,
+    "retest_codex_on_public_benchmarks": false,
+    "invent_new_exam": false
+  },
+  "products": ["kilo", "opencode"],
+  "opencode_includes_free_models_build_mode": true,
+  "deliver": [
+    "full-corpus-task-split-and-tool-chain-analysis",
+    "codex-imitate-mode-spec",
+    "kilo-mode",
+    "opencode-mode",
+    "iteration-until-behavior-matches"
+  ],
+  "forbidden_as_project": [
+    "SWE-bench as the project",
+    "Terminal-Bench as the project",
+    "Harbor as the project",
+    "mini-SWE-agent as a new product",
+    "re-testing Codex on new tasks"
+  ],
+  "required_snippets": {
+    "AGENTS.md": [
+      "The user owns this project. Agents do not.",
+      "transcripts are the **gold behavior**",
+      "imitate that same behavior",
+      "source=codex_work",
+      "Do not invent a new exam",
+      "Do not re-test Codex on public benchmarks",
+      "including free OpenCode models in build mode"
+    ],
+    "PLAN.md": [
+      "Codex transcripts are gold",
+      "Kilo and OpenCode imitate",
+      "No public coding exam",
+      "The transcripts are the dataset.",
+      "Agents execute this. They do not replace it."
+    ],
+    "HANDOFF.md": [
+      "AGENTS.md",
+      "PLAN.md",
+      "imitate"
+    ]
+  },
+  "ci": {
+    "workflow": ".github/workflows/owner-gate.yml",
+    "must_run": [
+      "tests/test_properties.py",
+      "tests/test_hidden_holdout.py",
+      "tests/test_mutations.py",
+      "tests/test_metamorphic.py",
+      "tests/test_differential.py",
+      "tests/test_ci_contract.py",
+      "tests/test_iteration_loop.py"
+    ],
+    "continue_on_error": false
+  }
+}

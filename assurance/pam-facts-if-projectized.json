@@ -1,0 +1,15 @@
+{
+  "comment": "Counterfactual: treating the 26-issue campaign as authorized software projectization. This is what the prior preflight assumed. Do not freeze this.",
+  "software": true,
+  "nontrivial": true,
+  "projectization": true,
+  "reusable_systems_possible": true,
+  "multi_session": true,
+  "agent_assisted": true,
+  "horizontal_scope_risk": true,
+  "empirical_quality_claims": true,
+  "benchmark_or_dataset_use": true,
+  "hidden_confirmatory_evaluation": false,
+  "consequential_decisions": true,
+  "durable_provenance_and_decision_lineage": true
+}
