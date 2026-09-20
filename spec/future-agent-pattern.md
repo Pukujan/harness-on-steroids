@@ -9,6 +9,6 @@ Copy these relations, not Codex tool names.
 5. **After failure, look again** (full-corpus: shell 446 vs patch 59).
 6. **Prose is not truth.** Tool output is.
 
-Kilo/OpenCode map: Read/Grep/Glob/inspect-bash → look; Edit/Write → patch; Task → spawn; wait for Task → wait_agent.
+Kilo/OpenCode map: Read/Grep/Glob → look (Work cwd shell is 2/85; do not treat bash as exec). Edit/Write → patch; Task → send/spawn; wait for Task → wait_agent. js is rare (5/85) next to exec.
 
 Score with `src/score_session.py`. Owner docs win on conflict (`spec/prompt-stack.md`).
