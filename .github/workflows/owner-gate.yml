@@ -73,3 +73,5 @@ jobs:
         run: pytest tests/test_vscode_vs_work.py
       - name: patch-by-originator
         run: pytest tests/test_patch_by_originator.py
+      - name: wait-by-originator
+        run: pytest tests/test_wait_by_originator.py

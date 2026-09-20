@@ -61,3 +61,4 @@ How this project actually proceeds. Append-only. No message bodies.
 - v39 vscode vs Work: 12/13 nonempty vscode patch, all shell-first. Snapshot `reports/versions/v39/`.
 - v40 patch-by-originator table: Work 1/83, Desktop 1/994, exec 31/105, vscode 12/13. Snapshot `reports/versions/v40/`.
 - v41 spec table of those four rates. Snapshot `reports/versions/v41/`.
+- v42 wait-by-originator: Work 31/83, vscode 0/13. Snapshot `reports/versions/v42/`.
