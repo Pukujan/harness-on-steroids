@@ -27,8 +27,8 @@ v64. Work process from JSONL. Kilo/OpenCode/morph columns **pending** (not repla
 
 | hash12 | work_match | fail_mask | kilo | opencode | morph |
 | --- | --- | --- | --- | --- | --- |
-| 0aecd1eabdf2 | yes | none | pending | pending | pending |
-| 1442d08cf2d3 | yes | none | pending | pending | pending |
+| 0aecd1eabdf2 | yes | none | no/R2+R5/yes | pending | pending |
+| 1442d08cf2d3 | yes | none | yes/none/yes | pending | pending |
 | 3a749176fae1 | yes | none | yes/none/yes | pending | pending |
 | 45ca341b6f6c | yes | none | yes/none/partial | pending | pending |
 | 555f9c94ba8e | yes | none | yes/none/partial | pending | pending |
