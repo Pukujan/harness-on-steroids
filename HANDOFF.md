@@ -24,6 +24,8 @@ Kilo/OpenCode **imitate** Work via `.kilo/agent/codex.md` and `.opencode/agent/c
 
 **v11:** wait-runs 222, 18/31 wait sessions cluster ≥2; after wait-run exec 211, never patch. You may wait more than once.
 
+**v12:** send_message 25/85, median 2 sends, first at 15. spawn 2. send+patch 0. After last send, end 18. Between sends, look or wait.
+
 Pytest owner-gate must stay green. Standing goal: `python -m src.goal_cli`. Do not shadow Kilo’s reserved `/goal`.
 
 ## Do not

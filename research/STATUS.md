@@ -1,6 +1,6 @@
 # Status
 
-- updated: 2026-09-20T16:50:00Z
-- phase: v11_wait_clusters
-- work: wait-runs 222, cluster≥2 in 18/31, after wait exec 211
+- updated: 2026-09-20T16:53:00Z
+- phase: v12_send_message_task_split
+- work: send 25/85 median 2, spawn 2, send+patch 0
 - continue_until: 2026-09-22T05:58:00Z
