@@ -75,3 +75,5 @@ jobs:
         run: pytest tests/test_patch_by_originator.py
       - name: wait-by-originator
         run: pytest tests/test_wait_by_originator.py
+      - name: send-by-originator
+        run: pytest tests/test_send_by_originator.py

@@ -62,3 +62,4 @@ How this project actually proceeds. Append-only. No message bodies.
 - v40 patch-by-originator table: Work 1/83, Desktop 1/994, exec 31/105, vscode 12/13. Snapshot `reports/versions/v40/`.
 - v41 spec table of those four rates. Snapshot `reports/versions/v41/`.
 - v42 wait-by-originator: Work 31/83, vscode 0/13. Snapshot `reports/versions/v42/`.
+- v43 send-by-originator: Work 25 send / 2 spawn; vscode 0/0. Snapshot `reports/versions/v43/`.
