@@ -1,6 +1,6 @@
 # Matched-task eval (owner want)
 
-Owner: tool-call histograms are **not** the result. Want Kilo and OpenCode to run **the same Work tasks** as **long threads** and be scored on **observable work** vs Work’s execution.
+Owner: tool-call histograms are **not** the result. Want Kilo and OpenCode to run **the same Work tasks** as **long threads** and be scored on **observable work** vs Work’s execution, not only who called which tool.
 
 ## Gold still
 
