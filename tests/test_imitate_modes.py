@@ -24,3 +24,7 @@ def test_kilo_and_opencode_codex_modes_exist_and_match() -> None:
     assert "Do not patch first" in st
     assert "exec → exec → exec" in st or "exec -> exec -> exec" in st
     assert "1518" in report.read_text(encoding="utf-8")
+    work = (ROOT / "reports" / "codex-work-desktop-only.md").read_text(encoding="utf-8")
+    assert "codex_work_desktop" in work
+    assert "with apply_patch: **1**" in work
+    assert "Primary gold" in st or "codex_work_desktop" in st

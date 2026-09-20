@@ -4,7 +4,7 @@ Source: `reports/codex-gold-behavior.md`, `reports/codex-exec-shape.md`, `report
 
 Kilo and OpenCode both ship a selectable **codex** agent. Same states. Do not pin a model (current Kilo model / OpenCode free build mode).
 
-**Primary gold slice is `codex_work_desktop` (ChatGPT Work),** not the 16 `codex_vscode` sessions. Work: exec+wait+js+send_message/spawn, almost no `apply_patch`. VS Code Codex is the shell↔patch sandwich; do not let that minority overwrite Work.
+**Primary gold slice is `codex_work_desktop` (ChatGPT Work),** 85 sessions with tools: first tool `exec` 76, `apply_patch` in **1** session (2 calls), multi-agent send/spawn in **26**. Chains: `exec → exec` (6998), `exec → wait`, `exec → send_message`. VS Code Codex (n=16) is the shell↔patch sandwich; do not let that minority overwrite Work.
 
 ## What gold actually does
 
