@@ -79,3 +79,4 @@ How this project actually proceeds. Append-only. No message bodies.
 - v57 full pytest 90 green. ISSUES 12 points at agent rollups. Snapshot `reports/versions/v57/`.
 - v58 matched-task eval spec + Work session index (87 hashes, counts only, no bodies). Replay not run. Snapshot `reports/versions/v58/`.
 - v59 replay buckets from user_turn counts: 8 single-ask, 16 in 6–20, 6 long. No prompts. Snapshot `reports/versions/v59/`.
+- v60 PLAN F + AGENTS: matched-task outcome is owner goal; process tests stay; replay not run. Snapshot `reports/versions/v60/`.

@@ -24,7 +24,9 @@ Label corpus rows `source=codex_work`. This is local Codex/Work, not chatgpt.com
 
 Codex/ChatGPT Work **behavior** is gold: task decomposition, tool-call chains, research-then-act, verification habits, sub-agents, plans, skills.
 
-The transcript is enough data. There are already ~1.5k rollout files and a large sqlite index. **Do not invent a new exam. Do not re-test Codex on public benchmarks. Do not build a “Codex-style agent” from SWE-bench papers.**
+The transcript is enough data **for the process recipe**. There are already ~1.5k rollout files and a large sqlite index. **Do not invent a new exam. Do not re-test Codex on public benchmarks. Do not build a “Codex-style agent” from SWE-bench papers.**
+
+Owner also wants **matched-task outcome**: the same local Work asks, replayed into Kilo/OpenCode (gitignored prompts), scored on observable results—not only tool names. That is PLAN step F, not SWE-bench.
 
 ## Do this
 
