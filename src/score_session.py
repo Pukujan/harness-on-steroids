@@ -83,6 +83,8 @@ def score_seq(seq: list[str]) -> dict:
             "r2_no_write": True,
             "r6_decompose_not_first": True,
             "r5_no_write_after_look_run": True,
+            "r4_no_todowrite": True,
+            "wrote_without_task": False,
             "start_look_burst": 0,
             "tools_before_write": None,
             "tools_before_decompose": None,
@@ -90,7 +92,9 @@ def score_seq(seq: list[str]) -> dict:
     first = seq[0]
     r1 = first not in WRITE
     wrote = any(x in WRITE for x in seq)
-    waitish = any(x in {"task", "todowrite", "schedule_wakeup", "background_process"} for x in seq)
+    has_todo = "todowrite" in seq
+    has_task = "task" in seq
+    waitish = any(x in {"task", "schedule_wakeup", "background_process"} for x in seq)
     look_after = False
     wi = _first_index(seq, WRITE)
     if wrote and wi is not None:
@@ -102,9 +106,11 @@ def score_seq(seq: list[str]) -> dict:
         "r2_no_write": not wrote,
         "r6_decompose_not_first": first not in DECOMPOSE,
         "r5_no_write_after_look_run": not write_after_look_run(seq),
+        "r4_no_todowrite": not has_todo,
+        "wrote_without_task": wrote and not has_task,
         "wrote": wrote,
         "look_after_write": look_after,
-        "multi_piece": waitish or seq.count("task") > 0,
+        "multi_piece": waitish or has_task,
         "start_look_burst": start_look_burst(seq),
         "tools_before_write": wi,
         "tools_before_decompose": di,
@@ -118,7 +124,10 @@ def summarize(db: Path, skip_prefixes: tuple[str, ...] = ("study-os",)) -> dict:
     r2_ok = 0
     r6_ok = 0
     r5_ok = 0
+    r4_ok = 0
     write_first = 0
+    wrote_without_task_n = 0
+    todo_n = 0
     decompose_first = 0
     wrote_n = 0
     sandwich = 0
@@ -149,6 +158,12 @@ def summarize(db: Path, skip_prefixes: tuple[str, ...] = ("study-os",)) -> dict:
             decompose_first += 1
         if s["r5_no_write_after_look_run"]:
             r5_ok += 1
+        if s["r4_no_todowrite"]:
+            r4_ok += 1
+        else:
+            todo_n += 1
+        if s["wrote_without_task"]:
+            wrote_without_task_n += 1
         if s["wrote"]:
             wrote_n += 1
             if s["look_after_write"]:
@@ -165,6 +180,9 @@ def summarize(db: Path, skip_prefixes: tuple[str, ...] = ("study-os",)) -> dict:
         "r2_no_write": r2_ok,
         "r6_decompose_not_first": r6_ok,
         "r5_no_write_after_look_run": r5_ok,
+        "r4_no_todowrite": r4_ok,
+        "todowrite_sessions": todo_n,
+        "wrote_without_task": wrote_without_task_n,
         "decompose_first": decompose_first,
         "write_rate": (wrote_n / n) if n else 0.0,
         "write_first": write_first,

@@ -55,6 +55,14 @@ def test_multi_piece_task_counts() -> None:
     s = score_seq(["read", "task", "read"])
     assert s["multi_piece"] is True
     assert score_seq(["read", "edit"])["multi_piece"] is False
+    assert score_seq(["read", "todowrite"])["multi_piece"] is False
+
+
+def test_r4_todowrite_fails_work() -> None:
+    assert score_seq(["read", "grep"])["r4_no_todowrite"] is True
+    assert score_seq(["read", "todowrite", "task"])["r4_no_todowrite"] is False
+    assert score_seq(["read", "edit"])["wrote_without_task"] is True
+    assert score_seq(["read", "task", "edit"])["wrote_without_task"] is False
 
 
 def test_skip_study_os_prefix() -> None:

@@ -28,6 +28,8 @@ Kilo/OpenCode **imitate** Work via `.kilo/agent/codex.md` and `.opencode/agent/c
 
 **v13:** Work `update_plan` **0**, plan-mode **0**. Do not Todowrite. Full-corpus plan 137 is not Work.
 
+**v14:** Scorer R4 no-todowrite. Kilo **7/17** (10 todowrite sessions). OpenCode 11/24. Todowrite no longer counts as multi_piece.
+
 Pytest owner-gate must stay green. Standing goal: `python -m src.goal_cli`. Do not shadow Kilo’s reserved `/goal`.
 
 ## Do not

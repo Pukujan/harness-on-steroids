@@ -1,6 +1,7 @@
 # Status
 
-- updated: 2026-09-20T16:56:00Z
-- phase: v13_work_update_plan_zero
-- work: update_plan 0, plan-mode 0
+- updated: 2026-09-20T17:00:00Z
+- phase: v14_r4_no_todowrite
+- kilo R4: 7/17 (10 todowrite)
+- opencode R4: 11/24
 - continue_until: 2026-09-22T05:58:00Z
