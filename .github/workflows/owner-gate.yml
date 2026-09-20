@@ -63,3 +63,5 @@ jobs:
         run: pytest tests/test_goal_uses_codex_agent.py
       - name: empty-by-originator
         run: pytest tests/test_empty_by_originator.py
+      - name: exec-empty
+        run: pytest tests/test_exec_empty.py

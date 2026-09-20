@@ -40,6 +40,8 @@ Primary: **ChatGPT Work** `codex_work_desktop` (**87** sessions). `apply_patch` 
 
 **v33:** 326/1521 files have no calls. `codex_exec` 210/315 empty — not Work. Work empty 4/87.
 
+**v34:** empty `codex_exec` are short (median 9 lines). Not Work gold.
+
 VS Code Codex (16) is shell↔patch — **not** Work gold.
 
 Kilo/OpenCode **imitate** Work via `.kilo/agent/codex.md` and `.opencode/agent/codex.md`. Scorer: `src/score_session.py` (R1 look-first, **R2 no-write**, **R6 decompose-not-first**). Pattern: `spec/future-agent-pattern.md`.
