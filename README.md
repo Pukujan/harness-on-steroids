@@ -1,3 +1,7 @@
+<p align="center">
+  <img src="docs/waifu.svg" alt="Harness on steroids mascot" width="100%">
+</p>
+
 # Why coding agents flake — and what this repo is doing about it
 
 A strong model is not enough. **ChatGPT Work** (Codex on a real desktop) often feels more reliable than **Kilo** or **OpenCode** even when those products use strong models too. This project treats that gap as a **harness** problem: how the wrapper makes the model look, wait, split work, check itself, and stop — not as “pick a better LLM.”

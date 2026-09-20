@@ -1,0 +1,69 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1200 420" role="img" aria-label="Harness on steroids mascot">
+  <defs>
+    <linearGradient id="sky" x1="0" y1="0" x2="1" y2="1">
+      <stop offset="0%" stop-color="#12061c"/>
+      <stop offset="55%" stop-color="#2a0a3a"/>
+      <stop offset="100%" stop-color="#06141c"/>
+    </linearGradient>
+    <linearGradient id="hair" x1="0" y1="0" x2="0" y2="1">
+      <stop offset="0%" stop-color="#ff6ad5"/>
+      <stop offset="45%" stop-color="#c43bff"/>
+      <stop offset="100%" stop-color="#5b1dff"/>
+    </linearGradient>
+    <linearGradient id="skin" x1="0" y1="0" x2="0" y2="1">
+      <stop offset="0%" stop-color="#ffe4d6"/>
+      <stop offset="100%" stop-color="#f0b8a8"/>
+    </linearGradient>
+    <linearGradient id="neon" x1="0" y1="0" x2="1" y2="0">
+      <stop offset="0%" stop-color="#00f0ff"/>
+      <stop offset="100%" stop-color="#ff4fd8"/>
+    </linearGradient>
+    <filter id="glow" x="-40%" y="-40%" width="180%" height="180%">
+      <feGaussianBlur stdDeviation="6" result="b"/>
+      <feMerge><feMergeNode in="b"/><feMergeNode in="SourceGraphic"/></feMerge>
+    </filter>
+  </defs>
+  <rect width="1200" height="420" fill="url(#sky)"/>
+  <g opacity="0.35" fill="#7dffb3" font-family="ui-monospace, Consolas, monospace" font-size="13">
+    <text x="40" y="40">look(); wait(); send();</text>
+    <text x="80" y="70">exec → exec → wait</text>
+    <text x="36" y="100">no patch first</text>
+    <text x="90" y="130">verify(tool_output)</text>
+    <text x="50" y="160">research → act</text>
+    <text x="880" y="50">work_match</text>
+    <text x="920" y="90">R1 look</text>
+    <text x="860" y="130">never todowrite</text>
+    <text x="900" y="170">burst observe</text>
+  </g>
+  <ellipse cx="780" cy="390" rx="220" ry="28" fill="#000" opacity="0.35"/>
+  <!-- hair back -->
+  <path d="M560 90 C520 40 640 10 720 50 C800 20 880 80 850 180 C900 240 860 360 780 380 C820 300 830 220 790 170 C760 320 680 390 620 360 C580 400 520 340 540 250 C500 200 510 130 560 90Z" fill="url(#hair)"/>
+  <!-- neck / shoulders -->
+  <path d="M640 250 L700 250 L740 330 L780 350 L520 355 L580 320 Z" fill="url(#skin)"/>
+  <path d="M520 330 C600 300 760 295 790 350 L790 390 L510 390 Z" fill="#1a0a28"/>
+  <path d="M520 330 C600 300 760 295 790 350" fill="none" stroke="url(#neon)" stroke-width="3"/>
+  <!-- face -->
+  <ellipse cx="670" cy="175" rx="78" ry="92" fill="url(#skin)"/>
+  <!-- bangs -->
+  <path d="M600 110 C640 70 720 65 745 120 C720 95 680 105 655 140 C640 100 615 95 600 110Z" fill="url(#hair)"/>
+  <path d="M590 150 C580 200 600 260 630 250 C610 210 605 170 620 140Z" fill="url(#hair)"/>
+  <path d="M745 140 C770 190 755 260 720 255 C740 210 735 170 725 145Z" fill="url(#hair)"/>
+  <!-- headset -->
+  <path d="M600 130 C600 70 745 70 745 135" fill="none" stroke="#0ff" stroke-width="8" filter="url(#glow)"/>
+  <rect x="575" y="145" width="28" height="48" rx="10" fill="#111" stroke="#ff4fd8" stroke-width="2"/>
+  <rect x="738" y="145" width="28" height="48" rx="10" fill="#111" stroke="#00f0ff" stroke-width="2"/>
+  <!-- eyes -->
+  <ellipse cx="640" cy="175" rx="16" ry="18" fill="#1a1030"/>
+  <ellipse cx="700" cy="175" rx="16" ry="18" fill="#1a1030"/>
+  <ellipse cx="644" cy="170" rx="6" ry="7" fill="#7df9ff"/>
+  <ellipse cx="704" cy="170" rx="6" ry="7" fill="#7df9ff"/>
+  <circle cx="647" cy="167" r="2.2" fill="#fff"/>
+  <circle cx="707" cy="167" r="2.2" fill="#fff"/>
+  <!-- lashes / smile -->
+  <path d="M622 158 Q640 150 656 158" fill="none" stroke="#3a1020" stroke-width="2"/>
+  <path d="M684 158 Q700 150 716 158" fill="none" stroke="#3a1020" stroke-width="2"/>
+  <path d="M650 215 Q670 228 692 215" fill="none" stroke="#c45" stroke-width="3" stroke-linecap="round"/>
+  <!-- title -->
+  <text x="48" y="300" fill="#fff" font-family="Segoe UI, Trebuchet MS, sans-serif" font-size="42" font-weight="700" filter="url(#glow)">HARNESS ON STEROIDS</text>
+  <text x="50" y="338" fill="#ff9ae8" font-family="Segoe UI, Trebuchet MS, sans-serif" font-size="20">look · wait · verify · don’t patch first</text>
+</svg>
