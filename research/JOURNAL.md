@@ -57,3 +57,4 @@ How this project actually proceeds. Append-only. No message bodies.
 - v35 nonempty exec vs Work: exec 31/105 patch vs Work 1/83. Snapshot `reports/versions/v35/`.
 - v36 Desktop vs Work: Desktop patch in 1/994 nonempty files (186 calls in that one). Sandwich is vscode/exec, not Desktop. Snapshot `reports/versions/v36/`.
 - v37 spec: sandwich is vscode + nonempty exec (31/105), not Desktop (1/994). Snapshot `reports/versions/v37/`.
+- v38 live captions: Work first exec 81 / shell 2; R6 83/83. Snapshot `reports/versions/v38/`.

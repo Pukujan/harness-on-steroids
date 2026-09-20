@@ -7,7 +7,7 @@ No bodies. Work: never send first; apply_patch after exec-run 0; write-rate 0.01
 - sessions_with_tools: **13**
 - **Work-match (R1∧R2∧R3∧R4∧R5∧R6): 1** / 13 (0.08)
 - R1 look-first: **13**
-- R3 read-first (not bash): **10** (Work first=exec 79, shell 2)
+- R3 read-first (not bash): **10** (Work first=exec 81, shell 2)
 - bash-first: **1**
 - R2 no-write: **2**
 - R5 no-write-after-look-run: **2** (Work apply_patch after exec-run 0)
@@ -51,7 +51,7 @@ No bodies. Work: never send first; apply_patch after exec-run 0; write-rate 0.01
 - sessions_with_tools: **21**
 - **Work-match (R1∧R2∧R3∧R4∧R5∧R6): 4** / 21 (0.19)
 - R1 look-first: **20**
-- R3 read-first (not bash): **5** (Work first=exec 79, shell 2)
+- R3 read-first (not bash): **5** (Work first=exec 81, shell 2)
 - bash-first: **10**
 - R2 no-write: **8**
 - R5 no-write-after-look-run: **9** (Work apply_patch after exec-run 0)
