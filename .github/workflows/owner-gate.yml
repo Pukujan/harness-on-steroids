@@ -53,3 +53,5 @@ jobs:
         run: pytest tests/test_work_wait_clusters.py
       - name: work-send
         run: pytest tests/test_work_send.py
+      - name: work-plan
+        run: pytest tests/test_work_plan.py

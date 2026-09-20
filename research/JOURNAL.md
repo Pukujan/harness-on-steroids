@@ -32,3 +32,4 @@ How this project actually proceeds. Append-only. No message bodies.
 - v10 js vs shell (`research/codex_work_js_shell.py`): exec 79 sessions / 7345 calls; js 5; shell_command **2** (1 with patch). Modes prefer Read/Grep/Glob. Synced global Kilo+OpenCode codex agents. Snapshot `reports/versions/v10/`.
 - v11 wait clusters (`research/codex_work_wait_clusters.py`): 222 wait-runs, 18/31 sessions cluster ≥2; after wait-run exec 211. Modes: you may wait more than once. Snapshot `reports/versions/v11/`.
 - v12 send topology (`research/codex_work_send.py`): send 25/85, median 2, first index 15; spawn 2; send+patch 0; after last send end 18. Spec task-split now Work send, not mixed-corpus spawn. Snapshot `reports/versions/v12/`.
+- v13 Work plan (`research/codex_work_plan.py`): update_plan 0, request_user_input 0, plan-mode 0. Modes: do not Todowrite. Snapshot `reports/versions/v13/`.

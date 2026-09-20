@@ -29,5 +29,6 @@ def test_workflow_exists_and_is_not_a_noop() -> None:
         "test_work_js_shell.py",
         "test_work_wait_clusters.py",
         "test_work_send.py",
+        "test_work_plan.py",
     ):
         assert name in text, name
