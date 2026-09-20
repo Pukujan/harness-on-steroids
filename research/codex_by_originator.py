@@ -10,6 +10,7 @@ from pathlib import Path
 ROOT = Path(__file__).resolve().parents[1]
 CODEX = ROOT / "data" / "raw" / "codex"
 OUT = ROOT / "reports" / "codex-by-originator.md"
+CALL_TYPES = {"custom_tool_call", "function_call"}
 
 
 def main() -> None:
@@ -37,7 +38,8 @@ def main() -> None:
                 if not isinstance(name, str):
                     continue
                 tools[orig][name] += 1
-                if not saw_first:
+                pt = payload.get("type")
+                if not saw_first and pt in CALL_TYPES:
                     first[orig][name] += 1
                     saw_first = True
         n_files[orig] += 1

@@ -19,6 +19,9 @@ def test_vscode_is_the_patch_sandwich() -> None:
     assert "codex_vscode" in by
     assert "| codex_work_desktop | 87 |" in by
     assert "one originator per file" in by
+    work_first = by.split("### `codex_work_desktop` first tool")[-1]
+    assert "| exec | 81 |" in work_first
+    assert "| shell_command | 2 |" in work_first
 
 
 def test_spec_prefers_work_over_vscode() -> None:

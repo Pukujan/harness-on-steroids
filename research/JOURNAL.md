@@ -50,3 +50,4 @@ How this project actually proceeds. Append-only. No message bodies.
 - v28 ISSUES 8–11 done (analysis, spec, both modes). 12 in_progress: owner has not said match. Snapshot `reports/versions/v28/`.
 - v29 `.kilo/command/goal.md` `agent: codex` like OpenCode. Snapshot `reports/versions/v29/`.
 - v30 skip session.agent=plan. Kilo 7 skipped, 13 remain, work_match 1/13. No codex slug in sqlite yet. Snapshot `reports/versions/v30/`.
+- v31 originator first-tool is call types only. Work first exec 81 / shell 2. Snapshot `reports/versions/v31/`.
