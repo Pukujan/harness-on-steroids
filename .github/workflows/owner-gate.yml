@@ -37,3 +37,5 @@ jobs:
         run: pytest tests/test_goal_fuzz.py
       - name: prompt-stack
         run: pytest tests/test_prompt_stack.py
+      - name: score-session
+        run: pytest tests/test_score_session.py
