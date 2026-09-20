@@ -43,3 +43,4 @@ How this project actually proceeds. Append-only. No message bodies.
 - v21 originator recount on 1521. Desktop 1106, work 95 files, vscode 16 (patch 718 unchanged). Snapshot `reports/versions/v21/`.
 - v22 regenerated `codex-gold-behavior.md` on 1521 (lines 355679). 1518 snapshot kept. Explicit do-not-average-originators. Snapshot `reports/versions/v22/`.
 - v23 deep pass restored: js_cell 29231 / 1521 files. Work still primary. Snapshot `reports/versions/v23/`.
+- v24 empty Work sessions: 4/87, 14–25 lines, no calls. 95 originator rows ≠ 87 files. Snapshot `reports/versions/v24/`.

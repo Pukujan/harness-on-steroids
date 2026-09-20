@@ -57,3 +57,5 @@ jobs:
         run: pytest tests/test_work_plan.py
       - name: work-self-score
         run: pytest tests/test_work_self_score.py
+      - name: work-empty
+        run: pytest tests/test_work_empty.py
