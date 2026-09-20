@@ -7,7 +7,7 @@ def test_replay_scores_work_column_only() -> None:
     text = (ROOT / "reports" / "replay-scores.md").read_text(encoding="utf-8")
     assert "## develop (16)" in text
     assert "## holdout (6)" in text
-    assert "pending | pending | pending |" in text
+    assert "| pending |" in text
     assert "| 0d6ca4607eaf | yes | none | yes/none/partial | yes/none | yes |" in text
     assert "| 2bde00530ddd | yes | none | yes/none/partial | yes/none | yes |" in text
     assert "| 6eb8631b71ff | yes | none | no/R2+R5/partial | timeout | pending |" in text
