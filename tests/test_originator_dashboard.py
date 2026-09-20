@@ -19,4 +19,4 @@ def test_dashboard_keeps_originators_unmixed() -> None:
     assert "codex-originator-dashboard.md" in spec
     assert "codex-originator-dashboard.md" in handoff
     assert "do not average" in handoff.lower()
-    assert "| Work | **1/83** | **31/83** | **25** | **0** |" in spec
+    assert "| Work | **1/83** | **31/83** | **25** | **0** | **2** |" in spec
