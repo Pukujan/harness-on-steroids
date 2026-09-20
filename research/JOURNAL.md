@@ -70,3 +70,4 @@ How this project actually proceeds. Append-only. No message bodies.
 - v48 shell-by-originator: Work 2/83, vscode 13/13, exec 45/105 (37 first). Snapshot `reports/versions/v48/`.
 - v49 spec cwd-shell column. Snapshot `reports/versions/v49/`.
 - v50 js-by-originator: Work 5/83, vscode 1/13. Snapshot `reports/versions/v50/`.
+- v51 dashboard js column. Snapshot `reports/versions/v51/`.
