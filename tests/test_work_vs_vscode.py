@@ -17,7 +17,8 @@ def test_vscode_is_the_patch_sandwich() -> None:
     assert "| apply_patch | 718 |" in by
     assert "| shell_command | 5562 |" in by
     assert "codex_vscode" in by
-    assert "| codex_work_desktop | 95 |" in by
+    assert "| codex_work_desktop | 87 |" in by
+    assert "one originator per file" in by
 
 
 def test_spec_prefers_work_over_vscode() -> None:

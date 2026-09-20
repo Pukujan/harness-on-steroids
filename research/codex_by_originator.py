@@ -32,7 +32,6 @@ def main() -> None:
                     o = payload.get("originator")
                     if isinstance(o, str) and o:
                         orig = o
-                    n_files[orig] += 1
                     continue
                 name = payload.get("name")
                 if not isinstance(name, str):
@@ -41,13 +40,14 @@ def main() -> None:
                 if not saw_first:
                     first[orig][name] += 1
                     saw_first = True
+        n_files[orig] += 1
 
     lines = [
         "# Codex tool mix by originator",
         "",
         f"Files scanned: **{n_files['files']}**",
         "",
-        "## sessions (session_meta originator)",
+        "## files (one originator per file)",
         "",
         "| originator | files |",
         "| --- | --- |",
