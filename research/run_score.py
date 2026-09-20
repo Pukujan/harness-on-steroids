@@ -5,7 +5,7 @@ ROOT = Path(__file__).resolve().parents[1]
 sys.path.insert(0, str(ROOT))
 from src.score_session import summarize
 
-lines = ["# Session scores vs Work-gold R1/R2/R6", "", "No bodies. Work: never send first; median 15 tools before send; write-rate 0.01.", ""]
+lines = ["# Session scores vs Work-gold R1/R2/R5/R6", "", "No bodies. Work: never send first; apply_patch after exec-run 0; write-rate 0.01.", ""]
 for name in ("kilo.db", "opencode.db"):
     db = ROOT / "data" / "raw" / "sqlite" / name
     if not db.is_file():
@@ -17,6 +17,7 @@ for name in ("kilo.db", "opencode.db"):
     lines.append(f"- sessions_with_tools: **{out['sessions_with_tools']}**")
     lines.append(f"- R1 look-first: **{out['r1_look_first']}**")
     lines.append(f"- R2 no-write: **{out.get('r2_no_write', 0)}**")
+    lines.append(f"- R5 no-write-after-look-run: **{out.get('r5_no_write_after_look_run', 0)}** (Work apply_patch after exec-run 0)")
     lines.append(f"- R6 decompose-not-first: **{out.get('r6_decompose_not_first', 0)}**")
     lines.append(f"- decompose-first: **{out.get('decompose_first', 0)}**")
     lines.append(f"- write-rate: **{out.get('write_rate', 0):.2f}** (Work gold 1/85 ≈ 0.01)")

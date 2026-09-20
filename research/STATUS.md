@@ -1,7 +1,8 @@
 # Status
 
-- updated: 2026-09-20T16:38:00Z
-- phase: v8_r6_decompose_not_first
-- kilo: R1 17/17, R2 2/17, R6 16/17, write-rate 0.88
-- opencode: R1 23/24, R2 11/24, R6 16/24, tools-before-todo median 0
+- updated: 2026-09-20T16:42:00Z
+- phase: v9_wait_after_exec_run
+- work: exec-run then wait 218 / send 53 / patch 0
+- kilo R5: 2/17
+- opencode R5: 12/24
 - continue_until: 2026-09-22T05:58:00Z

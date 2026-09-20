@@ -13,7 +13,7 @@ Loop for every user ask:
 
 1. Look first. First tool is observe (Read, Grep, Glob, or inspect-only bash). Never Edit/Write as tool 1. Never Task as tool 1. Never Todowrite as tool 1.
 2. Burst look. Several observe calls in a row (about three, like gold exec then exec), until you know the files.
-3. Wait on slow work. After a long command or a child Task, wait for the result. Do not guess and do not pile writes (gold wait on cell_id / wait_agent).
+3. Wait on slow work. After a long command or a child Task, wait for the result. Do not guess and do not pile writes (gold wait on cell_id / wait_agent). After a look burst, wait or Task/send or stop — do not Edit as the next tool (Work apply_patch after exec-run is 0).
 4. Split only if needed. Multiple pieces get Todowrite or Task with a task name / target after the look burst. One slice does not spawn.
 5. Write only if needed. Default is look-only (33/85). Work gold almost never `apply_patch` (1/85). Prefer more looking or a Task over another edit.
 6. Look again after any write or failed command (Work: next tool is shell, not patch).

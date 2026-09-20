@@ -18,6 +18,8 @@ Kilo/OpenCode **imitate** Work via `.kilo/agent/codex.md` and `.opencode/agent/c
 
 **v8 gap:** Kilo write-rate 0.88 vs Work 0.01. OpenCode R6 16/24 (todowrite/task first). Never Todowrite as tool 1.
 
+**v9:** After exec-run, Work wait 218 / send 53 / apply_patch **0**. Scorer R5. Kilo R5 **2/17**. After look burst, do not Edit next.
+
 Pytest owner-gate must stay green. Standing goal: `python -m src.goal_cli`. Do not shadow Kilo’s reserved `/goal`.
 
 ## Do not

@@ -45,3 +45,5 @@ jobs:
         run: pytest tests/test_work_vs_vscode.py
       - name: work-shapes
         run: pytest tests/test_work_shapes.py
+      - name: work-wait
+        run: pytest tests/test_work_wait.py

@@ -25,6 +25,12 @@ def test_r2_look_only_matches_work_default() -> None:
     assert s["start_look_burst"] == 3
 
 
+def test_r5_write_after_look_run_fails() -> None:
+    assert score_seq(["read", "grep", "edit"])["r5_no_write_after_look_run"] is False
+    assert score_seq(["read", "grep", "task"])["r5_no_write_after_look_run"] is True
+    assert score_seq(["read", "bash", "read"])["r5_no_write_after_look_run"] is True
+
+
 def test_r6_todowrite_first_fails() -> None:
     s = score_seq(["todowrite", "read", "edit"])
     assert s["r6_decompose_not_first"] is False

@@ -40,6 +40,19 @@ def start_look_burst(seq: list[str]) -> int:
     return n
 
 
+def write_after_look_run(seq: list[str]) -> bool:
+    """Work: apply_patch after an exec-run is 0. Look-run then edit fails R5."""
+    n = 0
+    for x in seq:
+        if x in LOOKISH:
+            n += 1
+            continue
+        if n and x in WRITE:
+            return True
+        n = 0
+    return False
+
+
 def _tools(db: Path) -> dict[str, list[str]]:
     con = sqlite3.connect(f"file:{db}?mode=ro", uri=True)
     by: dict[str, list[str]] = {}
@@ -69,6 +82,7 @@ def score_seq(seq: list[str]) -> dict:
             "wrote": False,
             "r2_no_write": True,
             "r6_decompose_not_first": True,
+            "r5_no_write_after_look_run": True,
             "start_look_burst": 0,
             "tools_before_write": None,
             "tools_before_decompose": None,
@@ -87,6 +101,7 @@ def score_seq(seq: list[str]) -> dict:
         "r1_look_first": r1,
         "r2_no_write": not wrote,
         "r6_decompose_not_first": first not in DECOMPOSE,
+        "r5_no_write_after_look_run": not write_after_look_run(seq),
         "wrote": wrote,
         "look_after_write": look_after,
         "multi_piece": waitish or seq.count("task") > 0,
@@ -102,6 +117,7 @@ def summarize(db: Path, skip_prefixes: tuple[str, ...] = ("study-os",)) -> dict:
     r1_ok = 0
     r2_ok = 0
     r6_ok = 0
+    r5_ok = 0
     write_first = 0
     decompose_first = 0
     wrote_n = 0
@@ -131,6 +147,8 @@ def summarize(db: Path, skip_prefixes: tuple[str, ...] = ("study-os",)) -> dict:
             r6_ok += 1
         else:
             decompose_first += 1
+        if s["r5_no_write_after_look_run"]:
+            r5_ok += 1
         if s["wrote"]:
             wrote_n += 1
             if s["look_after_write"]:
@@ -146,6 +164,7 @@ def summarize(db: Path, skip_prefixes: tuple[str, ...] = ("study-os",)) -> dict:
         "r1_look_first": r1_ok,
         "r2_no_write": r2_ok,
         "r6_decompose_not_first": r6_ok,
+        "r5_no_write_after_look_run": r5_ok,
         "decompose_first": decompose_first,
         "write_rate": (wrote_n / n) if n else 0.0,
         "write_first": write_first,
