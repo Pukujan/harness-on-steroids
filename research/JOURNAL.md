@@ -84,3 +84,4 @@ How this project actually proceeds. Append-only. No message bodies.
 - v62 primary exam is 22 long Work threads + morphs, not 8 singles. Snapshot `reports/versions/v62/`.
 - v63 morph = stretch eval; 16 develop / 6 holdout; mutation+doc-holdout stay; modes say multi-turn. Snapshot `reports/versions/v63/`.
 - v64 Work process scores for 22 hashes; kilo/opencode/morph pending. Snapshot `reports/versions/v64/`.
+- Live develop Kilo replays in this worktree: most look-first fail_mask none; 6eb8 wrote (R2+R5). OpenCode scored on a few hashes. Morph files on several. Holdout not scored on copies yet.
