@@ -49,3 +49,4 @@ How this project actually proceeds. Append-only. No message bodies.
 - v27 gold-behavior originator table aligned to one-file-once (Work 87). Snapshot `reports/versions/v27/`.
 - v28 ISSUES 8–11 done (analysis, spec, both modes). 12 in_progress: owner has not said match. Snapshot `reports/versions/v28/`.
 - v29 `.kilo/command/goal.md` `agent: codex` like OpenCode. Snapshot `reports/versions/v29/`.
+- v30 skip session.agent=plan. Kilo 7 skipped, 13 remain, work_match 1/13. No codex slug in sqlite yet. Snapshot `reports/versions/v30/`.

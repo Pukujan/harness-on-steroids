@@ -94,6 +94,16 @@ def write_after_look_run(seq: list[str]) -> bool:
     return False
 
 
+def _agents(db: Path) -> dict[str, str]:
+    try:
+        con = sqlite3.connect(f"file:{db}?mode=ro", uri=True)
+        rows = {sid: (agent or "") for sid, agent in con.execute("SELECT id, agent FROM session")}
+        con.close()
+        return rows
+    except sqlite3.Error:
+        return {}
+
+
 def _tools(db: Path) -> dict[str, list[str]]:
     con = sqlite3.connect(f"file:{db}?mode=ro", uri=True)
     by: dict[str, list[str]] = {}
@@ -179,8 +189,13 @@ def score_seq(seq: list[str]) -> dict:
     }
 
 
-def summarize(db: Path, skip_prefixes: tuple[str, ...] = ("study-os",)) -> dict:
+def summarize(
+    db: Path,
+    skip_prefixes: tuple[str, ...] = ("study-os",),
+    skip_agents: tuple[str, ...] = ("plan",),
+) -> dict:
     seqs = _tools(db)
+    agents = _agents(db)
     n = 0
     r1_ok = 0
     r2_ok = 0
@@ -197,19 +212,26 @@ def summarize(db: Path, skip_prefixes: tuple[str, ...] = ("study-os",)) -> dict:
     wrote_n = 0
     sandwich = 0
     skipped = 0
+    skipped_plan = 0
+    multi_n = 0
     firsts = Counter()
     masks: Counter = Counter()
     bursts: list[int] = []
     before_write: list[int] = []
     before_decomp: list[int] = []
-    for seq in seqs.values():
+    for sid, seq in seqs.items():
         if not seq:
+            continue
+        if agents.get(sid) in skip_agents:
+            skipped_plan += 1
             continue
         if any(any(x.startswith(p) for p in skip_prefixes) for x in seq):
             skipped += 1
             continue
         n += 1
         s = score_seq(seq)
+        if s["multi_piece"]:
+            multi_n += 1
         firsts[s["first"]] += 1
         masks[s["fail_mask"]] += 1
         bursts.append(int(s["start_look_burst"]))
@@ -249,6 +271,7 @@ def summarize(db: Path, skip_prefixes: tuple[str, ...] = ("study-os",)) -> dict:
         "db": db.name,
         "sessions_with_tools": n,
         "skipped_study_os": skipped,
+        "skipped_plan": skipped_plan,
         "r1_look_first": r1_ok,
         "r3_read_first": r3_ok,
         "work_match": match_n,
@@ -268,13 +291,7 @@ def summarize(db: Path, skip_prefixes: tuple[str, ...] = ("study-os",)) -> dict:
         "median_start_look_burst": int(statistics.median(bursts)) if bursts else None,
         "median_tools_before_write": int(statistics.median(before_write)) if before_write else None,
         "median_tools_before_decompose": int(statistics.median(before_decomp)) if before_decomp else None,
-        "multi_piece": sum(
-            1
-            for seq in seqs.values()
-            if seq
-            and not any(any(x.startswith(p) for p in skip_prefixes) for x in seq)
-            and score_seq(seq)["multi_piece"]
-        ),
+        "multi_piece": multi_n,
         "firsts": firsts.most_common(8),
         "fail_masks": masks.most_common(12),
     }

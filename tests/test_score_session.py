@@ -87,6 +87,18 @@ def test_r4_todowrite_fails_work() -> None:
     assert score_seq(["read", "task", "edit"])["wrote_without_task"] is False
 
 
+def test_skip_plan_agent() -> None:
+    from unittest.mock import patch
+
+    fake = {"a": ["read", "edit"], "b": ["read", "grep"]}
+    with patch("src.score_session._tools", return_value=fake):
+        with patch("src.score_session._agents", return_value={"a": "plan", "b": "code"}):
+            out = summarize(Path("x.db"))
+    assert out["skipped_plan"] == 1
+    assert out["sessions_with_tools"] == 1
+    assert out["r1_look_first"] == 1
+
+
 def test_skip_study_os_prefix() -> None:
     from src.score_session import summarize
     from unittest.mock import patch

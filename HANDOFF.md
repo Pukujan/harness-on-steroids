@@ -32,6 +32,8 @@ Primary: **ChatGPT Work** `codex_work_desktop` (**87** sessions). `apply_patch` 
 
 **v29:** Kilo `/goal` selects the Codex agent (`agent: codex`), same as OpenCode.
 
+**v30:** scorer skips plan-agent sessions. Kilo work_match 1/13. sqlite has `code`/`build`, not `codex` yet.
+
 VS Code Codex (16) is shell↔patch — **not** Work gold.
 
 Kilo/OpenCode **imitate** Work via `.kilo/agent/codex.md` and `.opencode/agent/codex.md`. Scorer: `src/score_session.py` (R1 look-first, **R2 no-write**, **R6 decompose-not-first**). Pattern: `spec/future-agent-pattern.md`.
