@@ -95,5 +95,12 @@ def summarize(db: Path, skip_prefixes: tuple[str, ...] = ("study-os",)) -> dict:
         "write_first": write_first,
         "wrote": wrote_n,
         "sandwich_look_after_write": sandwich,
+        "multi_piece": sum(
+            1
+            for seq in seqs.values()
+            if seq
+            and not any(any(x.startswith(p) for p in skip_prefixes) for x in seq)
+            and score_seq(seq)["multi_piece"]
+        ),
         "firsts": firsts.most_common(8),
     }

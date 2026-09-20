@@ -39,3 +39,5 @@ jobs:
         run: pytest tests/test_prompt_stack.py
       - name: score-session
         run: pytest tests/test_score_session.py
+      - name: future-agent-pattern
+        run: pytest tests/test_future_agent_pattern.py

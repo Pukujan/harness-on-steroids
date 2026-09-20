@@ -26,6 +26,12 @@ def test_differential_empty_vs_write() -> None:
     assert score_seq(["patch"])["r1_look_first"] is False
 
 
+def test_multi_piece_task_counts() -> None:
+    s = score_seq(["read", "task", "read"])
+    assert s["multi_piece"] is True
+    assert score_seq(["read", "edit"])["multi_piece"] is False
+
+
 def test_skip_study_os_prefix() -> None:
     from src.score_session import summarize
     from unittest.mock import patch

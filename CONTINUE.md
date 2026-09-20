@@ -22,4 +22,4 @@ After each slice: append `research/JOURNAL.md` (what/why/evidence). Occasional g
 
 ## Wakeups
 
-If fewer than two wakeups remain before the deadline, schedule more. Restart dead runners. Do not wait.
+If the session pauses, **wakeup every 10 minutes**. Cap is 10 pending: keep a chain of 10m wakeups plus the 20h-end and 48h deadline. Each wakeup must schedule another 10m if fewer than four 10m-wakeups remain. Restart dead runners. Do not wait.

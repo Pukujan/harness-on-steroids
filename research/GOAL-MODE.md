@@ -35,7 +35,7 @@ Hermes also has `/loop` (timed re-fire) and `/heartbeat` (idle re-prompt). Those
 
 | Piece | Kilo | Hermes/Codex `/goal` |
 | --- | --- | --- |
-| Slash file `/goal` we added | Re-injects PLAN.md once | Not the same |
+| Slash file `/goal` (removed) | Collided with Kilo's reserved `/goal` | Use the product command |
 | `schedule_wakeup` | New turn later | Same session, every turn |
 | Judge | None | Aux model every turn |
 | Shell gates | pytest in CI, not in-session | `/goal gate add` |

@@ -20,6 +20,7 @@ for name in ("kilo.db", "opencode.db"):
     lines.append(f"- skipped_study_os: **{out.get('skipped_study_os', 0)}**")
     lines.append(f"- wrote: **{out.get('wrote', 0)}**")
     lines.append(f"- sandwich look-after-write: **{out.get('sandwich_look_after_write', 0)}**")
+    lines.append(f"- multi_piece (task/todo/wait-ish): **{out.get('multi_piece', 0)}**")
     lines.append("")
     lines.append("| first | n |")
     lines.append("| --- | --- |")
