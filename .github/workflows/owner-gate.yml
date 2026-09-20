@@ -65,3 +65,5 @@ jobs:
         run: pytest tests/test_empty_by_originator.py
       - name: exec-empty
         run: pytest tests/test_exec_empty.py
+      - name: exec-vs-work
+        run: pytest tests/test_exec_vs_work.py

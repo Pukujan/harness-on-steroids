@@ -54,3 +54,4 @@ How this project actually proceeds. Append-only. No message bodies.
 - v32 mixed-corpus first-tool calls only: exec 1131, no create_thread. gold_analysis tool_name requires call types. Snapshot `reports/versions/v32/`.
 - v33 empty-by-originator: 326/1521 no calls; codex_exec 210/315 empty; Work 4/87. Snapshot `reports/versions/v33/`.
 - v34 empty codex_exec: 210/315, median 9 lines, messages+task_started. Not Work. Snapshot `reports/versions/v34/`.
+- v35 nonempty exec vs Work: exec 31/105 patch vs Work 1/83. Snapshot `reports/versions/v35/`.
