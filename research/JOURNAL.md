@@ -97,3 +97,9 @@ How this project actually proceeds. Append-only. No message bodies.
 - Owner: put research/planning/provenance/compacted/checkpoints into the plan, not chat. PLAN G–I, ISSUES 14–17, `spec/work-research-gates.md`, CI test. Measurement not run. Do not treat the chat as the project.
 - Foundation: `spec/repo-modules.md`, `research/work-ux-gaps.md`, `spec/combined-slices-goal.md` (not started), `src/hos/` facade, ruff+mypy in pyproject, issue 18, tests/test_repo_modules.py. Combined `/goal` not launched.
 - Issue 13 stop-when notes rechecked from copies (no bodies): develop 16 and holdout 6 all have OpenCode tool seqs. Morph *replays with tools* now 3: `0d6ca4607eaf` (12, timeout, todowrite+bash), `2bde00530ddd` (29), `6e412585c223` (29). File-only morphs are not extra evidence. Rescored copies; replay-scores table unchanged. Verification pytest green. Did not `--auto` original Work cwds. Did not start combined-slices. Issues 14–18 still queued. Full original-cwd multi-turn still not done.
+
+## 2026-09-21 — harness-agnostic planning reset
+
+- Read the issue log, owner plan, handoff, research status/journal, UX gaps, research/provenance gates, module map, matched-task specs/reports, source scorer/goal code, and test contracts.
+- Added the proposal package under `spec/harness-agnostic/`. It treats Kilo/OpenCode as adapters and expands the target to Pi and future harnesses through a portable behavior protocol, evidence/lineage plane, UX and behavior research, action-plan/execution/verification, recovery/continuity, capability negotiation, and outcome gates.
+- No implementation, prompt rewrite, replay execution, cleanup, or raw transcript/body export was performed. Existing code and issues remain preserved as historical/prototype state pending owner review.

@@ -174,6 +174,16 @@ Status: `open` | `in_progress` | `done`
 - **Pass:** module map + work-ux-gaps exist; pyproject has ruff/mypy; hos imports; CI lists this test
 - **Parent:** 1
 
+### 19. Harness-agnostic behavior-system reset proposal
+
+- **Status:** open
+- **Goal:** Replace the narrow “two prompt modes imitate Codex” framing with an owner-reviewed, harness-agnostic protocol plan covering evidence/provenance, UX research, behavior annotation, research-to-action lineage, action plans, execution, verification, recovery, compaction, handoff, capability negotiation, adapters, and outcome evaluation. Pi and future harnesses are in scope; Kilo/OpenCode are examples.
+- **Files:** `spec/harness-agnostic/`
+- **Command:** owner review; no implementation command yet
+- **Pass:** package is reviewed and accepted before any implementation or `/goal`; current code remains historical/prototype evidence until then
+- **Notes:** This issue is a planning proposal only. It does not supersede `PLAN.md`, authorize cleanup, or permit raw transcript/account data in Git.
+- **Parent:** 8, 13–18
+
 ## Rules for agents
 
 - Do not close 1–7 by deleting tests.
