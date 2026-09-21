@@ -1,0 +1,11 @@
+{
+  "schema_version": "content-generation.review-rubric.v1",
+  "dimensions": [
+    {"id": "human_comprehension", "question": "Can a first-time reader explain the loop this repository studies after twenty seconds?", "weight": 2},
+    {"id": "evidence_safety", "question": "Can claims be traced to the owner plan, reports, specs, or tests?", "weight": 3},
+    {"id": "skimmability", "question": "Do headings, bold anchors, and first sentences carry the story?", "weight": 2},
+    {"id": "visual_clarity", "question": "Are the people, robot, and loop visible without competing panels?", "weight": 2},
+    {"id": "responsive_fit", "question": "Does the story still work when the wide and square assets stack?", "weight": 1}
+  ],
+  "decision_rule": "Accept only when evidence_safety passes and no weighted dimension is below 3/5; human review decides promotion."
+}

@@ -1,0 +1,9 @@
+{
+  "schema_version": "content-generation.brand-language.v1",
+  "name": "Harness on steroids",
+  "personality": ["curious", "direct", "research-led", "plainspoken", "unromantic about evidence"],
+  "audience_feeling": "The reader should understand why a capable model can still fail inside a careless loop, and see exactly what this repository measures and changes.",
+  "promise": "Make the agent's surrounding behavior observable, teach the useful habits explicitly, and keep the gap between process and outcome visible.",
+  "preferred_terms": {"trust": "behavior we can inspect", "research": "what the local corpus shows", "technical detail": "explain the reason before the mechanism"},
+  "avoid": ["AI-powered harness", "seamlessly improves agents", "state-of-the-art", "guarantees reliability", "human-like coding"]
+}
