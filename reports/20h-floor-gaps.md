@@ -15,7 +15,7 @@ Not complete. Do not fake `<<GOAL_LOOP_COMPLETE>>`.
 | Gap | Evidence |
 | --- | --- |
 | Issue 12 | Owner has not said behavior match. Kilo `code` 1/13; OpenCode `build` 3/19 |
-| Issue 13 | 16 develop + 6 holdout have process/outcome **notes**; live multi-turn original-cwd replay **not done**. Morph **tool** replays: 3. Ten develop hashes have `morphs/m1.md` but **0-byte** `opencode-morph.ndjson` (file-only, not a replay). Holdout morphs still pending. |
+| Issue 13 | Live original-cwd multi-turn **not done**. Morph tool replays still **3**. Ten develop hashes had file-only morphs. Tried OpenCode morph on `74841f3cc419`: ndjson is one `error`/`APIError`, **empty-tools** — do not mark morph yes. |
 | Issues 14–18 | Queued; do not start combined-slices `/goal` unless owner pastes it |
 | 10m chain | Died during the 20h window; restore for remaining 48h |
 
