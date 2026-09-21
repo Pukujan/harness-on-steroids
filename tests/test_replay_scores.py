@@ -22,4 +22,4 @@ def test_replay_scores_work_column_only() -> None:
     assert "| 1442d08cf2d3 | yes | none | yes/none/yes | no/R2+R4+R5/partial | pending |" in text
     assert "not done" in text
     assert text.count("| yes |") >= 20
-    assert "| 1b09f49da9b9 | no | R3 |" in text
+    assert "| 1b09f49da9b9 | no | R3 | yes/none/yes | no/R3/partial | yes |" in text
