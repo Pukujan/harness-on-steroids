@@ -13,6 +13,7 @@ def test_replay_scores_work_column_only() -> None:
     assert "| 633c140546c0 | yes | none | yes/none/partial | yes/none/partial | yes |" in text
     assert "| 6b1cd28c4803 | yes | none | yes/none/yes | no/R2+R5/partial | yes |" in text
     assert "| 8d42bc26b8ea | yes | none | yes/none/no | no/R2+R5/partial | yes |" in text
+    assert "| 74841f3cc419 | yes | none | yes/none/partial | yes/none/partial | yes |" in text
     assert "| a5842562d1c9 | yes | none | yes/none/partial | no/R2+R5/partial | yes |" in text
     assert "| bd179678f540 | yes | none | yes/none/partial | yes/none/partial | yes |" in text
     assert "| b7e6393f4c14 | yes | none | yes/none/yes | no/R2+R5/partial | yes |" in text
