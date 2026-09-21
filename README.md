@@ -1,6 +1,4 @@
-<p align="center">
-  <img src="docs/waifu.svg" alt="Harness on steroids mascot" width="180">
-</p>
+
 
 # Why coding agents flake — and what this repo is doing about it
 
