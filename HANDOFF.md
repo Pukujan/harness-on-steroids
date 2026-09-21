@@ -1,50 +1,62 @@
 # Handoff
 
-**Owner wins:** `AGENTS.md` → `PLAN.md` → `ISSUES.md` → `CONTINUE.md`.
+**Owner precedence:** AGENTS.md -> PLAN.md -> checkpoints/CURRENT.md -> active GitHub issue -> HANDOFF.md -> ISSUES.md.
 
-## 20h loop (now)
+## Current direction
 
-**20h floor elapsed** 2026-09-21T12:05Z (`reports/20h-floor-gaps.md`). Not complete. Keep 48h until **2026-09-22T05:58:00Z**. Restore 10-minute wakeups if paused. Do not SWE-bench. Do not wait.
+The owner accepted the model- and harness-agnostic behavioral-control reset on **2026-09-21**.
 
-That no-stop is after `/goal` + go-ahead. Ordinary chat answers first and seeks go-ahead.
+The project now learns from the complete observable behavior in local ChatGPT Work/Codex transcripts and transfers those supported behaviors through the smallest effective control-layer changes. Prompt/context engineering remains the first intervention. A general runtime state machine is not pre-authorized; runtime guards are added only when repeated evidence earns them.
 
-## /goal paste
+Normal development runs **Pi + OpenCode + Grok Build in the same slice** where technically possible. Record exact model/provider/harness/config, but do not make any model the product boundary.
 
-`spec/matched-task-goal.md` (updated v65 next-queue). Kilo reserved `/goal`: paste into Set goal after reload. Do **not** add `.kilo/command/goal.md`. CLI: `python -m src.goal_cli status`.
+Kilo Codex v0 remains a positive-control baseline and historical proof that behavior prompting can materially improve a harness.
 
-## Queued in PLAN (not started)
+## Active issue
 
-G–I: Work research/planning/provenance counts, git checkpoints, portable pack. Spec: `spec/work-research-gates.md`. Issues 14–17.
-Research note: `research/work-ux-gaps.md`. Module map: `spec/repo-modules.md`. Combined `/goal` (not started): `spec/combined-slices-goal.md`. Issue 18: lint/types/layout.
+GitHub issue **#2 - Baseline multi-harness Work behavior replay**.
 
-## Next slice (issue 13 stop-when notes present)
+Start with 3-5 existing long Work-derived development tasks. No new intervention initially. Run Pi, OpenCode, and Grok Build, capture all observable behavior available, and identify the largest recurring deviations plus one smallest next hypothesis.
 
-`reports/replay-scores.md` has develop 16 Kilo+OpenCode cells, holdout 6 OpenCode one-turn cells, morph ≥3. Morph *replays with tools*: `0d6ca4607eaf`, `2bde00530ddd`, `6e412585c223`. No Codex mode edits for holdout. Full original-cwd multi-turn still not done. Issues 14–18 remain queued. Do not start `spec/combined-slices-goal.md` unless the owner pastes it.
+Do not turn issue #2 into a protocol/framework implementation.
 
-Owner can extend: extra `-c` turns, original worktrees, holdout morphs. Do not treat one-turn sandbox scores as full Work outcome match.
+## Reference evidence
 
-Gitignored `.env` has OpenRouter/Zen keys; do not commit it.
+Primary reference: local ChatGPT Work codex_work_desktop, originators kept separate.
 
-## Current gold (do not average)
+Existing v0 evidence remains valuable:
+- hashed corpus ~1521 files;
+- Work 87 sessions / 83 with calls;
+- wait 31/83, send 25, spawn 2, update_plan 0, patch 1/83;
+- Kilo/OpenCode Codex-mode prompts;
+- R1-R6 scorer;
+- 22 long Work replay threads (16 develop, 6 holdout);
+- morph/replay reports.
 
-One-pager: `reports/codex-originator-dashboard.md`.
+Those counts are diagnostics, not the full definition of good behavior.
 
-Primary: **ChatGPT Work** `codex_work_desktop` (**87** files / **83** with calls). Patch **1/83**, wait **31/83**, send **25**, spawn 2, `update_plan` **0**. First call exec 81 / shell 2. Never send first (83/83).
+The richer target includes interaction shape, research, observation, waits, verification, provenance, output behavior, corrections, context/continuity, outcome, and repeated-run variance.
 
-Do not imitate vscode (12/13 patch, 0 wait, 0 send) or nonempty `codex_exec` (31/105 patch, 11 plan). Desktop patch 1/994 — not the sandwich.
+## Continuity
 
-Hashed jsonl **1521**. Spec: `spec/codex-imitate-mode.md`. Modes: `.kilo/agent/codex.md`, `.opencode/agent/codex.md`. Issue 12 process; issue 13 matched-task **not complete**.
+Read checkpoints/CURRENT.md for the exact next action. GitHub Issues hold executable experiment scope and pass conditions. Do not recover project state from chat history if repository state exists.
 
-Pytest owner-gate must stay green.
+Update CURRENT after real experimental work, not after discussion-only turns.
 
-## Do not
+## Historical planning package
 
-Commit `data/` or bodies. Print `user.md`. Bundle long OpenCode runs in one tool call.
+spec/harness-agnostic remains useful architecture/research thinking, but the final owner-approved operating contract is spec/harness-agnostic/12-owner-accepted-operating-contract.md.
 
-## Content-system preview
+Where earlier package text requires a large prebuilt protocol/state-machine architecture, owner spec v2 and file 12 win: start with the empirical multi-harness loop and earn additional machinery from observed failures.
 
-- helper: `content-generation-modules` v0.1.2 at commit `cb8c18fa7789e4b651e1f963892bf056b0d3276d`
-- review files: `docs/content-system-preview.md`, `docs/content-system-preview.html`
-- generated assets: `docs/content-system-assets/hero.png`, `docs/content-system-assets/supporting-square.png`
-- visual rule: narrative raster assets carry one short title and subtitle; SVGs and tiny helper graphics remain text-free
-- merged via PR #1. Read `.content-system/` before changing README, marketing, UX, image, or HTML content.
+## Existing files
+
+Do not wipe v0 for cleanliness. Git history is the archive. Existing modes/scorers/replays remain baseline/history until a measured replacement plus audit mapping exists.
+
+## Privacy
+
+Never commit raw JSONL, SQLite, replay prompt bodies, credentials, private account exports, user artifacts, or unsafe identifiers.
+
+## Long-running mode
+
+This accepted plan does not automatically start /goal. CONTINUE.md applies only after a specific goal and explicit owner go-ahead. Ordinary status/conversation still answers first.

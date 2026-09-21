@@ -1,62 +1,118 @@
-# harness-on-steroids — owner instructions
+# harness-on-steroids - owner instructions
 
-**The user owns this project. Agents do not.** If an older plan, PAM note, literature brief, or prior agent disagrees with this file or `PLAN.md`, **this file and PLAN.md win.** Do not “correct” the owner with SWE-bench, Harbor, mini-SWE-agent, or “don’t treat Codex as gold.”
+**The user owns this project. Agents do not.** If an older plan, proposal, mode prompt, issue note, or prior agent disagrees with this file or PLAN.md, this file and PLAN.md win.
 
 Read in this order:
 
-1. `AGENTS.md` (this file)
-2. `PLAN.md`
-3. `HANDOFF.md`
-4. `.content-system/system-version.json` and the relevant `.content-system/` files before changing README, marketing, UX, image, or HTML content.
+1. AGENTS.md
+2. PLAN.md
+3. checkpoints/CURRENT.md
+4. the active GitHub issue named by CURRENT.md
+5. HANDOFF.md
+6. ISSUES.md
 
-Do not treat `.kilo/plans/1789773436389-harness-on-steroids-campaign.md` as source of truth. It is leftover campaign text.
+Before changing README, marketing, UX, image, or HTML content, also read .content-system/system-version.json and the relevant .content-system files.
 
 ## What this project is
 
-Local **ChatGPT Work / Codex desktop** transcripts are the **gold behavior**.
+ChatGPT Work / Codex transcripts are reference evidence for observable agent behavior. The long-term target is **model- and harness-agnostic** control: learn useful observable behavior from that corpus and transfer it across coding-agent harnesses without requiring the same model, tool names, prose, or exact trajectory.
 
-Analyze **all** of those transcripts. Learn how Codex **splits work into tasks** and **chains tool calls**. Write that down as a spec.
+The reference is richer than tool order. Measure interaction shape, inspection and research, waits, delegation, tool calls and results, verification, provenance, output behavior, corrections, continuity/context management, terminal status, task outcome, and repeated-run variance when those signals are observable.
 
-Then make **Kilo** (whatever model it is using now) and **OpenCode** (including free models, build mode) **imitate that same behavior**. Add a **mode** that is a copy of how Codex works. Both products should follow it.
+Do not infer hidden chain-of-thought. Do not turn an unobserved signal into a fact.
 
-Label corpus rows `source=codex_work`. This is local Codex/Work, not chatgpt.com Cloud.
+## Active development surfaces
 
-## Gold
+Pi, OpenCode, and Grok Build run in the same development slice when technically possible. Record the exact harness version, model/provider, control version, environment fidelity, and run attempt.
 
-Codex/ChatGPT Work **behavior** is gold: task decomposition, tool-call chains, research-then-act, verification habits, sub-agents, plans, skills.
+The project is model-agnostic. Using the same model across harnesses is a useful isolation test when convenient, not a requirement for normal iteration.
 
-The transcript is enough data **for the process recipe**. There are already ~1.5k rollout files and a large sqlite index. **Do not invent a new exam. Do not re-test Codex on public benchmarks. Do not build a “Codex-style agent” from SWE-bench papers.**
+Kilo Codex v0 is a positive-control baseline. The existing Kilo/OpenCode Codex prompts, R1-R6 scorer, 22-thread replay work, morphs, and reports are valuable historical/prototype evidence. They do not define the future product boundary.
 
-Owner also wants **matched-task outcome**: the same local Work asks, replayed into Kilo/OpenCode (gitignored prompts), scored on observable results—not only tool names. That is PLAN step F, not SWE-bench.
+## Control-layer rule
 
-## Do this
+Prompt/context control is the first intervention. Prefer the smallest change to behavior instructions, context composition, capability/tool presentation, continuation/checkpoint context, or adapter lowering that tests one hypothesis.
 
-1. Parse **all** hashed local Codex JSONL (+ archived). Copy-hash first; never commit raw JSONL or message bodies.
-2. Classify how Codex turns a user ask into **multiple tasks** and **tool sequences**. Write `reports/codex-gold-behavior.md` and a mode spec.
-3. Implement that spec as a **Kilo agent/mode** and an **OpenCode agent/mode** (and/or skill) so they behave like Codex **with the models already in use**, including free OpenCode models in build mode.
-4. Keep going until the spec is written from the full corpus and the modes exist.
+State-machine enforcement is earned, not assumed. Semantic phase/state labels are useful for normalization and scoring. Add runtime state or guards only when repeated evidence across tasks/harnesses shows that prompt/context control is insufficient, and keep the guard only if measured behavior or outcomes improve.
+
+Do not pre-build a general orchestration framework, event platform, graph database, or full protocol implementation merely because a proposal names one.
+
+## Fast empirical loop - mandatory
+
+Every active implementation slice should normally contain one main behavior hypothesis:
+
+1. choose a small set of existing representative Work-derived tasks;
+2. run Pi + OpenCode + Grok Build in the same slice where possible;
+3. capture the complete observable trajectory and outcome;
+4. compare automatically against reference evidence and the previous control version;
+5. make the smallest control-layer change;
+6. rerun;
+7. keep, revert, or refine from the measured result.
+
+A substantial slice must produce a measured reference signal, an automated evaluation capability, or an observable behavior/outcome result. Architecture-only progress is not enough.
+
+Use repeated generations and morphs when they answer a concrete robustness question. Behavioral variance is itself a signal: a strong control layer should make desirable behavior more stable across models, harnesses, and reruns.
+
+## Evaluation
+
+Tool order is diagnostic, not the goal. R1-R6 remain a historical/cheap process layer.
+
+Evaluate the complete observable trajectory where available:
+
+- interaction and user-turn handling;
+- inspect/research sufficiency;
+- native actions, waits, failures, retries, and delegation;
+- verification after material changes or uncertain results;
+- provenance/evidence supporting consequential claims;
+- output behavior, uncertainty, partial/blocked/complete honesty;
+- continuity across long tasks, corrections, interruption, or compaction;
+- observable task outcome and forbidden side effects;
+- repeated-run deviation.
+
+Equivalent tools, wording, decomposition, and implementations may pass when they satisfy the same task and behavioral obligations.
+
+## Scope control
+
+Large destination, tiny verified steps.
+
+- GitHub Issues are the active work graph. Keep only a small number of active experimental issues.
+- Do not pre-create a speculative 50-step implementation backlog.
+- Do not change the evaluator to rescue a disappointing candidate result.
+- Freeze task fixtures/acceptance criteria before tuning on them.
+- Holdout/morph boundaries stay sealed during tuning.
+- Do not promote a process improvement that harms outcome, verification, safety, or truthful reporting.
+- Preserve the working prompt-only baseline so added machinery must demonstrate value beyond it.
+
+## Durable continuity
+
+Do not treat the chat as project memory. GitHub and the repository are authoritative.
+
+checkpoints/CURRENT.md names the active issue, current hypothesis/baseline, last verified result, and exact next action. Update it after a real slice. GitHub Issues hold executable experiments and their acceptance criteria. research/JOURNAL.md remains an append-only research trail; it is not source-of-truth state.
+
+## Existing code and history
+
+The old code is disposable; evidence and lessons are not.
+
+Do not mass-delete or move v0 files merely for cleanliness. Git history already preserves them. Keep the current Codex-mode implementation and replay/scoring artifacts available as v0 baseline/history until a measured replacement exists. Relocate/delete only with an audit mapping and replacement evidence.
+
+## Evidence and privacy
+
+The primary reference population remains the versioned local ChatGPT Work/Codex evidence, with originators/clients kept separate. The account-wide provenance exporter may enrich the local evidence plane; Harness on Steroids should consume approved redacted/derived interfaces rather than copy private bodies into Git.
+
+Raw JSONL, SQLite, prompts/transcript bodies, credentials, private account exports, user artifacts, raw account identifiers, and unsafe reversible identifiers stay local. Git may contain specs, structural/aggregate findings, approved hashes/aliases, tests, reports, and redacted examples.
 
 ## Do not
 
-- Argue that transcripts cannot be gold
-- Run SWE-bench, Terminal-Bench, Harbor, or mini-SWE-agent as the project
-- Test Codex again on new tasks
-- Build a separate Codex-clone product instead of teaching Kilo and OpenCode
-- Scrape Brave or Chromium Codex web cache
-- Commit message bodies, raw JSONL, sqlite, or session_diff
-- Mix this with `hades-product` or `colorful-income`
-- Create the old 26 GitHub-issue campaign as a substitute for this work
+- Do not invent a new public exam or replace the project with SWE-bench, Terminal-Bench, Harbor, or another leaderboard.
+- Do not re-test Codex merely to create a public benchmark.
+- Do not build a standalone Codex clone.
+- Do not make a particular model or harness the product boundary.
+- Do not require exact Work tool sequences or exact prose as universal correctness.
+- Do not claim private reasoning was observed.
+- Do not commit private corpus bodies or secrets.
 
-## Privacy
+## Chat first, then explicit long-run authorization
 
-Copy then hash before parse. Git may contain specs, counts, redacted goldens, mode prompts. Not user chat text.
+Before /goal and an explicit go-ahead, conversation is the job. Answer questions and status requests. **Seek go-ahead before starting a long-running task.** A status question is not a standing goal.
 
-## Stop rewriting the goal
-
-If you think SWE-bench is “better science,” **do not substitute it**. Do the analysis and the imitate-Codex modes. The owner already decided.
-
-## Chat first, then no-stop
-
-Before `/goal` and an explicit go-ahead, conversation is the job. Answer questions in detail. Clarify. **Seek go-ahead before starting a long-running task.** A status question is not a standing goal. ChatGPT Work looks, then talks. It does not start a no-stop loop from ordinary chat.
-
-After `/goal` is set, the plan is frozen, and the owner says go, the no-stop loop applies: Owner ordered at least **48 hours** of autonomous progress (`CONTINUE.md`). Do not wait for approval. Do not stop yourself. CI owner-gate tests are mandatory; do not delete them.
+After a /goal is explicitly set and the owner says go, CONTINUE.md governs autonomous continuation. The presence of PLAN.md, CURRENT.md, or an open GitHub issue does not itself authorize a long-running loop.

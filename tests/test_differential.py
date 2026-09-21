@@ -10,21 +10,19 @@ def test_two_checkers_agree_on_current_docs() -> None:
 
 def test_two_checkers_agree_on_failure(monkeypatch) -> None:
     spec = load_spec()
-    monkeypatch.setattr(
-        "src.owner_invariants.read_doc",
-        lambda name: "not the owner docs",
-    )
+    monkeypatch.setattr("src.owner_invariants.read_doc", lambda name: "not the owner docs")
     a = check_snippets_contains(spec)
     b = check_snippets_regex(spec)
     assert a and b
     assert len(a) == len(b)
 
 
-def test_agents_and_plan_do_not_contradict_gold() -> None:
-    agents = read_doc("AGENTS.md")
-    plan = read_doc("PLAN.md")
-    assert "gold" in agents.lower() and "gold" in plan.lower()
-    assert "Kilo" in agents and "Kilo" in plan
-    assert "OpenCode" in agents and "OpenCode" in plan
-    assert "Do not invent a new exam" in agents
-    assert "No public coding exam" in plan
+def test_owner_docs_share_new_direction() -> None:
+    blob = "\n".join(
+        read_doc(name)
+        for name in ("AGENTS.md", "PLAN.md", "checkpoints/CURRENT.md")
+    )
+    for needle in ("Pi", "OpenCode", "Grok Build", "Kilo Codex v0"):
+        assert needle in blob
+    assert "model- and harness-agnostic" in blob
+    assert "Do not invent a new public exam" in read_doc("AGENTS.md")

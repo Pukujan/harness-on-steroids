@@ -12,31 +12,13 @@ def test_repo_modules_map_exists() -> None:
         "Adapt",
         "Lib",
         "Gate",
-        "src/hos/",
-        "Lint and types",
+        "State",
+        "owner.v2.json",
+        "checkpoints/CURRENT.md",
+        "No substantial architecture-only slice",
         "New analysis scripts in the repo root",
     ):
         assert n in text, n
-
-
-def test_work_ux_gaps_doc_exists() -> None:
-    text = (ROOT / "research" / "work-ux-gaps.md").read_text(encoding="utf-8")
-    for n in (
-        "Measurement not run",
-        "send_message",
-        "compacted",
-        "Do not treat the chat as the project",
-        "PCM vs imitate pack",
-        "Isolated `oc-sandbox`",
-    ):
-        assert n in text, n
-
-
-def test_combined_slices_goal_is_not_started() -> None:
-    text = (ROOT / "spec" / "combined-slices-goal.md").read_text(encoding="utf-8")
-    assert "Not started" in text
-    assert "Do not SWE-bench" in text
-    assert "issue 18" in text
 
 
 def test_pyproject_declares_ruff_and_mypy() -> None:
@@ -55,7 +37,13 @@ def test_hos_facade_imports() -> None:
     assert GoalEngine is not None
 
 
-def test_issues_include_foundation() -> None:
+def test_issues_preserve_v0_history_and_map_active_work() -> None:
     issues = (ROOT / "ISSUES.md").read_text(encoding="utf-8")
-    assert "18. Repo modules, lint, types" in issues
-    assert "Do not replace 8–18" in issues
+    for needle in (
+        "v0 historical lineage - issues 1-18",
+        "18. Repo modules, lint, types",
+        "20. Governance switch / owner spec v2",
+        "GitHub issue #2 - Baseline multi-harness Work behavior replay",
+        "Do not replace 8-18",
+    ):
+        assert needle in issues, needle

@@ -107,3 +107,14 @@ How this project actually proceeds. Append-only. No message bodies.
 - Reviewed the full harness-agnostic package against AGENTS/PLAN/ISSUES/HANDOFF, UX/research gates, module map, matched-task eval, and current replay state. Added `spec/harness-agnostic/11-owner-review.md` and resolved all ten owner decision questions into recommended planning defaults in `10-owner-decisions-and-handoff.md`.
 - Planning amendments only: protocol now requires run/task-graph/attempt hierarchy and explicit terminal states; adapters require persisted capability negotiation; evaluation freezes acceptance/environment/model strata before tuning; new derived identifiers get a privacy-safe rule. No prompts, adapters, replay, cleanup, or runtime code changed.
 - Issue 19 moved to in_progress: architecture review is complete, but owner acceptance and the source-of-truth governance switch remain pending before any implementation or `/goal`.
+
+## 2026-09-21 — owner accepts model/harness-agnostic fast-loop direction
+
+- Owner accepted the architecture reset with a simpler operating contract: rich Work/Codex observable behavior is reference evidence; the project is model- and harness-agnostic.
+- Normal development surfaces are Pi + OpenCode + Grok Build in the same slice where technically possible. Exact model/provider/harness/control versions are recorded; same-model parity is useful but optional.
+- Kilo Codex v0, R1–R6, 22-thread replay/morph work, and existing reports remain positive-control/history rather than the active product boundary.
+- Prompt/context/capability/checkpoint control comes first. A general runtime state machine is not required; narrow enforcement must be earned by repeated measured failure and a successful experiment.
+- Fast-loop invariant: one main behavior hypothesis, smallest intervention, automatic multi-harness rerun, visible result, keep/revert/refine. No substantial architecture-only slice.
+- GitHub/repository continuity is authoritative. Created GitHub issue #2 for the first baseline and checkpoints/CURRENT.md for exact next action.
+- Governance switch targets owner spec v2; v1 remains historical. Raw/private transcript/account data remains local.
+

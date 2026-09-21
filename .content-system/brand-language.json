@@ -1,9 +1,16 @@
 {
   "schema_version": "content-generation.brand-language.v1",
   "name": "Harness on steroids",
-  "personality": ["curious", "direct", "research-led", "plainspoken", "unromantic about evidence", "open to rebuilding the mechanism"],
-  "audience_feeling": "The reader should see why a capable model can still fail inside a careless loop, understand the evidence-to-action system this repository is planning, and know exactly what is shipped versus still proposed.",
-  "promise": "Make agent behavior observable, connect research to authorized action and verification, and keep the gap between process, UX, continuity, and outcome visible across harnesses.",
-  "preferred_terms": {"trust": "behavior we can inspect", "research": "what the local corpus shows", "technical detail": "explain the reason before the mechanism", "scope": "reference evidence plus harness adapters", "status": "shipped, experimentally supported, planned, or unknown"},
-  "avoid": ["AI-powered harness", "seamlessly improves agents", "state-of-the-art", "guarantees reliability", "human-like coding", "Codex clone"]
+  "personality": ["curious", "direct", "research-led", "plainspoken", "unromantic about evidence", "willing to replace mechanisms that do not earn their complexity"],
+  "audience_feeling": "The reader should understand that the project learns control behavior from rich Work/Codex evidence, tests it rapidly across different harnesses and models, and distinguishes shipped evidence from the next measured experiment.",
+  "promise": "Make agent behavior observable, transfer the useful control patterns through small measurable interventions, and keep process, output, continuity, variance, and verified outcome visible.",
+  "preferred_terms": {
+    "trust": "behavior we can inspect",
+    "research": "what the local corpus and experiments show",
+    "technical detail": "explain the reason before the mechanism",
+    "scope": "model- and harness-agnostic behavioral control",
+    "iteration": "one hypothesis, smallest intervention, measured rerun",
+    "status": "shipped, experimentally supported, planned, or unknown"
+  },
+  "avoid": ["AI-powered harness", "seamlessly improves agents", "state-of-the-art", "guarantees reliability", "human-like coding", "Codex clone", "framework complete"]
 }

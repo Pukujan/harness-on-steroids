@@ -1,14 +1,18 @@
 ---
-description: Resume the 48h owner loop. Codex gold. Next ISSUES.md item. Do not stop or wait for approval.
+description: Resume the explicitly approved owner goal under owner spec v2.
 agent: codex
 ---
 
-Read in order: AGENTS.md, PLAN.md, ISSUES.md, CONTINUE.md, HANDOFF.md, research/STATUS.md.
+Read in order: AGENTS.md, PLAN.md, checkpoints/CURRENT.md, the active GitHub issue, HANDOFF.md, ISSUES.md, CONTINUE.md.
 
-This command is post go-ahead. You are already told what to do. Do not wait for approval. Do not ask for a continue. Do not stop yourself. Do not run SWE-bench or Harbor as the project. Ordinary chat without `/goal` still answers first.
+This command is post go-ahead. It does not invent or broaden the goal. Ordinary chat without an explicit /goal still answers first.
 
-Codex/ChatGPT Work local transcripts are gold. Analyze all hashed JSONL for task splits and tool chains. Make Kilo and OpenCode imitate that (codex agent/mode). Use the current model / free OpenCode build mode. No message bodies in git.
+Use the current active experiment and its stop condition. Normal development uses **Pi + OpenCode + Grok Build in the same slice** where technically possible and records exact harness/model/provider/control configuration.
 
-Pick the next open item in ISSUES.md. If a runner is dead, restart it. If pytest owner-gate is red, fix tests without deleting them.
+Keep the empirical loop small: one behavior hypothesis, smallest intervention, automated comparison of the complete observable trajectory and outcome, then keep/revert/refine.
 
-Work until 2026-09-22T05:58:00Z or the owner says stop. If you would end the turn with only a status sentence, you are wrong — do the next file change or analysis step first.
+Prompt/context control comes first. Do not build a general runtime state machine unless repeated measured failures and the active issue explicitly justify a narrow guard.
+
+Do not replace the project with SWE-bench, Harbor, or another public exam. Do not commit transcript/prompt bodies, credentials, private exports, or data/.
+
+If the active issue is blocked, leave a precise checkpoint instead of inventing unrelated architecture.

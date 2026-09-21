@@ -1,0 +1,138 @@
+{
+  "schema": "harness-on-steroids/owner-spec/2.0.0",
+  "title": "Owner invariants - model- and harness-agnostic behavioral control",
+  "accepted_date": "2026-09-21",
+  "no_exception": true,
+  "read_order": [
+    "AGENTS.md",
+    "PLAN.md",
+    "checkpoints/CURRENT.md",
+    "active GitHub issue",
+    "HANDOFF.md",
+    "ISSUES.md"
+  ],
+  "goal": {
+    "reference": "local ChatGPT Work / Codex observable transcript evidence",
+    "target": "model- and harness-agnostic behavioral control",
+    "exact_tool_or_prose_imitation_required": false,
+    "public_benchmark_substitute": false
+  },
+  "harnesses": {
+    "active_development": ["pi", "opencode", "grok-build"],
+    "run_in_same_slice_when_possible": true,
+    "positive_control": ["kilo-codex-v0"],
+    "single_harness_is_product_boundary": false
+  },
+  "models": {
+    "model_agnostic": true,
+    "record_exact_identity": true,
+    "common_model_across_harnesses": "useful-optional",
+    "model_specific_optimization_is_goal": false
+  },
+  "control": {
+    "intervention_order": [
+      "prompt-and-behavior-instructions",
+      "context-selection-and-composition",
+      "tool-capability-presentation-and-lowering",
+      "checkpoint-continuation-context",
+      "narrow-runtime-guard-if-earned"
+    ],
+    "general_runtime_state_machine_required": false,
+    "semantic_state_labels_allowed_for_analysis": true,
+    "runtime_enforcement_requires_repeated_evidence": true
+  },
+  "evaluation": [
+    "interaction",
+    "research-and-inspection",
+    "execution-tools-waits-failures-delegation",
+    "verification",
+    "provenance",
+    "output-behavior",
+    "continuity",
+    "task-outcome",
+    "repeated-run-variance"
+  ],
+  "iteration": {
+    "one_main_behavior_hypothesis_per_slice": true,
+    "smallest_intervention": true,
+    "automatic_comparison": true,
+    "visible_result_required": true,
+    "architecture_only_slice_is_progress": false,
+    "holdout_sealed_during_tuning": true
+  },
+  "legacy": {
+    "v0_prompt_modes_are_baseline_history": true,
+    "r1_r6_are_diagnostic": true,
+    "old_code_may_be_replaced": true,
+    "evidence_and_lessons_preserved": true
+  },
+  "continuity": {
+    "chat_is_project_memory": false,
+    "current_checkpoint": "checkpoints/CURRENT.md",
+    "active_work_graph": "GitHub Issues"
+  },
+  "privacy": {
+    "raw_transcript_bodies_in_git": false,
+    "raw_sqlite_in_git": false,
+    "credentials_in_git": false,
+    "private_account_exports_in_git": false
+  },
+  "forbidden_as_project": [
+    "SWE-bench as the project",
+    "Terminal-Bench as the project",
+    "Harbor as the project",
+    "standalone Codex clone",
+    "exact tool-sequence cloning as the success criterion"
+  ],
+  "required_snippets": {
+    "AGENTS.md": [
+      "The user owns this project. Agents do not.",
+      "ChatGPT Work / Codex transcripts are reference evidence",
+      "model- and harness-agnostic",
+      "Pi, OpenCode, and Grok Build run in the same development slice",
+      "Kilo Codex v0 is a positive-control baseline",
+      "Prompt/context control is the first intervention.",
+      "State-machine enforcement is earned, not assumed.",
+      "Do not treat the chat as project memory.",
+      "Do not invent a new public exam",
+      "Seek go-ahead before starting a long-running task",
+      "A status question is not a standing goal"
+    ],
+    "PLAN.md": [
+      "Large destination, tiny verified steps.",
+      "Pi + OpenCode + Grok Build",
+      "same model across harnesses is useful but not required",
+      "one behavior hypothesis",
+      "Tool order is diagnostic",
+      "There is no requirement to build a general runtime state machine.",
+      "GitHub Issues are the active work graph",
+      "The old code is disposable; evidence and lessons are not.",
+      "GitHub issue #2"
+    ],
+    "HANDOFF.md": [
+      "owner accepted",
+      "Pi + OpenCode + Grok Build",
+      "Kilo Codex v0",
+      "GitHub issue **#2",
+      "Prompt/context engineering remains the first intervention."
+    ],
+    "checkpoints/CURRENT.md": [
+      "Baseline multi-harness Work behavior replay",
+      "Do not change prompts/control before this baseline.",
+      "Do not build a general state machine or protocol framework in this slice."
+    ]
+  },
+  "ci": {
+    "workflow": ".github/workflows/owner-gate.yml",
+    "must_run": [
+      "tests/test_properties.py",
+      "tests/test_hidden_holdout.py",
+      "tests/test_mutations.py",
+      "tests/test_metamorphic.py",
+      "tests/test_differential.py",
+      "tests/test_ci_contract.py",
+      "tests/test_iteration_loop.py"
+    ],
+    "continue_on_error": false
+  }
+}

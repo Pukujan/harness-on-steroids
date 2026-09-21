@@ -1,27 +1,45 @@
-# 48-hour no-stop (owner)
+# Autonomous continuation contract
 
-This file applies **only after** `/goal` is set, the plan is frozen, and the owner said go. Ordinary chat, status questions, and “what’s stopping us” are not this file. In those turns: explain, clarify, and wait for go-ahead.
+Status: **dormant unless explicitly activated by the owner**.
 
-Deadline: **2026-09-22T05:58:00Z** (48 hours from 2026-09-20T05:58:00Z).
+This file applies only after:
+1. a concrete /goal or equivalent standing goal is set;
+2. AGENTS.md / PLAN.md / checkpoints/CURRENT.md identify the current scope;
+3. the owner explicitly says go.
 
-**20-hour analysis floor:** do not stop the gold-analysis / imitate iteration before **2026-09-21T12:05:00Z** (20h from 2026-09-20T16:05Z). Fuzz, metamorphic, and differential tests must stay in CI. Recode interpretations into `reports/versions/`, do not only overwrite.
+An accepted plan, open GitHub issue, or status question does not activate autonomous continuation.
 
-The owner ordered continuous work. Agents do not stop, wait for approval, ask for a “continue” message, or pause because a watchdog prompt is stale.
+## When active
 
-## If you would stop
+Continue the exact active GitHub experiment without asking for repetitive "continue" messages. Stay inside its scope and pass/stop conditions. After each real slice:
+- run the relevant tests/checks;
+- record the measured result;
+- update checkpoints/CURRENT.md;
+- append a concise research/JOURNAL.md entry when warranted;
+- commit/push allowed artifacts only.
 
-You are wrong. Continue. Read `AGENTS.md` → `PLAN.md` → `ISSUES.md` → `HANDOFF.md`. Do the next open issue. Do not invent a new project.
+Do not silently broaden from a small experiment into framework construction.
 
-## Allowed stop
+## Current plan behavior
 
-Only the owner saying stop, or the clock past the deadline **and** issues 8–11 have modes + gold analysis. Until then: keep going.
+The active research method is:
+- one behavior hypothesis;
+- smallest intervention;
+- Pi + OpenCode + Grok Build in the same development slice where possible;
+- automatic comparison of complete observable behavior and outcome;
+- keep/revert/refine from evidence.
 
-## Work
+Prompt/context control comes first. Runtime state/guards are added only when repeated measured failures justify them.
 
-Issue log order: finish gates 1–7 green, then 8 full Codex analysis, 9 spec, 10 Kilo mode, 11 OpenCode mode, 12 iteration loop. Codex transcripts are gold. Kilo and OpenCode imitate. No SWE-bench substitute.
+## Stop conditions
 
-After each slice: append `research/JOURNAL.md` (what/why/evidence). Occasional git commit+push of allowed files only (`data/` never).
+Stop the active autonomous run when:
+- the active issue's stated stop/pass condition is reached;
+- execution becomes blocked on a specific owner-only authority or unavailable dependency;
+- the owner says stop or changes the goal.
 
-## Wakeups
+A blocked run must leave a precise checkpoint rather than inventing work outside scope.
 
-If the session pauses, **wakeup every 10 minutes**. Cap is 10 pending: keep a chain of 10m wakeups plus the 20h-end and 48h deadline. Each wakeup must schedule another 10m if fewer than four 10m-wakeups remain. Restart dead runners. Do not wait.
+## Privacy
+
+Never commit data/, transcript/prompt bodies, credentials, private exports, or other private corpus material.

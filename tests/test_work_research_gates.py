@@ -3,34 +3,34 @@ from pathlib import Path
 ROOT = Path(__file__).resolve().parents[1]
 
 
-def test_plan_has_research_provenance_steps() -> None:
+def test_plan_preserves_richer_work_research_as_active_signal() -> None:
     plan = (ROOT / "PLAN.md").read_text(encoding="utf-8")
     for n in (
-        "### G — Work research, planning, provenance",
-        "Do not treat the chat as the project",
-        "Synthesize late",
-        "compacted",
-        "### H — Durable evidence",
-        "### I — Portable Codex pack",
-        "not the exam",
+        "interaction",
+        "Research/inspection",
+        "Verification/provenance",
+        "Output behavior",
+        "Continuity",
+        "Variance",
+        "account-wide provenance exporter",
+        "Tool order is diagnostic",
     ):
         assert n in plan, n
 
 
-def test_issues_queue_14_to_17() -> None:
-    issues = (ROOT / "ISSUES.md").read_text(encoding="utf-8")
+def test_current_baseline_uses_existing_develop_replay_without_tuning() -> None:
+    current = (ROOT / "checkpoints" / "CURRENT.md").read_text(encoding="utf-8")
     for n in (
-        "14. Work research / planning / compacted",
-        "15. Provenance and research gates in Codex mode",
-        "16. Durable checkpoints",
-        "17. Portable Codex pack",
-        "18. Repo modules, lint, types",
-        "Do not replace 8–18",
+        "existing **development** replay set",
+        "Pi",
+        "OpenCode",
+        "Grok Build",
+        "Do not change prompts/control before this baseline.",
     ):
-        assert n in issues, n
+        assert n in current, n
 
 
-def test_work_research_gates_spec() -> None:
+def test_v0_research_gate_spec_remains_as_historical_evidence() -> None:
     spec = (ROOT / "spec" / "work-research-gates.md").read_text(encoding="utf-8")
     for n in (
         "Not complete",
@@ -42,3 +42,10 @@ def test_work_research_gates_spec() -> None:
         "JOURNAL is not fact",
     ):
         assert n in spec, n
+
+
+def test_issues_preserve_old_research_lineage_without_making_it_active_roadmap() -> None:
+    issues = (ROOT / "ISSUES.md").read_text(encoding="utf-8")
+    assert "v0 historical lineage - issues 1-18" in issues
+    assert "GitHub issue #2 - Baseline multi-harness Work behavior replay" in issues
+    assert "Do not replace 8-18" in issues

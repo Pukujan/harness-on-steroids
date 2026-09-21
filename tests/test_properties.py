@@ -1,12 +1,15 @@
 from src.owner_invariants import all_failures, load_spec
 
 
-def test_spec_loads_and_forbids_exam_substitute() -> None:
+def test_spec_loads_new_owner_contract() -> None:
     spec = load_spec()
+    assert spec["schema"].endswith("/2.0.0")
     assert spec["no_exception"] is True
-    assert spec["gold"]["invent_new_exam"] is False
-    assert spec["gold"]["retest_codex_on_public_benchmarks"] is False
-    assert "kilo" in spec["products"] and "opencode" in spec["products"]
+    assert spec["goal"]["public_benchmark_substitute"] is False
+    assert spec["models"]["model_agnostic"] is True
+    assert spec["harnesses"]["active_development"] == ["pi", "opencode", "grok-build"]
+    assert spec["control"]["general_runtime_state_machine_required"] is False
+    assert spec["iteration"]["one_main_behavior_hypothesis_per_slice"] is True
 
 
 def test_owner_docs_satisfy_all_properties() -> None:

@@ -1,4 +1,4 @@
-"""Owner invariant checkers (spec-driven). Two implementations for differential tests."""
+"""Owner invariant checkers for owner spec v2."""
 
 from __future__ import annotations
 
@@ -7,7 +7,7 @@ import re
 from pathlib import Path
 
 ROOT = Path(__file__).resolve().parents[1]
-SPEC_PATH = ROOT / "spec" / "owner.v1.json"
+SPEC_PATH = ROOT / "spec" / "owner.v2.json"
 
 
 def load_spec() -> dict:
@@ -31,7 +31,7 @@ def check_snippets_contains(spec: dict | None = None) -> list[str]:
 
 
 def check_snippets_regex(spec: dict | None = None) -> list[str]:
-    """Second checker: same needles as regex-escaped search (differential pair)."""
+    """Second checker: same needles as regex-escaped search."""
     spec = spec or load_spec()
     failures: list[str] = []
     required = spec.get("required_snippets") or {}
@@ -46,37 +46,57 @@ def check_snippets_regex(spec: dict | None = None) -> list[str]:
 def check_read_order() -> list[str]:
     agents = read_doc("AGENTS.md")
     failures: list[str] = []
-    for name in ("AGENTS.md", "PLAN.md", "HANDOFF.md"):
+    for name in ("AGENTS.md", "PLAN.md", "checkpoints/CURRENT.md", "HANDOFF.md", "ISSUES.md"):
         if name not in agents:
-            failures.append(f"AGENTS.md does not name {name} in read order")
-    if "PLAN.md" not in read_doc("HANDOFF.md"):
-        failures.append("HANDOFF.md does not point at PLAN.md")
+            failures.append(f"AGENTS.md does not name {name!r} in continuity order")
+    if "checkpoints/CURRENT.md" not in read_doc("HANDOFF.md"):
+        failures.append("HANDOFF.md does not point at checkpoints/CURRENT.md")
     return failures
 
 
 def check_forbidden_as_project() -> list[str]:
-    """SWE-bench etc. may appear only as forbidden, not as the goal."""
+    """Public benchmarks may be comparison context, never the project definition."""
     failures: list[str] = []
-    plan = read_doc("PLAN.md")
-    goal = plan.split("## Gold standard")[0] if "## Gold standard" in plan else plan
-    if re.search(r"(?i)run SWE-bench|SWE-bench Verified as the", goal):
-        failures.append("PLAN.md goal section installs SWE-bench as the project")
-    if "No public coding exam" not in plan:
-        failures.append("PLAN.md dropped no-public-exam")
     agents = read_doc("AGENTS.md")
-    if "Do not invent a new exam" not in agents:
-        failures.append("AGENTS.md dropped no-new-exam")
+    plan = read_doc("PLAN.md")
+    if "Do not invent a new public exam" not in agents:
+        failures.append("AGENTS.md dropped no-public-exam")
+    if "public benchmark replacement" not in plan:
+        failures.append("PLAN.md dropped public-benchmark boundary")
+    goal = plan.split("## Reference evidence")[0] if "## Reference evidence" in plan else plan
+    if re.search(r"(?i)run SWE-bench|SWE-bench Verified as the exam|use Harbor as the exam", goal):
+        failures.append("PLAN.md installs a public benchmark as the project")
     return failures
 
 
-def check_imitate_both_products() -> list[str]:
+def check_active_harnesses() -> list[str]:
     failures: list[str] = []
-    blob = read_doc("AGENTS.md") + "\n" + read_doc("PLAN.md")
-    for word in ("Kilo", "OpenCode"):
+    blob = (
+        read_doc("AGENTS.md")
+        + "\n"
+        + read_doc("PLAN.md")
+        + "\n"
+        + read_doc("checkpoints/CURRENT.md")
+    )
+    for word in ("Pi", "OpenCode", "Grok Build"):
         if word not in blob:
-            failures.append(f"docs dropped product {word}")
-    if "free" not in read_doc("AGENTS.md") or "build mode" not in read_doc("AGENTS.md"):
-        failures.append("AGENTS.md dropped free OpenCode build mode")
+            failures.append(f"active docs dropped harness {word}")
+    if "Kilo Codex v0" not in blob:
+        failures.append("active docs dropped Kilo Codex v0 baseline")
+    return failures
+
+
+def check_control_policy() -> list[str]:
+    failures: list[str] = []
+    agents = read_doc("AGENTS.md")
+    plan = read_doc("PLAN.md")
+    spec = load_spec()
+    if "Prompt/context control is the first intervention." not in agents:
+        failures.append("AGENTS.md dropped prompt/context-first control")
+    if "There is no requirement to build a general runtime state machine." not in plan:
+        failures.append("PLAN.md made runtime state machine ambiguous")
+    if spec["control"]["general_runtime_state_machine_required"] is not False:
+        failures.append("owner spec requires a general runtime state machine")
     return failures
 
 
@@ -85,7 +105,8 @@ def all_failures() -> list[str]:
         check_snippets_contains()
         + check_read_order()
         + check_forbidden_as_project()
-        + check_imitate_both_products()
+        + check_active_harnesses()
+        + check_control_policy()
     )
 
 

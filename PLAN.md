@@ -1,118 +1,172 @@
-# Plan (owner) — Codex transcripts are gold; Kilo and OpenCode imitate them
+# Plan (owner) - harness- and model-agnostic behavioral control
 
-Owner: Pujan. Agents execute this. They do not replace it.
+Owner: Pujan. Agents execute this plan; they do not replace it.
 
-## Goal
+Status: **accepted and authoritative as of 2026-09-21**.
 
-1. **Analyze every local Codex / ChatGPT Work transcript** (sessions + archived rollouts).
-2. **Write down** how Codex classifies work into multiple **tasks** and **tool-call chains**.
-3. Make **Kilo** and **OpenCode** behave that way: a dedicated **mode** (and skills/routing as needed) that copies Codex, using **current Kilo models** and **any OpenCode model including free ones in build mode**.
+## Long-term goal
 
-No public coding exam. No “Codex-style mini agent.” No re-testing Codex. The transcripts are the dataset.
+Build a model- and harness-agnostic control layer that transfers useful **observable** behavior found in local ChatGPT Work/Codex transcripts to different coding-agent harnesses.
 
-## Gold standard
+The project is not "copy Codex tool names." It is to learn and reproduce supported behavioral properties across the whole observable trajectory: conversation handling, inspection/research, action choice, waiting, delegation, verification, provenance, context/continuity, output behavior, and task outcome.
 
-Codex behavior in the local JSONL is the reference:
+**Large destination, tiny verified steps.**
 
-- How a request is split into tasks / sub-agents / plans
-- Order of tools (read/search vs exec vs patch vs wait vs spawn)
-- When it researches vs when it edits vs when it checks
-- Multi-tool and multi-task structure
+## Reference evidence
 
-Kilo and OpenCode should follow **that**, not a paper benchmark.
+Primary evidence is the local, versioned ChatGPT Work/Codex corpus. Keep originators/clients separate. The custom account-wide provenance exporter may enrich the source with additional observable structure, but raw account/transcript bodies remain local.
 
-## Corpus (already on this PC)
+The existing corpus/tool research is v0 evidence, not discarded work:
 
-- `%USERPROFILE%\.codex\sessions\**\rollout-*.jsonl`
-- `%USERPROFILE%\.codex\archived_sessions\**\rollout-*.jsonl`
-- Indexes: `thread_history_1.sqlite`, `state_5.sqlite` (metadata / item_type; no bodies in git)
-- Hashed copies: `data/raw/` (gitignored). Copy-hash is **done** (~1518 files). Do not recopy unless files changed.
-- Not corpus: Brave, Chromium cache, chatgpt.com Cloud ZIP (absent)
+- full-corpus originator-separated analysis;
+- spec/codex-imitate-mode.md;
+- Kilo/OpenCode Codex-mode prompts;
+- R1-R6 process scorer;
+- 22 long Work replay threads (16 develop, 6 holdout);
+- morph/replay scaffolding and reports.
 
-## Steps
+Tool order is diagnostic, not the final target.
 
-### A — Full transcript analysis (now)
+## Development surfaces
 
-Stream **all** hashed JSONL. No message bodies in git.
+Every normal development slice should run the candidate on **Pi + OpenCode + Grok Build** in the same slice when technically possible.
 
-Produce:
+Record exact harness/version, model/provider/version or model ID, control version/config, task fixture/environment fidelity, and run attempt/repetition.
 
-- `reports/codex-gold-behavior.md` — task split, tool-chain patterns, sub-agent/plan/exec mix, sequence shapes
-- Supporting count tables under `reports/` as needed
+The system is model-agnostic. The same model across harnesses is useful but not required. When a common model is available, it can isolate harness effects; normal iteration may use different models and still contribute evidence when identity is recorded.
 
-Must cover **all** files, not a 40-file sample.
+**Kilo Codex v0 is the positive-control baseline.** Kilo already showed that a stronger behavior prompt can materially improve a harness. Keep that result available as a baseline instead of making Kilo the main development target.
 
-### B — Durable spec
+## Control mechanisms - cheapest first
 
-`spec/codex-imitate-mode.md` — state machine / routing a coding agent must follow to imitate Codex (decompose, research, tool mix, verify). Written from **A**, not from SWE-bench papers.
+Use the smallest mechanism that can fix an observed deviation:
 
-### C — Kilo mode
+1. prompt / behavior instructions;
+2. context selection and composition;
+3. tool/capability descriptions and adapter lowering;
+4. checkpoint / continuation context;
+5. a narrow runtime guard or state only when repeated evidence shows 1-4 are insufficient.
 
-Add a selectable Kilo **agent/mode** (`.kilo/agent/` and/or global `~/.config/kilo/`) plus skill if needed, named so a human can pick “behave like Codex.” Works with whatever model Kilo is using.
+There is no requirement to build a general runtime state machine.
 
-### D — OpenCode mode
+Semantic states/phases may be used by the evaluator to normalize different native traces, for example inspect, research, execute, observe, verify, complete. Runtime enforcement is added only when an observed persistent failure justifies it and a measured slice shows improvement.
 
-Same behavior for OpenCode build mode, including free models. Agent/instruction/skill in OpenCode’s config layout.
+## Fast development loop
 
-### E — Stop (process layer)
+spec/iteration-loop.md is the normative loop:
 
-Modes exist, spec exists, analysis of the full corpus exists. Process scorer (R1–R6) stays. Then the owner says what is next.
+reference evidence -> one behavior hypothesis -> baseline on Pi + OpenCode + Grok Build -> smallest control change -> rerun the same fixtures -> automatic multi-signal comparison -> keep / revert / refine
 
-### F — Matched-task outcome (owner)
+Each slice should normally change **one behavior hypothesis**.
 
-Tool-call histograms are **not** the final result. Replay **the same local Work asks** into Kilo and OpenCode Codex mode (current models). Score **observable work**: research, verification, files/tests, whether the ask was addressed. Process scores stay as a layer.
+A substantial slice must end with at least one of:
+- a new measured reference signal;
+- a new automated evaluator capability;
+- an observable behavior/outcome result.
 
-Prompts live only under gitignored `data/replay/`. Never commit bodies. Not SWE-bench. Not a public exam. Not re-testing Codex on Harbor.
+Do not spend multiple slices building architecture before seeing behavioral evidence.
 
-Spec: `spec/matched-task-eval.md`. Index: `reports/work-session-index.md`. Long set: `reports/work-long-replay-set.md`. Holdout: `reports/work-long-holdout.md`. Morph = stretch eval (paraphrase / multi-turn), not a JS file. Replay **not complete**.
+## What gets measured
 
-### G — Work research, planning, provenance (not only tools)
+Score observable dimensions separately rather than collapsing everything into one early number:
 
-Tool-call histograms are not how Work researches or plans. Work treats **tool output as memory**. It waits on cells, then writes a short brief to a named child. It does not keep an 832k chat as the plan. **Do not treat the chat as the project.**
+1. Interaction - pre-tool/post-tool response shape, questions, corrections, authorization, useful updates.
+2. Research/inspection - target inspected, evidence gathered, research sufficiency, response to new evidence.
+3. Execution - native tool/action topology, waits, failures, retries, delegation, mutations.
+4. Verification/provenance - result observed, post-change checks, claims supported by evidence.
+5. Output behavior - uncertainty, partial/blocked/complete honesty, concise evidence-backed synthesis, repetition/noise.
+6. Continuity - long-task state preservation, corrections, compaction/interruption/rehydration where observable.
+7. Outcome - requested artifact/state/checks, side effects, task acceptance.
+8. Variance - deviation across repeated generations and morph-equivalent requests.
 
-Counts only. No message bodies in git. Produce reports, then recode into `spec/codex-imitate-mode.md` and both Codex modes:
+Exact wording and exact tool names are not pass criteria.
 
-- Assistant-turn shape (speak before first tool / after last; length bands)
-- `send_message` brief structure (the plan is that message; `update_plan` is 0)
-- User-turn classes (question / go / correction)
-- `compacted` events (listed in the corpus, never opened)
+## Repeated runs and morphs
 
-**Synthesize late:** child brief, user answer, or git checkpoint — not a plan file, not a running novel.
+Use the same input over multiple generations when it helps measure stability. A strong control layer should reduce undesirable behavioral variance even when model quality differs.
 
-Research gates (Work-like, testable):
+Keep the existing morph principle: paraphrase, split/merge turns, add irrelevant context, or inject corrections without changing the semantic task. Do not tune on sealed holdout tasks or their derived variants.
 
-- **Valid:** claim tied to a tool result, or **not observed**
-- **Enough:** the target of the next action was actually read; stop if nothing to look up
-- **Action reliable:** no send/write until that; look/test after write
-- **Provenance:** path / command / hash when the answer needs the repo; JOURNAL is not fact
+## Project continuity
 
-Do not build a summarizer first. Lost in the Middle / RULER / LLMLingua / MemGPT are warnings, not the exam. Spec: `spec/work-research-gates.md`. **Not complete.**
+The repository and GitHub are project memory.
 
-### H — Durable evidence (this repo)
+- AGENTS.md - constitutional owner rules.
+- PLAN.md - durable destination and operating method.
+- spec/owner.v2.json and spec/owner.v2.md - machine/human governance contract.
+- checkpoints/CURRENT.md - exact current state and next action.
+- GitHub Issues are the active work graph; avoid speculative backlog.
+- HANDOFF.md - concise handoff/current evidence summary.
+- ISSUES.md - durable historical issue ledger and mapping.
+- research/JOURNAL.md - append-only research history, not current state.
 
-Scratchpad = git checkpoint, not in-window compression. Non-destructive PCM-shaped files (`checkpoints/CURRENT.md`, one active task) if they do not overwrite `AGENTS.md` / `PLAN.md` / `HANDOFF.md`. Owner gold stays. New sessions read CURRENT, not this chat.
+A new agent should not need this chat to continue correctly.
 
-### I — Portable Codex pack
+## Existing repository / v0 policy
 
-After G is in the spec: harness-neutral loop + Kilo/OpenCode adapters. Pi/Hermes later. Not a new Codex-clone product.
+Do not wipe the evidence trail.
 
-## Explicitly out
+The old code is disposable; evidence and lessons are not.
 
-- SWE-bench / SWE-bench Verified / Terminal-Bench / Harbor as the project
-- mini-SWE-agent / “Codex-style agent” as a new product
-- Using Codex to sit a new exam
-- Treating literature as a veto of this plan
-- 26 GitHub issues from the old campaign as a stall
-- A summarizer / compressor as the project or as session memory
+Keep v0 prototype files in place while they remain useful baselines. Git history is the primary archive. Move/delete old implementation only after a measured replacement exists, current tests/evidence are mapped or intentionally retired, and an audit note explains what moved and why.
 
-## Quality gates (no exception)
+Backward compatibility with the current implementation is **not** a product requirement if it obstructs the goal.
 
-Property tests, hidden holdout, mutation tests, metamorphic tests, differential tests, iteration-loop tests, and CI (`.github/workflows/owner-gate.yml`). Agents may not skip or delete them. New code follows `spec/repo-modules.md`. Ruff/mypy on `src/` (issue 18).
+## Current milestones - evidence-driven, not waterfall
 
-## 48-hour no-stop
+### M0 - Governance reset - DONE
 
-See `CONTINUE.md`. After `/goal` and owner go, keep executing this plan until the owner stops you or the deadline and deliverables exist. Ordinary chat still answers first.
+Make this plan, owner spec v2, continuity checkpoint, tests, and issue tracking authoritative. Preserve v0 as baseline/history.
 
-## Privacy still
+### M1 - Multi-harness baseline - ACTIVE
 
-No raw JSONL, sqlite, or chat bodies in git.
+GitHub issue #2.
+
+Use 3-5 existing representative long Work-derived development tasks. Run Pi + OpenCode + Grok Build in the same slice with no new control intervention first.
+
+Capture the complete observable trajectory that each harness exposes. Produce a comparison identifying the largest recurring deviations from Work reference behavior and one smallest next hypothesis.
+
+This milestone must produce visible results before adding architecture.
+
+### M2 - Enrich only the signals the baseline needs
+
+Use the Work/Codex corpus and account-wide exporter to add missing measurable signals such as assistant-turn shape, user-turn class, verification/provenance, output behavior, continuity/compaction, and child brief structure.
+
+Do not build a general annotation platform first. Add the smallest extractor/scorer needed to answer an observed evaluation question.
+
+### M3 - Iterative control improvement
+
+For each measured deviation: state one hypothesis, make one small prompt/context/capability/checkpoint change, run all three active harnesses, compare automatically, keep/revert, and record the result.
+
+### M4 - Promotion loop
+
+Periodically test surviving changes on broader develop tasks, repeated runs, morphs, multiple models where useful, and sealed holdout.
+
+Promotion requires no regression in outcome, verification, scope/safety, or honest reporting.
+
+### M5 - Runtime enforcement only if earned
+
+If a failure persists across prompts/context, tasks, models, and harnesses, test the smallest runtime state/guard that directly addresses it. Do not build a general state-machine framework in advance.
+
+## Explicitly out of scope
+
+- public benchmark replacement of the local Work/Codex evidence;
+- a standalone Codex clone;
+- a framework-completion milestone with no behavioral result;
+- model-specific optimization as the project goal;
+- exact prose/tool-sequence cloning;
+- private reasoning inference;
+- transcript bodies, secrets, or private exports in Git;
+- a speculative giant adapter/protocol implementation before experiments demand it.
+
+## Quality gates
+
+Keep the existing property, hidden-holdout, mutation, metamorphic, differential, replay, and CI gates as historical and regression protection, but update governance gates to owner spec v2.
+
+Do not delete v0 replay/process tests just because they are no longer the primary objective. They remain useful evidence until deliberately retired with an audit mapping.
+
+## Long-running execution
+
+This plan being accepted does **not** itself start an autonomous /goal loop. CONTINUE.md applies only after a specific /goal plus explicit owner go-ahead.
+
+The immediate authorized continuity target is GitHub issue #2; execution of that long-running experiment still follows the chat-first/go-ahead rule.
