@@ -1,0 +1,9 @@
+{
+  "schema_version": "content-generation.asset-manifest.v1",
+  "system_version": "0.1.2",
+  "assets": [
+    {"path": "docs/content-system-assets/hero.png", "role": "story introduction", "orientation": "wide", "dimensions": "1672x941", "text_policy": "exact short title plus subtitle", "prompt_recipe": "human engineer and friendly AI robot study one inspect-act-verify workflow; title Coding agents need a loop; subtitle Look first. Act carefully. Verify the result.", "review": "accepted"},
+    {"path": "docs/content-system-assets/supporting-square.png", "role": "technical loop explanation", "orientation": "square", "dimensions": "1254x1254", "text_policy": "exact short title plus subtitle", "prompt_recipe": "human and robot place three simple cards in a loop; title The reliable loop; subtitle Research, act, check — then continue.", "review": "accepted"},
+    {"path": "docs/waifu.svg", "role": "existing repository mascot reference", "orientation": "svg", "dimensions": "repository-defined viewBox", "text_policy": "none", "prompt_recipe": "existing repository asset; do not regenerate", "review": "accepted"}
+  ]
+}

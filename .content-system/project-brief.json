@@ -1,0 +1,16 @@
+{
+  "schema_version": "content-generation.project-brief.v1",
+  "project": "Harness on steroids",
+  "audience": ["people building coding agents", "Kilo and OpenCode users", "engineers who want observable agent behavior"],
+  "problem": "A strong model can still ship brittle work when the surrounding loop rushes into edits, skips research, guesses while tools are running, or stops without checking the result.",
+  "solution": "Study local ChatGPT Work behavior as the reference process, write the behavior into a durable mode specification, and teach Kilo and OpenCode to follow the same research, waiting, task-splitting, and verification habits.",
+  "mechanism": ["copy-hash local transcripts before analysis", "separate ChatGPT Work from other Codex surfaces", "measure tool order and task-splitting behavior", "implement paired Kilo and OpenCode modes", "replay matched Work tasks and score observable outcomes"],
+  "evidence": [
+    {"claim": "The repository treats local ChatGPT Work transcripts as the process reference.", "source": "AGENTS.md; PLAN.md; README.md", "status": "shipped"},
+    {"claim": "The repository has written a Codex-imitate mode and paired Kilo/OpenCode modes.", "source": "spec/codex-imitate-mode.md; .kilo/agent/codex.md; .opencode/agent/codex.md", "status": "shipped"},
+    {"claim": "A process scorer checks look-first, wait/send order, writes, and post-edit verification.", "source": "src/score_session.py; reports/", "status": "shipped"},
+    {"claim": "Matched-task replay across long Work threads is still in progress.", "source": "PLAN.md; HANDOFF.md; spec/matched-task-eval.md", "status": "experimentally_supported"}
+  ],
+  "boundaries": ["This is not a SWE-bench or Terminal-Bench project.", "Raw JSONL, SQLite, and chat bodies stay out of Git.", "Codex Work behavior is the chosen gold process for this project.", "A process score is not the same as reliable task outcome.", "The mode is a wrapper and workflow contract, not a new Codex clone."],
+  "terminology": {"preferred": {"gold": "reference behavior", "agent loop": "research, act, verify", "reliability": "observable work with checks"}, "avoid": ["revolutionary", "human-level", "guaranteed", "Codex clone", "solves coding agents"]}
+}

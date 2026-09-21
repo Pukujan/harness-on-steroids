@@ -7,6 +7,7 @@ Read in this order:
 1. `AGENTS.md` (this file)
 2. `PLAN.md`
 3. `HANDOFF.md`
+4. `.content-system/system-version.json` and the relevant `.content-system/` files before changing README, marketing, UX, image, or HTML content.
 
 Do not treat `.kilo/plans/1789773436389-harness-on-steroids-campaign.md` as source of truth. It is leftover campaign text.
 
