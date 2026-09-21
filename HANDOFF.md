@@ -4,7 +4,7 @@
 
 ## 20h loop (now)
 
-Until **2026-09-21T12:05:00Z** (then 48h deadline **2026-09-22T05:58:00Z**). 10-minute wakeup chain if paused. Do not SWE-bench. Do not wait.
+**20h floor elapsed** 2026-09-21T12:05Z (`reports/20h-floor-gaps.md`). Not complete. Keep 48h until **2026-09-22T05:58:00Z**. Restore 10-minute wakeups if paused. Do not SWE-bench. Do not wait.
 
 That no-stop is after `/goal` + go-ahead. Ordinary chat answers first and seeks go-ahead.
 
