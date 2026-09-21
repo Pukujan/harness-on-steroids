@@ -1,88 +1,161 @@
+# Harness on steroids
 
+**A research-led way to make agent harnesses behave reliably across products.**
 
-# Why coding agents flake — and what this repo is doing about it
-
-A strong model is not enough. **ChatGPT Work** (Codex on a real desktop) often feels more reliable than **Kilo** or **OpenCode** even when those products use strong models too. This project treats that gap as a **harness** problem: how the wrapper makes the model look, wait, split work, check itself, and stop — not as “pick a better LLM.”
-
-The gold is **your local ChatGPT Work transcripts**. We study how Work actually ran jobs, write that down, and teach Kilo and OpenCode to follow the same habits. We are not standing up a public coding contest (SWE-bench, Harbor, and friends are out of scope).
+A capable model can still do brittle work when its surrounding loop edits too soon, skips research, guesses while a job is running, loses state during handoff, or claims success without checking. Harness on Steroids studies that loop as a system.
 
 <p align="center">
-  <img src="docs/content-system-assets/hero.png" alt="Coding agents need a loop — look first, act carefully, verify the result" width="100%">
+  <img src="docs/content-system-assets/hero.png" alt="A coding agent researches first, acts carefully, and verifies the result" width="100%">
 </p>
 
-## The problem, in human terms
+## The problem
 
-A coding agent is a model plus tools plus a loop: research, plan, edit, verify, maybe spawn help, repeat. If that loop is sloppy — write first, invent a todo list, bash around, never wait, never look again — the same “smart” model ships brittle work.
+The model is only one part of an agent. The harness decides how the model receives context, sees tools, waits, asks for authority, splits work, recovers from failure, preserves state, and reports what actually happened.
 
-Work’s logs, on this machine, show a different loop:
+That is why the same class of model can feel careful in ChatGPT Work and careless in another environment. The useful question is not “which tool did it call first?” It is:
 
-- **Look before you change anything.** Run small inspect steps in a burst.
-- **Wait** when something is slow instead of guessing.
-- **Split** multi-piece jobs by sending a named slice *after* looking — not by spawning on the first tool.
-- **Almost never patch** in Work (one session in 83). VS Code Codex *does* patch a lot; we do not copy that sandwich as “Codex.”
-- **Never start with a plan file.** Work’s `update_plan` count is zero.
-- **Verify:** after a write or a failure, look again. Prose is not proof.
+> Given the task, available evidence, capabilities, authority, failures, and user corrections, did the harness make the right kind of decision—and can we prove the result?
 
-That is research, planning, coding, verification, and agent loops as **behavior**, not as a slogan.
+## What this project is becoming
 
-## What we are trying to copy
+This is **not** a new coding agent or a second Codex. It is a portable behavior system with four parts:
 
-Make **Kilo** (whatever model it is using now) and **OpenCode** (including free models in build mode) **imitate Work**, as a selectable Codex mode. Same models you already run. Different wrapper instructions and checks.
+1. **Evidence plane** — capture and normalize observable events with source pointers, integrity, context, and provenance.
+2. **Behavior research** — study task topology, UX, research gates, action choices, verification, recovery, delegation, compaction, and handoff.
+3. **Work Behavior Protocol** — express the useful behavior as semantic phases and obligations rather than product-specific tool names or prompt phrases.
+4. **Adapters and verifiers** — project the protocol onto Kilo, OpenCode, Pi, and future harnesses, then check semantic traces and observable outcomes.
 
-<p align="center">
-  <img src="docs/content-system-assets/supporting-square.png" alt="The reliable loop — research, act, check, then continue" width="520">
-</p>
+```text
+local Work/Codex evidence
+        |
+        v
+events -> context -> annotations -> behavior protocol
+                                      |
+                 +--------------------+--------------------+
+                 v                    v                    v
+             Kilo adapter        OpenCode adapter       Pi adapter
+                 |                    |                    |
+                 +--------- conformance + outcomes --------+
+```
 
-A later owner ask: don’t stop at “who called which tool.” Replay **the same Work jobs** (long threads, not eight one-liners), including **morphed** wording so we don’t overfit, and score **whether the job was actually worked** — research, checks, files — against how Work ran it. Prompts stay on disk, not in git.
+ChatGPT Work/Codex is the reference evidence source. It is not a literal script that every harness must reproduce. The host harness still owns its model, tools, permissions, UI, and native persistence; the portable layer defines the semantic contract between them.
 
-## What we’ve done so far
+## The behavior we want to preserve
 
-- Hashed **~1500** local Codex rollouts (no chat text in git).
-- Separated **Work** from VS Code, Desktop, and empty `codex_exec` stubs so we don’t average the wrong product.
-- Wrote a **Codex mode** for both Kilo and OpenCode: look first, wait, send after looking, don’t Todowrite, don’t bash first.
-- Built a **process scorer** (look-first, no extra writes, no todo-first, look-after-edit). Work itself passes almost all of those checks. Live Kilo/OpenCode `code`/`build` sessions still often write or todo too soon.
-- Started **matched-task** plumbing: 22 long Work threads listed (16 to learn on, 6 longest held out). Kilo has been run on those hashes **in this repo**; OpenCode only on a few. Full “same job, same reliability as Work” is **not finished**.
+The target is a conditional loop, not a fixed sequence:
 
-## How results stay reproducible
+```text
+orient -> inspect -> research -> model -> plan -> authorize
+  -> execute -> observe -> verify
+  -> revise / recover / handoff / compact
+  -> synthesize -> complete or blocked
+```
 
-- **CI** (`.github/workflows/owner-gate.yml`) runs property, mutation, metamorphic, differential, and holdout tests. You cannot “fix” the project by deleting the owner rules.
-- **Snapshots** under `reports/versions/` keep older interpretations instead of silently overwriting them.
-- **Corpus** is copy-hashed locally; git holds counts and specs, not message bodies.
-- **Modes** are paired: a change in Kilo Codex mode should have the OpenCode twin.
+The important obligations are:
 
-## What each piece is for
+- **Research before consequential action.** Inspect the target and distinguish observed facts from inference, uncertainty, and absence.
+- **Evidence into action.** Connect a source observation to a decision, an authorized plan item, a native action, its observed result, and verification.
+- **Honest waiting.** Wait for asynchronous work instead of guessing that it succeeded.
+- **Useful decomposition.** Split multi-piece work after understanding the task, and preserve the brief and ownership of each slice.
+- **Verification after change.** Check the relevant artifact, state, or test after mutation or failure.
+- **Continuity.** Preserve objectives, constraints, evidence, pending approvals, failures, and the exact next action across compaction, interruption, and handoff.
+- **Truthful UX.** Show the difference between observed, inferred, blocked, partial, and complete.
 
-| Piece | Role |
+Planning is semantic. It does not require an `update_plan` tool or a long plan document; it may be represented by an evidence-backed action sequence, child brief, or checkpoint.
+
+## What the local evidence says
+
+The repository starts from a counts-only, hashed local corpus of about **1,500 Codex rollout files**. The primary reference slice is ChatGPT Work (`codex_work_desktop`): **87 sessions**, **83 with calls**, with wait in 31/83, send in 25, spawn in 2, and `update_plan` in 0. Work’s mapped process self-score is 81/83.
+
+Those numbers are useful calibration, not the definition of good behavior. They show correlations in one originator. They do not explain the available alternatives, user intent, UX quality, research sufficiency, verification quality, or task outcome. Tool counts remain diagnostics.
+
+The matched-task scaffold contains **22 long Work threads**: 16 for development and 6 held out. Replay is still incomplete, so the project does not claim that Kilo or OpenCode matches Work yet.
+
+Raw JSONL, SQLite, prompts, transcript bodies, credentials, and user artifacts stay local. Git contains specs, reports, hashes, structural measurements, and tests only.
+
+## What exists today
+
+- A full-corpus, originator-separated Work/Codex analysis and versioned reports.
+- Paired Kilo and OpenCode Codex-mode prototypes.
+- A process scorer for look-first, wait/send order, mutation timing, and post-action inspection.
+- Matched-task replay scaffolding with develop, holdout, and morph concepts.
+- Property, hidden-holdout, mutation, metamorphic, differential, and CI gates.
+- An issue log that records incomplete research instead of hiding it.
+- A planning package under [`spec/harness-agnostic/`](spec/harness-agnostic/) that broadens the target to UX research, provenance, action planning, verification, continuity, Pi, and future adapters.
+
+## What is not built yet
+
+The durable protocol is still a proposal. The repository does not yet have:
+
+- a canonical cross-harness event model and normalizer;
+- a first-class evidence/claim/action/verification ledger;
+- measured UX and user-turn research for the Work corpus;
+- verified compaction and handoff preservation;
+- capability manifests and explicit degraded paths;
+- a Pi adapter or a capability-contrast adapter;
+- semantic conformance verifiers that replace the process scorer as the main quality gate;
+- completed matched-task outcome evaluation.
+
+The current modes and scorer remain useful prototypes and historical evidence. They are not being presented as the finished architecture.
+
+## How the project will be evaluated
+
+Success is a vector, not a tool histogram:
+
+| Layer | Question |
 | --- | --- |
-| `AGENTS.md` / `PLAN.md` | Owner rules. Transcripts are gold. Agents don’t replace the plan. |
-| `reports/` | What we measured (Work vs vscode vs exec, wait/send/patch rates). |
-| `spec/codex-imitate-mode.md` | The loop a coding agent should follow. |
-| `.kilo/agent/codex.md` and `.opencode/agent/codex.md` | The mode you pick in each product. |
-| `src/score_session.py` | Cheap process checks on tool order. |
-| `spec/matched-task-eval.md` | Same Work jobs, outcome + morphs, holdout so we don’t overfit. |
-| `tests/` | Guardrails so we don’t drift into SWE-bench or drop the gold clause. |
-| `spec/repo-modules.md` | Layer map (contract / measure / adapt / lib / gate). |
-| `research/work-ux-gaps.md` | What Work UX we have not measured yet. |
-| `spec/work-research-gates.md` | Provenance and research-enough gates (not complete). |
+| Evidence integrity | Did the normalized trace conserve its source and preserve unknowns? |
+| Behavior | Did the harness choose appropriate phases and transitions? |
+| UX | Did it ask, update, wait, hand off, and report honestly? |
+| Provenance | Can every consequential claim and action point to evidence? |
+| Verification | Did it check the result against acceptance criteria? |
+| Continuity | Did it survive failure, interruption, compaction, or handoff? |
+| Outcome | Did the requested work actually complete within scope? |
+| Safety | Did it avoid unauthorized actions, silent uncertainty, and overreach? |
 
-## Where it stands
+The test strategy includes property, mutation, metamorphic, differential, recovery, UX, and sealed-holdout tests. Exact prose or exact vendor tool names should not be required when the semantic behavior and outcome are equivalent.
 
-The **recipe** is written. The **products have a mode**. **Process** scoring shows Work and the copies still diverge on live sessions. **Outcome** replay on long Work threads is in progress (Kilo notes on 22 hashes in this worktree; OpenCode lagging; morphs not done). You decide when behavior matches.
+## Repository map
 
-## The content and visual contract
+| Path | Role |
+| --- | --- |
+| `AGENTS.md`, `PLAN.md`, `ISSUES.md`, `HANDOFF.md` | Owner contract, current work, durable issue state, and handoff |
+| `spec/harness-agnostic/` | Proposed harness-neutral behavior architecture and next decisions |
+| `spec/codex-imitate-mode.md` | Current Work/Codex prototype specification |
+| `spec/work-research-gates.md` | Research validity, sufficiency, provenance, and continuity gaps |
+| `reports/` | Counts-only evidence, snapshots, replay indices, and score tables |
+| `research/` | Corpus measurements, replay utilities, and append-only journal |
+| `.kilo/agent/codex.md` | Kilo prototype projection |
+| `.opencode/agent/codex.md` | OpenCode prototype projection |
+| `src/` | Current scorer, goal loop, and owner-invariant library |
+| `tests/` | Governance, process, replay, and evaluation gates |
+| `.content-system/` | Pinned content-generation adapter and evidence map |
 
-This README follows the pinned [`content-generation-modules` v0.1.2](https://github.com/Pukujan/content-generation-modules/releases/tag/v0.1.2) adapter in [`.content-system/`](.content-system/). **Narrative raster images carry a short title and subtitle** so the picture can orient a reader on its own; SVGs and tiny helper graphics stay text-free. The full story and responsive review page live in [`docs/content-system-preview.md`](docs/content-system-preview.md) and [`docs/content-system-preview.html`](docs/content-system-preview.html).
+## Boundaries
 
-## Outside work that rhymes (not our exam)
+This project does not:
 
-We are not validating on public leaderboards. The *idea* that **the loop around the model** matters is not unique to this repo:
+- turn SWE-bench, Terminal-Bench, Harbor, or a public leaderboard into the exam;
+- build a standalone Codex clone or generic “AI-powered harness”;
+- infer or require hidden chain-of-thought;
+- treat a summarizer as the answer to continuity before compaction is measured;
+- claim completion from a process score alone;
+- commit raw local transcript or account-export data.
 
-- **ReAct** (Yao et al.): interleave reasoning with tools instead of one-shot answers.
-- **SWE-agent / OpenHands-style papers:** scaffolding, tools, and retry policy often move coding-agent scores as much as swapping the base model — we refuse to *become* those benchmarks.
-- **Industry write-ups** on “agent harnesses” (workflows, permissions, verification, memory): same claim you made — reliability is often the wrapper.
+The current implementation is disposable if it blocks the long-term protocol. The evidence, tests, and audit trail are not.
 
-Those sources **support the bet**. They do **not** replace your Work transcripts as gold.
+## Current status and next step
 
-## Read next (if you need to edit)
+The repository is in an **architecture-reset planning phase**. The proposal package is committed under `spec/harness-agnostic/`, and issue 19 records the owner-review gate. No protocol implementation, prompt rewrite, Pi adapter, cleanup, or long-running `/goal` loop has started from that proposal.
 
-`AGENTS.md` → `PLAN.md` → `HANDOFF.md`. Don’t commit `data/` or chat bodies.
+The next authorized slice is read-only: agree on the evidence interface, measure the missing UX/research/compaction dimensions, define annotation and decision-point rules, and return with a protocol draft before building adapters.
+
+## Content and visual contract
+
+This README follows the pinned [`content-generation-modules` v0.1.2](https://github.com/Pukujan/content-generation-modules/releases/tag/v0.1.2) adapter in [`.content-system/`](.content-system/). Claims are marked by their repository evidence and status; the visual assets remain narrative orientation aids rather than proof of behavior. The longer review artifacts live in [`docs/content-system-preview.md`](docs/content-system-preview.md) and [`docs/content-system-preview.html`](docs/content-system-preview.html).
+
+## Read next
+
+Start with [`AGENTS.md`](AGENTS.md) → [`PLAN.md`](PLAN.md) → [`HANDOFF.md`](HANDOFF.md) → [`ISSUES.md`](ISSUES.md). Then read the [harness-agnostic planning package](spec/harness-agnostic/README.md).
+
+Do not commit `data/`, private exports, or chat bodies.
