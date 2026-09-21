@@ -1,5 +1,5 @@
 <p align="center">
-  <img src="docs/waifu.svg" alt="Harness on steroids mascot" width="100%">
+  <img src="docs/waifu.svg" alt="Harness on steroids mascot" width="180">
 </p>
 
 # Why coding agents flake — and what this repo is doing about it
@@ -7,6 +7,10 @@
 A strong model is not enough. **ChatGPT Work** (Codex on a real desktop) often feels more reliable than **Kilo** or **OpenCode** even when those products use strong models too. This project treats that gap as a **harness** problem: how the wrapper makes the model look, wait, split work, check itself, and stop — not as “pick a better LLM.”
 
 The gold is **your local ChatGPT Work transcripts**. We study how Work actually ran jobs, write that down, and teach Kilo and OpenCode to follow the same habits. We are not standing up a public coding contest (SWE-bench, Harbor, and friends are out of scope).
+
+<p align="center">
+  <img src="docs/content-system-assets/hero.png" alt="Coding agents need a loop — look first, act carefully, verify the result" width="100%">
+</p>
 
 ## The problem, in human terms
 
@@ -26,6 +30,10 @@ That is research, planning, coding, verification, and agent loops as **behavior*
 ## What we are trying to copy
 
 Make **Kilo** (whatever model it is using now) and **OpenCode** (including free models in build mode) **imitate Work**, as a selectable Codex mode. Same models you already run. Different wrapper instructions and checks.
+
+<p align="center">
+  <img src="docs/content-system-assets/supporting-square.png" alt="The reliable loop — research, act, check, then continue" width="520">
+</p>
 
 A later owner ask: don’t stop at “who called which tool.” Replay **the same Work jobs** (long threads, not eight one-liners), including **morphed** wording so we don’t overfit, and score **whether the job was actually worked** — research, checks, files — against how Work ran it. Prompts stay on disk, not in git.
 
@@ -59,6 +67,10 @@ A later owner ask: don’t stop at “who called which tool.” Replay **the sam
 ## Where it stands
 
 The **recipe** is written. The **products have a mode**. **Process** scoring shows Work and the copies still diverge on live sessions. **Outcome** replay on long Work threads is in progress (Kilo notes on 22 hashes in this worktree; OpenCode lagging; morphs not done). You decide when behavior matches.
+
+## The content and visual contract
+
+This README follows the pinned [`content-generation-modules` v0.1.2](https://github.com/Pukujan/content-generation-modules/releases/tag/v0.1.2) adapter in [`.content-system/`](.content-system/). **Narrative raster images carry a short title and subtitle** so the picture can orient a reader on its own; SVGs and tiny helper graphics stay text-free. The full story and responsive review page live in [`docs/content-system-preview.md`](docs/content-system-preview.md) and [`docs/content-system-preview.html`](docs/content-system-preview.html).
 
 ## Outside work that rhymes (not our exam)
 

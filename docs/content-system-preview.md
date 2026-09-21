@@ -1,6 +1,6 @@
 # Harness on steroids — content-system preview
 
-> Review artifact for `TASK-0015`. This is a proposed story and visual direction; it does not replace `README.md`.
+> Review artifact for `TASK-0015`. The reviewed story and visual direction are now staged in `README.md` on the preview branch.
 
 ## Start here
 
@@ -46,4 +46,4 @@ It does not turn a transcript into universal truth, run SWE-bench as a substitut
 
 ## Contract used
 
-This preview pins `content-generation-modules@0.1.2` at `cb8c18f`. Canonical repository files remain unchanged until review.
+This preview pins `content-generation-modules@0.1.2` at `cb8c18fa7789e4b651e1f963892bf056b0d3276d`. The canonical README now uses the reviewed images and story on this branch; merge remains the human review gate.
