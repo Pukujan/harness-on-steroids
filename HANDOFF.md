@@ -24,6 +24,8 @@ Do not turn issue #2 into a protocol/framework implementation.
 
 Primary reference: local ChatGPT Work codex_work_desktop, originators kept separate.
 
+One-pager: reports/codex-originator-dashboard.md. Keep originators separate; **do not average** Work with vscode, codex_exec, or Desktop.
+
 Existing v0 evidence remains valuable:
 - hashed corpus ~1521 files;
 - Work 87 sessions / 83 with calls;
