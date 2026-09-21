@@ -22,13 +22,13 @@ OPENCODE = (
 )
 
 
-def run_morph(h: str) -> str:
+def run_morph(h: str, model: str = "") -> str:
     dest = REPLAY / h
     m1 = dest / "morphs" / "m1.md"
     nd = dest / "opencode-morph.ndjson"
     if not m1.is_file():
         return "no-m1"
-    if tool_seq(nd):
+    if tool_seq(nd) and "--force" not in sys.argv:
         return "skip"
     prompt = m1.read_text(encoding="utf-8", errors="replace")
     if not prompt.strip():
@@ -48,8 +48,10 @@ def run_morph(h: str) -> str:
         "--title",
         f"morph-{h}",
         "--auto",
-        prompt,
     ]
+    if model:
+        cmd.extend(["--model", model])
+    cmd.append(prompt)
     proc = subprocess.Popen(
         cmd,
         cwd=str(ROOT),
@@ -84,9 +86,18 @@ def run_morph(h: str) -> str:
 
 
 def main() -> None:
-    hashes = sys.argv[1:] or ["74841f3cc419"]
+    import argparse
+
+    p = argparse.ArgumentParser()
+    p.add_argument("hashes", nargs="*")
+    p.add_argument("--model", default="")
+    p.add_argument("--force", action="store_true")
+    args = p.parse_args()
+    hashes = args.hashes or ["633c140546c0"]
+    if args.force:
+        sys.argv.append("--force")
     for h in hashes:
-        print(h, run_morph(h))
+        print(h, run_morph(h, model=args.model))
 
 
 if __name__ == "__main__":

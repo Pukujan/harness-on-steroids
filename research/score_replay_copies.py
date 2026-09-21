@@ -54,23 +54,11 @@ def morph_cell(h: str, prev: str) -> str:
     seq = tool_seq(morph_nd)
     if seq:
         return "yes"
-    if (dest / "morphs" / "m1.md").is_file() and prev == "yes":
-        return "yes"
-    if seq:
-        return "yes"
-    if (dest / "morphs" / "m1.md").is_file() and tool_seq(dest / "opencode-morph.ndjson"):
-        return "yes"
-    if tool_seq(morph_nd):
-        return "yes"
-    if (dest / "morphs" / "m1.md").is_file() and prev not in {"pending", ""}:
-        return prev
-    if (dest / "morphs" / "m1.md").is_file() and (dest / "opencode-morph.ndjson").is_file():
-        return "yes"
-    # File-only morph is not a replay. Keep prior yes if already recorded.
+    # Keep previously recorded tool-replays. File-only or error ndjson is not yes.
     if prev == "yes":
         return "yes"
-    if (dest / "opencode-morph.ndjson").is_file() and (dest / "opencode-morph.ndjson").stat().st_size > 0:
-        return "timeout" if not seq else "yes"
+    if morph_nd.is_file() and morph_nd.stat().st_size > 0 and not seq:
+        return "empty-tools"
     return "pending"
 
 

@@ -11,11 +11,11 @@ v65. Work process from JSONL. OpenCode cells from gitignored ndjson copies. Kilo
 | 1b09f49da9b9 | no | R3 | yes/none/yes | no/R3/partial | pending |
 | 28372e365066 | yes | none | yes/none/partial | no/R3/no | yes |
 | 2bde00530ddd | yes | none | yes/none/partial | no/R4/partial | yes |
-| 633c140546c0 | yes | none | yes/none/partial | yes/none/partial | pending |
+| 633c140546c0 | yes | none | yes/none/partial | yes/none/partial | yes |
 | 6b1cd28c4803 | yes | none | yes/none/yes | no/R2+R5/partial | pending |
 | 6e412585c223 | yes | none | yes/none/yes | yes/none/partial | yes |
 | 6eb8631b71ff | yes | none | no/R2+R5/partial | yes/none/partial | pending |
-| 74841f3cc419 | yes | none | yes/none/partial | yes/none/partial | pending |
+| 74841f3cc419 | yes | none | yes/none/partial | yes/none/partial | empty-tools |
 | 76b12d5e1a66 | yes | none | yes/none/yes | no/R4/partial | yes |
 | 8d42bc26b8ea | yes | none | yes/none/no | no/R2+R5/partial | pending |
 | a5842562d1c9 | yes | none | yes/none/partial | no/R2+R5/partial | pending |
