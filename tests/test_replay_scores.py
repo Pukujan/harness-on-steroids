@@ -24,3 +24,16 @@ def test_replay_scores_work_column_only() -> None:
     assert "not done" in text
     assert text.count("| yes |") >= 20
     assert "| 1b09f49da9b9 | no | R3 | yes/none/yes | no/R3/partial | yes |" in text
+    develop = text.split("## holdout")[0]
+    holdout = text.split("## holdout")[1]
+    def morph_yes(block: str) -> int:
+        n = 0
+        for line in block.splitlines():
+            if not line.startswith("| ") or "hash12" in line or line.startswith("| ---"):
+                continue
+            parts = [x.strip() for x in line.strip("|").split("|")]
+            if len(parts) >= 6 and parts[5] == "yes":
+                n += 1
+        return n
+    assert morph_yes(develop) == 16
+    assert morph_yes(holdout) == 0
