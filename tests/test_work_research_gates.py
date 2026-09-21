@@ -6,7 +6,7 @@ ROOT = Path(__file__).resolve().parents[1]
 def test_plan_preserves_richer_work_research_as_active_signal() -> None:
     plan = (ROOT / "PLAN.md").read_text(encoding="utf-8")
     for n in (
-        "interaction",
+        "Interaction",
         "Research/inspection",
         "Verification/provenance",
         "Output behavior",
