@@ -9,6 +9,8 @@ def test_workflow_exists_and_is_not_a_noop() -> None:
     text = WF.read_text(encoding="utf-8")
     assert "continue-on-error" not in text
     assert "pytest" in text
+    assert "ruff check src" in text
+    assert "mypy src" in text
     for name in (
         "test_properties.py",
         "test_hidden_holdout.py",
@@ -53,5 +55,7 @@ def test_workflow_exists_and_is_not_a_noop() -> None:
         "test_long_replay_set.py",
         "test_long_holdout.py",
         "test_replay_scores.py",
+        "test_work_research_gates.py",
+        "test_repo_modules.py",
     ):
         assert name in text, name

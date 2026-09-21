@@ -61,6 +61,9 @@ A later owner ask: don’t stop at “who called which tool.” Replay **the sam
 | `src/score_session.py` | Cheap process checks on tool order. |
 | `spec/matched-task-eval.md` | Same Work jobs, outcome + morphs, holdout so we don’t overfit. |
 | `tests/` | Guardrails so we don’t drift into SWE-bench or drop the gold clause. |
+| `spec/repo-modules.md` | Layer map (contract / measure / adapt / lib / gate). |
+| `research/work-ux-gaps.md` | What Work UX we have not measured yet. |
+| `spec/work-research-gates.md` | Provenance and research-enough gates (not complete). |
 
 ## Where it stands
 

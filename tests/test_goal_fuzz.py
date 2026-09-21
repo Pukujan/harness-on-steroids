@@ -48,7 +48,15 @@ def test_differential_two_judges_never_done_on_red(tmp_path: Path) -> None:
 
 def test_differential_kilo_opencode_mode_needles() -> None:
     root = Path(__file__).resolve().parents[1]
-    needles = ["Look first", "Burst look", "Look again", "Prose is not truth", "Do not patch first"]
+    needles = [
+        "Look first",
+        "Burst look",
+        "Look again",
+        "Prose is not truth",
+        "Do not patch first",
+        "Chat first",
+        "Seek go-ahead before a long-running task",
+    ]
     kilo = (root / ".kilo" / "agent" / "codex.md").read_text(encoding="utf-8")
     oc = (root / ".opencode" / "agent" / "codex.md").read_text(encoding="utf-8")
     for n in needles:

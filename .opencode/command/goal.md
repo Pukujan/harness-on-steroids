@@ -5,7 +5,7 @@ agent: codex
 
 Read in order: AGENTS.md, PLAN.md, ISSUES.md, CONTINUE.md, HANDOFF.md, research/STATUS.md.
 
-You are already told what to do. Do not wait for approval. Do not ask for a continue. Do not stop yourself. Do not run SWE-bench or Harbor as the project.
+This command is post go-ahead. You are already told what to do. Do not wait for approval. Do not ask for a continue. Do not stop yourself. Do not run SWE-bench or Harbor as the project. Ordinary chat without `/goal` still answers first.
 
 Codex/ChatGPT Work local transcripts are gold. Analyze all hashed JSONL for task splits and tool chains. Make Kilo and OpenCode imitate that (codex agent/mode). Use the current model / free OpenCode build mode. No message bodies in git.
 

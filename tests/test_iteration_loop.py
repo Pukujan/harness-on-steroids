@@ -22,6 +22,9 @@ def test_plan_requires_repeat_until_modes_exist() -> None:
     plan = (ROOT / "PLAN.md").read_text(encoding="utf-8")
     assert "### C — Kilo mode" in plan
     assert "### D — OpenCode mode" in plan
+    assert "### G — Work research, planning, provenance" in plan
+    assert "### H — Durable evidence" in plan
+    assert "### I — Portable Codex pack" in plan
     issues = (ROOT / "ISSUES.md").read_text(encoding="utf-8")
     assert "12. Iteration loop until behavior matches" in issues
     assert "Iteration loop until behavior matches" in issues

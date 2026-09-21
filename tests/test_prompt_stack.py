@@ -5,7 +5,15 @@ import random
 from pathlib import Path
 
 ROOT = Path(__file__).resolve().parents[1]
-NEEDLES = ["Look first", "Burst look", "Look again", "Prose is not truth", "Do not patch first"]
+NEEDLES = [
+    "Look first",
+    "Burst look",
+    "Look again",
+    "Prose is not truth",
+    "Do not patch first",
+    "Chat first",
+    "Seek go-ahead before a long-running task",
+]
 RNG = random.Random(42)
 
 
@@ -19,6 +27,15 @@ def test_prompt_stack_doc_names_layers() -> None:
     text = (ROOT / "spec" / "prompt-stack.md").read_text(encoding="utf-8")
     for n in ("AGENTS.md", "codex.md", "goal_loop.py", "owner.v1.json"):
         assert n in text, n
+    assert "only after `/goal`" in text or "only after /goal" in text
+
+
+def test_continue_is_post_goal_only() -> None:
+    cont = (ROOT / "CONTINUE.md").read_text(encoding="utf-8")
+    agents = (ROOT / "AGENTS.md").read_text(encoding="utf-8")
+    assert "only after" in cont
+    assert "Seek go-ahead before starting a long-running task" in agents
+    assert "A status question is not a standing goal" in agents
 
 
 def test_fuzz_mode_delete_look_first_is_detectable() -> None:

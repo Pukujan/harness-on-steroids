@@ -2,7 +2,7 @@
 
 This file is the durable work log. Later agents read `AGENTS.md`, `PLAN.md`, then this. Closing an issue requires the **command** to pass in CI, not a prose claim.
 
-**48-hour no-stop:** `CONTINUE.md`. Do not wait for the owner. Work issues in order.
+**48-hour no-stop:** `CONTINUE.md` after `/goal` + go. Do not wait for the owner. Work issues in order. Ordinary chat still answers first.
 
 **Document + push:** append `research/JOURNAL.md` after real work. Occasional push of specs/tests/reports/modes. Never push `data/` or transcripts.
 
@@ -126,8 +126,57 @@ Status: `open` | `in_progress` | `done`
 - **Pass:** loop documented; gap report after modes exist; owner-accepted match
 - **Parent:** 10, 11
 
+### 14. Work research / planning / compacted (counts only)
+
+- **Status:** open
+- **Goal:** Measure how Work researches, plans, and compacts — not only tool names. Assistant-turn shape, `send_message` brief structure, user-turn classes, `compacted` events. No bodies in git. Recode into spec + both Codex modes.
+- **Files:** `spec/work-research-gates.md`, `reports/` (new count tables), `spec/codex-imitate-mode.md`
+- **Command:** `pytest tests/test_work_research_gates.py -q`
+- **Notes:** Corpus already lists `compacted` 262–266. Never opened. Do not build a summarizer first. Do not treat the chat as the project.
+- **Pass:** reports exist; modes/spec name synthesize-late + provenance; pytest green
+- **Parent:** 8, 12
+
+### 15. Provenance and research gates in Codex mode
+
+- **Status:** open
+- **Goal:** Modes require: claim tied to tool result or **not observed**; enough look before send/write; path/command/hash when the answer needs the repo. Scorer layer later. Kilo and OpenCode stay paired.
+- **Files:** `.kilo/agent/codex.md`, `.opencode/agent/codex.md`, `spec/work-research-gates.md`
+- **Command:** `pytest tests/test_work_research_gates.py tests/test_imitate_modes.py tests/test_metamorphic.py -q`
+- **Pass:** both modes contain the gate needles; metamorphic pair holds
+- **Parent:** 14
+
+### 16. Durable checkpoints (this repo)
+
+- **Status:** open
+- **Goal:** Git checkpoint as scratchpad. Non-destructive PCM-shaped CURRENT + one task. Do not overwrite owner `AGENTS.md` / `PLAN.md` / `HANDOFF.md`. New session reads CURRENT, not chat.
+- **Files:** `checkpoints/CURRENT.md` (when created), `HANDOFF.md`
+- **Command:** `pytest tests/test_work_research_gates.py -q`
+- **Notes:** Map PLAN→stable gold, issue 13→active task. PCM init must not clobber.
+- **Pass:** CURRENT names next slice + evidence pointer; HANDOFF points at it
+- **Parent:** 13, 14
+
+### 17. Portable Codex pack
+
+- **Status:** open
+- **Goal:** After 14–15 are in the spec, a harness-neutral loop + adapters. Not a new product. Pi/Hermes later.
+- **Files:** `spec/codex-imitate-mode.md`, both `codex.md` modes
+- **Command:** `pytest tests/test_imitate_modes.py tests/test_work_research_gates.py -q`
+- **Pass:** spec states the pack; Kilo/OpenCode remain the adapters
+- **Parent:** 15
+
+### 18. Repo modules, lint, types
+
+- **Status:** in_progress
+- **Goal:** Managed layout: `spec/repo-modules.md` boundaries, `src/hos/` facade, ruff+mypy on `src/`, no new scripts at repo root. Not a dump.
+- **Files:** `spec/repo-modules.md`, `src/hos/`, `pyproject.toml`, `research/work-ux-gaps.md`, `spec/combined-slices-goal.md`
+- **Command:** `pytest tests/test_repo_modules.py -q`
+- **Notes:** Combined `/goal` is `spec/combined-slices-goal.md` (**Not started**). Ruff/mypy on `src/` are in owner-gate.
+- **Pass:** module map + work-ux-gaps exist; pyproject has ruff/mypy; hos imports; CI lists this test
+- **Parent:** 1
+
 ## Rules for agents
 
 - Do not close 1–7 by deleting tests.
-- Do not replace 8–13 with SWE-bench, Harbor, or a new Codex-clone product.
+- Do not replace 8–18 with SWE-bench, Harbor, or a new Codex-clone product.
 - Do not commit `data/` or message bodies.
+- New code follows `spec/repo-modules.md`. No analysis scripts at repo root.

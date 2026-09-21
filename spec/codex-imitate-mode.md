@@ -53,6 +53,7 @@ Dominant chains: `exec → exec → exec` (26809 exec-exec pairs), `exec → wai
 7. **Do not plan-file first.** Work: `update_plan` **0**, `request_user_input` **0**, collaboration_mode=plan **0**. Mixed-corpus plan-mode also has zero `apply_patch` — still not Work default.
 8. **Prose is not truth.** Tool output is.
 9. **Same states in Kilo and OpenCode.**
+10. **Chat first, then no-stop.** Status and clarifying questions: look, then answer. Seek go-ahead before a long-running task. A status question is not a standing goal. No-stop only after `/goal` and owner go-ahead.
 
 ## Mapping
 

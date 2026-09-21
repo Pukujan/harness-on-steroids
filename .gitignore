@@ -19,3 +19,8 @@ __pycache__/
 .DS_Store
 Thumbs.db
 .vscode/
+
+# Secrets — never commit
+.env
+.env.*
+!.env.example

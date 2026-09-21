@@ -69,13 +69,17 @@ def run_gates(gates: list[str], cwd: Path | None = None) -> list[dict]:
                 timeout=60,
             )
             tail = ((proc.stdout or "") + (proc.stderr or ""))[-3000:]
-            results.append({"cmd": cmd, "ok": proc.returncode == 0, "code": proc.returncode, "tail": tail})
+            results.append(
+                {"cmd": cmd, "ok": proc.returncode == 0, "code": proc.returncode, "tail": tail}
+            )
         except Exception as exc:
             results.append({"cmd": cmd, "ok": False, "code": -1, "tail": type(exc).__name__})
     return results
 
 
-def rule_judge(state: GoalState, last_response: str, gate_results: list[dict]) -> tuple[Verdict, str]:
+def rule_judge(
+    state: GoalState, last_response: str, gate_results: list[dict]
+) -> tuple[Verdict, str]:
     """Conservative rule judge (Hermes: done only with evidence)."""
     if any(not g["ok"] for g in gate_results):
         failed = next(g for g in gate_results if not g["ok"])
@@ -94,7 +98,9 @@ def rule_judge(state: GoalState, last_response: str, gate_results: list[dict]) -
     return "continue", "goal not evidenced as complete"
 
 
-def gate_first_judge(state: GoalState, last_response: str, gate_results: list[dict]) -> tuple[Verdict, str]:
+def gate_first_judge(
+    state: GoalState, last_response: str, gate_results: list[dict]
+) -> tuple[Verdict, str]:
     """Differential twin: gates dominate; never done if a gate is red."""
     if any(not g["ok"] for g in gate_results):
         return "continue", "red gate"
@@ -155,7 +161,12 @@ class GoalEngine:
 
     def tick(self, last_response: str, cwd: Path | None = None) -> dict:
         if self.state.status != "active" or not self.state.text:
-            return {"verdict": "blocked", "reason": "no active goal", "continue": False, "state": asdict(self.state)}
+            return {
+                "verdict": "blocked",
+                "reason": "no active goal",
+                "continue": False,
+                "state": asdict(self.state),
+            }
         gates = run_gates(self.state.gates, cwd=cwd)
         try:
             verdict, reason = self.judge(self.state, last_response, gates)

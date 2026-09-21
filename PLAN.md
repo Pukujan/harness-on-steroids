@@ -66,6 +66,36 @@ Prompts live only under gitignored `data/replay/`. Never commit bodies. Not SWE-
 
 Spec: `spec/matched-task-eval.md`. Index: `reports/work-session-index.md`. Long set: `reports/work-long-replay-set.md`. Holdout: `reports/work-long-holdout.md`. Morph = stretch eval (paraphrase / multi-turn), not a JS file. Replay **not complete**.
 
+### G — Work research, planning, provenance (not only tools)
+
+Tool-call histograms are not how Work researches or plans. Work treats **tool output as memory**. It waits on cells, then writes a short brief to a named child. It does not keep an 832k chat as the plan. **Do not treat the chat as the project.**
+
+Counts only. No message bodies in git. Produce reports, then recode into `spec/codex-imitate-mode.md` and both Codex modes:
+
+- Assistant-turn shape (speak before first tool / after last; length bands)
+- `send_message` brief structure (the plan is that message; `update_plan` is 0)
+- User-turn classes (question / go / correction)
+- `compacted` events (listed in the corpus, never opened)
+
+**Synthesize late:** child brief, user answer, or git checkpoint — not a plan file, not a running novel.
+
+Research gates (Work-like, testable):
+
+- **Valid:** claim tied to a tool result, or **not observed**
+- **Enough:** the target of the next action was actually read; stop if nothing to look up
+- **Action reliable:** no send/write until that; look/test after write
+- **Provenance:** path / command / hash when the answer needs the repo; JOURNAL is not fact
+
+Do not build a summarizer first. Lost in the Middle / RULER / LLMLingua / MemGPT are warnings, not the exam. Spec: `spec/work-research-gates.md`. **Not complete.**
+
+### H — Durable evidence (this repo)
+
+Scratchpad = git checkpoint, not in-window compression. Non-destructive PCM-shaped files (`checkpoints/CURRENT.md`, one active task) if they do not overwrite `AGENTS.md` / `PLAN.md` / `HANDOFF.md`. Owner gold stays. New sessions read CURRENT, not this chat.
+
+### I — Portable Codex pack
+
+After G is in the spec: harness-neutral loop + Kilo/OpenCode adapters. Pi/Hermes later. Not a new Codex-clone product.
+
 ## Explicitly out
 
 - SWE-bench / SWE-bench Verified / Terminal-Bench / Harbor as the project
@@ -73,14 +103,15 @@ Spec: `spec/matched-task-eval.md`. Index: `reports/work-session-index.md`. Long 
 - Using Codex to sit a new exam
 - Treating literature as a veto of this plan
 - 26 GitHub issues from the old campaign as a stall
+- A summarizer / compressor as the project or as session memory
 
 ## Quality gates (no exception)
 
-Property tests, hidden holdout, mutation tests, metamorphic tests, differential tests, iteration-loop tests, and CI (`.github/workflows/owner-gate.yml`). Agents may not skip or delete them.
+Property tests, hidden holdout, mutation tests, metamorphic tests, differential tests, iteration-loop tests, and CI (`.github/workflows/owner-gate.yml`). Agents may not skip or delete them. New code follows `spec/repo-modules.md`. Ruff/mypy on `src/` (issue 18).
 
 ## 48-hour no-stop
 
-See `CONTINUE.md`. Keep executing this plan until the owner stops you or the deadline and deliverables exist.
+See `CONTINUE.md`. After `/goal` and owner go, keep executing this plan until the owner stops you or the deadline and deliverables exist. Ordinary chat still answers first.
 
 ## Privacy still
 

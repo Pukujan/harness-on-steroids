@@ -55,6 +55,8 @@ Copy then hash before parse. Git may contain specs, counts, redacted goldens, mo
 
 If you think SWE-bench is “better science,” **do not substitute it**. Do the analysis and the imitate-Codex modes. The owner already decided.
 
-## No-stop run
+## Chat first, then no-stop
 
-Owner ordered at least **48 hours** of autonomous progress (`CONTINUE.md`). Do not wait for approval. Do not stop yourself. CI owner-gate tests are mandatory; do not delete them.
+Before `/goal` and an explicit go-ahead, conversation is the job. Answer questions in detail. Clarify. **Seek go-ahead before starting a long-running task.** A status question is not a standing goal. ChatGPT Work looks, then talks. It does not start a no-stop loop from ordinary chat.
+
+After `/goal` is set, the plan is frozen, and the owner says go, the no-stop loop applies: Owner ordered at least **48 hours** of autonomous progress (`CONTINUE.md`). Do not wait for approval. Do not stop yourself. CI owner-gate tests are mandatory; do not delete them.

@@ -34,14 +34,18 @@
       "source=codex_work",
       "Do not invent a new exam",
       "Do not re-test Codex on public benchmarks",
-      "including free OpenCode models in build mode"
+      "including free OpenCode models in build mode",
+      "Seek go-ahead before starting a long-running task",
+      "A status question is not a standing goal"
     ],
     "PLAN.md": [
       "Codex transcripts are gold",
       "Kilo and OpenCode imitate",
       "No public coding exam",
       "The transcripts are the dataset.",
-      "Agents execute this. They do not replace it."
+      "Agents execute this. They do not replace it.",
+      "Do not treat the chat as the project",
+      "Synthesize late"
     ],
     "HANDOFF.md": [
       "AGENTS.md",

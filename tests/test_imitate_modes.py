@@ -7,6 +7,9 @@ NEEDLES = [
     "Look again",
     "Prose is not truth",
     "Do not patch first",
+    "Chat first",
+    "Seek go-ahead before a long-running task",
+    "A status question is not a standing goal",
 ]
 
 

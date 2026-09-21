@@ -214,8 +214,8 @@ def summarize(
     skipped = 0
     skipped_plan = 0
     multi_n = 0
-    firsts = Counter()
-    masks: Counter = Counter()
+    firsts: Counter[str] = Counter()
+    masks: Counter[str] = Counter()
     bursts: list[int] = []
     before_write: list[int] = []
     before_decomp: list[int] = []
@@ -290,7 +290,9 @@ def summarize(
         "sandwich_look_after_write": sandwich,
         "median_start_look_burst": int(statistics.median(bursts)) if bursts else None,
         "median_tools_before_write": int(statistics.median(before_write)) if before_write else None,
-        "median_tools_before_decompose": int(statistics.median(before_decomp)) if before_decomp else None,
+        "median_tools_before_decompose": (
+            int(statistics.median(before_decomp)) if before_decomp else None
+        ),
         "multi_piece": multi_n,
         "firsts": firsts.most_common(8),
         "fail_masks": masks.most_common(12),

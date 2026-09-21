@@ -14,7 +14,11 @@ jobs:
         with:
           python-version: "3.12"
       - name: install
-        run: pip install pytest
+        run: pip install pytest ruff mypy
+      - name: ruff-src
+        run: ruff check src
+      - name: mypy-src
+        run: mypy src
       - name: properties
         run: pytest tests/test_properties.py
       - name: hidden-holdout
@@ -101,3 +105,7 @@ jobs:
         run: pytest tests/test_long_holdout.py
       - name: replay-scores
         run: pytest tests/test_replay_scores.py
+      - name: work-research-gates
+        run: pytest tests/test_work_research_gates.py
+      - name: repo-modules
+        run: pytest tests/test_repo_modules.py
