@@ -20,7 +20,7 @@ This package is intentionally separate from the current owner plan. `PLAN.md`, `
 | `07-adapter-and-capability-contract.md` | Host responsibilities, capability negotiation, and adapter shape |
 | `08-verification-and-evaluation.md` | Verifiers, properties, outcome rubrics, splits, and promotion gates |
 | `09-migration-and-rebuild.md` | How to preserve evidence while treating current code as disposable |
-| `10-owner-decisions-and-handoff.md` | Decisions required before `/goal` or implementation |
+| `10-owner-decisions-and-handoff.md` | Resolved planning defaults and the approval handoff |\n| `11-owner-review.md` | Architecture review, amendments, risks, and acceptance recommendation |
 
 ## Reading order for a future planner
 

@@ -4,61 +4,94 @@
 
 The protocol is a declarative semantic contract consumed by a host harness. It is not a replacement model loop, a transcript replay engine, or a Codex clone.
 
+The v1 protocol uses three scopes rather than one flat state machine:
+
+1. **run** — the user-visible job and its terminal status;
+2. **task graph** — one or more dependent or concurrent tasks/plan items;
+3. **attempt** — a single task attempt moving through semantic phases.
+
+This matters because delegation, waits, retries, and verification may be active for different tasks at the same time.
+
 ## Lifecycle
 
+A run begins at `intake`, constructs or updates a task graph, and terminates only at `complete`, `partial`, `blocked`, `failed`, or `interrupted`.
+
+Each task attempt may traverse:
+
 ```text
-intake -> orient -> inspect -> research -> model -> plan
-  -> authorize -> execute -> observe -> verify
+orient -> inspect -> research -> assess -> plan -> authorize
+  -> execute -> observe -> verify
   -> {revise | recover | handoff | compact/rehydrate | synthesize}
-  -> {complete | blocked}
 ```
 
-Transitions are conditional. A simple question may stop after orientation; a multi-repository change may traverse the full lifecycle. A harness must be allowed to take semantically equivalent paths when evidence and outcome are equivalent.
+Transitions are conditional and phases may be skipped when their obligation is already satisfied by current evidence. Independent tasks may proceed concurrently when dependency, authority, and capability constraints allow it. A simple question may stop after orientation or inspection; a multi-repository change may contain several task attempts, waits, child tasks, and recoveries.
+
+A parent task cannot be considered complete while a required child/dependency is unresolved. A wait belongs to the task or external condition being awaited, not to the whole run by default.
+
+## Normative terms
+
+- **Consequential action:** an action that can change durable state, communicate externally, spend material resources, broaden authority, or create a result that the user may rely on.
+- **Material mutation:** a consequential write/change whose failure or incorrectness could alter the requested outcome.
+- **Authority boundary:** a point where user approval, host permission, credential scope, or explicit project policy is required before proceeding.
+- **Verified scope:** the subset of requested outcome claims for which post-action evidence satisfies the declared acceptance criteria.
+
+These definitions are adapter-independent. Harnesses may add stricter local definitions but may not weaken them while claiming full conformance.
 
 ## State obligations
 
 | State | Entry condition | Obligation | Exit evidence |
 | --- | --- | --- | --- |
-| `orient` | Request received | Identify objective, scope, authority, and ambiguity | Task context record |
-| `inspect` | Target or environment unknown | Read/search/inspect relevant state | Source pointers or explicit absence |
-| `research` | Claim/action depends on external or repository facts | Gather and compare sources | Evidence ledger entries |
-| `model` | Facts are sufficient enough to act | Separate facts, inferences, uncertainty, conflicts | Decision context |
-| `plan` | Consequential work has dependencies | Define semantic actions, prerequisites, expected results, acceptance | Action-plan graph |
-| `authorize` | Action crosses a material authority boundary | Ask, confirm, or use recorded authority | Authority record |
+| `orient` | Request/task received | Identify objective, scope, authority, ambiguity, and dependencies | Task context record |
+| `inspect` | Target or environment unknown/stale | Read/search/inspect relevant state | Source pointers or explicit absence |
+| `research` | Claim/action depends on repository or external facts | Gather and compare sources | Evidence ledger entries |
+| `assess` | Evidence is sufficient to choose a path | Separate observations, inferences, uncertainty, and conflicts | Decision context |
+| `plan` | Consequential work has dependencies or multiple obligations | Define semantic actions, prerequisites, expected results, acceptance | Action-plan graph/revision |
+| `authorize` | Action crosses an authority boundary | Ask, confirm, or use recorded authority | Authority record |
 | `execute` | Plan item is actionable | Invoke a native capability exactly within scope | Action event |
-| `observe` | Action returned or is asynchronous | Wait/poll/receive result; do not assume success | Result event |
+| `observe` | Action returned or is asynchronous | Receive/wait/poll/cancel as appropriate; do not assume success | Result/lifecycle event |
 | `verify` | Result may satisfy an obligation | Check artifact/state/claim against criteria | Verification record |
-| `revise` | Evidence changes understanding | Update plan and affected lineage | New plan revision |
-| `recover` | Failure, stale evidence, conflict, or missing capability | Change premise, method, input, or environment | Recovery outcome or precise blocker |
-| `synthesize` | User-facing response or handoff required | Summarize evidence, outcome, residuals, and next action | Auditable response/handoff |
-| `complete` | Acceptance criteria verified | Claim completion only within verified scope | Completion record |
-| `blocked` | Progress requires missing authority/evidence/capability/external state | Name blocker and exact unblock condition | Blocker record |
+| `revise` | Evidence changes understanding | Update affected task/plan lineage | New plan revision |
+| `recover` | Failure, stale evidence, conflict, or missing capability | Change premise, method, input, actor, or environment | Recovery outcome or precise blocker |
+| `handoff` | Work changes actor/harness | Transfer bounded state, authority, evidence, and next action | Handoff record |
+| `compact` | Context/state must be reduced | Produce checkpoint projection without destroying source history | Checkpoint + source links |
+| `rehydrate` | Work resumes from compacted/restarted state | Revalidate critical constraints, pending authority, evidence links, and next action | Rehydration record |
+| `synthesize` | User-facing response or task-level summary required | State evidence, outcome, residuals, and next action | Auditable response/handoff |
+
+## Run terminal states
+
+- `complete`: all required acceptance criteria are verified within authorized scope.
+- `partial`: a useful subset is verified and the unresolved remainder is named.
+- `blocked`: progress requires a specific missing authority, capability, evidence item, dependency, or external state; the unblock condition is explicit.
+- `failed`: an attempted required path failed and no acceptable recovery remains within current scope.
+- `interrupted`: execution stopped before a terminal outcome but a resumable checkpoint exists or the missing state is identified.
+
+Confident prose or a successful tool return cannot by itself create `complete`.
 
 ## Normative behavior
 
-- Inspectable targets are inspected before consequential mutation.
+- Inspectable targets are inspected before consequential mutation unless current evidence is explicitly fresh and sufficient.
 - A missing observation is not a negative observation.
-- Tool output and source evidence outrank model prose.
-- Writes, sends, delegation, and authority changes require appropriate prerequisites.
-- Long-running or asynchronous work is waited on and then observed.
+- Tool/source evidence outranks unsupported model prose.
+- Writes, sends, delegation, authority changes, and other consequential actions require their prerequisites and authority.
+- Long-running or asynchronous work is observed to a terminal or explicitly deferred state.
 - Material mutations receive relevant verification.
-- A retry must change a premise, method, input, or environment; identical repetition is not recovery.
-- Completion is gated by evidence, not by an attempted action or confident prose.
-- Semantic plan state is not tied to `update_plan`; the current Work data reports zero of that tool.
-- The protocol never requires private reasoning or exact wording.
+- A retry must change a premise, method, input, actor, or environment; identical repetition is not recovery.
+- Completion is gated by verification evidence and dependency closure.
+- Semantic planning is not tied to `update_plan` or any product-specific tool.
+- The protocol never requires private reasoning, hidden chain-of-thought, or exact wording.
 
 ## UX contract
 
 Adapters must render or approximate these semantics:
 
 - concise orientation before nontrivial work;
-- meaningful progress at phase boundaries or after long waits;
+- meaningful progress at phase boundaries, material changes, or after long waits;
 - explicit authority requests;
-- distinct observed, inferred, uncertain, blocked, partial, and complete states;
+- visibly distinct observed, inferred, uncertain, blocked, partial, failed, interrupted, and complete states;
 - evidence-backed completion with residual risks;
 - no conversion of an ordinary question/status request into a standing autonomous goal;
 - no repetitive narration of unchanged state.
 
 ## Capability-degraded behavior
 
-If a host lacks a capability, the protocol must choose an explicit degraded path. A harness without child agents serializes slices; it must not claim delegation. A harness without structured verification hooks may expose advisory status, but the adapter must declare that limitation and the evaluator must not score the invariant as enforced.
+If a host lacks a capability, the negotiated protocol profile must choose an explicit degraded path. A harness without child agents serializes or locally decomposes slices; it must not claim delegation. A harness without enforceable verification hooks may expose an advisory verifier, but the adapter must declare that limitation and may not claim the affected invariant as runtime-enforced.

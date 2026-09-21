@@ -176,12 +176,12 @@ Status: `open` | `in_progress` | `done`
 
 ### 19. Harness-agnostic behavior-system reset proposal
 
-- **Status:** open
+- **Status:** in_progress
 - **Goal:** Replace the narrow “two prompt modes imitate Codex” framing with an owner-reviewed, harness-agnostic protocol plan covering evidence/provenance, UX research, behavior annotation, research-to-action lineage, action plans, execution, verification, recovery, compaction, handoff, capability negotiation, adapters, and outcome evaluation. Pi and future harnesses are in scope; Kilo/OpenCode are examples.
 - **Files:** `spec/harness-agnostic/`
 - **Command:** owner review; no implementation command yet
 - **Pass:** package is reviewed and accepted before any implementation or `/goal`; current code remains historical/prototype evidence until then
-- **Notes:** This issue is a planning proposal only. It does not supersede `PLAN.md`, authorize cleanup, or permit raw transcript/account data in Git.
+- **Notes:** Architecture review completed in `spec/harness-agnostic/11-owner-review.md`; recommended resolutions are in `10-owner-decisions-and-handoff.md`. Owner acceptance is still pending. The review added hierarchical run/task/attempt semantics, explicit capability negotiation, comparable-outcome/model-strata rules, and privacy-safe identifier requirements. This issue does not yet supersede `PLAN.md`, authorize cleanup, or permit raw transcript/account data in Git.
 - **Parent:** 8, 13–18
 
 ## Rules for agents

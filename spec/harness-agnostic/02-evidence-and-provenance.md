@@ -67,6 +67,12 @@ source event
 
 Every normative behavior rule must point to supporting observations and known counterexamples. Every final claim in an evaluated run must point to verification evidence, not only to the action that was attempted.
 
+## Identifier and ordering rules
+
+Stable identifiers must not create a new privacy leak. Source-native opaque IDs may remain local. New derived identifiers should be deterministic only within the local evidence domain, preferably keyed/HMAC-derived when their input could be guessed. Public reports may contain only explicitly approved structural identifiers or redacted aliases; they must not expose raw paths, account IDs, user names, prompt text, or reversible content-derived IDs.
+
+Event order is defined primarily by source ordinal and explicit parent/call/result relations. Wall-clock timestamps are supporting evidence, not the sole ordering authority, because clocks can be absent, duplicated, skewed, or reconstructed. Unknown ordering must remain unknown rather than being guessed.
+
 ## Repository-safe data policy
 
 Git may contain schemas, aggregate counts, structural labels, versioned hashes, redacted examples, and reproducible check definitions. Git must not contain raw JSONL, SQLite, prompt bodies, transcript bodies, credentials, private account exports, or user artifacts.
