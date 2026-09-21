@@ -20,7 +20,7 @@ v65. Work process from JSONL. OpenCode cells from gitignored ndjson copies. Kilo
 | 8d42bc26b8ea | yes | none | yes/none/no | no/R2+R5/partial | yes |
 | a5842562d1c9 | yes | none | yes/none/partial | no/R2+R5/partial | yes |
 | b7e6393f4c14 | yes | none | yes/none/yes | no/R2+R5/partial | pending |
-| bd179678f540 | yes | none | yes/none/partial | yes/none/partial | pending |
+| bd179678f540 | yes | none | yes/none/partial | yes/none/partial | yes |
 | f37de8488162 | yes | none | yes/none/partial | no/R3/partial | pending |
 
 ## holdout (6)
