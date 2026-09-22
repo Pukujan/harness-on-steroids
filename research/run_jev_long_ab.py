@@ -179,12 +179,10 @@ def _materialize_seed(seed: Path) -> None:
         raise RuntimeError("workspace_seed_failed")
     seed.mkdir(parents=True, exist_ok=True)
     with tarfile.open(fileobj=io.BytesIO(result.stdout), mode="r:") as archive:
-        archive.extractall(seed)
-
-
-def _clone_workspace(destination: Path, seed: Path) -> None:
-    destination.parent.mkdir(parents=True, exist_ok=True)
-    shutil.copytree(seed, destination)
+        try:
+            archive.extractall(seed, filter="data")
+        except TypeError:  # Python 3.11 has no tarfile filter argument.
+            archive.extractall(seed)
     commands = (
         ["git", "init", "--quiet", "--initial-branch=main"],
         ["git", "config", "user.email", "fixture@example.invalid"],
@@ -193,18 +191,23 @@ def _clone_workspace(destination: Path, seed: Path) -> None:
         ["git", "commit", "--quiet", "-m", "fixture snapshot"],
     )
     for command in commands:
-        result = subprocess.run(
+        initialized = subprocess.run(
             command,
-            cwd=destination,
+            cwd=seed,
             capture_output=True,
             text=True,
             encoding="utf-8",
             errors="replace",
-            timeout=60,
+            timeout=180,
             check=False,
         )
-        if result.returncode != 0:
-            raise RuntimeError("workspace_init_failed")
+        if initialized.returncode != 0:
+            raise RuntimeError("workspace_seed_init_failed")
+
+
+def _clone_workspace(destination: Path, seed: Path) -> None:
+    destination.parent.mkdir(parents=True, exist_ok=True)
+    shutil.copytree(seed, destination)
 
 
 def _new_context(task_hash: str, first_ask: str, turn_budget: int) -> DecisionContext:
