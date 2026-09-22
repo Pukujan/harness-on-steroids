@@ -4,7 +4,7 @@ from __future__ import annotations
 
 from collections.abc import Iterable
 
-from .model import LANES, OBSERVATION_STATES, CanonicalEvent, ValidationIssue
+from .model import BODY_STATES, LANES, OBSERVATION_STATES, CanonicalEvent, ValidationIssue
 
 
 def validate_event(event: CanonicalEvent) -> list[ValidationIssue]:
@@ -39,6 +39,15 @@ def validate_event(event: CanonicalEvent) -> list[ValidationIssue]:
                 "invalid_observation",
                 "observation",
                 "observation is not in the contract",
+                event.event_id,
+            )
+        )
+    if event.body_status not in BODY_STATES:
+        issues.append(
+            ValidationIssue(
+                "invalid_body_status",
+                "body_status",
+                "body status is not in the contract",
                 event.event_id,
             )
         )

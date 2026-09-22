@@ -9,6 +9,7 @@ from typing import Any, Mapping
 
 CONTRACT_VERSION = "analysis-event/0.1.0"
 ONTOLOGY_VERSION = "analysis-ontology/0.1.0"
+CODEBOOK_VERSION = "analysis-codebook/0.1.0"
 
 LANES = frozenset({"codex", "chatgpt_chat", "unknown"})
 OBSERVATION_STATES = frozenset(
@@ -21,6 +22,9 @@ OBSERVATION_STATES = frozenset(
         "unknown",
         "not_applicable",
     }
+)
+BODY_STATES = frozenset(
+    {"not_retained", "redacted", "available_local", "unknown", "not_applicable"}
 )
 
 
@@ -54,6 +58,11 @@ class CanonicalEvent:
     status: str | None = None
     observation: str = "unknown"
     source_pointer: str = ""
+    source_record_id: str = ""
+    body_status: str = "not_retained"
+    analysis_run_id: str | None = None
+    parent_event_id: str | None = None
+    supersedes_event_id: str | None = None
     attributes: Mapping[str, Scalar] = field(default_factory=dict)
 
     def to_dict(self) -> dict[str, Any]:
@@ -75,6 +84,11 @@ class CanonicalEvent:
             "status": self.status,
             "observation": self.observation,
             "source_pointer": self.source_pointer,
+            "source_record_id": self.source_record_id,
+            "body_status": self.body_status,
+            "analysis_run_id": self.analysis_run_id,
+            "parent_event_id": self.parent_event_id,
+            "supersedes_event_id": self.supersedes_event_id,
             "attributes": dict(sorted(self.attributes.items())),
         }
 

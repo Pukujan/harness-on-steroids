@@ -19,26 +19,34 @@ The current bounded implementation slice is Issue 23, documented in
 module is `src/hos/analysis_machine/`.
 
 It normalizes the imported Codex envelope JSONL and existing ChatGPT
-provenance `messages.jsonl` / `tool-events.jsonl` into body-minimized,
-versioned `CanonicalEvent` records, then computes separate Codex execution and
-ChatGPT chat/research summaries. It writes only local `manifest.json`,
-`events.jsonl`, and `summary.json` exports. Raw transcript bodies, SQLite, and
-credentials remain ignored.
+provenance normalized views into body-minimized, versioned `CanonicalEvent`
+records, then computes separate Codex execution and ChatGPT chat/research
+summaries. Normalization and aggregation are streamable; summary-only runs
+write only local `manifest.json` and `summary.json`, while event exports remain
+optional. Raw transcript bodies, SQLite, and credentials remain ignored.
 
 AM-01 through AM-05 are complete with focused tests and a real bounded pilot.
 One Codex session plus one ChatGPT provenance conversation produced 5,525
 events across three episodes, with zero parse errors, zero validation issues,
 100% known-event coverage, and byte-identical repeat exports. This proves
-repeatability and contract behavior, not agent quality. The exact next action
-is AM-06: freeze a small double-reviewed ontology pilot and add only
-evidence-backed categories. Do not promote ontology terms broadly or build a
-graph database/dashboard yet.
+repeatability and contract behavior, not agent quality. A corrected full
+structural pass over 2,173 local JSONL sources produced 556,241 events across
+1,499 episodes: 419,893 Codex events in 1,387 episodes and 136,348 ChatGPT
+events in 112 episodes. Exact duplicate tracking with a 600,000-ID cap found
+zero duplicate IDs and zero validation issues; 28,565 events remained unknown
+and zero parse errors were observed. See
+`reports/analysis-machine-full-corpus-20260922.md`. The exact next action is
+AM-06: freeze a small source-linked, double-reviewed ontology pilot and add
+only evidence-backed categories. Do not promote ontology terms broadly or
+build a graph database/dashboard yet.
 
 Sol reviewed the design through the repository's bounded CKFF worker. The
 useful warning was that deterministic output is not automatically valid:
 contract, source identity, duplicate policy, missing-data status, provenance
 coverage, ontology version, analyzer version, and alias-map version must all
-be visible in the export.
+be visible in the export. Provider routing is explicit: Sol is CKFF-only; Luna
+is native Codex/ChatGPT subagent-only and never CKFF. Three native Luna reviews
+were advisory/read-only engineering checks, not gold annotation.
 
 ## External Jev OSS architecture deep dive — 2026-09-22
 

@@ -128,14 +128,16 @@ to separate action-selection value from confidence-gate under-execution.
 
 ### Issue 23 - Reusable analytical machine v0
 
-- **Status:** active; first implementation slice complete, bounded pilot next.
+- **Status:** active; implementation and full structural pass complete,
+  ontology pilot next.
 - **Goal:** create a repeatable and exportable analysis machine that can be
   reused for future agent datasets, with separate Codex execution and
   ChatGPT chat/research analyzers over one body-minimized evidence contract.
 - **Contract:** `docs/analytical-machine-v0-plan.md`.
 - **Implementation:** `src/hos/analysis_machine/` provides versioned canonical
-  events, Codex/ChatGPT JSONL adapters, deterministic lane summaries, local
-  manifest/events/summary export, and validation issues.
+  events, Codex/ChatGPT JSONL adapters, streaming lane summaries, local
+  manifest/optional-events/summary export, body-free fingerprints, and
+  validation issues.
 - **Beads:** AM-01 through AM-05 are complete; AM-06 is ontology pilot
   review; AM-07 graph projection and AM-08
   dashboard are explicitly deferred.
@@ -146,11 +148,17 @@ to separate action-selection value from confidence-gate under-execution.
   conversation produced 5,525 events across three episodes, zero parse errors,
   zero validation issues, 100% known-event coverage, and byte-identical repeat
   exports. This is contract/repeatability evidence, not an agent-quality claim.
-- **Next pass:** freeze a small double-reviewed ontology pilot and add only
-  evidence-backed categories with explicit version changes.
-- **Stop:** do not ingest or tune on the full corpus, promote ontology terms,
-  add a graph database, or build Power BI views before the bounded pilot is
-  inspected.
+- **Measured full structural pass:** 2,173 local JSONL sources produced
+  556,241 events across 1,499 episodes: 419,893 Codex events / 1,387 episodes
+  and 136,348 ChatGPT events / 112 episodes. Exact duplicate tracking with a
+  600,000-ID cap found zero duplicate IDs and zero validation issues; 28,565
+  events remained unknown and zero parse errors were observed. This is adapter/coverage
+  evidence, not a quality claim. See
+  `reports/analysis-machine-full-corpus-20260922.md`.
+- **Next pass:** freeze a small source-linked, double-reviewed ontology pilot
+  and add only evidence-backed categories with explicit version changes.
+- **Stop:** do not promote ontology terms, add a graph database, or build
+  Power BI views before the bounded pilot is annotated and inspected.
 - **Privacy:** raw JSONL/SQLite and local derived exports remain ignored;
   committed artifacts contain only code, contracts, tests, and aggregate
   evidence.

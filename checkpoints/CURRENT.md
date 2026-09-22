@@ -34,6 +34,19 @@ validation issues, and 100% known-event coverage. A repeat export produced
 byte-identical hashes for all three artifacts. This proves repeatability and
 contract behavior, not agent quality or lane comparability.
 
+The corrected full structural pass then consumed 2,173 local JSONL sources and
+produced 556,241 events across 1,499 episodes: 419,893 Codex events in 1,387
+episodes and 136,348 ChatGPT events in 112 episodes. Exact duplicate tracking
+used a 600,000-ID cap and found zero duplicate IDs and zero validation issues.
+28,565 events remained unknown and zero parse errors were observed. The summary-only output
+is local and ignored; its committed aggregate interpretation is
+`reports/analysis-machine-full-corpus-20260922.md`.
+
+The current provider boundary is explicit: Sol is CKFF-only through the local
+Sol worker, while Luna is native Codex/ChatGPT subagent-only and never CKFF.
+Three read-only native Luna reviews were used as advisory engineering review;
+they did not supply gold labels or change files.
+
 ## Completed Issue 22 baseline
 
 Issue 22's clean matched A/B is complete. Its Jev policy was not promoted;
@@ -128,10 +141,12 @@ tested loop mechanics and fallback, not observation-derived coding decisions.
 
 ## Next action
 
-For Issue 23, run AM-06: freeze a small double-reviewed ontology pilot over
-the existing two-lane export, add only evidence-backed categories, and test
-that ontology-version changes are explicit. Keep the full corpus and holdout
-out of tuning until the annotation codebook is reviewed.
+For Issue 23, run AM-06: freeze a small source-linked, body-minimized,
+double-reviewed ontology pilot from the two-lane evidence, add only
+evidence-backed categories, and test that ontology-version changes are
+explicit. The full-corpus aggregate is descriptive and must not be tuned into
+quality labels; keep holdout evidence sealed until the annotation codebook is
+reviewed and adjudicated.
 
 The Jev low-confidence advisory follow-up remains preserved as the next Jev
 experiment after this measurement substrate is verified; do not silently

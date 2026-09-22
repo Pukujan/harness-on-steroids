@@ -1,0 +1,79 @@
+{
+  "schema": "https://harness-on-steroids.local/analysis-ontology/0.1.0",
+  "version": "analysis-ontology/0.1.0",
+  "status": "pilot",
+  "purpose": "Observable, lane-aware analysis of agent interaction evidence.",
+  "governance": {
+    "promotion": "evidence-review",
+    "model_proposals_are_non_authoritative": true,
+    "raw_bodies_are_not_required_for_structural_labels": true,
+    "accepted_versions_are_immutable": true
+  },
+  "states": [
+    "observed",
+    "inferred",
+    "user_provided",
+    "externally_sourced",
+    "unknown",
+    "not_observed",
+    "abstained",
+    "emerging",
+    "not_applicable"
+  ],
+  "lanes": {
+    "codex": {
+      "task_families": ["coding", "repository_inspection", "execution", "delegation", "mixed"],
+      "dimensions": [
+        "interaction",
+        "inspection",
+        "execution",
+        "execution_output",
+        "verification",
+        "delegation",
+        "continuity",
+        "outcome"
+      ]
+    },
+    "chatgpt_chat": {
+      "task_families": ["research", "planning", "explanation", "coding", "mixed"],
+      "dimensions": [
+        "user_intent",
+        "response_type",
+        "research",
+        "provenance",
+        "answer_quality",
+        "planning",
+        "ux",
+        "continuity"
+      ]
+    }
+  },
+  "shared_dimensions": {
+    "interaction": ["intake", "clarification", "correction", "handoff", "completion"],
+    "provenance": ["source_linked", "source_missing", "claim_supported", "claim_unverified"],
+    "outcome": ["complete", "partial", "blocked", "failed", "interrupted", "unknown"],
+    "planning": [
+      "proportionate_plan",
+      "overplanned",
+      "underplanned",
+      "plan_churn",
+      "stale_plan",
+      "unsupported_assumption",
+      "late_verification"
+    ]
+  },
+  "lifecycle": ["proposed", "pilot", "accepted", "deprecated", "replaced"],
+  "relations": [
+    "broader_than",
+    "narrower_than",
+    "related_to",
+    "replaced_by",
+    "split_from",
+    "merged_from"
+  ],
+  "versioning": {
+    "major": "meaning change, split, merge, or incompatible label interpretation",
+    "minor": "additive category or non-breaking relation",
+    "patch": "wording, example, or metadata correction"
+  }
+}
