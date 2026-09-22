@@ -69,13 +69,30 @@ tested loop mechanics and fallback, not observation-derived coding decisions.
 
 ## Next action
 
-**Exactly one next control-layer hypothesis:** add a bounded context-feeder
-preflight before the first Jev call: deterministic repository facts plus a
-coding-worker/adapter inspection that proposes real candidate beads and
-acceptance criteria. Hold the Jev schema, confidence threshold, adapters, and
-loop constant, then rerun the same frozen hashes. The earlier
-`CLASSIFY_REQUEST` choice-set hypothesis is paused until the decision context
-is populated, so the two interventions are not confounded.
+**Launch blocker found and fixed first (2026-09-22).** The first
+context-fed long A/B smoke (`run_id jev-long-smoke-seed-20260922`,
+`reports/jev-long-ab-smoke-seed-20260922.md`) showed every arm at `0 tools /
+outcome no` with `fail_1` and **empty events**. Root cause: the Pi and OpenCode
+adapters passed the whole context-pack prompt as a command-line argument and
+Windows aborted the process with `The command line is too long`, so the harness
+never launched — those cells measure a launch failure, not model behavior (same
+contamination class as the pre-v66 traces). The `git archive` seed
+materialization itself worked. Fix (control-layer only, all 152 tests + ruff
+pass): `src/hos/controller/adapters.py` now delivers the prompt over stdin for
+Pi/OpenCode (`prompt_via_stdin`) and keeps Grok on `--prompt-file`; the prompt no
+longer appears in argv, pinned by two new regression tests. Verified end-to-end:
+a real Pi call with a 40k-char prompt returns `ok` with events and `OK-PIPE`, no
+`too long`.
+
+**Exactly one next action:** with the launch blocker cleared and the shared
+deterministic context feeder in place, run one fresh matched A/B slice on the
+frozen development hashes using a **new `run_id`** (do not append to or compare
+against `jev-long-smoke-seed-20260922`). Hold the Jev schema, confidence
+threshold, adapters, loop, feeder pack, timeout, and harness/model constant; A vs
+B differ only by the Jev decision, typed validation, and bounded action hint.
+Capture full observable trajectory and outcome per arm; the earlier
+`CLASSIFY_REQUEST` choice-set hypothesis stays paused until a populated-context
+run shows the decision context is what limits Jev.
 
 ## Long-horizon A/B contract
 

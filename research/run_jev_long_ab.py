@@ -11,11 +11,14 @@ harness invocation. Raw prompts and events remain below ignored
 from __future__ import annotations
 
 import argparse
+import io
 import json
 import os
+import shutil
 import statistics
 import subprocess
 import sys
+import tarfile
 import time
 from collections import Counter, defaultdict
 from dataclasses import dataclass
@@ -163,20 +166,45 @@ def _fixture_turns(task_hashes: Sequence[str], limit: int) -> list[ReplayTurn]:
     return selected
 
 
-def _clone_workspace(destination: Path) -> None:
-    destination.parent.mkdir(parents=True, exist_ok=True)
+def _materialize_seed(seed: Path) -> None:
+    seed.parent.mkdir(parents=True, exist_ok=True)
     result = subprocess.run(
-        ["git", "clone", "--quiet", "--no-hardlinks", str(ROOT), str(destination)],
+        ["git", "archive", "--format=tar", "HEAD"],
         cwd=ROOT,
         capture_output=True,
-        text=True,
-        encoding="utf-8",
-        errors="replace",
         timeout=60,
         check=False,
     )
     if result.returncode != 0:
-        raise RuntimeError("workspace_clone_failed")
+        raise RuntimeError("workspace_seed_failed")
+    seed.mkdir(parents=True, exist_ok=True)
+    with tarfile.open(fileobj=io.BytesIO(result.stdout), mode="r:") as archive:
+        archive.extractall(seed)
+
+
+def _clone_workspace(destination: Path, seed: Path) -> None:
+    destination.parent.mkdir(parents=True, exist_ok=True)
+    shutil.copytree(seed, destination)
+    commands = (
+        ["git", "init", "--quiet", "--initial-branch=main"],
+        ["git", "config", "user.email", "fixture@example.invalid"],
+        ["git", "config", "user.name", "Fixture Workspace"],
+        ["git", "add", "-A"],
+        ["git", "commit", "--quiet", "-m", "fixture snapshot"],
+    )
+    for command in commands:
+        result = subprocess.run(
+            command,
+            cwd=destination,
+            capture_output=True,
+            text=True,
+            encoding="utf-8",
+            errors="replace",
+            timeout=60,
+            check=False,
+        )
+        if result.returncode != 0:
+            raise RuntimeError("workspace_init_failed")
 
 
 def _new_context(task_hash: str, first_ask: str, turn_budget: int) -> DecisionContext:
@@ -299,9 +327,10 @@ def _run_arm_task(
     timeout: float,
     jev_timeout: float,
     min_confidence: float,
+    seed: Path,
 ) -> ArmTaskResult:
     workspace = root / adapter.name / mode / task_hash / "workspace"
-    _clone_workspace(workspace)
+    _clone_workspace(workspace, seed)
     feeder = RepositoryContextFeeder()
     context = _new_context(task_hash, turns[0].ask, len(turns))
     controller = JevController(timeout=jev_timeout) if mode == "jev" else None
@@ -554,6 +583,8 @@ def run_experiment(
     for turn in turns:
         by_task[turn.task_hash].append(turn)
     output_root = ROOT / ".controller-runs" / run_id
+    seed = output_root / "_seed"
+    _materialize_seed(seed)
     task_summaries: list[dict[str, Any]] = []
     turn_rows: list[dict[str, Any]] = []
     for adapter_name in adapter_names:
@@ -607,6 +638,7 @@ def run_experiment(
                     timeout=timeout,
                     jev_timeout=jev_timeout,
                     min_confidence=min_confidence,
+                    seed=seed,
                 )
                 task_summaries.append(_task_summary(arm))
                 turn_rows.extend(arm.rows)

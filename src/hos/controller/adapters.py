@@ -183,6 +183,10 @@ def _collect_tool_names(value: object, result: list[str]) -> None:
 class HarnessAdapter:
     name = "harness"
 
+    #: When True the prompt is delivered over stdin and must NOT appear in argv
+    #: (Windows truncates the command line and the harness never launches).
+    prompt_via_stdin = False
+
     def available(self) -> bool:
         raise NotImplementedError
 
@@ -214,6 +218,8 @@ class HarnessAdapter:
         self.prepare_workdir(workdir)
         command = self.command(prompt_file=prompt_file, workdir=workdir, title=title)
         started = time.perf_counter()
+        use_stdin = self.prompt_via_stdin
+        stdin_stream = subprocess.DEVNULL
         try:
             with events_path.open("w", encoding="utf-8") as events, stderr_path.open(
                 "w", encoding="utf-8"
@@ -221,12 +227,22 @@ class HarnessAdapter:
                 process = subprocess.Popen(
                     command,
                     cwd=str(workdir),
+                    stdin=subprocess.PIPE if use_stdin else stdin_stream,
                     stdout=events,
                     stderr=errors,
                     text=True,
                     encoding="utf-8",
                     errors="replace",
                 )
+                if use_stdin:
+                    assert process.stdin is not None
+                    try:
+                        process.stdin.write(prompt)
+                        process.stdin.close()
+                    except (BrokenPipeError, ValueError):
+                        # The harness exited before draining stdin; let the exit
+                        # status below report the real failure instead.
+                        pass
                 try:
                     process.wait(timeout=timeout)
                 except subprocess.TimeoutExpired:
@@ -288,6 +304,8 @@ def _windows_node_command(name: str, fallback: str) -> str:
 class OpenCodeAdapter(HarnessAdapter):
     name = "opencode"
 
+    prompt_via_stdin = True
+
     def __init__(self, executable: str | None = None, model: str | None = None) -> None:
         self.executable = executable or _windows_node_command("opencode", "opencode")
         self.model = model or os.environ.get("OPENCODE_MODEL", "")
@@ -328,7 +346,6 @@ class OpenCodeAdapter(HarnessAdapter):
         )
 
     def command(self, *, prompt_file: Path, workdir: Path, title: str) -> list[str]:
-        prompt = prompt_file.read_text(encoding="utf-8")
         command = [
             self.executable,
             "run",
@@ -344,7 +361,8 @@ class OpenCodeAdapter(HarnessAdapter):
         ]
         if self.model:
             command.extend(["--model", self.model])
-        command.append(prompt)
+        # Prompt is delivered over stdin (see prompt_via_stdin) to avoid the
+        # Windows command-line length limit that silently aborted every arm.
         return command
 
 
@@ -379,6 +397,8 @@ class GrokBuildAdapter(HarnessAdapter):
 
 class PiAdapter(HarnessAdapter):
     name = "pi"
+
+    prompt_via_stdin = True
 
     def __init__(self, executable: str | None = None) -> None:
         self.executable = executable or _resolve("PI_COMMAND", "pi")
@@ -433,9 +453,12 @@ class PiAdapter(HarnessAdapter):
                 "--print",
                 "--no-session",
                 "--approve",
-                prompt_file.read_text(encoding="utf-8"),
             ]
         )
+        # Prompt is delivered over stdin (see prompt_via_stdin); pi merges piped
+        # stdin into the initial prompt in print mode. Passing it as argv blew the
+        # Windows command-line limit ("The command line is too long") so the
+        # harness never started and every replay turn recorded fail_1/0 tools.
         return command
 
 

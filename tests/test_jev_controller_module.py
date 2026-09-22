@@ -1,11 +1,13 @@
 from __future__ import annotations
 
 import json
+import sys
 from pathlib import Path
 
 from src.hos.controller import (
     ControllerAction,
     ControllerPhase,
+    GrokBuildAdapter,
     JevController,
     OpenCodeAdapter,
     PiAdapter,
@@ -67,6 +69,76 @@ def test_adapter_command_builders_keep_harnesses_distinct(tmp_path: Path) -> Non
     assert "--print" in pi_command
     assert "grok" not in opencode.name
     assert pi.name == "pi"
+
+
+def test_prompt_is_not_passed_in_argv(tmp_path: Path) -> None:
+    """Regression: a prompt-sized argv blew the Windows command-line limit.
+
+    Every replay turn recorded ``fail_1`` ("The command line is too long") and
+    the harness never launched, so 0-tool / no-outcome cells measured nothing.
+    Pi/OpenCode must feed the prompt over stdin; Grok uses --prompt-file. No
+    adapter may place the prompt body in argv.
+    """
+    prompt_file = tmp_path / "prompt.txt"
+    prompt = "x" * 40000  # larger than the ~32K Windows command-line limit
+    prompt_file.write_text(prompt, encoding="utf-8")
+    workdir = tmp_path / "work"
+    workdir.mkdir()
+
+    opencode = OpenCodeAdapter(executable="opencode-test")
+    pi = PiAdapter(executable="pi-test")
+    grok = GrokBuildAdapter(executable="grok-test")
+
+    assert opencode.prompt_via_stdin is True
+    assert pi.prompt_via_stdin is True
+    assert grok.prompt_via_stdin is False
+
+    for adapter in (opencode, pi, grok):
+        command = adapter.command(prompt_file=prompt_file, workdir=workdir, title="t")
+        joined = " ".join(command)
+        assert prompt not in joined
+        assert prompt[:64] not in joined
+
+    # Grok still references the prompt by file path, not by value.
+    grok_command = grok.command(prompt_file=prompt_file, workdir=workdir, title="t")
+    assert str(prompt_file) in grok_command
+
+
+def test_stdin_prompt_delivers_over_pipe_not_argv(tmp_path: Path) -> None:
+    """Prove the run() plumbing feeds a large prompt over stdin to the harness."""
+    echo = tmp_path / "echo_stdin.py"
+    echo.write_text(
+        "import sys\n"
+        "data = sys.stdin.read()\n"
+        "print(len(data), len(sys.argv[1:]))\n",
+        encoding="utf-8",
+    )
+
+    class _StdinHarness(PiAdapter):
+        def command(self, *, prompt_file: Path, workdir: Path, title: str) -> list[str]:
+            return [sys.executable, str(echo)]
+
+    prompt_file = tmp_path / "prompt.txt"
+    events = tmp_path / "events.ndjson"
+    errors = tmp_path / "stderr.txt"
+    workdir = tmp_path / "work"
+    workdir.mkdir()
+    big_prompt = "y" * 40000  # larger than the Windows command-line limit
+
+    run = _StdinHarness(executable=sys.executable).run(
+        prompt=big_prompt,
+        prompt_file=prompt_file,
+        workdir=workdir,
+        events_path=events,
+        stderr_path=errors,
+        timeout=30,
+        title="t",
+    )
+
+    assert run.status == "ok"
+    delivered, argv_args = events.read_text(encoding="utf-8").split()
+    assert delivered == str(len(big_prompt))
+    assert argv_args == "0"
 
 
 def test_pi_model_is_explicit_and_configurable(tmp_path: Path, monkeypatch) -> None:
