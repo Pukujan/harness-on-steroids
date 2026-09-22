@@ -429,3 +429,17 @@ launch-blocked runs.
   acceptance band, the first run accepted 243 and abstained on 13; each repeat
   accepted 240 and abstained on 16. Zero accepted labels were wrong in any
   run. This remains structural sidecar evidence, not a semantic gold result.
+
+## 2026-09-22 — corrected harness timeout policy
+
+- The first low-confidence-advisory A/B process was stopped before analysis
+  because the runner still used a 60-second hard wall-clock kill. That policy
+  could terminate a healthy streamed agent turn and was not comparable to the
+  idle/chunk boundaries exposed by current TUI agents.
+- `HarnessAdapter` now watches event/stderr file progress, resets a 1,200-second
+  inactivity timer when bytes advance, and retains a 7,200-second absolute
+  safety cap. It records `inactivity` versus `max_runtime` timeout reasons.
+- OpenCode local-provider and Pi project-local provider settings are aligned to
+  1,200,000 ms. Focused tests prove a continuously streaming child survives a
+  short test inactivity window while a silent child receives an inactivity
+  timeout. The advisory A/B must be rerun under this policy.

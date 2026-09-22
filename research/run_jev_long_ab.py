@@ -44,7 +44,12 @@ from src.hos.controller import (  # noqa: E402
     phase_after_action,
     validate_jev_decision,
 )
-from src.hos.controller.adapters import extract_session_id, extract_tool_seq  # noqa: E402
+from src.hos.controller.adapters import (  # noqa: E402
+    HARNESS_MAX_RUNTIME_SECONDS,
+    HARNESS_TIMEOUT_SECONDS,
+    extract_session_id,
+    extract_tool_seq,
+)
 from src.score_session import score_seq  # noqa: E402
 
 ENV_KEYS = {
@@ -223,7 +228,9 @@ def _clone_workspace(destination: Path, seed: Path) -> None:
     shutil.copytree(seed, destination)
 
 
-def _new_context(task_hash: str, first_ask: str, turn_budget: int) -> DecisionContext:
+def _new_context(
+    task_hash: str, first_ask: str, turn_budget: int, *, timeout_budget_s: float
+) -> DecisionContext:
     return DecisionContext.from_ask(
         task_hash,
         first_ask,
@@ -233,7 +240,7 @@ def _new_context(task_hash: str, first_ask: str, turn_budget: int) -> DecisionCo
             "do_not_print_prompt_or_secret_values",
             "bounded_action_per_replay_turn",
         ),
-        timeout_budget_s=90,
+        timeout_budget_s=timeout_budget_s,
         turn_budget=turn_budget,
     )
 
@@ -324,6 +331,7 @@ def _turn_row(
         "executed": run is not None,
         "duration_ms": round(float(run.duration_ms), 1) if run is not None else 0.0,
         "timeout": bool(run is not None and run.status == "timeout"),
+        "timeout_reason": run.timeout_reason if run is not None else None,
         "tool_count": len(tool_seq),
         "context_pack_digest": context_digest,
         "decision_action": decision.next_action.value if decision else None,
@@ -349,7 +357,9 @@ def _run_arm_task(
     workspace = root / adapter.name / mode / task_hash / "workspace"
     _clone_workspace(workspace, seed)
     feeder = RepositoryContextFeeder()
-    context = _new_context(task_hash, turns[0].ask, len(turns))
+    context = _new_context(
+        task_hash, turns[0].ask, len(turns), timeout_budget_s=timeout
+    )
     controller = JevController(timeout=jev_timeout) if mode == "jev" else None
     rows: list[dict[str, Any]] = []
     tool_seq: list[str] = []
@@ -476,6 +486,11 @@ def _task_summary(result: ArmTaskResult) -> dict[str, Any]:
         bool(row["executed"]) and row.get("validation_reason") == "low_confidence"
         for row in result.rows
     )
+    timeout_reasons = Counter(
+        str(row["timeout_reason"])
+        for row in result.rows
+        if row.get("timeout_reason")
+    )
     return {
         "task_hash": result.task_hash,
         "adapter": result.adapter.name,
@@ -492,6 +507,7 @@ def _task_summary(result: ArmTaskResult) -> dict[str, Any]:
         "decision_count": len(result.decisions),
         "fallback_count": len(result.validation_reasons),
         "advisory_executions": advisory_executions,
+        "timeout_reasons": dict(sorted(timeout_reasons.items())),
         "decision_actions": [decision.next_action.value for decision in result.decisions],
         "decision_confidences": [decision.confidence for decision in result.decisions],
         "validation_reasons": result.validation_reasons,
@@ -534,6 +550,16 @@ def _aggregate(summaries: Sequence[dict[str, Any]]) -> list[dict[str, Any]]:
                 "advisory_executions": sum(
                     int(row.get("advisory_executions", 0)) for row in group
                 ),
+                "timeout_reasons": dict(
+                    sorted(
+                        Counter(
+                            reason
+                            for row in group
+                            for reason, count in row.get("timeout_reasons", {}).items()
+                            for _ in range(int(count))
+                        ).items()
+                    )
+                ),
             }
         )
     return output
@@ -564,14 +590,16 @@ def _write_report(result: dict[str, Any], path: Path) -> None:
         f"- Grok Build model: `{result['models']['grok_build_model']}`",
         f"- Grok Build configured max turns: `{result['models']['grok_build_max_turns']}`",
         f"- Low-confidence Jev policy: {low_confidence_policy}.",
+        f"- Harness timeout policy: {result['timeout_seconds']}s inactivity timeout with "
+        f"{result['max_runtime_seconds']}s absolute safety cap; stream progress resets inactivity.",
         "- Gold/reference: local ChatGPT Work/Codex development evidence; R1-R6 are diagnostic.",
         "- Raw prompts, event bodies, transcript bodies, and credentials remain ignored/local.",
         "",
         "## Aggregate results",
         "",
         "| Adapter | Mode | Tasks | Turns | Executed | Timeouts | Work-match | Outcomes | "
-        "Mean tools/task | Jev decisions | Fallbacks | Advisory executions |",
-        "|---|---|---:|---:|---:|---:|---:|---|---:|---:|---:|---:|",
+        "Mean tools/task | Jev decisions | Fallbacks | Advisory executions | Timeout reasons |",
+        "|---|---|---:|---:|---:|---:|---:|---|---:|---:|---:|---:|---|",
     ]
     for row in result["aggregate"]:
         outcomes = ", ".join(f"{key}={value}" for key, value in row["outcomes"].items())
@@ -579,7 +607,8 @@ def _write_report(result: dict[str, Any], path: Path) -> None:
             f"| {row['adapter']} | {row['mode']} | {row['tasks']} | {row['turns']} | "
             f"{row['executed_turns']} | {row['timeouts']} | {row['work_match']}/{row['tasks']} | "
             f"{outcomes} | {row['mean_tools_per_task']} | {row['decisions']} | "
-            f"{row['fallbacks']} | {row['advisory_executions']} |"
+            f"{row['fallbacks']} | {row['advisory_executions']} | "
+            f"{row['timeout_reasons']} |"
         )
     lines.extend(
         [
@@ -664,6 +693,7 @@ def run_experiment(
                             "decision_count": 0,
                             "fallback_count": len(by_task[task_hash]) if mode == "jev" else 0,
                             "advisory_executions": 0,
+                            "timeout_reasons": {},
                             "decision_actions": [],
                             "decision_confidences": [],
                             "validation_reasons": ["adapter_unavailable"],
@@ -704,6 +734,7 @@ def run_experiment(
         "adapters": list(adapter_names),
         "turn_budget": turn_budget,
         "timeout_seconds": timeout,
+        "max_runtime_seconds": HARNESS_MAX_RUNTIME_SECONDS,
         "jev_timeout_seconds": jev_timeout,
         "min_confidence": min_confidence,
         "low_confidence_advisory": low_confidence_advisory,
@@ -733,7 +764,12 @@ def main() -> int:
     parser.add_argument("hashes", nargs="*", help="development Work hash12 values")
     parser.add_argument("--turns", type=int, default=60)
     parser.add_argument("--adapters", default="opencode,grok-build,pi")
-    parser.add_argument("--timeout", type=float, default=90.0)
+    parser.add_argument(
+        "--timeout",
+        type=float,
+        default=HARNESS_TIMEOUT_SECONDS,
+        help="inactivity timeout; active stdout/stderr progress resets it",
+    )
     parser.add_argument("--jev-timeout", type=float, default=30.0)
     parser.add_argument("--min-confidence", type=float, default=0.55)
     parser.add_argument(

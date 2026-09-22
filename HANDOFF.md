@@ -101,6 +101,17 @@ No accepted label was wrong in any run. This remains structural sidecar
 evidence; semantic labels still require owner/human adjudication and the
 holdout remains sealed.
 
+## Harness timeout reliability policy — 2026-09-22
+
+The attempted advisory A/B was stopped before interpretation when the owner
+identified the old 60-second hard process timeout as unsuitable for active
+streaming. The adapter policy is now a 20-minute inactivity timeout reset by
+stdout/stderr progress plus a two-hour absolute safety cap. OpenCode and Pi
+provider-side stream/request settings are aligned to 20 minutes where their
+project-local configuration supports it. Timeout reasons are typed and
+reported; see `docs/harness-timeout-policy.md`. The advisory A/B must be
+rerun under this policy with a fresh run ID.
+
 ## Active issue
 
 Local issue **22 - Jev long-horizon matched A/B**. The durable research

@@ -206,6 +206,17 @@ The Jev low-confidence advisory follow-up remains preserved as the next Jev
 experiment after this measurement substrate is verified; do not silently
 combine the two hypotheses.
 
+## Harness timeout reliability policy — 2026-09-22
+
+The previous long-horizon runner used a 60-second hard wall-clock kill. That
+was rejected as unreliable for an actively streaming TUI/CLI agent. The adapter
+now uses a 1,200-second inactivity timeout that resets when stdout or stderr
+advances, plus a 7,200-second absolute safety cap. OpenCode provider
+request/header/chunk settings and Pi HTTP/provider settings are aligned to
+1,200,000 ms where the harness exposes those settings. Timeout reason is
+recorded as `inactivity` or `max_runtime`; active streaming is not timed out by
+the short test watchdog. See `docs/harness-timeout-policy.md`.
+
 ## Historical Jev next action
 
 **Launch blocker found and fixed first (2026-09-22).** The first

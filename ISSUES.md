@@ -126,6 +126,13 @@ fixed, but make a low-confidence Jev result advisory while executing the same
 feeder prompt as baseline. Rerun one fresh matched 60-turn development slice
 to separate action-selection value from confidence-gate under-execution.
 
+**Timeout policy correction (2026-09-22):** the first advisory rerun was
+stopped before interpretation because the runner still imposed a 60-second
+hard wall-clock kill. The adapter now uses a 20-minute inactivity timeout reset
+by stream progress plus a two-hour absolute cap; timeout reasons are retained.
+The advisory slice must be rerun under the corrected policy with a fresh
+`run_id`.
+
 ### Issue 23 - Reusable analytical machine v0
 
 - **Status:** active; implementation, full structural pass, and the larger

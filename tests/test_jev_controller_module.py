@@ -141,6 +141,65 @@ def test_stdin_prompt_delivers_over_pipe_not_argv(tmp_path: Path) -> None:
     assert argv_args == "0"
 
 
+def test_streaming_progress_resets_inactivity_timeout(tmp_path: Path) -> None:
+    """A live stream must not be killed by a short inactivity window."""
+    stream = tmp_path / "stream.py"
+    stream.write_text(
+        "import sys, time\n"
+        "for index in range(8):\n"
+        "    print(index, flush=True)\n"
+        "    time.sleep(0.08)\n",
+        encoding="utf-8",
+    )
+
+    class _StreamingHarness(PiAdapter):
+        def command(self, *, prompt_file: Path, workdir: Path, title: str) -> list[str]:
+            return [sys.executable, str(stream)]
+
+    adapter = _StreamingHarness(executable=sys.executable)
+    workdir = tmp_path / "work"
+    workdir.mkdir()
+    run = adapter.run(
+        prompt="stream",
+        prompt_file=tmp_path / "prompt.txt",
+        workdir=workdir,
+        events_path=tmp_path / "events.ndjson",
+        stderr_path=tmp_path / "stderr.txt",
+        timeout=0.12,
+        max_runtime=2.0,
+        title="streaming",
+    )
+
+    assert run.status == "ok"
+    assert run.timeout_reason is None
+
+
+def test_silent_harness_hits_inactivity_timeout(tmp_path: Path) -> None:
+    silent = tmp_path / "silent.py"
+    silent.write_text("import time\ntime.sleep(0.5)\n", encoding="utf-8")
+
+    class _SilentHarness(PiAdapter):
+        def command(self, *, prompt_file: Path, workdir: Path, title: str) -> list[str]:
+            return [sys.executable, str(silent)]
+
+    adapter = _SilentHarness(executable=sys.executable)
+    workdir = tmp_path / "work"
+    workdir.mkdir()
+    run = adapter.run(
+        prompt="silent",
+        prompt_file=tmp_path / "prompt.txt",
+        workdir=workdir,
+        events_path=tmp_path / "events.ndjson",
+        stderr_path=tmp_path / "stderr.txt",
+        timeout=0.1,
+        max_runtime=1.0,
+        title="silent",
+    )
+
+    assert run.status == "timeout"
+    assert run.timeout_reason == "inactivity"
+
+
 def test_pi_model_is_explicit_and_configurable(tmp_path: Path, monkeypatch) -> None:
     monkeypatch.setenv("PI_MODEL", "yolo-auto/qwen3.8-flash")
     adapter = PiAdapter(executable="pi-test")
@@ -165,6 +224,9 @@ def test_pi_yolo_model_writes_project_local_provider_config(tmp_path: Path, monk
     provider = config["providers"]["yolo-auto"]
     assert provider["baseUrl"] == "https://yolo-auto.com/v1"
     assert provider["apiKey"] == "$QWEN_API_KEY"
+    settings = json.loads((tmp_path / ".pi" / "agent" / "settings.json").read_text())
+    assert settings["httpIdleTimeoutMs"] == 1200000
+    assert settings["retry"]["provider"]["timeoutMs"] == 1200000
     assert provider["apiKey"] == "$QWEN_API_KEY"
 
 
@@ -176,6 +238,8 @@ def test_opencode_local_model_writes_isolated_provider_config(tmp_path: Path, mo
 
     config = json.loads((tmp_path / "opencode.json").read_text(encoding="utf-8"))
     assert config["provider"]["local-bonsai"]["options"]["baseURL"].endswith("/v1")
+    assert config["provider"]["local-bonsai"]["options"]["timeout"] == 1200000
+    assert config["provider"]["local-bonsai"]["options"]["chunkTimeout"] == 1200000
     assert "apiKey" not in json.dumps(config) or "none" in json.dumps(config)
 
 

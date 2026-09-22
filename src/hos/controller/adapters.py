@@ -11,6 +11,10 @@ from dataclasses import dataclass
 from pathlib import Path
 from shutil import which
 
+HARNESS_TIMEOUT_SECONDS = 20 * 60
+HARNESS_MAX_RUNTIME_SECONDS = 2 * 60 * 60
+STREAM_POLL_SECONDS = 0.25
+
 
 @dataclass(frozen=True)
 class HarnessRun:
@@ -20,6 +24,7 @@ class HarnessRun:
     duration_ms: float
     events_path: Path
     stderr_path: Path
+    timeout_reason: str | None = None
 
 
 @dataclass(frozen=True)
@@ -203,6 +208,46 @@ class HarnessAdapter:
 
         return extract_event_seq(events_path)
 
+    @staticmethod
+    def _stream_signature(paths: tuple[Path, ...]) -> tuple[tuple[bool, int, int], ...]:
+        signature: list[tuple[bool, int, int]] = []
+        for path in paths:
+            try:
+                stat = path.stat()
+            except OSError:
+                signature.append((False, 0, 0))
+            else:
+                signature.append((True, stat.st_size, stat.st_mtime_ns))
+        return tuple(signature)
+
+    @classmethod
+    def _wait_for_process(
+        cls,
+        process: subprocess.Popen[str],
+        *,
+        progress_paths: tuple[Path, ...],
+        inactivity_timeout: float,
+        max_runtime: float,
+    ) -> str | None:
+        """Wait while resetting the inactivity timer when stream files advance."""
+
+        started = time.monotonic()
+        last_activity = started
+        previous = cls._stream_signature(progress_paths)
+        while process.poll() is None:
+            now = time.monotonic()
+            current = cls._stream_signature(progress_paths)
+            if current != previous:
+                previous = current
+                last_activity = now
+            if now - started >= max_runtime:
+                return "max_runtime"
+            if now - last_activity >= inactivity_timeout:
+                return "inactivity"
+            time.sleep(STREAM_POLL_SECONDS)
+        process.wait()
+        return None
+
     def run(
         self,
         *,
@@ -211,8 +256,9 @@ class HarnessAdapter:
         workdir: Path,
         events_path: Path,
         stderr_path: Path,
-        timeout: float,
         title: str,
+        timeout: float = HARNESS_TIMEOUT_SECONDS,
+        max_runtime: float = HARNESS_MAX_RUNTIME_SECONDS,
     ) -> HarnessRun:
         prompt_file.write_text(prompt, encoding="utf-8")
         self.prepare_workdir(workdir)
@@ -243,9 +289,13 @@ class HarnessAdapter:
                         # The harness exited before draining stdin; let the exit
                         # status below report the real failure instead.
                         pass
-                try:
-                    process.wait(timeout=timeout)
-                except subprocess.TimeoutExpired:
+                timeout_reason = self._wait_for_process(
+                    process,
+                    progress_paths=(events_path, stderr_path),
+                    inactivity_timeout=timeout,
+                    max_runtime=max_runtime,
+                )
+                if timeout_reason is not None:
                     process.kill()
                     process.wait()
                     return HarnessRun(
@@ -255,6 +305,7 @@ class HarnessAdapter:
                         (time.perf_counter() - started) * 1000,
                         events_path,
                         stderr_path,
+                        timeout_reason,
                     )
         except OSError as exc:
             stderr_path.write_text(type(exc).__name__, encoding="utf-8")
@@ -327,8 +378,9 @@ class OpenCodeAdapter(HarnessAdapter):
                     "options": {
                         "baseURL": base_url,
                         "apiKey": "none",
-                        "timeout": 180000,
-                        "chunkTimeout": 60000,
+                        "timeout": 1200000,
+                        "headerTimeout": 1200000,
+                        "chunkTimeout": 1200000,
                     },
                     "models": {
                         model_key: {
@@ -440,6 +492,16 @@ class PiAdapter(HarnessAdapter):
         (config_dir / "models.json").write_text(
             json.dumps(config, indent=2) + "\n", encoding="utf-8"
         )
+        settings = {
+            "httpIdleTimeoutMs": 1200000,
+            "retry": {
+                "enabled": True,
+                "provider": {"timeoutMs": 1200000, "maxRetries": 0},
+            },
+        }
+        (config_dir / "settings.json").write_text(
+            json.dumps(settings, indent=2) + "\n", encoding="utf-8"
+        )
         os.environ["PI_CODING_AGENT_DIR"] = str(config_dir)
 
     def command(self, *, prompt_file: Path, workdir: Path, title: str) -> list[str]:
@@ -465,6 +527,8 @@ class PiAdapter(HarnessAdapter):
 __all__ = [
     "AdapterEvent",
     "GrokBuildAdapter",
+    "HARNESS_MAX_RUNTIME_SECONDS",
+    "HARNESS_TIMEOUT_SECONDS",
     "HarnessAdapter",
     "HarnessRun",
     "OpenCodeAdapter",
