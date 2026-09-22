@@ -236,39 +236,35 @@ a real Pi call with a 40k-char prompt returns `ok` with events and `OK-PIPE`, no
 `too long`.
 
 The launch blocker is cleared and the clean matched A/B is now recorded. The
-earlier `CLASSIFY_REQUEST` choice-set hypothesis stays paused. The exactly one
-next action is to keep the feeder, choices, models, fixtures, and timeouts
+earlier `CLASSIFY_REQUEST` choice-set hypothesis stays paused. The planned
+next action was to keep the feeder, choices, models, fixtures, and timeouts
 fixed, change only low-confidence handling so the Jev arm executes the same
 feeder prompt as baseline while recording the Jev answer as advisory, and run
-one fresh matched 60-turn slice under a new `run_id`.
+one fresh matched 60-turn slice under a new `run_id`. That slice is now
+`jev-long-ab-advisory-20260922-v5`; its aggregate is pending.
 
 The prior rerun `jev-long-ab-advisory-20260922-v2` was intentionally stopped
 before interpretation after the owner shortened the default inactivity policy
 from 20 minutes to 2 minutes. It had produced liveness evidence only, no
 aggregate report, and its partial turn folders remain ignored diagnostics.
-The next action is a fresh matched slice under the 120-second policy; do not
-combine it with the stopped run.
+The stopped run is not combined with the current v5 slice.
 
 Fresh run `jev-long-ab-advisory-20260922-v3` was launched at 17:37 with the
-same 60-turn matched configuration. It is the only run eligible for later
-behavioral interpretation; its aggregate is pending. Its first silent baseline
-child transitioned to baseline turn 2 at 17:41 under the 180-second policy,
-confirming the shortened live boundary. It subsequently completed baseline
-turns 2 through 4 and entered Jev turn 1 at 17:50; the aggregate remains
-pending. The partial v3 run was then stopped before interpretation after a
-direct silent-child test showed the host timer was correct but Windows
-process-tree cleanup could add excess handoff delay. The adapter now terminates
-the timed-out CLI tree explicitly. Fresh run
-`jev-long-ab-advisory-20260922-v4` was stopped before interpretation after the
-first end-to-end handoff still included Windows cleanup overhead. The default
-is now 120 seconds so observed handoffs stay within the owner's 2–3 minute
-maximum; a fresh run is required.
+same 60-turn matched configuration, but it was stopped before interpretation
+after the Windows process-tree cleanup path was tightened. Fresh run
+`jev-long-ab-advisory-20260922-v4` was also stopped before interpretation after
+its first end-to-end handoff still included excess cleanup overhead. The
+default is now 120 seconds so observed handoffs stay within the owner's 2–3
+minute maximum; both partial runs remain excluded.
 
 Fresh run `jev-long-ab-advisory-20260922-v5` was launched at 18:20 with the
 same 60-turn matched configuration. It is the only run eligible for
 interpretation; its aggregate is pending. Its first silent baseline child
 transitioned to baseline turn 2 at 18:25 under the 120-second policy, an
 approximately 2:38 end-to-end handoff.
+During baseline turn 4, the child became silent after 18:29:20 and was gone by
+18:31:28 while the experiment parent remained alive. This verifies the final
+inactivity kill-and-continue path; the aggregate is still pending.
 
 ## Long-horizon A/B contract
 

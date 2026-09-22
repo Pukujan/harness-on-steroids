@@ -574,3 +574,7 @@ launch-blocked runs.
   baseline turn 2 at 18:25:07, an approximately 2:38 end-to-end handoff. This
   is within the owner's 2–3 minute maximum and confirms the final host plus
   Windows cleanup policy live.
+- During V5 baseline turn 4, the child became silent after 18:29:20 and was
+  absent by 18:31:28 while the experiment parent remained alive. This is the
+  final two-minute kill-and-continue path operating in the live run; it is
+  liveness evidence only, and the behavioral aggregate remains pending.

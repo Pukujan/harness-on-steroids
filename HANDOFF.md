@@ -114,17 +114,19 @@ total request ceilings use the two-hour cap, so active streams are not cut off
 at the idle threshold. Timeout reasons are typed and reported; see
 `docs/harness-timeout-policy.md`. The owner later shortened the default
 inactivity boundary to 2 minutes; the partial old-policy advisory rerun was
-stopped before interpretation and must be rerun with a fresh run ID.
-That fresh run is now `jev-long-ab-advisory-20260922-v3`; do not mix its
-results with the stopped v2 artifacts. V3 was also stopped before
-interpretation after the Windows process-tree cleanup path was tightened; start
-a fresh run after the change and do not mix v3 artifacts into its aggregate.
+stopped before interpretation and was rerun with fresh run IDs. The resulting
+v2 and v3 partial runs remain excluded. V3 was stopped before interpretation
+after the Windows process-tree cleanup path was tightened; do not mix v3
+artifacts into the aggregate.
 Fresh run `jev-long-ab-advisory-20260922-v4` was stopped before interpretation
 after the first end-to-end handoff still included Windows cleanup overhead. The
 default is now 2 minutes so observed silent-turn handoffs remain within the
-owner's 2–3 minute maximum; start a fresh run after this change.
+owner's 2–3 minute maximum; v4 remains excluded.
 Fresh run `jev-long-ab-advisory-20260922-v5` is now active under the final
-120-second inactivity policy and process-tree cleanup.
+120-second inactivity policy and process-tree cleanup. It is the only eligible
+run; v2 through v4 remain excluded. A silent baseline child in v5 was
+terminated after the two-minute boundary while its parent continued, confirming
+the kill-and-continue path; the aggregate is still pending.
 
 ## Active issue
 

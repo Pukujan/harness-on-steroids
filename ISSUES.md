@@ -136,13 +136,15 @@ interpretation when the owner shortened the default inactivity boundary to
 2 minutes. Its partial folders are not evidence; a fresh run ID is required.
 Fresh run `jev-long-ab-advisory-20260922-v3` had run under the 180-second
 policy with the same matched fixtures; its partial run was stopped before
-interpretation when Windows process-tree cleanup was tightened. Start a fresh
-run after that correction; do not mix v3 artifacts into its aggregate. Fresh
+interpretation when Windows process-tree cleanup was tightened. Do not mix v3
+artifacts into the aggregate. Fresh
 run `jev-long-ab-advisory-20260922-v4` was stopped before interpretation after
 the first end-to-end handoff still included Windows cleanup overhead. The
-default is now 2 minutes; start a fresh run and keep v4 excluded.
+default is now 2 minutes; keep v4 excluded.
 Fresh run `jev-long-ab-advisory-20260922-v5` is now active under the final
-120-second policy and is the only run eligible for interpretation.
+120-second policy and is the only run eligible for interpretation. V5 has also
+verified a silent-child termination after the two-minute boundary with the
+experiment parent continuing; its aggregate remains pending.
 
 ### Issue 23 - Reusable analytical machine v0
 
