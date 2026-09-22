@@ -125,6 +125,18 @@ independently verify. The analytical machine therefore remains deterministic
 for capture and structural metrics; any Jev annotation lane must be separate
 and compared with human adjudication.
 
+## Jev shadow classification probe — 2026-09-22
+
+The first live, body-free Jev annotation probe is recorded in
+`reports/jev-shadow-annotation-20260922.md`. It sent eight deterministic pilot
+events through eight independent Noul predicates (64 valid probabilities):
+62/64 matched direct canonical-field labels at threshold 0.50; at a 0.75
+acceptance band, 59/64 were accepted with zero errors and five abstentions.
+This is a tiny structural wire/behavior probe, not semantic-quality evidence.
+The v3 holdout remained sealed and no raw response was written. The next Jev
+annotation step still requires owner/human adjudication and a larger repeated
+semantic-label study.
+
 ## Baselines to preserve
 
 - ChatGPT Work/Codex local transcript evidence = behavioral reference.

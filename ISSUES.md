@@ -163,6 +163,10 @@ to separate action-selection value from confidence-gate under-execution.
   recorded in `research/analysis-ontology-pilot-v3-review-20260922.md`, with
   quality/UX/outcome/planning labels remaining abstained until their evidence
   surface is defined.
+- **Jev sidecar probe:** a separate eight-event structural Noul probe is
+  recorded in `reports/jev-shadow-annotation-20260922.md`; it is not gold or a
+  controller result. Keep the holdout sealed and benchmark semantic Jev labels
+  only after owner/human adjudication.
 - **Stop:** do not promote ontology terms, add a graph database, or build
   Power BI views before the bounded pilot is annotated and inspected.
 - **Privacy:** raw JSONL/SQLite and local derived exports remain ignored;

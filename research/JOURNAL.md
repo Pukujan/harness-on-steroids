@@ -392,3 +392,20 @@ launch-blocked runs.
   fields; the v3 packet was generated locally with 24 episodes and 8,930
   events. This is a review aid, not an annotation platform or gold-label
   generator.
+
+## 2026-09-22 — first live Jev structural annotation probe
+
+- `research/run_jev_shadow_annotation.py` sent a deterministic eight-event
+  sample from the v3 pilot to `typesafe/jev-1.13` through the OpenRouter
+  Decisions API. It asked eight independent binary structural questions per
+  event using canonical body-free fields; the holdout remained sealed and no
+  raw response was written.
+- All 64 probabilities were valid. At `p >= 0.50`, Jev matched direct
+  canonical-field labels 62/64 (96.875%) with one research false positive and
+  one mutation false negative. At a two-sided 0.75 acceptance band, 59/64
+  predictions were accepted with zero errors and five abstentions.
+- This supports a fast bounded annotation sidecar, not a quality claim. Noul
+  returned probability values but no separate confidence field in this run,
+  so probability was treated as the score. The durable report is
+  `reports/jev-shadow-annotation-20260922.md`; owner/human semantic
+  adjudication and a larger repeated study remain required.
