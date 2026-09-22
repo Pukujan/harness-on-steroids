@@ -53,15 +53,27 @@ Implemented and tested the smallest reusable v2 loop:
 All focused tests and ruff checks pass. Raw prompts, stderr, and adapter event
 bodies remain in ignored `.controller-runs/` artifacts only.
 
+## External Jev evidence update — 2026-09-21
+
+Public Jev integrations confirm that Jev is decision-only. The host must
+construct the live state and closed candidate set, then validate and execute
+the selected option. See `research/jev-ecosystem-evidence.md` and
+`research/jev-controller-v2-research.md` for the source-backed comparison.
+
+The first v2 replay did not yet have that feeder: it supplied the owner ask,
+one synthetic `task-main` bead, generic constraints, the intake action set,
+and mostly empty conversation/repository/event/test context. It therefore
+tested loop mechanics and fallback, not observation-derived coding decisions.
+
 ## Next action
 
-**Exactly one next control-layer hypothesis:** remove `CLASSIFY_REQUEST` from
-the intake `next_action` choice set and make the first Jev action question
-prefer evidence-producing inspection actions, while leaving the confidence
-fallback threshold, adapters, and loop unchanged. This tests whether the
-observed first-step ambiguity (including the three executed loops selecting
-`CLASSIFY_REQUEST`) is causing premature escalation without adding runtime
-machinery.
+**Exactly one next control-layer hypothesis:** add a bounded context-feeder
+preflight before the first Jev call: deterministic repository facts plus a
+coding-worker/adapter inspection that proposes real candidate beads and
+acceptance criteria. Hold the Jev schema, confidence threshold, adapters, and
+loop constant, then rerun the same frozen hashes. The earlier
+`CLASSIFY_REQUEST` choice-set hypothesis is paused until the decision context
+is populated, so the two interventions are not confounded.
 
 **Historical baseline note:** a blocking defect was found and fixed first
 (2026-09-22, `reports/versions/v66/README.md`).

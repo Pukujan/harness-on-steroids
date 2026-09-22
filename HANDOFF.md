@@ -15,8 +15,9 @@ Kilo Codex v0 remains a positive-control baseline and historical proof that beha
 ## Active issue
 
 Local issue **21 - Jev persistent decision controller**. The durable research
-and contract are `research/jev-controller-v2-research.md` and
-`spec/jev-controller-v2.md`; `ISSUES.md` contains the issue mapping.
+and contract are `research/jev-controller-v2-research.md`,
+`research/jev-ecosystem-evidence.md`, and `spec/jev-controller-v2.md`;
+`ISSUES.md` contains the issue mapping.
 
 The old three-adapter Jev run is complete as a v1 routing smoke test. It used
 one compact decision and one prompt hint per task. Do not treat it as evidence
@@ -32,9 +33,10 @@ the resulting events back into context, and ask Jev again.
 The next session should:
 
 1. Read `AGENTS.md`, `PLAN.md`, `HANDOFF.md`,
-   `research/jev-controller-v2-research.md`, and `spec/jev-controller-v2.md`.
+   `research/jev-controller-v2-research.md`,
+   `research/jev-ecosystem-evidence.md`, and `spec/jev-controller-v2.md`.
 2. Inspect the completed v2 implementation and preserve the v1 pilot.
-3. Run only the single intake-action hypothesis recorded in
+3. Run only the single context-feeder hypothesis recorded in
    `checkpoints/CURRENT.md` on the same frozen develop hashes and adapters.
 4. Compare the fresh result against
    `reports/matched-replay-jev-v2-20260921.md`; do not tune on holdout or
@@ -60,6 +62,17 @@ was one repetition. The exact next hypothesis is in `checkpoints/CURRENT.md`.
 
 Jev remains OpenRouter-only. It receives no tool authority. The adapters own
 CLI execution, event capture, and normalized tool observations.
+
+## External Jev evidence checkpoint — 2026-09-21
+
+Public OSS examples confirm that Jev does not read files or discover live
+state. The host or a worker must feed Jev the current observations and closed
+candidate set. Our first v2 runner did not have that context-feeder preflight:
+it sent the owner ask, a synthetic bead, generic constraints, and mostly empty
+state fields, then folded back adapter metadata after execution. The prior
+`CLASSIFY_REQUEST`-only hypothesis is therefore paused. The next experiment
+must first add the smallest bounded feeder and rerun the same hashes before
+changing the action choices.
 
 ## Reference evidence
 

@@ -10,7 +10,8 @@ approved. The repository root is `D:\claude\harness-on-steroids`.
 3. `HANDOFF.md`
 4. `checkpoints/CURRENT.md`
 5. `research/jev-controller-v2-research.md`
-6. `spec/jev-controller-v2.md`
+6. `research/jev-ecosystem-evidence.md`
+7. `spec/jev-controller-v2.md`
 
 ## Current implementation boundary
 
@@ -66,7 +67,9 @@ python research/run_jev_controller_v2.py 0d6ca4607eaf 1a415bc257e5 28372e365066 
 The first run is recorded at
 `reports/matched-replay-jev-v2-20260921.md`. It is one repetition only, so
 task-to-task differences are not reported as variance. The next experiment is
-the single intake-action hypothesis in `checkpoints/CURRENT.md`.
+the single context-feeder preflight hypothesis in `checkpoints/CURRENT.md`.
+Public Jev integrations show that the host must provide live observations and
+a closed candidate set; Jev does not inspect files or call tools itself.
 
 Jev calls must stay on OpenRouter. Do not print or commit credentials, raw
 transcript bodies, or raw CLI event bodies.

@@ -160,6 +160,33 @@ How this project actually proceeds. Append-only. No message bodies.
   no arm reached a Work match. OpenCode emitted a native session identifier;
   Grok Build and Pi did not. This single repetition does not establish
   variance. Report: `reports/matched-replay-jev-v2-20260921.md`.
-- The next and only selected hypothesis is to remove `CLASSIFY_REQUEST` from
-  the intake next-action choices and prefer evidence-producing inspection in
-  that first decision, with threshold/adapters/loop held constant.
+- At the time of the first implementation slice, the selected next hypothesis
+  was to remove `CLASSIFY_REQUEST` from the intake next-action choices and
+  prefer evidence-producing inspection. The later public-OSS review below
+  supersedes that as the immediate next experiment because the feeder context
+  was not populated.
+
+## 2026-09-21 — public Jev ecosystem evidence corrects the feeder boundary
+
+- Reviewed public Jev integrations rather than inferring behavior from our
+  prototype. The strongest live-agent example found was
+  `browser-use/jev-ultrafast` (16.0k GitHub stars when checked): a host turns
+  browser observations into an indexed element table and recent-action state,
+  sends compatible operation/target choices to Jev, executes the validated
+  result, and observes again.
+- TypeSafe's public browser-agent and tool-router examples show the same
+  contract: the host supplies live state and a closed permitted candidate set;
+  Jev chooses within that set; the host validates, executes, and feeds the next
+  observation back. Jev has no file-system, browser, tool, or subagent
+  authority.
+- Our v2 replay supplied the owner ask, one synthetic `task-main` bead, the
+  intake action catalog, generic constraints, and mostly empty context fields.
+  It did not run a context-producing inspection worker or supply real file
+  excerpts, repository facts, candidate beads, or test evidence before the
+  first decision. The loop mechanics were tested, but not live
+  observation-derived action selection.
+- Durable detail is in `research/jev-ecosystem-evidence.md` and the expanded
+  `research/jev-controller-v2-research.md`. The next experiment is revised to
+  add the smallest bounded context-feeder preflight while holding Jev schema,
+  threshold, and adapters constant; the earlier `CLASSIFY_REQUEST` choice-set
+  change is paused until that feeder exists.

@@ -42,6 +42,8 @@ Historical needle retained for old regression tests: 18. Repo modules, lint, typ
 
 - **Status:** open; owner approved implementation on 2026-09-21.
 - **Research:** `research/jev-controller-v2-research.md`.
+- **External evidence:** `research/jev-ecosystem-evidence.md` records public
+  Jev integrations and the required context-feeder boundary.
 - **Contract:** `spec/jev-controller-v2.md`.
 - **Problem:** the first Jev replay used one compact state request and one
   prompt hint per task. It did not test Jev as a context-aware classifier,
@@ -70,8 +72,12 @@ Grok Build, and Pi. Six of nine Jev arms stopped at the low-confidence gate;
 the three executed arms made two decisions each but timed out, and no arm
 reached a Work match. Baselines timed out 7/9 times. The result is recorded in
 `reports/matched-replay-jev-v2-20260921.md`; variance is not claimed because
-the slice has one repetition. The next controlled hypothesis is the intake
-`CLASSIFY_REQUEST` choice-set change recorded in `checkpoints/CURRENT.md`.
+the slice has one repetition. The first replay tested loop mechanics with
+mostly empty decision context; it did not test observation-derived candidate
+selection. Public OSS evidence shows that the host must feed Jev live state
+and a closed candidate set. The next controlled hypothesis is therefore the
+bounded context-feeder preflight recorded in `checkpoints/CURRENT.md`; the
+`CLASSIFY_REQUEST` choice-set change is paused until that feeder is present.
 
 ### GitHub issue #2 - Baseline multi-harness Work behavior replay
 
