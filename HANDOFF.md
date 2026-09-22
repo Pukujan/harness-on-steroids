@@ -24,12 +24,20 @@ The old three-adapter Jev run is complete as a v1 routing smoke test. It used
 one compact decision and one prompt hint per task. Do not treat it as evidence
 that Jev can decompose tasks or control a long horizon.
 
+The clean Issue 22 long-horizon A/B is now complete. OpenCode, Grok Build, and
+Pi each ran 60 matched Work-derived development turns per arm across 16
+development hashes with the shared feeder and sealed six-hash holdout. The
+current Jev policy did not win: Jev executed only 13, 13, and 12 turns after
+47, 47, and 48 low-confidence fallbacks respectively. OpenCode fell from
+8/16 to 4/16 Work-match; Grok Build and Pi were 0/16 in both arms. See
+`reports/jev-long-ab-20260922.md` and its three per-harness reports.
+
 Historical active issue label: GitHub issue **#2 - Baseline multi-harness Work behavior replay**.
 
-The next implementation is the long-horizon matched A/B: add the shared
-context feeder, run 60 Work-derived development turns with and without the
-validated Jev decision on each available harness, and compare against the
-ChatGPT Work behavioral reference.
+The completed implementation was the long-horizon matched A/B: the shared
+context feeder ran 60 Work-derived development turns with and without the
+validated Jev decision on each available harness. The follow-up is limited to
+the low-confidence fallback hypothesis below.
 
 The next session should:
 
@@ -37,12 +45,14 @@ The next session should:
    `research/jev-controller-v2-research.md`,
    `research/jev-ecosystem-evidence.md`,
    `research/jev-long-horizon-ab.md`, and `spec/jev-controller-v2.md`.
-2. Add and test the shared context feeder and long-horizon runner.
-3. Run a smoke cell, then the frozen 60-turn development A/B matrix across
-   OpenCode, Pi, and Grok Build where available.
-4. Compare only against the ChatGPT Work reference and keep the six holdout
-   hashes sealed.
-5. Update `checkpoints/CURRENT.md` with measured results and one next action.
+2. Read the combined result `reports/jev-long-ab-20260922.md` and the three
+   per-harness reports before changing code.
+3. Implement only the one follow-up hypothesis in `checkpoints/CURRENT.md`:
+   low-confidence Jev handling should execute the baseline-equivalent feeder
+   prompt while recording the Jev answer as advisory.
+4. Rerun one fresh matched 60-turn development A/B slice under a new `run_id`;
+   keep the six holdout hashes sealed and compare only with the Work reference.
+5. Update `checkpoints/CURRENT.md` with the measured result and one next action.
 
 ## v2 implementation checkpoint — 2026-09-21
 
@@ -63,16 +73,16 @@ was one repetition. The exact next hypothesis is in `checkpoints/CURRENT.md`.
 Jev remains OpenRouter-only. It receives no tool authority. The adapters own
 CLI execution, event capture, and normalized tool observations.
 
-## External Jev evidence checkpoint — 2026-09-21
+## External Jev evidence checkpoint — 2026-09-21 (historical finding)
 
 Public OSS examples confirm that Jev does not read files or discover live
 state. The host or a worker must feed Jev the current observations and closed
 candidate set. Our first v2 runner did not have that context-feeder preflight:
 it sent the owner ask, a synthetic bead, generic constraints, and mostly empty
 state fields, then folded back adapter metadata after execution. The prior
-`CLASSIFY_REQUEST`-only hypothesis is therefore paused. The next experiment
-must first add the smallest bounded feeder and rerun the same hashes before
-changing the action choices.
+`CLASSIFY_REQUEST`-only hypothesis was therefore paused. Issue 22 subsequently
+added the smallest bounded feeder and reran the full matched slice; its result
+and the one remaining hypothesis are recorded above and in `CURRENT.md`.
 
 ## Reference evidence
 

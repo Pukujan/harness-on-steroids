@@ -149,3 +149,20 @@ holdout results to rescue a disappointing result.
 5. Write the hash-only report, update `checkpoints/CURRENT.md`, and only then
    consider the sealed holdout.
 
+## Execution result — 2026-09-22
+
+The checklist is complete for the development slice. OpenCode, Grok Build, and
+Pi each produced a clean 60-turn A/B result over all 16 development hashes;
+the six holdout hashes remained sealed. The combined hash-only report is
+`reports/jev-long-ab-20260922.md`, with one detailed report per harness.
+
+The current Jev policy is not promoted. Work-match was OpenCode 8/16 baseline
+versus 4/16 Jev, Grok Build 0/16 versus 0/16, and Pi 0/16 versus 0/16. Jev's
+0.55 confidence gate caused 47, 47, and 48 fallbacks and only 13, 13, and 12
+executed Jev turns. This is the measured under-execution failure to address;
+it is not evidence that Jev can inspect files or act without the host feeder.
+
+The one follow-up hypothesis is to keep the feeder, choices, models, fixtures,
+and timeouts fixed while making low-confidence Jev output advisory and still
+executing the baseline-equivalent feeder prompt. A fresh matched 60-turn slice
+is required before changing the candidate taxonomy or exposing holdout hashes.

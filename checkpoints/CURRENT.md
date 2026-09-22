@@ -1,6 +1,6 @@
 # Current
 
-Updated: 2026-09-21
+Updated: 2026-09-22
 Plan status: **owner accepted / frozen operating direction**
 Owner spec: spec/owner.v2.json
 
@@ -19,13 +19,34 @@ live repository/task context made available to the no-Jev baseline. The
 previous one-shot hint pilot and context-poor v2 replay are historical smoke
 evidence only.
 
+## Last verified v2 result — 2026-09-22
+
+Issue 22's clean matched A/B is complete. Each of OpenCode, Grok Build, and
+Pi received 60 Work-derived development turns in each arm across the same 16
+development hashes, with the same deterministic repository context feeder,
+isolated workspace, model, and timeout. The six holdout hashes remained sealed.
+
+- OpenCode: baseline 8/16 Work-match and Jev 4/16; Jev executed 13/60 turns
+  after 47 low-confidence fallbacks.
+- Grok Build: baseline and Jev 0/16 Work-match; Jev executed 13/60 turns
+  after 47 low-confidence fallbacks.
+- Pi: baseline and Jev 0/16 Work-match; Jev executed 12/60 turns after 48
+  low-confidence fallbacks, with fewer partial outcomes than baseline.
+- No run had the prior Windows argv launch contamination: all three reports
+  have 60 turns, 16 hashes, 120 rows, and zero `fail_1` rows.
+
+The current Jev policy is not promoted. The clearest failure is that the
+0.55 confidence gate converted the Jev arms into mostly unexecuted arms. The
+combined hash-only report is `reports/jev-long-ab-20260922.md`; the detailed
+per-harness reports are adjacent to it.
+
 ## Baselines to preserve
 
 - ChatGPT Work/Codex local transcript evidence = behavioral reference.
 - Kilo Codex v0 = positive-control prompt baseline.
 - Existing Kilo/OpenCode R1-R6, 22-thread replay, morph, and outcome notes = v0 historical/prototype evidence.
 
-## Last verified v2 result — 2026-09-21
+## Previous verified v2 result — 2026-09-21
 
 Implemented and tested the smallest reusable v2 loop:
 
@@ -84,21 +105,18 @@ longer appears in argv, pinned by two new regression tests. Verified end-to-end:
 a real Pi call with a 40k-char prompt returns `ok` with events and `OK-PIPE`, no
 `too long`.
 
-**Exactly one next action:** with the launch blocker cleared and the shared
-deterministic context feeder in place, run one fresh matched A/B slice on the
-frozen development hashes using a **new `run_id`** (do not append to or compare
-against `jev-long-smoke-seed-20260922`). Hold the Jev schema, confidence
-threshold, adapters, loop, feeder pack, timeout, and harness/model constant; A vs
-B differ only by the Jev decision, typed validation, and bounded action hint.
-Capture full observable trajectory and outcome per arm; the earlier
-`CLASSIFY_REQUEST` choice-set hypothesis stays paused until a populated-context
-run shows the decision context is what limits Jev.
+The launch blocker is cleared and the clean matched A/B is now recorded. The
+earlier `CLASSIFY_REQUEST` choice-set hypothesis stays paused. The exactly one
+next action is to keep the feeder, choices, models, fixtures, and timeouts
+fixed, change only low-confidence handling so the Jev arm executes the same
+feeder prompt as baseline while recording the Jev answer as advisory, and run
+one fresh matched 60-turn slice under a new `run_id`.
 
 ## Long-horizon A/B contract
 
-The executable contract is `research/jev-long-horizon-ab.md`. The next slice
-must first add the shared deterministic context feeder and a 60-turn matched
-runner. A and B must use the same Work-derived development turn fixtures,
+The executable contract is `research/jev-long-horizon-ab.md`. The completed
+slice used the shared deterministic context feeder and a 60-turn matched
+runner. A and B used the same Work-derived development turn fixtures,
 fresh equivalent workspaces, feeder pack, timeout, and harness/model. B adds
 only the Jev decision, typed validation, and bounded action hint. OpenCode and
 Pi currently use `yolo-auto/qwen3.8-flash`; Grok Build uses `grok-4.7`; Jev is
@@ -136,9 +154,9 @@ in the same slice where technically possible.
 
 Record exact model/provider/harness/control version and capture all observable interaction, tool/result, wait/failure, verification/provenance, output, continuity, and outcome signals that each harness exposes.
 
-The next v2 slice is now explicitly authorized by the owner. Keep the old
-baseline for comparison and change only the Jev decision-loop behavior in the
-first implementation run.
+The next v2 slice is authorized by the measured Issue 22 result. Keep the
+completed baseline for comparison and change only low-confidence fallback
+handling in the first follow-up run.
 
 Historical v1 baseline: **Baseline multi-harness Work behavior replay**.
 Historical v1 baseline contract: **Do not change prompts/control before this baseline.**

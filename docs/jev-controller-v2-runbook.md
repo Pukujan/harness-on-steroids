@@ -3,6 +3,11 @@
 This runbook is the executable continuation point after the v2 plan is
 approved. The repository root is `D:\claude\harness-on-steroids`.
 
+The first full context-fed matched A/B is complete. Read
+`reports/jev-long-ab-20260922.md` before starting another run: the current
+Jev policy was not promoted because its confidence gate left only 12–13 of 60
+turns executable per harness.
+
 ## Read first
 
 1. `AGENTS.md`
@@ -15,12 +20,14 @@ approved. The repository root is `D:\claude\harness-on-steroids`.
 
 ## Current implementation boundary
 
-The tracked controller is v1. `src/hos/controller/core.py` has the phase and
-action taxonomy, OpenRouter-only Jev client, compact `ControllerState`, and
-one-shot `ControllerDecision`. `research/run_controller_replay.py` is the v1
-baseline-versus-hint runner. Keep both available for comparison.
+The tracked controller preserves the v1 pilot and adds the narrow v2 loop.
+`src/hos/controller/core.py` has the phase/action taxonomy, OpenRouter-only
+Jev client, compact `ControllerState`, one-shot `ControllerDecision`, typed
+`DecisionContext`, validation, and bounded repeated decisions. The v1
+`research/run_controller_replay.py` runner and the v2 long-horizon runner stay
+available for comparison.
 
-The v2 implementation should add, in small slices:
+The v2 implementation added, in small slices:
 
 1. `DecisionContext` with original ask, relevant conversation, candidate beads,
    adapter observations, evidence, constraints, and current phase.
@@ -44,7 +51,7 @@ The v2 implementation should add, in small slices:
 If a CLI cannot continue a native session, use explicit accumulated context for
 the next bounded invocation and record that limitation in the run report.
 
-## Validation sequence
+## Validation sequence (completed for the first v2 slice)
 
 1. Unit tests for state serialization, question schemas, parser behavior,
    legal transitions, and fallback.
@@ -66,8 +73,10 @@ python research/run_jev_controller_v2.py 0d6ca4607eaf 1a415bc257e5 28372e365066 
 
 The first run is recorded at
 `reports/matched-replay-jev-v2-20260921.md`. It is one repetition only, so
-task-to-task differences are not reported as variance. The next experiment is
-the single context-feeder preflight hypothesis in `checkpoints/CURRENT.md`.
+task-to-task differences are not reported as variance. The later full
+context-fed result is `reports/jev-long-ab-20260922.md`. The next experiment
+is the single low-confidence advisory-fallback hypothesis in
+`checkpoints/CURRENT.md`, not another context-feeder build.
 Public Jev integrations show that the host must provide live observations and
 a closed candidate set; Jev does not inspect files or call tools itself.
 

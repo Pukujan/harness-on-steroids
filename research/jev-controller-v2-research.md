@@ -82,7 +82,7 @@ low-confidence fallbacks and repeated `CLASSIFY_REQUEST` choices are
 consistent with an under-populated decision context; they are not evidence
 that Jev cannot route a properly prepared coding state.
 
-## Revised next experiment
+## Revised next experiment — historical, completed by Issue 22
 
 The next primary hypothesis is now a bounded context-feeder preflight: collect
 deterministic repository facts and, where needed, have the coding worker
@@ -134,3 +134,34 @@ The old result in `reports/matched-replay-20260921.md` measures whether one
 Jev hint changes downstream harness behavior. It is retained as v1 smoke-test
 evidence. It must not be presented as evidence that Jev's task decomposition,
 classification, or long-horizon control is correct.
+
+## Full matched A/B result — 2026-09-22
+
+The bounded context-feeder experiment described above was completed as Issue
+22's 60-turn matched A/B. The feeder supplied both arms with deterministic
+repository facts, changed paths, safe redacted excerpts, candidate beads, and
+the current turn/task context. Jev received that prepared state and a closed
+action set; it still did not read files, invoke tools, or use a subagent.
+
+Across OpenCode, Grok Build, and Pi, each arm received 60 Work-derived turns
+over the same 16 development hashes. The local ChatGPT Work/Codex corpus
+remained the gold/reference, while six holdout hashes stayed sealed. The
+configured execution models were Qwen 3.8 Flash through Yolo Auto for
+OpenCode/Pi and Grok 4.7 for Grok Build; Jev was the separate
+`typesafe/jev-1.13` Decisions call.
+
+The result does not promote the current policy. OpenCode fell from 8/16
+Work-match in baseline to 4/16 with Jev; Grok Build and Pi were 0/16 in both
+arms. Jev made 60 decisions per harness, but the 0.55 confidence gate rejected
+47, 47, and 48 of them, leaving only 13, 13, and 12 executed Jev turns. Mean
+confidence was 0.419, 0.409, and 0.390. This is evidence of confidence-gate
+under-execution in the current controller, not evidence that Jev is unable to
+evaluate a properly prepared coding state.
+
+The durable hash-only result is
+[`reports/jev-long-ab-20260922.md`](../reports/jev-long-ab-20260922.md), with
+one detailed report per harness. The next research question is deliberately
+narrow: keep the feeder, choices, models, fixtures, and timeouts fixed, but
+execute the baseline-equivalent feeder prompt on low-confidence Jev decisions
+while recording the Jev answer as advisory. This isolates action-selection
+value from the current safety gate's under-execution.

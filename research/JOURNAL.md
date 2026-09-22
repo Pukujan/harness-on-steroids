@@ -228,3 +228,33 @@ with zero positional args. All 152 tests and ruff pass; a real Pi call with a
 reports are flagged launch-blocked. Next action: one fresh matched A/B slice on
 the frozen development hashes under a new run_id; do not compare new cells to the
 launch-blocked runs.
+
+## 2026-09-22 — clean Jev long-horizon A/B result
+
+- Completed the frozen Issue 22 matrix after fixing the Windows prompt transport
+  blocker. OpenCode, Grok Build, and Pi each received 60 matched
+  Work-derived development turns per arm across the same 16 development
+  hashes; the six holdout hashes stayed sealed. The shared deterministic
+  repository feeder, isolated seed, harness timeout, and model were held
+  constant between arms.
+- Recorded model/config provenance: OpenCode and Pi used
+  `yolo-auto/qwen3.8-flash`, Grok Build used `grok-4.7`, and Jev used
+  `typesafe/jev-1.13` through OpenRouter Decisions API. Each result has 60
+  turns, 16 hashes, 120 rows, and zero `fail_1` transport rows.
+- Aggregate Work-match: OpenCode baseline 8/16 versus Jev 4/16; Grok Build
+  baseline 0/16 versus Jev 0/16; Pi baseline 0/16 versus Jev 0/16. Jev
+  executed only 13, 13, and 12 turns respectively because 47, 47, and 48
+  decisions failed the 0.55 confidence gate. Mean Jev confidence was 0.419,
+  0.409, and 0.390.
+- This is a negative promotion result for the current policy, not evidence
+  that Jev can never help. The feeder supplied bounded repository facts,
+  changed paths, redacted excerpts, and candidate beads; Jev still had no
+  filesystem, shell, tool, or subagent authority. The strongest observed
+  failure is confidence-gate under-execution, which makes the Jev arm
+  incomparable as a coding-capability intervention unless low-confidence
+  fallback remains executable.
+- Durable report: `reports/jev-long-ab-20260922.md`, with detailed
+  hash-only reports for each harness. Exactly one next hypothesis is retained:
+  keep the feeder/choices/models/fixtures/timeouts fixed, execute the
+  baseline-equivalent feeder prompt on low-confidence Jev decisions while
+  recording Jev as advisory, and rerun one fresh 60-turn development slice.

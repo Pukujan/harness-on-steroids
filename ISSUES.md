@@ -81,7 +81,8 @@ bounded context-feeder preflight recorded in `checkpoints/CURRENT.md`; the
 
 ### Issue 22 - Jev long-horizon matched A/B
 
-- **Status:** active; owner authorized a 50-60-turn A/B benchmark on 2026-09-21.
+- **Status:** active; first 60-turn A/B slice complete, follow-up hypothesis
+  retained below.
 - **Research contract:** `research/jev-long-horizon-ab.md`.
 - **Question:** does Jev improve observable Work-aligned behavior and outcome
   when the no-Jev and Jev arms receive the same context, harness, model,
@@ -104,6 +105,19 @@ bounded context-feeder preflight recorded in `checkpoints/CURRENT.md`; the
   verification, safety, continuity, scope, or truthful reporting.
 - **Privacy:** raw prompts, transcript bodies, event bodies, credentials, and
   private files remain ignored/local.
+
+**Measured result (2026-09-22):** the clean slice completed on all three
+available harnesses. Each arm had 60 matched turns over all 16 development
+hashes, with 120 hash-only rows per harness and no `fail_1` launch rows. The
+baseline/Jev Work-match counts were OpenCode 8/16 vs 4/16, Grok Build 0/16
+vs 0/16, and Pi 0/16 vs 0/16. Jev executed only 13, 13, and 12 turns after
+47, 47, and 48 low-confidence fallbacks. The current policy is therefore not
+promoted; see `reports/jev-long-ab-20260922.md`.
+
+**Next hypothesis:** keep the feeder, choices, models, fixtures, and timeouts
+fixed, but make a low-confidence Jev result advisory while executing the same
+feeder prompt as baseline. Rerun one fresh matched 60-turn development slice
+to separate action-selection value from confidence-gate under-execution.
 
 ### GitHub issue #2 - Baseline multi-harness Work behavior replay
 
