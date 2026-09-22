@@ -24,3 +24,8 @@ Thumbs.db
 .env
 .env.*
 !.env.example
+
+# Local Sol tool-loop records — may contain task context and tool results
+.sol/
+.controller-runs/
+data/provenance/

@@ -116,3 +116,26 @@ Raw JSONL, SQLite, prompts/transcript bodies, credentials, private account expor
 Before /goal and an explicit go-ahead, conversation is the job. Answer questions and status requests. **Seek go-ahead before starting a long-running task.** A status question is not a standing goal.
 
 After a /goal is explicitly set and the owner says go, CONTINUE.md governs autonomous continuation. The presence of PLAN.md, CURRENT.md, or an open GitHub issue does not itself authorize a long-running loop.
+
+## Local CKFF Codex CLI
+
+When using the local CKFF-backed Codex CLI, read [`docs/local-ckff-codex.md`](docs/local-ckff-codex.md) before selecting a key, model, endpoint, or request mode. Load the ignored `.env` explicitly; never print or commit its values. The active Codex CLI route uses the CKFF CC credential and streamed Responses requests. The CKFF default credential is intentionally excluded from active GPT use because it is expensive.
+
+For agentic Sol work, use the repository's `src.sol_bridge` worker route: it uses streamed Chat Completions and executes only its validated local tools. Do not assume the native Codex CLI transport and the CKFF endpoint are interchangeable.
+
+## Hosted comparison arms
+
+For bounded matched-harness experiments, load the ignored repository `.env` and
+keep the execution arms explicit. OpenCode uses `OPENCODE_MODEL` with the
+configured YOLO Auto provider; the current low-cost arm is
+`yolo-auto/qwen3.8-flash`. Pi uses `PI_MODEL` and its adapter writes a
+project-local ignored provider file that references `QWEN_API_KEY` without
+copying the secret into that file. Grok Build uses the authenticated CLI with
+`GROK_BUILD_MODEL=grok-4.7`. Never print these credentials or place them in a
+report. Jev remains OpenRouter Decisions API only and is a separate controller
+call, not an execution model.
+
+## Stop rewriting the goal
+
+If you think SWE-bench is “better science,” **do not substitute it**. Do the analysis and the imitate-Codex modes. The owner already decided.
+
