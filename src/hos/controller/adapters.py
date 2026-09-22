@@ -378,7 +378,10 @@ class OpenCodeAdapter(HarnessAdapter):
                     "options": {
                         "baseURL": base_url,
                         "apiKey": "none",
-                        "timeout": 1200000,
+                        # Keep the provider's total request ceiling aligned with
+                        # the host absolute cap; silence is governed separately
+                        # by header/chunk timeouts.
+                        "timeout": HARNESS_MAX_RUNTIME_SECONDS * 1000,
                         "headerTimeout": 1200000,
                         "chunkTimeout": 1200000,
                     },
@@ -496,7 +499,13 @@ class PiAdapter(HarnessAdapter):
             "httpIdleTimeoutMs": 1200000,
             "retry": {
                 "enabled": True,
-                "provider": {"timeoutMs": 1200000, "maxRetries": 0},
+                # This is a total provider request ceiling.  The idle boundary
+                # remains 20 minutes, while an actively streaming request may
+                # continue until the host's two-hour cap.
+                "provider": {
+                    "timeoutMs": HARNESS_MAX_RUNTIME_SECONDS * 1000,
+                    "maxRetries": 0,
+                },
             },
         }
         (config_dir / "settings.json").write_text(

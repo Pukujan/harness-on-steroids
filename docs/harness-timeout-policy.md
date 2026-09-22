@@ -27,11 +27,14 @@ budget is exhausted.
 The adapters also configure the provider-side stream boundaries where the
 harness supports project-local settings:
 
-- OpenCode local-provider configuration uses 1,200,000 ms for request,
-  header, and streamed-chunk timeouts.
-- Pi project-local settings use 1,200,000 ms for HTTP idle and provider
-  request timeouts, with agent-level retries enabled and provider retries kept
-  at zero.
+- OpenCode local-provider configuration uses 1,200,000 ms for header and
+  streamed-chunk silence, while its total request timeout is 7,200,000 ms.
+- Pi project-local settings use 1,200,000 ms for HTTP idle silence, while the
+  provider request ceiling is 7,200,000 ms; agent-level retries are enabled
+  and provider retries remain at zero.
+
+The distinction matters: a 20-minute idle boundary must not become a
+20-minute total cap that cuts off a request which is actively streaming.
 
 These settings match the host watchdog. The host watchdog remains authoritative
 because not every provider or CLI exposes the same configuration surface.
