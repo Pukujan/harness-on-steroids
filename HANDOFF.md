@@ -38,9 +38,10 @@ and zero parse errors were observed. See
 `reports/analysis-machine-full-corpus-20260922.md`. AM-06's pilot and sealed
 holdout checks are now recorded in
 `research/analysis-ontology-pilot-20260922.md`; no quality or outcome labels
-were promoted. The exact next action is a larger lane-balanced sample for
-owner/human adjudication of structural labels. Do not build a graph
-database/dashboard yet.
+were promoted. AM-06b's larger pilot and advisory review are recorded in
+`research/analysis-ontology-pilot-v3-review-20260922.md`; the exact next action
+is owner/human adjudication of that source-linked structural batch. Do not
+build a graph database/dashboard yet.
 
 Sol reviewed the design through the repository's bounded CKFF worker. The
 useful warning was that deterministic output is not automatically valid:
@@ -70,6 +71,14 @@ The deep dive recommends reusing patterns first: a bounded workflow registry,
 provider-neutral response validation, local evidence retrieval, freshness
 checks, independent verification, and advisory/shadow modes. It does not
 authorize a general orchestration framework or change the current next action.
+
+The focused classification/capture verdict is recorded in
+`research/jev-classification-capture-20260922.md`: use Jev only as a bounded
+classifier/selector or advisory shadow annotator; keep complete data capture,
+provenance, execution, and verification deterministic and host-owned. Public
+Jev Ultrafast and TypeSafe playground implementations follow this same
+boundary. Our matched A/B did not show an outcome gain and was heavily
+under-executed by the confidence gate.
 
 ## Active issue
 

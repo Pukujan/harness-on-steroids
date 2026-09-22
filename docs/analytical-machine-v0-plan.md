@@ -1,7 +1,7 @@
 # Analytical Machine v0
 
-Status: implementation and full structural pass complete; ontology pilot
-pending, 2026-09-22.
+Status: implementation, full structural pass, and advisory ontology pilot
+review complete; owner/human adjudication pending, 2026-09-22.
 
 ## Purpose
 
@@ -195,9 +195,13 @@ and lane contamination.
   clarified to separate action requests from observed evidence and research
   events from citation presence. No quality, UX, outcome, or planning label was
   promoted; native Luna annotations are advisory, not human gold.
-- **AM-06b Owner/human adjudication — next:** create a larger lane-balanced
-  sample, retain source event IDs in the ignored evidence plane, and adjudicate
-  the structural labels against a concrete analysis question before promotion.
+- **AM-06b Advisory batch — complete:** a deterministic larger lane-balanced
+  sample contains 24 pilot episodes (12 per lane, 8,930 body-free events) and
+  eight sealed holdout episodes (3,231 events). Four independent native Luna
+  reviews exposed useful ambiguities but also made counting/field-recognition
+  errors; see `research/analysis-ontology-pilot-v3-review-20260922.md`.
+  **Owner/human adjudication remains next**; no labels are promoted from model
+  review alone.
 - **AM-07 Graph projection — deferred:** emit provenance edges only after a
   pilot query cannot be answered cleanly from event tables.
 - **AM-08 Dashboard — deferred:** evaluate Power BI only after stable fact

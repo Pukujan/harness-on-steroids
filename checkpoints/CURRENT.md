@@ -57,6 +57,15 @@ adapter is `analysis-machine/0.2.0`. Research-family aliases, action-versus-
 evidence distinctions, and `unknown`/`not_observed`/`not_applicable` rules are
 explicit. No quality, UX, outcome, or planning category was promoted.
 
+The larger AM-06b pilot is also complete as an advisory review: 24 pilot
+episodes (12 per lane, 8,930 body-free events) and eight sealed holdout
+episodes (3,231 events) were selected deterministically. Four independent
+native Luna reviews (two per lane) exposed useful schema ambiguities but also
+made material counting/field-recognition errors, confirming that model labels
+cannot become gold without owner/human adjudication. The canonical comparison
+and rules are recorded in
+`research/analysis-ontology-pilot-v3-review-20260922.md`.
+
 ## Completed Issue 22 baseline
 
 Issue 22's clean matched A/B is complete. Its Jev policy was not promoted;
@@ -100,6 +109,18 @@ framework: deterministic workflow eligibility, bounded evidence retrieval,
 closed-set validation, freshness checks, independent verification, and
 advisory/shadow measurement. This research does not change the exact next
 action below.
+
+## Jev classification/capture verdict — 2026-09-22
+
+The focused source-backed result is
+`research/jev-classification-capture-20260922.md`. Jev is suitable only for
+bounded classification, scoring, routing, or an advisory shadow label over
+host-supplied state. It is not the capture layer: the host must read live
+files/events, preserve identity/order/provenance, construct the closed
+candidate or label set, validate the answer, execute or abstain, and
+independently verify. The analytical machine therefore remains deterministic
+for capture and structural metrics; any Jev annotation lane must be separate
+and compared with human adjudication.
 
 ## Baselines to preserve
 

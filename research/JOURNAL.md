@@ -288,6 +288,25 @@ launch-blocked runs.
   orchestration framework. Keep the authorized next experiment unchanged:
   make low-confidence Jev advisory and rerun the matched slice.
 
+## 2026-09-22 — Jev classification versus data capture
+
+- A source-backed follow-up separates Jev's useful role from the host's capture
+  role. TypeSafe's System One documentation and public Jev integrations show
+  Jev evaluating host-supplied state and returning typed choices/scores; the
+  host observes files or browser state, bounds candidates, validates freshness
+  and policy, executes, verifies, and records the trajectory.
+- Jev therefore remains a candidate for bounded classification, scoring, and
+  routing, including advisory post-hoc labeling of a frozen event sample. It
+  is not suitable as the source of truth for transcript capture, repository
+  observation, provenance, authorization, execution, or verification.
+- Our Issue 22 A/B confirms that the feeder, not Jev, captured repository
+  context. It also shows that the current controller policy is not promoted:
+  Jev executed only 13/13/12 of 60 turns after 47/47/48 low-confidence
+  fallbacks, and OpenCode Work-match fell from 8/16 to 4/16. The report
+  `research/jev-classification-capture-20260922.md` records the distinction
+  and keeps the controller follow-up separate from the analytical-machine
+  annotation work.
+
 ## 2026-09-22 — analytical machine v0 begins
 
 - The corpus is now treated as two analysis lanes: Codex execution and
@@ -349,3 +368,21 @@ launch-blocked runs.
   The next action is a larger lane-balanced sample for owner/human
   adjudication before accepting quality, UX, provenance-correctness, planning,
   or outcome labels.
+
+## 2026-09-22 — larger ontology pilot and advisory review
+
+- The deterministic selector produced a new 24-episode pilot (12 Codex, 12
+  ChatGPT; 8,930 body-free events) and an eight-episode sealed holdout (3,231
+  events). Four independent native Luna reviews covered the pilot only, two
+  per lane, with no CKFF/Sol, raw corpus, web, or repository edits.
+- The canonical reference counts are 2,559 Codex events and 6,371 ChatGPT
+  events. Structural pilot observations are 2 Codex episodes with an observed
+  inspect action, 1 with 17 mutation actions, 0 with verification actions,
+  10/12 ChatGPT episodes with citations, 9/12 with explicit research-family
+  events, 5/12 with code attributes, and 1/12 with execution-output
+  attributes.
+- The reviews were useful but not gold: one reviewer misreported the ChatGPT
+  total as 4,371 and reviewers inconsistently treated explicit code/output
+  attributes and research-family events. The durable adjudication is in
+  `research/analysis-ontology-pilot-v3-review-20260922.md`; no quality,
+  planning, UX, provenance-correctness, or outcome labels were promoted.
