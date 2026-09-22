@@ -3,6 +3,7 @@
 from __future__ import annotations
 
 import json
+import re
 from pathlib import Path
 
 ROOT = Path(__file__).resolve().parents[1]
@@ -96,10 +97,55 @@ def process_cell(seq: list[str], empty: str = "pending") -> str:
     return f"{wm}/{mask}"
 
 
+CONTEXT_BLOCK_RE = re.compile(
+    r"<(recommended_plugins|environment_context)\b.*?</\1>",
+    re.DOTALL,
+)
+
+
+def strip_context_blocks(text: str) -> str:
+    """Remove harness context blocks that Codex/Work prepends to the first ask.
+
+    Work transcripts store the first user turn as `<recommended_plugins> ... </
+    recommended_plugins><environment_context> ... </environment_context>` and, for
+    some tasks, the real ask sits between those two blocks. Only the tagged blocks
+    are dropped; text between them is preserved.
+    """
+
+    return CONTEXT_BLOCK_RE.sub("", text).strip()
+
+
+def ask_text(text: str) -> str:
+    """Return the owner-visible ask inside one raw turn, or "" if it is only context."""
+
+    return strip_context_blocks(text)
+
+
 def user_turns(user_md: Path) -> list[str]:
     text = user_md.read_text(encoding="utf-8")
     parts = [p.strip() for p in text.split("\n\n---\n\n") if p.strip()]
     return parts
+
+
+def ask_turns(user_md: Path) -> list[str]:
+    """User turns with harness context blocks stripped and empty turns dropped.
+
+    Use this to feed a harness a real ask. `user_turns` keeps the raw transcript
+    shape (including the boilerplate turn) for counting and older score tables.
+    """
+
+    return [stripped for t in user_turns(user_md) if (stripped := strip_context_blocks(t))]
+
+
+def first_ask(user_md: Path) -> tuple[str, bool]:
+    """First real ask plus whether it had to be recovered from a later turn."""
+
+    raw = user_turns(user_md)
+    for index, turn in enumerate(raw):
+        ask = strip_context_blocks(turn)
+        if ask:
+            return ask, index > 0
+    return "", False
 
 
 def parse_score_row(line: str) -> dict[str, str] | None:

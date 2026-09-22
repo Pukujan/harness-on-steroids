@@ -109,3 +109,9 @@ jobs:
         run: pytest tests/test_work_research_gates.py
       - name: repo-modules
         run: pytest tests/test_repo_modules.py
+      - name: sol-bridge
+        run: pytest tests/test_sol_bridge.py
+      - name: jev-controller-module
+        run: pytest tests/test_jev_controller_module.py
+      - name: replay-prompt-hygiene
+        run: pytest tests/test_replay_prompt_hygiene.py

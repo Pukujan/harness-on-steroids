@@ -13,7 +13,14 @@ from shutil import which
 ROOT = Path(__file__).resolve().parents[1]
 sys.path.insert(0, str(ROOT))
 
-from research.replay_lib import REPLAY, develop_hashes, tool_seq, user_turns  # noqa: E402
+from research.replay_lib import (  # noqa: E402
+    REPLAY,
+    ask_turns,
+    develop_hashes,
+    strip_context_blocks,
+    tool_seq,
+    user_turns,
+)
 
 _EXE = Path(r"C:\nvm4w\nodejs\node_modules\opencode-ai\bin\opencode.exe")
 _CMD = Path(r"C:\nvm4w\nodejs\opencode.cmd")
@@ -46,12 +53,22 @@ def run_hash(
         if turn < 1 or turn > len(turns):
             return "bad-turn"
         extra = turn > 1
-        turns = [turns[turn - 1]]
+        # --turn keeps raw transcript indices so earlier notes stay reproducible,
+        # but a raw turn is never sent while it is only harness context blocks.
+        ask = strip_context_blocks(turns[turn - 1])
+        if not ask:
+            return "empty-ask"
+        turns = [ask]
         max_turns = 1
     elif extra:
-        nxt = turns[1] if len(turns) > 1 else "Continue the same task. Look first, then verify with tools."
+        asks = ask_turns(user)
+        fallback = "Continue the same task. Look first, then verify with tools."
+        nxt = asks[1] if len(asks) > 1 else fallback
         turns = [nxt]
         max_turns = 1
+    else:
+        # Sequential path: drop the context-only turn so turn 1 is the owner's ask.
+        turns = ask_turns(user)
     if not turns:
         return "empty"
     sandbox = dest / "oc-sandbox"

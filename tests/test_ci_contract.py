@@ -57,5 +57,8 @@ def test_workflow_exists_and_is_not_a_noop() -> None:
         "test_replay_scores.py",
         "test_work_research_gates.py",
         "test_repo_modules.py",
+        "test_sol_bridge.py",
+        "test_jev_controller_module.py",
+        "test_replay_prompt_hygiene.py",
     ):
         assert name in text, name
