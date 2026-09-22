@@ -6,18 +6,38 @@ Owner spec: spec/owner.v2.json
 
 ## Active experiment
 
-Issue 22 - **Jev long-horizon matched A/B**
+Issue 23 - **Reusable analytical machine v0**
 
-Purpose: test whether a validated Jev decision layer improves a shared,
-context-fed coding harness over a matched no-Jev baseline across 60
-Work-derived development turns and the available Pi/OpenCode/Grok Build arms.
+Purpose: build and immediately exercise a repeatable, exportable,
+body-minimized analysis machine over separate Codex execution and ChatGPT
+chat/research lanes, while preserving one shared evidence contract.
 
 ## Current hypothesis
 
-Jev should improve bounded action selection only when it receives the same
-live repository/task context made available to the no-Jev baseline. The
-previous one-shot hint pilot and context-poor v2 replay are historical smoke
-evidence only.
+A small deterministic normalizer plus lane-specific analyzers can expose more
+useful transcript evidence than tool-order scoring alone, provided that event
+identity, missing-data policy, provenance, ontology version, and analyzer
+version are explicit. The first implementation must remain tables-and-JSONL;
+graph/database/dashboard machinery is deferred until a measured question needs
+it.
+
+## Last verified analytical-machine result — 2026-09-22
+
+The first reusable slice is implemented in `src/hos/analysis_machine/` with
+Codex and ChatGPT JSONL adapters, body-free canonical events, separate lane
+summaries, deterministic export, contract validation, and focused tests. The
+durable plan and bead ledger are `docs/analytical-machine-v0-plan.md`.
+
+The first bounded pilot used one Codex session and one ChatGPT provenance
+conversation: 5,525 events across three episodes, zero parse errors, zero
+validation issues, and 100% known-event coverage. A repeat export produced
+byte-identical hashes for all three artifacts. This proves repeatability and
+contract behavior, not agent quality or lane comparability.
+
+## Completed Issue 22 baseline
+
+Issue 22's clean matched A/B is complete. Its Jev policy was not promoted;
+the result remains preserved below as historical controller evidence.
 
 ## Last verified v2 result — 2026-09-22
 
@@ -107,6 +127,17 @@ and mostly empty conversation/repository/event/test context. It therefore
 tested loop mechanics and fallback, not observation-derived coding decisions.
 
 ## Next action
+
+For Issue 23, run AM-06: freeze a small double-reviewed ontology pilot over
+the existing two-lane export, add only evidence-backed categories, and test
+that ontology-version changes are explicit. Keep the full corpus and holdout
+out of tuning until the annotation codebook is reviewed.
+
+The Jev low-confidence advisory follow-up remains preserved as the next Jev
+experiment after this measurement substrate is verified; do not silently
+combine the two hypotheses.
+
+## Historical Jev next action
 
 **Launch blocker found and fixed first (2026-09-22).** The first
 context-fed long A/B smoke (`run_id jev-long-smoke-seed-20260922`,

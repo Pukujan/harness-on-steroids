@@ -287,3 +287,24 @@ launch-blocked runs.
   repositories after commit/dependency/license review. Do not add a general
   orchestration framework. Keep the authorized next experiment unchanged:
   make low-confidence Jev advisory and rerun the matched slice.
+
+## 2026-09-22 — analytical machine v0 begins
+
+- The corpus is now treated as two analysis lanes: Codex execution and
+  ChatGPT chat/research. They share a body-minimized evidence contract but
+  use separate analyzers and quality dimensions.
+- Added `src/hos/analysis_machine/` and its durable plan
+  `docs/analytical-machine-v0-plan.md`. The first slice normalizes imported
+  Codex envelope JSONL and existing ChatGPT provenance message/tool-event
+  JSONL, then exports versioned events and summaries without transcript bodies.
+- Sol reviewed the proposed slice through the local bounded CKFF worker. Its
+  main warning is durable: deterministic output can still be misleading unless
+  source identity, duplicate policy, missing-data status, provenance coverage,
+  ontology version, analyzer version, and alias-map behavior are explicit.
+- Focused tests passed for both lanes, contract validation, event-order
+  invariance, unknown-field resistance, tool-alias invariance, and body
+  minimization. The first real pilot used one Codex session and one ChatGPT
+  provenance conversation: 5,525 events across three episodes, zero parse
+  errors, zero validation issues, and 100% known-event coverage. A repeat run
+  produced byte-identical export hashes. AM-06 is now the next action: a
+  double-reviewed ontology pilot before full-corpus, graph, or dashboard work.

@@ -126,6 +126,35 @@ fixed, but make a low-confidence Jev result advisory while executing the same
 feeder prompt as baseline. Rerun one fresh matched 60-turn development slice
 to separate action-selection value from confidence-gate under-execution.
 
+### Issue 23 - Reusable analytical machine v0
+
+- **Status:** active; first implementation slice complete, bounded pilot next.
+- **Goal:** create a repeatable and exportable analysis machine that can be
+  reused for future agent datasets, with separate Codex execution and
+  ChatGPT chat/research analyzers over one body-minimized evidence contract.
+- **Contract:** `docs/analytical-machine-v0-plan.md`.
+- **Implementation:** `src/hos/analysis_machine/` provides versioned canonical
+  events, Codex/ChatGPT JSONL adapters, deterministic lane summaries, local
+  manifest/events/summary export, and validation issues.
+- **Beads:** AM-01 through AM-05 are complete; AM-06 is ontology pilot
+  review; AM-07 graph projection and AM-08
+  dashboard are explicitly deferred.
+- **Validation:** contract, golden fixture, order invariance, unknown-field,
+  alias, body-minimization, mutation, and differential checks. Existing
+  `score_seq` is a compatibility diagnostic, not objective gold.
+- **Measured first slice:** one Codex session plus one ChatGPT provenance
+  conversation produced 5,525 events across three episodes, zero parse errors,
+  zero validation issues, 100% known-event coverage, and byte-identical repeat
+  exports. This is contract/repeatability evidence, not an agent-quality claim.
+- **Next pass:** freeze a small double-reviewed ontology pilot and add only
+  evidence-backed categories with explicit version changes.
+- **Stop:** do not ingest or tune on the full corpus, promote ontology terms,
+  add a graph database, or build Power BI views before the bounded pilot is
+  inspected.
+- **Privacy:** raw JSONL/SQLite and local derived exports remain ignored;
+  committed artifacts contain only code, contracts, tests, and aggregate
+  evidence.
+
 ### GitHub issue #2 - Baseline multi-harness Work behavior replay
 
 - **Status:** open

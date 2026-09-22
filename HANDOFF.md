@@ -12,6 +12,34 @@ Normal development runs **Pi + OpenCode + Grok Build in the same slice** where t
 
 Kilo Codex v0 remains a positive-control baseline and historical proof that behavior prompting can materially improve a harness.
 
+## Analytical machine checkpoint — 2026-09-22
+
+The current bounded implementation slice is Issue 23, documented in
+`docs/analytical-machine-v0-plan.md` and tracked in `ISSUES.md`. The reusable
+module is `src/hos/analysis_machine/`.
+
+It normalizes the imported Codex envelope JSONL and existing ChatGPT
+provenance `messages.jsonl` / `tool-events.jsonl` into body-minimized,
+versioned `CanonicalEvent` records, then computes separate Codex execution and
+ChatGPT chat/research summaries. It writes only local `manifest.json`,
+`events.jsonl`, and `summary.json` exports. Raw transcript bodies, SQLite, and
+credentials remain ignored.
+
+AM-01 through AM-05 are complete with focused tests and a real bounded pilot.
+One Codex session plus one ChatGPT provenance conversation produced 5,525
+events across three episodes, with zero parse errors, zero validation issues,
+100% known-event coverage, and byte-identical repeat exports. This proves
+repeatability and contract behavior, not agent quality. The exact next action
+is AM-06: freeze a small double-reviewed ontology pilot and add only
+evidence-backed categories. Do not promote ontology terms broadly or build a
+graph database/dashboard yet.
+
+Sol reviewed the design through the repository's bounded CKFF worker. The
+useful warning was that deterministic output is not automatically valid:
+contract, source identity, duplicate policy, missing-data status, provenance
+coverage, ontology version, analyzer version, and alias-map version must all
+be visible in the export.
+
 ## External Jev OSS architecture deep dive — 2026-09-22
 
 `research/jev-oss-architecture-deep-dive-20260922.md` is the durable source-
