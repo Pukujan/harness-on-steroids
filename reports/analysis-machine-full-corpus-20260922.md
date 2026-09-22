@@ -2,10 +2,10 @@
 
 Date: 2026-09-22  
 Status: descriptive structural evidence; not an agent-quality evaluation  
-Machine: `analysis-machine/0.1.0`  
+Machine: `analysis-machine/0.2.0`
 Contract: `analysis-event/0.1.0`  
 Ontology: `analysis-ontology/0.1.0`  
-Codebook: `analysis-codebook/0.1.0`
+Codebook: `analysis-codebook/0.1.1`
 
 ## Scope and method
 
@@ -14,7 +14,7 @@ provenance JSONL through separate lane adapters and a shared, body-minimized
 `CanonicalEvent` contract. The run used 2,173 JSONL source files and wrote a
 summary-only local export; raw transcript bodies and normalized event bodies
 were not committed. The ignored local run directory is
-`data/derived/analysis-machine/full-summary-20260922-v5/`.
+`data/derived/analysis-machine/full-summary-20260922-v7/`.
 
 The run used a 600,000-ID exact duplicate-tracking limit, larger than the
 556,241-event input, so the duplicate result is complete for this run. The
@@ -52,15 +52,17 @@ canonical kind, not necessarily malformed input.
 | Tool results | 53,190 | observed result events; one call can yield multiple results |
 | Tool results per call | 1.00013 | result-event count divided by call-event count |
 | First tool family | execute 1,051; other 10 | normalized first-tool family by episode |
-| Episodes with a mutation-family event | 45 | episode-level structural relation |
-| Mutation episodes with prior inspection-family event | 3 / 45 | qualifying normalized events only |
-| Mutation episodes with later verification-family event | 0 / 45 | qualifying normalized events only |
+| Episodes with a mutation-action-family event | 45 | action-request structural relation |
+| Mutation-action episodes with prior inspection-action event | 3 / 45 | action order only; not proof of observed contents |
+| Mutation-action episodes with later verification-action event | 0 / 45 | action order only; not proof of verification |
 | Delegation-family events | 285 | observed normalized tool-family events |
 | Compaction events | 318 | observed lifecycle/compaction events |
 
-These are adapter-defined event relationships. They do not prove that a task
-was unsafe, that verification truly should have happened, or that no
-verification existed outside the recognized event vocabulary.
+These are adapter-defined action relationships. They do not prove that a file
+or external state changed, that a task was unsafe, that verification truly
+should have happened, or that no verification existed outside the recognized
+event vocabulary. Evidence-backed inspection, mutation, and verification stay
+unknown when the corresponding result/artifact is not retained.
 
 ## ChatGPT chat/research lane
 
@@ -76,12 +78,16 @@ verification existed outside the recognized event vocabulary.
 | Tool calls / results | 27,534 / 38,751 | normalized chat tool events |
 | Code events | 34,584 | source adapter content-type classification |
 | Execution-output events | 2,163 | source adapter content-type classification |
-| Research events | 0 | unavailable/not observed in this adapter view; not “no research” |
+| Research-family events | 5,244 | explicit research/source-retrieval tool family |
 
 The scoped known-message/tool rate was 105,943 / 136,348 = 77.7004%.
 Artifact, provenance-edge, node, rendered-turn, lifecycle, and unknown kinds
 are intentionally outside that scoped numerator. It must not be read as an
 overall evidence-quality score.
+
+Research-family events are a structural adapter label. They include explicit
+source-retrieval tool names such as `web.run`; citation presence remains a
+separate label and does not establish research sufficiency or claim support.
 
 ## What this run establishes
 

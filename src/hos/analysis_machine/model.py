@@ -9,7 +9,7 @@ from typing import Any, Mapping
 
 CONTRACT_VERSION = "analysis-event/0.1.0"
 ONTOLOGY_VERSION = "analysis-ontology/0.1.0"
-CODEBOOK_VERSION = "analysis-codebook/0.1.0"
+CODEBOOK_VERSION = "analysis-codebook/0.1.1"
 
 LANES = frozenset({"codex", "chatgpt_chat", "unknown"})
 OBSERVATION_STATES = frozenset(

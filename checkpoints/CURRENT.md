@@ -34,7 +34,8 @@ validation issues, and 100% known-event coverage. A repeat export produced
 byte-identical hashes for all three artifacts. This proves repeatability and
 contract behavior, not agent quality or lane comparability.
 
-The corrected full structural pass then consumed 2,173 local JSONL sources and
+The final corrected full structural pass (`analysis-machine/0.2.0`,
+`analysis-codebook/0.1.1`) then consumed 2,173 local JSONL sources and
 produced 556,241 events across 1,499 episodes: 419,893 Codex events in 1,387
 episodes and 136,348 ChatGPT events in 112 episodes. Exact duplicate tracking
 used a 600,000-ID cap and found zero duplicate IDs and zero validation issues.
@@ -46,6 +47,15 @@ The current provider boundary is explicit: Sol is CKFF-only through the local
 Sol worker, while Luna is native Codex/ChatGPT subagent-only and never CKFF.
 Three read-only native Luna reviews were used as advisory engineering review;
 they did not supply gold labels or change files.
+
+AM-06's frozen ontology pilot is now complete as an advisory measurement:
+eight pilot episodes (four per lane, 2,671 body-free events) received two
+independent native Luna annotations, followed by adjudication. Four sealed
+holdout episodes (two per lane, 2,909 events) then received two fresh
+independent reviews. The codebook is now `analysis-codebook/0.1.1`; the
+adapter is `analysis-machine/0.2.0`. Research-family aliases, action-versus-
+evidence distinctions, and `unknown`/`not_observed`/`not_applicable` rules are
+explicit. No quality, UX, outcome, or planning category was promoted.
 
 ## Completed Issue 22 baseline
 
@@ -141,12 +151,11 @@ tested loop mechanics and fallback, not observation-derived coding decisions.
 
 ## Next action
 
-For Issue 23, run AM-06: freeze a small source-linked, body-minimized,
-double-reviewed ontology pilot from the two-lane evidence, add only
-evidence-backed categories, and test that ontology-version changes are
-explicit. The full-corpus aggregate is descriptive and must not be tuned into
-quality labels; keep holdout evidence sealed until the annotation codebook is
-reviewed and adjudicated.
+For Issue 23, prepare the next lane-balanced annotation batch for owner/human
+adjudication of the pilot structural labels, keeping quality, UX, outcome, and
+planning labels abstained until their evidence surface is defined. Preserve
+the sealed-holdout result as a report-only verification; do not add a graph
+database or dashboard yet.
 
 The Jev low-confidence advisory follow-up remains preserved as the next Jev
 experiment after this measurement substrate is verified; do not silently

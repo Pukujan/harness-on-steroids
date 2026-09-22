@@ -310,7 +310,8 @@ launch-blocked runs.
 
 ## 2026-09-22 — analytical machine full structural pass and provider boundary
 
-- The streaming machine processed 2,173 local JSONL sources into 556,241
+- The streaming machine (`analysis-machine/0.2.0`, codebook
+  `analysis-codebook/0.1.1`) processed 2,173 local JSONL sources into 556,241
   body-minimized events across 1,499 episodes: 419,893 Codex events in 1,387
   episodes and 136,348 ChatGPT events in 112 episodes.
 - The corrected adapter carries Codex session identity across records, keeps
@@ -320,17 +321,19 @@ launch-blocked runs.
   600,000-ID cap found zero duplicate IDs and zero validation issues. 28,565
   events remained unknown and zero parse errors were observed.
 - Structural observations include 53,183 Codex tool calls, 53,190 tool
-  results, 45 mutation episodes, 3 inspection-before-mutation episodes, zero
-  qualifying verification-after-mutation episodes, 285 delegation events, and
+  results, 45 mutation-action episodes, 3 inspection-action-before-mutation-
+  action episodes, zero qualifying verification-action-after-mutation-action
+  episodes, 285 delegation events, and
   318 compactions. ChatGPT includes 2,430 user messages, 7,144 assistant
   messages, 30,084 citation rows, 100/112 citation-presence episodes, 34,584
   code events, and 2,163 execution-output events. These are adapter-defined
-  observations, not quality or intent judgments; `research_events: 0` is
-  unavailable/not observed for this adapter view.
+  observations, not quality or intent judgments; the corrected adapter now
+  reports 5,244 research-family events from explicit source-retrieval tool
+  names such as `web.run`, while citation presence remains separate.
 - Three native Luna subagents performed independent read-only reviews of the
   aggregate, ontology/codebook, and streaming implementation. They exposed
   the session-carry, citation-identity, malformed-record, run-ID, and
-  denominator issues that were fixed before the final v5 pass. Their suggestions remain
+  denominator issues that were fixed before the final v6/v7 pass. Their suggestions remain
   advisory and are not gold annotations.
 - Provider routing is explicit and durable: Sol is allowed only through the
   CKFF Sol worker; Luna is allowed only through native Codex/ChatGPT subagent
@@ -338,6 +341,11 @@ launch-blocked runs.
   be recorded, not silently replaced.
 - The committed interpretations are
   `reports/analysis-machine-full-corpus-20260922.md` and
-  `research/analysis-ontology-pilot-20260922.md`. AM-06 remains the next
-  action: build a small source-linked, double-reviewed ontology pilot before
-  accepting quality, UX, provenance-correctness, planning, or outcome labels.
+  `research/analysis-ontology-pilot-20260922.md`. The pilot is now frozen and
+  adjudicated with two independent native Luna reviews; no category is
+  promoted to accepted. Two fresh native Luna holdout reviews agreed on
+  citation, research, unclassified-event, and abstention labels; one
+  action-versus-evidence disagreement was adjudicated as `not_applicable`.
+  The next action is a larger lane-balanced sample for owner/human
+  adjudication before accepting quality, UX, provenance-correctness, planning,
+  or outcome labels.

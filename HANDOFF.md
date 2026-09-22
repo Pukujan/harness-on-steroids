@@ -35,18 +35,21 @@ structural pass over 2,173 local JSONL sources produced 556,241 events across
 events in 112 episodes. Exact duplicate tracking with a 600,000-ID cap found
 zero duplicate IDs and zero validation issues; 28,565 events remained unknown
 and zero parse errors were observed. See
-`reports/analysis-machine-full-corpus-20260922.md`. The exact next action is
-AM-06: freeze a small source-linked, double-reviewed ontology pilot and add
-only evidence-backed categories. Do not promote ontology terms broadly or
-build a graph database/dashboard yet.
+`reports/analysis-machine-full-corpus-20260922.md`. AM-06's pilot and sealed
+holdout checks are now recorded in
+`research/analysis-ontology-pilot-20260922.md`; no quality or outcome labels
+were promoted. The exact next action is a larger lane-balanced sample for
+owner/human adjudication of structural labels. Do not build a graph
+database/dashboard yet.
 
 Sol reviewed the design through the repository's bounded CKFF worker. The
 useful warning was that deterministic output is not automatically valid:
 contract, source identity, duplicate policy, missing-data status, provenance
 coverage, ontology version, analyzer version, and alias-map version must all
 be visible in the export. Provider routing is explicit: Sol is CKFF-only; Luna
-is native Codex/ChatGPT subagent-only and never CKFF. Three native Luna reviews
-were advisory/read-only engineering checks, not gold annotation.
+is native Codex/ChatGPT subagent-only and never CKFF. The AM-06 pilot used two
+independent native Luna annotation passes plus two fresh holdout passes;
+they remain advisory/read-only checks, not human gold annotation.
 
 ## External Jev OSS architecture deep dive — 2026-09-22
 

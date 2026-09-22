@@ -66,7 +66,9 @@ def test_normalizes_both_lanes_without_body_text(tmp_path: Path) -> None:
     assert all("secret" not in json.dumps(event.to_dict()) for event in codex_events)
     summary = analyze_events([*codex_events, *chat_events])
     assert summary["lane_counts"] == {"chatgpt_chat": 2, "codex": 4}
-    assert summary["lanes"]["codex"]["inspection_before_mutation_rate"] == 1.0
+    assert (
+        summary["lanes"]["codex"]["inspection_action_before_mutation_action_rate"] == 1.0
+    )
     assert summary["lanes"]["chatgpt_chat"]["assistant_messages"] == 1
 
 
@@ -147,7 +149,7 @@ def test_streaming_export_matches_materialized_summary(tmp_path: Path) -> None:
     manifest = json.loads((tmp_path / "export" / "manifest.json").read_text(encoding="utf-8"))
     assert manifest["streaming"] is True
     assert manifest["events_exported"] is True
-    assert manifest["codebook_version"] == "analysis-codebook/0.1.0"
+    assert manifest["codebook_version"] == "analysis-codebook/0.1.1"
 
 
 def test_streaming_summary_only_does_not_write_events(tmp_path: Path) -> None:
@@ -181,7 +183,10 @@ def test_codex_session_id_carries_across_records(tmp_path: Path) -> None:
     )
     events = normalize_jsonl(source, lane="codex", source_id="stable-source")
     assert len({event.episode_id for event in events}) == 1
-    assert analyze_events(events)["lanes"]["codex"]["inspection_before_mutation_rate"] == 1.0
+    assert (
+        analyze_events(events)["lanes"]["codex"]["inspection_action_before_mutation_action_rate"]
+        == 1.0
+    )
 
 
 def test_malformed_jsonl_records_become_bounded_parse_events(tmp_path: Path) -> None:
@@ -228,3 +233,15 @@ def test_chat_episode_count_and_citation_denominator_are_explicit(tmp_path: Path
     assert chat["citation_presence_denominator"] == 1
     assert chat["citation_presence_rate"] == 1.0
     assert summary["validation_issue_count"] == 0
+
+
+def test_chat_research_tool_family_is_reported(tmp_path: Path) -> None:
+    source = tmp_path / "tool-events.jsonl"
+    _write_jsonl(
+        source,
+        [{"class": "tool.call", "message_id": "t1", "recipient": "web.run"}],
+    )
+    events = normalize_jsonl(source, lane="chatgpt_chat", source_id="chat")
+    assert events[0].tool_family == "research"
+    summary = analyze_events(events)
+    assert summary["lanes"]["chatgpt_chat"]["research_events"] == 1

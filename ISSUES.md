@@ -128,8 +128,8 @@ to separate action-selection value from confidence-gate under-execution.
 
 ### Issue 23 - Reusable analytical machine v0
 
-- **Status:** active; implementation and full structural pass complete,
-  ontology pilot next.
+- **Status:** active; implementation, full structural pass, and advisory
+  ontology pilot/holdout check complete; owner/human adjudication next.
 - **Goal:** create a repeatable and exportable analysis machine that can be
   reused for future agent datasets, with separate Codex execution and
   ChatGPT chat/research analyzers over one body-minimized evidence contract.
@@ -138,8 +138,9 @@ to separate action-selection value from confidence-gate under-execution.
   events, Codex/ChatGPT JSONL adapters, streaming lane summaries, local
   manifest/optional-events/summary export, body-free fingerprints, and
   validation issues.
-- **Beads:** AM-01 through AM-05 are complete; AM-06 is ontology pilot
-  review; AM-07 graph projection and AM-08
+- **Beads:** AM-01 through AM-05 are complete; AM-06 advisory ontology
+  pilot/holdout review is complete with no category promotion; AM-06b is the
+  larger owner/human adjudication batch; AM-07 graph projection and AM-08
   dashboard are explicitly deferred.
 - **Validation:** contract, golden fixture, order invariance, unknown-field,
   alias, body-minimization, mutation, and differential checks. Existing
@@ -155,8 +156,9 @@ to separate action-selection value from confidence-gate under-execution.
   events remained unknown and zero parse errors were observed. This is adapter/coverage
   evidence, not a quality claim. See
   `reports/analysis-machine-full-corpus-20260922.md`.
-- **Next pass:** freeze a small source-linked, double-reviewed ontology pilot
-  and add only evidence-backed categories with explicit version changes.
+- **Next pass:** create a larger lane-balanced, source-linked annotation batch
+  for owner/human adjudication of structural labels, with quality/UX/outcome/
+  planning labels remaining abstained until their evidence surface is defined.
 - **Stop:** do not promote ontology terms, add a graph database, or build
   Power BI views before the bounded pilot is annotated and inspected.
 - **Privacy:** raw JSONL/SQLite and local derived exports remain ignored;

@@ -78,7 +78,7 @@ events in 1,387 episodes; ChatGPT chat/research contributed 136,348 events in
 zero duplicate IDs and zero validation issues were observed in this run.
 28,565 events remained `unknown` coverage and zero parse errors were observed;
 unknown events are not silently treated as known behavior. The aggregate is structural evidence for adapter
-coverage and event relationships, not a quality, intent, causal, or private-
+coverage and action-order relationships, not a quality, intent, causal, or private-
 reasoning judgment.  The committed aggregate interpretation is
 `reports/analysis-machine-full-corpus-20260922.md`; raw and derived event
 bodies remain local and ignored.
@@ -189,11 +189,15 @@ and lane contamination.
   run used exact duplicate tracking and found zero duplicate IDs and zero
   validation issues, while retaining 28,565 unknown events and zero parse
   errors as explicit missingness. See the committed aggregate report.
-- **AM-06 Ontology pilot — next:** create a small source-linked, body-minimized
-  sample, have two reviewers independently apply the codebook, adjudicate
-  disagreements, and promote only categories that improve an observable
-  analysis question. Native Luna suggestions are advisory proposals, not gold
-  annotations.
+- **AM-06 Ontology pilot — advisory pass complete:** a deterministic
+  source-linked, body-minimized sample was independently reviewed by two native
+  Luna passes, adjudicated, and checked on a sealed holdout. The codebook was
+  clarified to separate action requests from observed evidence and research
+  events from citation presence. No quality, UX, outcome, or planning label was
+  promoted; native Luna annotations are advisory, not human gold.
+- **AM-06b Owner/human adjudication — next:** create a larger lane-balanced
+  sample, retain source event IDs in the ignored evidence plane, and adjudicate
+  the structural labels against a concrete analysis question before promotion.
 - **AM-07 Graph projection — deferred:** emit provenance edges only after a
   pilot query cannot be answered cleanly from event tables.
 - **AM-08 Dashboard — deferred:** evaluate Power BI only after stable fact

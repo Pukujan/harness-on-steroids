@@ -30,6 +30,10 @@ TOOL_ALIASES = {
     "wait": "wait",
     "web_search": "research",
     "web_search_call": "research",
+    "web.run": "research",
+    "web.search": "research",
+    "browser.search": "research",
+    "search_query": "research",
 }
 
 

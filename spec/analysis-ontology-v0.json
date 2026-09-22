@@ -49,6 +49,31 @@
     }
   },
   "shared_dimensions": {
+    "observable_labels": {
+      "event": [
+        "event_observed",
+        "unclassified_event_present",
+        "agent_uncertainty_observed"
+      ],
+      "execution_action": [
+        "inspection_action",
+        "mutation_action",
+        "verification_action",
+        "inspection_action_before_mutation_action",
+        "verification_action_after_mutation_action"
+      ],
+      "execution_evidence": [
+        "inspection",
+        "mutation",
+        "verification"
+      ],
+      "research": [
+        "research_observed",
+        "citation_event_present",
+        "claim_supported",
+        "claim_unverified"
+      ]
+    },
     "interaction": ["intake", "clarification", "correction", "handoff", "completion"],
     "provenance": ["source_linked", "source_missing", "claim_supported", "claim_unverified"],
     "outcome": ["complete", "partial", "blocked", "failed", "interrupted", "unknown"],
