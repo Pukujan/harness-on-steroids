@@ -510,3 +510,9 @@ launch-blocked runs.
   advanced to Jev turn 4 at approximately 17:06. Four consecutive silent
   invocations across the baseline and Jev arms have now been observed without
   a premature 60-second kill; this still does not measure task quality.
+
+- When Jev turn 4 reached the same boundary at approximately 17:26, the child
+  exited and the runner immediately advanced to a new OpenCode baseline turn
+  for the next fixture. This directly verifies the end-to-end kill-and-continue
+  path for the 20-minute inactivity guard; the separate 30-second Jev decision
+  request timeout is not the harness-child timeout.
