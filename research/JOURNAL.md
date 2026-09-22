@@ -386,3 +386,9 @@ launch-blocked runs.
   attributes and research-family events. The durable adjudication is in
   `research/analysis-ontology-pilot-v3-review-20260922.md`; no quality,
   planning, UX, provenance-correctness, or outcome labels were promoted.
+- Added `research/build_analysis_review_packet.py`, a deterministic packet
+  builder that emits one body-free source-linked episode record per line with
+  empty owner-adjudication fields. It rejects holdout input and body-bearing
+  fields; the v3 packet was generated locally with 24 episodes and 8,930
+  events. This is a review aid, not an annotation platform or gold-label
+  generator.

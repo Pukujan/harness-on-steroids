@@ -200,8 +200,9 @@ and lane contamination.
   eight sealed holdout episodes (3,231 events). Four independent native Luna
   reviews exposed useful ambiguities but also made counting/field-recognition
   errors; see `research/analysis-ontology-pilot-v3-review-20260922.md`.
-  **Owner/human adjudication remains next**; no labels are promoted from model
-  review alone.
+  `research/build_analysis_review_packet.py` produces the deterministic local
+  owner-review packet and rejects holdout/body-bearing input. **Owner/human
+  adjudication remains next**; no labels are promoted from model review alone.
 - **AM-07 Graph projection — deferred:** emit provenance edges only after a
   pilot query cannot be answered cleanly from event tables.
 - **AM-08 Dashboard — deferred:** evaluate Power BI only after stable fact

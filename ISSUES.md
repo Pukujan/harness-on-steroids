@@ -142,8 +142,9 @@ to separate action-selection value from confidence-gate under-execution.
 - **Beads:** AM-01 through AM-05 are complete; AM-06 advisory ontology
   pilot/holdout review is complete with no category promotion; AM-06b's larger
   deterministic sample and four native Luna advisory reviews are complete,
-  while owner/human adjudication remains; AM-07 graph projection and AM-08
-  dashboard are explicitly deferred.
+  while owner/human adjudication remains. The deterministic review packet
+  builder is `research/build_analysis_review_packet.py`; AM-07 graph projection
+  and AM-08 dashboard are explicitly deferred.
 - **Validation:** contract, golden fixture, order invariance, unknown-field,
   alias, body-minimization, mutation, and differential checks. Existing
   `score_seq` is a compatibility diagnostic, not objective gold.
