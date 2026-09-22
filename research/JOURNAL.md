@@ -531,3 +531,7 @@ launch-blocked runs.
   interpretation. The default remains configurable for an explicitly known
   sparse-output workload, but ordinary runs no longer wait 20 minutes for a
   silent child.
+- Fresh run `jev-long-ab-advisory-20260922-v3` was launched at 17:37 under the
+  new policy with the same fixtures, adapters, models, Jev threshold, and
+  advisory fallback. Its aggregate remains pending; the stopped v2 run is not
+  being mixed into it.

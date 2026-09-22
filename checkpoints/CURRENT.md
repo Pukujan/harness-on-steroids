@@ -249,6 +249,10 @@ aggregate report, and its partial turn folders remain ignored diagnostics.
 The next action is a fresh matched slice under the 180-second policy; do not
 combine it with the stopped run.
 
+Fresh run `jev-long-ab-advisory-20260922-v3` was launched at 17:37 with the
+same 60-turn matched configuration. It is the only run eligible for later
+behavioral interpretation; its aggregate is pending.
+
 ## Long-horizon A/B contract
 
 The executable contract is `research/jev-long-horizon-ab.md`. The completed
