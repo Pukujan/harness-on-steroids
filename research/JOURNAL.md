@@ -490,3 +490,14 @@ launch-blocked runs.
   baseline turn began at 15:04:34, demonstrating the typed inactivity boundary
   and continuation behavior. This is not a task-quality result; the aggregate
   report remains pending.
+
+## 2026-09-22 — advisory rerun second liveness observation
+
+- The same run later closed a silent OpenCode baseline turn at approximately
+  16:05 and advanced to Jev turn 1. Jev turn 1 was also silent for the full
+  inactivity budget and the runner advanced to Jev turn 2 at approximately
+  16:26. The event/stderr files remained unchanged during both waits.
+- This independently confirms that the watchdog applies the same typed
+  inactivity rule to both arms and continues the matched sequence after the
+  child is closed. It is still liveness evidence only; no behavioral or
+  outcome conclusion is valid until the final aggregate is written.
