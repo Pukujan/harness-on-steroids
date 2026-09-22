@@ -12,6 +12,7 @@ from pathlib import Path
 
 from research.replay_lib import (
     REPLAY,
+    ROOT,
     ask_turns,
     develop_hashes,
     first_ask,
@@ -90,3 +91,21 @@ def test_every_pool_task_yields_a_real_ask() -> None:
         assert ask, f"{hash12} produced no ask after stripping context blocks"
         assert "<recommended_plugins>" not in ask
         assert "<environment_context>" not in ask
+
+
+def test_replay_scores_flags_contaminated_opencode_cells() -> None:
+    text = (ROOT / "reports" / "replay-scores.md").read_text(encoding="utf-8")
+
+    assert "prompt-contaminated" in text
+    contaminated = [
+        hash12
+        for hash12 in develop_hashes() + holdout_hashes()
+        if (REPLAY / hash12 / "user.md").is_file()
+        and first_ask(REPLAY / hash12 / "user.md")[1]
+    ]
+    assert contaminated, "expected context-only hashes to flag"
+    section = text.split("prompt-contaminated", 1)[1]
+    for hash12 in contaminated:
+        assert hash12 in section, f"{hash12} contaminated but not flagged"
+    # Pinned rows stay pinned: the annotation is additive, gate tests are not rewritten.
+    assert "| 0d6ca4607eaf | yes | none | yes/none/partial | no/R2+R4+R5/partial | yes |" in text

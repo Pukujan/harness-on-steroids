@@ -35,3 +35,22 @@ v65. Work process from JSONL. OpenCode cells from gitignored ndjson copies. Kilo
 | 55fd1ef9b613 | yes | none | yes/none/yes | no/R4/partial | pending |
 
 Kilo and OpenCode live replay of these threads is **not done**.
+
+## OpenCode cells that are prompt-contaminated (v66)
+
+The OpenCode column above was produced by a runner that sent the raw first user
+turn. For the hashes below that turn was the `<recommended_plugins>` /
+`<environment_context>` preamble only, so **the OpenCode cell was earned with no
+owner ask in the prompt** (extra `-c` turns may have added a real ask later in the
+thread, which is why some cells still look healthy). Those cells describe how the
+harness behaves on a task-free prompt, not how it imitates Work on that ask.
+
+Affected (11 of 22): `0d6ca4607eaf`, `28372e365066`, `2bde00530ddd`, `6e412585c223`,
+`8d42bc26b8ea`, `b7e6393f4c14`, `bd179678f540`, `f37de8488162`, `1442d08cf2d3`,
+`555f9c94ba8e`, `55fd1ef9b613`.
+
+Rows are left as-is because `tests/test_replay_scores.py` pins them as a CI contract
+and gate tests are not deleted to hide a defect. The Work and Kilo columns are
+unaffected (Work is scored from its own JSONL; Kilo cells come from sqlite copies).
+Re-run these 11 OpenCode replays with the fixed runner before quoting the column as
+issue 13 evidence.

@@ -55,6 +55,21 @@ Those cells are invalid as a comparison; see the banner in
 - `src/hos/__init__.py`: import order fixed — it failed `ruff check src`, which the
   owner-gate runs.
 
+## Wider blast radius: the headline OpenCode column
+
+The same first-turn bug sits in the long-running OpenCode replay path, so the
+`opencode` column of `reports/replay-scores.md` was earned partly on task-free
+prompts. Of the 22 pool tasks, **11 are context-only in turn 1 and all 11 have an
+`opencode.ndjson`** (2–102 tool calls each, so the cells look healthy — extra `-c`
+turns can carry a real ask later in the thread). Those 11 cells describe behaviour
+on a prompt with no ask, not imitation of Work on that ask.
+
+The table rows were **not** rewritten: `tests/test_replay_scores.py` pins those exact
+cells and mandatory owner-gate tests are not edited to hide a defect. The annotation
+section is additive and `test_replay_scores_flags_contaminated_opencode_cells` now
+fails if a context-only hash is missing from it. Work and Kilo columns are unaffected
+(Work is scored from its own JSONL; Kilo cells come from sqlite copies).
+
 ## First valid rows (post-fix)
 
 `replay-fix-20260922` (OpenCode / Qwen Flash, 150s, real ask in both arms):
@@ -65,6 +80,8 @@ table in `reports/jev-controller-pilot.md`.
 
 ## Not done
 
-The larger matched set (develop 16, fixed adapters, per-step state) has still not
-been re-run, so there is no valid baseline-vs-Jev conclusion yet. Never compare new
-cells to the pre-v66 numbers.
+The 11 contaminated OpenCode replay cells have **not** been re-run with the fixed
+runner, so issue 13's OpenCode evidence is still open for those hashes. The larger
+matched set (develop 16, fixed adapters, per-step state) has still not been re-run,
+so there is no valid baseline-vs-Jev conclusion yet. Never compare new cells to the
+pre-v66 numbers.
