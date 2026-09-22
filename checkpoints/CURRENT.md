@@ -253,7 +253,9 @@ Fresh run `jev-long-ab-advisory-20260922-v3` was launched at 17:37 with the
 same 60-turn matched configuration. It is the only run eligible for later
 behavioral interpretation; its aggregate is pending. Its first silent baseline
 child transitioned to baseline turn 2 at 17:41 under the 180-second policy,
-confirming the shortened live boundary.
+confirming the shortened live boundary. It subsequently completed baseline
+turns 2 through 4 and entered Jev turn 1 at 17:50; the aggregate remains
+pending.
 
 ## Long-horizon A/B contract
 

@@ -539,3 +539,6 @@ launch-blocked runs.
   runner advanced to baseline turn 2 at 17:41:26. With unchanged event/stderr
   files, this confirms the 180-second inactivity budget in the live runner;
   the extra seconds are process cleanup and turn setup, not a 20-minute wait.
+- V3 then completed baseline turns 2 through 4 on the same boundary and entered
+  Jev turn 1 at 17:50:52. This shows the shortened watchdog continues across
+  multiple matched turns and into the Jev arm; the aggregate is still pending.
