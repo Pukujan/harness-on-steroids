@@ -10,6 +10,7 @@ from __future__ import annotations
 
 from pathlib import Path
 
+import pytest
 from research.replay_lib import (
     REPLAY,
     ROOT,
@@ -28,6 +29,9 @@ BOILER = (
     "<environment_context>\n  <cwd>C:\\Users\\someone\\Documents\\Codex\\im</cwd>\n"
     "  <shell>powershell</shell>\n</environment_context>"
 )
+
+# data/replay/ is gitignored, so corpus-dependent checks only run locally.
+NEEDS_CORPUS = pytest.mark.skipif(not REPLAY.is_dir(), reason="gitignored replay corpus absent")
 
 
 def test_strip_drops_context_blocks(tmp_path: Path) -> None:
@@ -79,6 +83,7 @@ def test_controller_state_does_not_claim_a_missing_request() -> None:
     assert build_initial_state("abc123def456", ask_present=False).phase is ControllerPhase.INTAKE
 
 
+@NEEDS_CORPUS
 def test_every_pool_task_yields_a_real_ask() -> None:
     pool = develop_hashes() + holdout_hashes()
 
@@ -93,6 +98,7 @@ def test_every_pool_task_yields_a_real_ask() -> None:
         assert "<environment_context>" not in ask
 
 
+@NEEDS_CORPUS
 def test_replay_scores_flags_contaminated_opencode_cells() -> None:
     text = (ROOT / "reports" / "replay-scores.md").read_text(encoding="utf-8")
 
@@ -107,5 +113,29 @@ def test_replay_scores_flags_contaminated_opencode_cells() -> None:
     section = text.split("prompt-contaminated", 1)[1]
     for hash12 in contaminated:
         assert hash12 in section, f"{hash12} contaminated but not flagged"
+
+
+def test_replay_scores_pinned_rows_are_still_pinned() -> None:
+    text = (ROOT / "reports" / "replay-scores.md").read_text(encoding="utf-8")
+
     # Pinned rows stay pinned: the annotation is additive, gate tests are not rewritten.
     assert "| 0d6ca4607eaf | yes | none | yes/none/partial | no/R2+R4+R5/partial | yes |" in text
+
+
+@NEEDS_CORPUS
+def test_morph_prompts_are_never_task_free() -> None:
+    """Morphs may embed the context preamble, but must still contain an ask.
+
+    That is why the develop morph replays are not invalidated by the first-turn bug
+    and should not be re-run just to drop the preamble.
+    """
+
+    checked = 0
+    for hash12 in develop_hashes() + holdout_hashes():
+        morph = REPLAY / hash12 / "morphs" / "m1.md"
+        if not morph.is_file():
+            continue
+        checked += 1
+        text = morph.read_text(encoding="utf-8", errors="replace")
+        assert strip_context_blocks(text), f"{hash12} morph has no ask outside context blocks"
+    assert checked, "expected morph files to check"

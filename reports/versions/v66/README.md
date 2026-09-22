@@ -78,6 +78,17 @@ and `1a415bc257e5` baseline ok / 0 vs Jev 14. Both Jev rows hit the cap and no
 work-match gain appeared, so this is a smoke test, not a controller result. See the
 table in `reports/jev-controller-pilot.md`.
 
+## Morph prompts: polluted but still valid
+
+7 develop morphs (`0d6ca4607eaf`, `1a415bc257e5`, `1b09f49da9b9`, `28372e365066`,
+`2bde00530ddd`, `6e412585c223`, `6eb8631b71ff`) embed the same context block, but
+**every** morph still yields a non-empty ask after stripping. `run_opencode_morph.py`
+reads the whole morph file as the prompt, so those runs carried the ask plus noise.
+That is a cleanliness issue, not the empty-prompt defect: the "develop morphs 16/16"
+result is **not** invalidated, and it should not be re-run just to drop the preamble.
+If morphs are regenerated later, strip the blocks then — and change
+`tests/test_replay_scores.py` pins in the same commit.
+
 ## Not done
 
 The 11 contaminated OpenCode replay cells have **not** been re-run with the fixed
