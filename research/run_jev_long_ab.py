@@ -83,6 +83,19 @@ class ArmTaskResult:
     statuses: list[str]
 
 
+def _should_run_advisory_baseline(
+    validation: DecisionValidation | None, *, enabled: bool
+) -> bool:
+    """Return whether a low-confidence answer should remain advisory only."""
+
+    return bool(
+        enabled
+        and validation is not None
+        and not validation.accepted
+        and validation.reason == "low_confidence"
+    )
+
+
 def _load_env(path: Path) -> None:
     if not path.is_file():
         return
@@ -330,6 +343,7 @@ def _run_arm_task(
     timeout: float,
     jev_timeout: float,
     min_confidence: float,
+    low_confidence_advisory: bool,
     seed: Path,
 ) -> ArmTaskResult:
     workspace = root / adapter.name / mode / task_hash / "workspace"
@@ -364,7 +378,27 @@ def _run_arm_task(
             decisions.append(decision)
             if not validation.accepted:
                 validation_reasons.append(validation.reason or "invalid_decision")
-                context.add_evidence(f"jev_fallback:{validation.reason or 'invalid_decision'}")
+                advisory_baseline = _should_run_advisory_baseline(
+                    validation, enabled=low_confidence_advisory
+                )
+                if not advisory_baseline:
+                    context.add_evidence(f"jev_fallback:{validation.reason or 'invalid_decision'}")
+                # Do not add an advisory Jev answer to the feeder context:
+                # the execution prompt must remain equivalent in shape to Arm
+                # A. The decision and reason are retained in the hash-only row
+                # as advisory metadata.
+                if advisory_baseline:
+                    prompt = _context_prompt(context, turn.ask)
+                    run = adapter.run(
+                        prompt=prompt,
+                        prompt_file=turn_dir / "prompt.txt",
+                        workdir=workspace,
+                        events_path=turn_dir / "events.ndjson",
+                        stderr_path=turn_dir / "stderr.txt",
+                        timeout=timeout,
+                        title=f"jev-long-{task_hash}-{mode}-{turn.turn_index}",
+                    )
+                    _fold_run(context, adapter, run, tool_seq, session_ids)
             elif decision.next_action in {
                 ControllerAction.FINALIZE,
                 ControllerAction.ESCALATE,
@@ -438,6 +472,10 @@ def _run_arm_task(
 def _task_summary(result: ArmTaskResult) -> dict[str, Any]:
     scoreable = _scoreable_tool_seq(result.tool_seq)
     scored = score_seq(scoreable)
+    advisory_executions = sum(
+        bool(row["executed"]) and row.get("validation_reason") == "low_confidence"
+        for row in result.rows
+    )
     return {
         "task_hash": result.task_hash,
         "adapter": result.adapter.name,
@@ -453,6 +491,7 @@ def _task_summary(result: ArmTaskResult) -> dict[str, Any]:
         "outcome": outcome_label(scoreable),
         "decision_count": len(result.decisions),
         "fallback_count": len(result.validation_reasons),
+        "advisory_executions": advisory_executions,
         "decision_actions": [decision.next_action.value for decision in result.decisions],
         "decision_confidences": [decision.confidence for decision in result.decisions],
         "validation_reasons": result.validation_reasons,
@@ -492,12 +531,20 @@ def _aggregate(summaries: Sequence[dict[str, Any]]) -> list[dict[str, Any]]:
                 ),
                 "decisions": sum(int(row["decision_count"]) for row in group),
                 "fallbacks": sum(int(row["fallback_count"]) for row in group),
+                "advisory_executions": sum(
+                    int(row.get("advisory_executions", 0)) for row in group
+                ),
             }
         )
     return output
 
 
 def _write_report(result: dict[str, Any], path: Path) -> None:
+    low_confidence_policy = (
+        "advisory baseline execution"
+        if result["low_confidence_advisory"]
+        else "non-executing fallback"
+    )
     lines = [
         f"# Jev long-horizon matched A/B — {result['date']}",
         "",
@@ -516,21 +563,23 @@ def _write_report(result: dict[str, Any], path: Path) -> None:
         f"- Pi model: `{result['models']['pi_model']}`",
         f"- Grok Build model: `{result['models']['grok_build_model']}`",
         f"- Grok Build configured max turns: `{result['models']['grok_build_max_turns']}`",
+        f"- Low-confidence Jev policy: {low_confidence_policy}.",
         "- Gold/reference: local ChatGPT Work/Codex development evidence; R1-R6 are diagnostic.",
         "- Raw prompts, event bodies, transcript bodies, and credentials remain ignored/local.",
         "",
         "## Aggregate results",
         "",
         "| Adapter | Mode | Tasks | Turns | Executed | Timeouts | Work-match | Outcomes | "
-        "Mean tools/task | Jev decisions | Fallbacks |",
-        "|---|---|---:|---:|---:|---:|---:|---|---:|---:|---:|",
+        "Mean tools/task | Jev decisions | Fallbacks | Advisory executions |",
+        "|---|---|---:|---:|---:|---:|---:|---|---:|---:|---:|---:|",
     ]
     for row in result["aggregate"]:
         outcomes = ", ".join(f"{key}={value}" for key, value in row["outcomes"].items())
         lines.append(
             f"| {row['adapter']} | {row['mode']} | {row['tasks']} | {row['turns']} | "
             f"{row['executed_turns']} | {row['timeouts']} | {row['work_match']}/{row['tasks']} | "
-            f"{outcomes} | {row['mean_tools_per_task']} | {row['decisions']} | {row['fallbacks']} |"
+            f"{outcomes} | {row['mean_tools_per_task']} | {row['decisions']} | "
+            f"{row['fallbacks']} | {row['advisory_executions']} |"
         )
     lines.extend(
         [
@@ -577,6 +626,7 @@ def run_experiment(
     timeout: float,
     jev_timeout: float,
     min_confidence: float,
+    low_confidence_advisory: bool,
     run_id: str,
     report_path: Path | None = None,
 ) -> dict[str, Any]:
@@ -613,6 +663,7 @@ def run_experiment(
                             "outcome": "no",
                             "decision_count": 0,
                             "fallback_count": len(by_task[task_hash]) if mode == "jev" else 0,
+                            "advisory_executions": 0,
                             "decision_actions": [],
                             "decision_confidences": [],
                             "validation_reasons": ["adapter_unavailable"],
@@ -641,6 +692,7 @@ def run_experiment(
                     timeout=timeout,
                     jev_timeout=jev_timeout,
                     min_confidence=min_confidence,
+                    low_confidence_advisory=low_confidence_advisory,
                     seed=seed,
                 )
                 task_summaries.append(_task_summary(arm))
@@ -654,6 +706,7 @@ def run_experiment(
         "timeout_seconds": timeout,
         "jev_timeout_seconds": jev_timeout,
         "min_confidence": min_confidence,
+        "low_confidence_advisory": low_confidence_advisory,
         "models": _model_config(),
         "rows": turn_rows,
         "task_summaries": task_summaries,
@@ -683,6 +736,11 @@ def main() -> int:
     parser.add_argument("--timeout", type=float, default=90.0)
     parser.add_argument("--jev-timeout", type=float, default=30.0)
     parser.add_argument("--min-confidence", type=float, default=0.55)
+    parser.add_argument(
+        "--low-confidence-advisory",
+        action="store_true",
+        help="execute the baseline feeder prompt for low-confidence Jev answers",
+    )
     parser.add_argument("--run-id", default=f"jev-long-ab-{time.strftime('%Y%m%d-%H%M%S')}")
     parser.add_argument(
         "--report",
@@ -699,6 +757,7 @@ def main() -> int:
         timeout=args.timeout,
         jev_timeout=args.jev_timeout,
         min_confidence=args.min_confidence,
+        low_confidence_advisory=args.low_confidence_advisory,
         run_id=args.run_id,
         report_path=args.report,
     )
