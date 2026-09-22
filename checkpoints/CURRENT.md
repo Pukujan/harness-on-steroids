@@ -22,7 +22,27 @@ No new control hypothesis yet. First measure the baseline across Pi, OpenCode, a
 
 ## Next action
 
-Select 3-5 representative tasks from the existing **development** replay set, not holdout. Freeze their acceptance/environment notes, then run the current configuration through:
+**Blocking defect found and fixed first (2026-09-22, `reports/versions/v66/README.md`).**
+The replay runners passed the raw first user turn to the harness. In these Work
+transcripts that turn is the prepended `<recommended_plugins>` / `<environment_context>`
+block, and for **11 of the 22** develop+holdout hashes it contains no ask at all, so a
+baseline on those hashes measures behaviour on a **task-free prompt**. Any hint/control
+arm that adds a directive would appear to help only because it supplied the sole
+instruction — this is exactly what the pre-fix Pi/OpenCode/Grok controller rows show
+(baseline 0 tool calls vs a hint arm up to 306). Do **not** reuse pre-v66 traces as a
+baseline, and do not compare new cells to them.
+
+Fix is in: `research/replay_lib.py` (`strip_context_blocks` / `first_ask` / `ask_turns`),
+both runners now send the real ask and record `ask_present` / `ask_shifted`, plus gate
+`tests/test_replay_prompt_hygiene.py`. The `reports/replay-scores.md` OpenCode column is
+flagged contaminated for those 11 hashes (rows kept because `tests/test_replay_scores.py`
+pins them).
+
+Before selecting the 3-5 tasks: move the old `data/replay/<hash>/opencode.ndjson` aside
+per hash (the runner **appends**, so re-running in place mixes old and new evidence and
+silently corrupts the pinned cells), then take fresh traces on the real ask.
+
+Then proceed as planned: select 3-5 representative tasks from the existing **development** replay set, not holdout. Freeze their acceptance/environment notes, then run the current configuration through:
 
 1. Pi
 2. OpenCode
