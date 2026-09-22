@@ -105,8 +105,10 @@ holdout remains sealed.
 
 The attempted advisory A/B was stopped before interpretation when the owner
 identified the old 60-second hard process timeout as unsuitable for active
-streaming. The adapter policy is now a 20-minute inactivity timeout reset by
-stdout/stderr progress plus a two-hour absolute safety cap. OpenCode and Pi
+streaming. The adapter policy is now a configurable 20-minute default
+inactivity timeout reset by stdout/stderr progress plus a two-hour absolute
+safety cap. An actively streaming one-hour task is allowed; elapsed task time
+alone is not a kill reason. OpenCode and Pi
 provider-side idle/header/chunk settings use the 20-minute boundary while
 total request ceilings use the two-hour cap, so active streams are not cut off
 at the idle threshold. Timeout reasons are typed and reported; see

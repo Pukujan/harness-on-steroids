@@ -455,3 +455,13 @@ launch-blocked runs.
 - Focused tests and the full pytest suite pass after this correction. The
   live advisory run is still the empirical validation of the host behavior;
   its final aggregate remains pending.
+
+## 2026-09-22 — active-stream duration clarification
+
+- The 20-minute value is explicitly an inactivity default, not a maximum task
+  duration. A healthy stream may continue for an hour or longer because each
+  event resets the inactivity clock; only the two-hour absolute cap bounds the
+  default run.
+- The runner already accepts a per-run inactivity override for workloads with
+  an expected sparse-output phase. This preserves the same liveness semantics
+  without making a short default timeout a hard policy for every task.

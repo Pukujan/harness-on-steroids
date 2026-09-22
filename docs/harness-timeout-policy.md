@@ -8,7 +8,8 @@ evidence that the process is still working.
 
 ## Policy
 
-- The default harness inactivity timeout is **1,200 seconds (20 minutes)**.
+- The default harness inactivity timeout is **1,200 seconds (20 minutes)**;
+  this is a configurable liveness guard, not a task-duration limit.
 - Progress is observed from bytes arriving in the harness event or stderr
   stream files. Any progress resets the inactivity timer.
 - A separate **7,200-second (two-hour)** absolute safety cap prevents a
@@ -17,6 +18,12 @@ evidence that the process is still working.
   distinct from launch failures and model exit failures.
 - The host kills a process only after one of those limits is reached. It does
   not impose a 60-second per-chunk or per-turn kill while output is advancing.
+
+An actively streaming task may run for an hour or longer within the absolute
+cap. Every observed event resets the inactivity timer, so elapsed task time by
+itself is never a reason to stop healthy work. For a workload known to have
+longer quiet phases, callers may raise the inactivity budget for that run; the
+two-hour absolute cap remains in force.
 
 The timeout is a liveness boundary, not a task-completion policy. Harnesses
 may finish earlier, return a partial result, or stop because their own task
