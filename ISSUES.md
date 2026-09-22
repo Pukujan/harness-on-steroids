@@ -141,6 +141,8 @@ run after that correction; do not mix v3 artifacts into its aggregate. Fresh
 run `jev-long-ab-advisory-20260922-v4` was stopped before interpretation after
 the first end-to-end handoff still included Windows cleanup overhead. The
 default is now 2 minutes; start a fresh run and keep v4 excluded.
+Fresh run `jev-long-ab-advisory-20260922-v5` is now active under the final
+120-second policy and is the only run eligible for interpretation.
 
 ### Issue 23 - Reusable analytical machine v0
 

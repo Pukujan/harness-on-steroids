@@ -264,6 +264,10 @@ first end-to-end handoff still included Windows cleanup overhead. The default
 is now 120 seconds so observed handoffs stay within the owner's 2–3 minute
 maximum; a fresh run is required.
 
+Fresh run `jev-long-ab-advisory-20260922-v5` was launched at 18:20 with the
+same 60-turn matched configuration. It is the only run eligible for
+interpretation; its aggregate is pending.
+
 ## Long-horizon A/B contract
 
 The executable contract is `research/jev-long-horizon-ab.md`. The completed

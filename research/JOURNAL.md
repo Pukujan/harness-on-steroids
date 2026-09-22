@@ -567,3 +567,6 @@ launch-blocked runs.
 - V4 was stopped before interpretation so the policy change is not mixed into
   its artifacts. Focused tests and mypy pass after the two-minute change; a
   fresh run is required.
+- Fresh run `jev-long-ab-advisory-20260922-v5` was launched at 18:20 with the
+  120-second host/provider boundary and process-tree cleanup. Its aggregate is
+  pending; v2 through v4 remain excluded.

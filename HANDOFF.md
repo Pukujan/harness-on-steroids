@@ -123,6 +123,8 @@ Fresh run `jev-long-ab-advisory-20260922-v4` was stopped before interpretation
 after the first end-to-end handoff still included Windows cleanup overhead. The
 default is now 2 minutes so observed silent-turn handoffs remain within the
 owner's 2–3 minute maximum; start a fresh run after this change.
+Fresh run `jev-long-ab-advisory-20260922-v5` is now active under the final
+120-second inactivity policy and process-tree cleanup.
 
 ## Active issue
 
