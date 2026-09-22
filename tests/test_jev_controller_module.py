@@ -146,9 +146,9 @@ def test_streaming_progress_resets_inactivity_timeout(tmp_path: Path) -> None:
     stream = tmp_path / "stream.py"
     stream.write_text(
         "import sys, time\n"
-        "for index in range(8):\n"
-        "    print(index, flush=True)\n"
-        "    time.sleep(0.08)\n",
+            "for index in range(20):\n"
+            "    print(index, flush=True)\n"
+            "    time.sleep(0.1)\n",
         encoding="utf-8",
     )
 
@@ -165,8 +165,8 @@ def test_streaming_progress_resets_inactivity_timeout(tmp_path: Path) -> None:
         workdir=workdir,
         events_path=tmp_path / "events.ndjson",
         stderr_path=tmp_path / "stderr.txt",
-        timeout=0.12,
-        max_runtime=2.0,
+        timeout=0.8,
+        max_runtime=4.0,
         title="streaming",
     )
 
@@ -225,7 +225,7 @@ def test_pi_yolo_model_writes_project_local_provider_config(tmp_path: Path, monk
     assert provider["baseUrl"] == "https://yolo-auto.com/v1"
     assert provider["apiKey"] == "$QWEN_API_KEY"
     settings = json.loads((tmp_path / ".pi" / "agent" / "settings.json").read_text())
-    assert settings["httpIdleTimeoutMs"] == 1200000
+    assert settings["httpIdleTimeoutMs"] == 180000
     assert settings["retry"]["provider"]["timeoutMs"] == 7200000
     assert provider["apiKey"] == "$QWEN_API_KEY"
 
@@ -239,7 +239,7 @@ def test_opencode_local_model_writes_isolated_provider_config(tmp_path: Path, mo
     config = json.loads((tmp_path / "opencode.json").read_text(encoding="utf-8"))
     assert config["provider"]["local-bonsai"]["options"]["baseURL"].endswith("/v1")
     assert config["provider"]["local-bonsai"]["options"]["timeout"] == 7200000
-    assert config["provider"]["local-bonsai"]["options"]["chunkTimeout"] == 1200000
+    assert config["provider"]["local-bonsai"]["options"]["chunkTimeout"] == 180000
     assert "apiKey" not in json.dumps(config) or "none" in json.dumps(config)
 
 

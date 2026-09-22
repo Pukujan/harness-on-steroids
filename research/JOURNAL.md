@@ -516,3 +516,18 @@ launch-blocked runs.
   for the next fixture. This directly verifies the end-to-end kill-and-continue
   path for the 20-minute inactivity guard; the separate 30-second Jev decision
   request timeout is not the harness-child timeout.
+
+## 2026-09-22 — owner-shortened inactivity policy
+
+- The owner shortened the default inactivity budget from 20 minutes to 3
+  minutes. The host watchdog now uses 180 seconds, and OpenCode/Pi idle,
+  header, and streamed-chunk settings use 180,000 ms; the two-hour absolute
+  provider/host cap is unchanged.
+- The long advisory run `jev-long-ab-advisory-20260922-v2` had imported the old
+  20-minute constant, so its launcher, parent, and active child were stopped
+  explicitly before interpretation. Its partial turn folders remain ignored
+  diagnostic artifacts and no aggregate was treated as valid.
+- A fresh run under the 3-minute policy is required for any later behavioral
+  interpretation. The default remains configurable for an explicitly known
+  sparse-output workload, but ordinary runs no longer wait 20 minutes for a
+  silent child.

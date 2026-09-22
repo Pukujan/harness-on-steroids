@@ -128,10 +128,12 @@ to separate action-selection value from confidence-gate under-execution.
 
 **Timeout policy correction (2026-09-22):** the first advisory rerun was
 stopped before interpretation because the runner still imposed a 60-second
-hard wall-clock kill. The adapter now uses a 20-minute inactivity timeout reset
-by stream progress plus a two-hour absolute cap; timeout reasons are retained.
-The advisory slice is now running under the corrected policy as
-`jev-long-ab-advisory-20260922-v2`; its final aggregate is still pending.
+hard wall-clock kill. The adapter now uses a 3-minute default inactivity
+timeout reset by stream progress plus a two-hour absolute cap; timeout reasons
+are retained.
+The advisory slice `jev-long-ab-advisory-20260922-v2` was later stopped before
+interpretation when the owner shortened the default inactivity boundary to
+3 minutes. Its partial folders are not evidence; a fresh run ID is required.
 
 ### Issue 23 - Reusable analytical machine v0
 

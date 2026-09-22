@@ -210,12 +210,13 @@ combine the two hypotheses.
 
 The previous long-horizon runner used a 60-second hard wall-clock kill. That
 was rejected as unreliable for an actively streaming TUI/CLI agent. The adapter
-now uses a 1,200-second inactivity timeout that resets when stdout or stderr
-advances, plus a 7,200-second absolute safety cap. OpenCode provider
-request/header/chunk settings and Pi HTTP/provider settings are aligned to
-1,200,000 ms where the harness exposes those settings. Timeout reason is
-recorded as `inactivity` or `max_runtime`; active streaming is not timed out by
-the short test watchdog. See `docs/harness-timeout-policy.md`.
+now uses a 180-second default inactivity timeout that resets when stdout or
+stderr advances, plus a 7,200-second absolute safety cap. OpenCode provider
+request/header/chunk settings and Pi HTTP/provider settings use 180,000 ms for
+idle/header/chunk silence, while total request ceilings remain 7,200,000 ms.
+Timeout reason is recorded as `inactivity` or `max_runtime`; active streaming
+within the idle boundary is not timed out by the watchdog. See
+`docs/harness-timeout-policy.md`.
 
 ## Historical Jev next action
 
@@ -241,14 +242,12 @@ fixed, change only low-confidence handling so the Jev arm executes the same
 feeder prompt as baseline while recording the Jev answer as advisory, and run
 one fresh matched 60-turn slice under a new `run_id`.
 
-That rerun is currently active as `jev-long-ab-advisory-20260922-v2`.
-At the latest observation, OpenCode has created 13 baseline and 12 Jev turn
-directories, with a new baseline turn live and no final report yet. Silent
-baseline turn 4 and Jev turns 1 through 4 each reached the 20-minute
-inactivity boundary and the runner advanced to the next turn; event/stderr
-files stayed unchanged during those waits. This is liveness evidence only, not
-a behavioral result. Do not interpret the slice until the runner writes its
-aggregate.
+The prior rerun `jev-long-ab-advisory-20260922-v2` was intentionally stopped
+before interpretation after the owner shortened the default inactivity policy
+from 20 minutes to 3 minutes. It had produced liveness evidence only, no
+aggregate report, and its partial turn folders remain ignored diagnostics.
+The next action is a fresh matched slice under the 180-second policy; do not
+combine it with the stopped run.
 
 ## Long-horizon A/B contract
 

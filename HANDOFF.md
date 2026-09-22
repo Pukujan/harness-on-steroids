@@ -105,15 +105,16 @@ holdout remains sealed.
 
 The attempted advisory A/B was stopped before interpretation when the owner
 identified the old 60-second hard process timeout as unsuitable for active
-streaming. The adapter policy is now a configurable 20-minute default
+streaming. The adapter policy is now a configurable 3-minute default
 inactivity timeout reset by stdout/stderr progress plus a two-hour absolute
 safety cap. An actively streaming one-hour task is allowed; elapsed task time
 alone is not a kill reason. OpenCode and Pi
-provider-side idle/header/chunk settings use the 20-minute boundary while
+provider-side idle/header/chunk settings use the 3-minute boundary while
 total request ceilings use the two-hour cap, so active streams are not cut off
 at the idle threshold. Timeout reasons are typed and reported; see
-`docs/harness-timeout-policy.md`. The advisory A/B must be rerun under this
-policy with a fresh run ID.
+`docs/harness-timeout-policy.md`. The owner later shortened the default
+inactivity boundary to 3 minutes; the partial old-policy advisory rerun was
+stopped before interpretation and must be rerun with a fresh run ID.
 
 ## Active issue
 

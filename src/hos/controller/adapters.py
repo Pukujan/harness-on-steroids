@@ -11,7 +11,8 @@ from dataclasses import dataclass
 from pathlib import Path
 from shutil import which
 
-HARNESS_INACTIVITY_TIMEOUT_SECONDS = 20 * 60
+HARNESS_INACTIVITY_TIMEOUT_SECONDS = 3 * 60
+HARNESS_INACTIVITY_TIMEOUT_MILLISECONDS = HARNESS_INACTIVITY_TIMEOUT_SECONDS * 1000
 HARNESS_MAX_RUNTIME_SECONDS = 2 * 60 * 60
 STREAM_POLL_SECONDS = 0.25
 
@@ -234,6 +235,10 @@ class HarnessAdapter:
         started = time.monotonic()
         last_activity = started
         previous = cls._stream_signature(progress_paths)
+        poll_seconds = min(
+            STREAM_POLL_SECONDS,
+            max(0.01, inactivity_timeout / 4),
+        )
         while process.poll() is None:
             now = time.monotonic()
             current = cls._stream_signature(progress_paths)
@@ -244,7 +249,7 @@ class HarnessAdapter:
                 return "max_runtime"
             if now - last_activity >= inactivity_timeout:
                 return "inactivity"
-            time.sleep(STREAM_POLL_SECONDS)
+            time.sleep(poll_seconds)
         process.wait()
         return None
 
@@ -382,8 +387,8 @@ class OpenCodeAdapter(HarnessAdapter):
                         # the host absolute cap; silence is governed separately
                         # by header/chunk timeouts.
                         "timeout": HARNESS_MAX_RUNTIME_SECONDS * 1000,
-                        "headerTimeout": 1200000,
-                        "chunkTimeout": 1200000,
+                        "headerTimeout": HARNESS_INACTIVITY_TIMEOUT_MILLISECONDS,
+                        "chunkTimeout": HARNESS_INACTIVITY_TIMEOUT_MILLISECONDS,
                     },
                     "models": {
                         model_key: {
@@ -496,7 +501,7 @@ class PiAdapter(HarnessAdapter):
             json.dumps(config, indent=2) + "\n", encoding="utf-8"
         )
         settings = {
-            "httpIdleTimeoutMs": 1200000,
+            "httpIdleTimeoutMs": HARNESS_INACTIVITY_TIMEOUT_MILLISECONDS,
             "retry": {
                 "enabled": True,
                 # This is a total provider request ceiling.  The idle boundary
@@ -538,6 +543,7 @@ __all__ = [
     "GrokBuildAdapter",
     "HARNESS_MAX_RUNTIME_SECONDS",
     "HARNESS_INACTIVITY_TIMEOUT_SECONDS",
+    "HARNESS_INACTIVITY_TIMEOUT_MILLISECONDS",
     "HarnessAdapter",
     "HarnessRun",
     "OpenCodeAdapter",

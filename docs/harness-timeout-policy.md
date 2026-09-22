@@ -8,7 +8,7 @@ evidence that the process is still working.
 
 ## Policy
 
-- The default harness inactivity timeout is **1,200 seconds (20 minutes)**;
+- The default harness inactivity timeout is **180 seconds (3 minutes)**;
   this is a configurable liveness guard, not a task-duration limit.
 - Progress is observed from bytes arriving in the harness event or stderr
   stream files. Any progress resets the inactivity timer.
@@ -20,10 +20,11 @@ evidence that the process is still working.
   not impose a 60-second per-chunk or per-turn kill while output is advancing.
 
 An actively streaming task may run for an hour or longer within the absolute
-cap. Every observed event resets the inactivity timer, so elapsed task time by
-itself is never a reason to stop healthy work. For a workload known to have
-longer quiet phases, callers may raise the inactivity budget for that run; the
-two-hour absolute cap remains in force.
+cap when it continues producing output within the idle boundary. Every observed
+event resets the inactivity timer, so elapsed task time by itself is never a
+reason to stop healthy work. Callers may explicitly raise the inactivity budget
+for a workload with a known longer quiet phase; the default remains 3 minutes
+and the two-hour absolute cap remains in force.
 
 The timeout is a liveness boundary, not a task-completion policy. Harnesses
 may finish earlier, return a partial result, or stop because their own task
@@ -34,14 +35,14 @@ budget is exhausted.
 The adapters also configure the provider-side stream boundaries where the
 harness supports project-local settings:
 
-- OpenCode local-provider configuration uses 1,200,000 ms for header and
+- OpenCode local-provider configuration uses 180,000 ms for header and
   streamed-chunk silence, while its total request timeout is 7,200,000 ms.
-- Pi project-local settings use 1,200,000 ms for HTTP idle silence, while the
+- Pi project-local settings use 180,000 ms for HTTP idle silence, while the
   provider request ceiling is 7,200,000 ms; agent-level retries are enabled
   and provider retries remain at zero.
 
-The distinction matters: a 20-minute idle boundary must not become a
-20-minute total cap that cuts off a request which is actively streaming.
+The distinction matters: a 3-minute idle boundary must not become a
+3-minute total cap that cuts off a request which is actively streaming.
 
 These settings match the host watchdog. The host watchdog remains authoritative
 because not every provider or CLI exposes the same configuration surface.
