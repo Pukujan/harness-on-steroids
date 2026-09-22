@@ -130,6 +130,25 @@ session metadata. A generative coding worker is appropriate for proposing
 candidate beads or interpreting an open-ended request. Jev should decide
 among those prepared candidates, not invent or discover them through tools.
 
+```mermaid
+flowchart TD
+    A[Owner request] --> B[Context feeder]
+    B --> B1[Deterministic facts: git status, tree, tests, events]
+    B --> B2[Worker or subagent: excerpts, candidate beads, acceptance criteria]
+    B1 --> C[DecisionContext]
+    B2 --> C
+    C --> D[Jev: typed choice among legal candidates]
+    D --> E{Validate choice and confidence}
+    E -- invalid or too uncertain --> F[Safe fallback or ask owner]
+    E -- valid --> G[Bounded adapter or coding-worker action]
+    G --> H[Observed result: files, tools, tests, status]
+    H --> B
+```
+
+The critical distinction is that the feeder produces `DecisionContext`; Jev
+only evaluates that context and returns a typed decision. The loop becomes
+state-aware only after the host feeds the resulting observation back in.
+
 ## Consequence for Issue 21
 
 The prior next-action hypothesis—removing `CLASSIFY_REQUEST` from the intake
