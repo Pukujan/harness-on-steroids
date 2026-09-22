@@ -553,3 +553,6 @@ launch-blocked runs.
   harness children, with the existing direct kill fallback elsewhere. The
   partial v3 run was stopped before interpretation so this correction is not
   mixed into its evidence. A fresh run is required.
+- Fresh run `jev-long-ab-advisory-20260922-v4` was launched at 18:13 with the
+  same matched fixtures and the corrected process-tree cleanup path. Its
+  aggregate is pending; v2 and v3 remain excluded.

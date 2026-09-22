@@ -119,6 +119,8 @@ That fresh run is now `jev-long-ab-advisory-20260922-v3`; do not mix its
 results with the stopped v2 artifacts. V3 was also stopped before
 interpretation after the Windows process-tree cleanup path was tightened; start
 a fresh run after the change and do not mix v3 artifacts into its aggregate.
+Fresh run `jev-long-ab-advisory-20260922-v4` is now active under the corrected
+process-tree cleanup and 3-minute inactivity policy.
 
 ## Active issue
 

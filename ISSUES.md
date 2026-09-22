@@ -137,7 +137,9 @@ interpretation when the owner shortened the default inactivity boundary to
 Fresh run `jev-long-ab-advisory-20260922-v3` is now running under the 180-second
 policy with the same matched fixtures; its partial run was stopped before
 interpretation when Windows process-tree cleanup was tightened. Start a fresh
-run after that correction; do not mix v3 artifacts into its aggregate.
+run after that correction; do not mix v3 artifacts into its aggregate. Fresh
+run `jev-long-ab-advisory-20260922-v4` is now active under the corrected policy
+and is the only run eligible for interpretation.
 
 ### Issue 23 - Reusable analytical machine v0
 

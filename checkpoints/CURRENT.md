@@ -258,7 +258,9 @@ turns 2 through 4 and entered Jev turn 1 at 17:50; the aggregate remains
 pending. The partial v3 run was then stopped before interpretation after a
 direct silent-child test showed the host timer was correct but Windows
 process-tree cleanup could add excess handoff delay. The adapter now terminates
-the timed-out CLI tree explicitly; a fresh run is required.
+the timed-out CLI tree explicitly. Fresh run
+`jev-long-ab-advisory-20260922-v4` was launched at 18:13 and is the only run
+eligible for interpretation; its aggregate is pending.
 
 ## Long-horizon A/B contract
 
