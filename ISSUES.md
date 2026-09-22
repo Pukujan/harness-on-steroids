@@ -44,6 +44,13 @@ Historical needle retained for old regression tests: 18. Repo modules, lint, typ
 - **Research:** `research/jev-controller-v2-research.md`.
 - **External evidence:** `research/jev-ecosystem-evidence.md` records public
   Jev integrations and the required context-feeder boundary.
+- **OSS architecture deep dive:**
+  `research/jev-oss-architecture-deep-dive-20260922.md` inspects Jev
+  Ultrafast, Stanley, JevWire, pi-jev, pi-typesafe, pi-jev-tools, TypeSafe
+  Router, and the TypeSafe playground at pinned upstream commits. It confirms
+  that Jev is decision-only and identifies MIT-licensed patterns we can port
+  after review: bounded workflow registries, evidence retrieval, response
+  validation, freshness checks, and independent verification.
 - **Contract:** `spec/jev-controller-v2.md`.
 - **Problem:** the first Jev replay used one compact state request and one
   prompt hint per task. It did not test Jev as a context-aware classifier,

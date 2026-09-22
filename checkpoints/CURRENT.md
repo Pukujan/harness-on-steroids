@@ -40,6 +40,24 @@ The current Jev policy is not promoted. The clearest failure is that the
 combined hash-only report is `reports/jev-long-ab-20260922.md`; the detailed
 per-harness reports are adjacent to it.
 
+## External Jev OSS architecture deep dive — 2026-09-22
+
+The source-backed report is `research/jev-oss-architecture-deep-dive-20260922.md`.
+It confirms across Jev Ultrafast, Stanley, JevWire, pi-jev, pi-typesafe,
+pi-jev-tools, TypeSafe Router, and the TypeSafe playground that Jev is
+decision-only: a host observer or subagent must read live state and construct
+the bounded candidate set. The current feeder is narrower than those examples:
+it supplies bounded repository facts and excerpts, but does not automatically
+include `CURRENT.md`, `HANDOFF.md`, `ISSUES.md`, the active issue body, a full
+diff, or a context-producing scout. Its four candidate beads are synthetic
+`inspect-context`, `plan-change`, `execute-change`, and `verify-result`.
+
+The report recommends porting patterns, not adding a generic state-machine
+framework: deterministic workflow eligibility, bounded evidence retrieval,
+closed-set validation, freshness checks, independent verification, and
+advisory/shadow measurement. This research does not change the exact next
+action below.
+
 ## Baselines to preserve
 
 - ChatGPT Work/Codex local transcript evidence = behavioral reference.

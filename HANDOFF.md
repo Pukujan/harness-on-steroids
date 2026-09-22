@@ -12,6 +12,26 @@ Normal development runs **Pi + OpenCode + Grok Build in the same slice** where t
 
 Kilo Codex v0 remains a positive-control baseline and historical proof that behavior prompting can materially improve a harness.
 
+## External Jev OSS architecture deep dive — 2026-09-22
+
+`research/jev-oss-architecture-deep-dive-20260922.md` is the durable source-
+backed comparison of Jev Ultrafast, Stanley, JevWire, pi-jev, pi-typesafe,
+pi-jev-tools, TypeSafe Router, and the TypeSafe playground examples. It
+inspected actual source/architecture files and pinned the observed upstream
+`main` commits, rather than relying on assumptions about Jev.
+
+The shared finding is that Jev does not read files, discover project direction,
+or execute actions. A host observer or subagent must supply bounded state and a
+closed candidate set; host code validates the response, applies policy, and
+executes or abstains. Stanley is the closest coding-agent pattern: deterministic
+workflow eligibility and evidence collection around small Jev questions, with a
+general coding agent only as an explicitly unverified fallback.
+
+The deep dive recommends reusing patterns first: a bounded workflow registry,
+provider-neutral response validation, local evidence retrieval, freshness
+checks, independent verification, and advisory/shadow modes. It does not
+authorize a general orchestration framework or change the current next action.
+
 ## Active issue
 
 Local issue **22 - Jev long-horizon matched A/B**. The durable research
@@ -43,8 +63,9 @@ The next session should:
 
 1. Read `AGENTS.md`, `PLAN.md`, `HANDOFF.md`,
    `research/jev-controller-v2-research.md`,
-   `research/jev-ecosystem-evidence.md`,
-   `research/jev-long-horizon-ab.md`, and `spec/jev-controller-v2.md`.
+   `research/jev-ecosystem-evidence.md`, `research/jev-long-horizon-ab.md`,
+   `research/jev-oss-architecture-deep-dive-20260922.md`, and
+   `spec/jev-controller-v2.md`.
 2. Read the combined result `reports/jev-long-ab-20260922.md` and the three
    per-harness reports before changing code.
 3. Implement only the one follow-up hypothesis in `checkpoints/CURRENT.md`:

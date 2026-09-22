@@ -5,6 +5,11 @@ Updated: 2026-09-21
 Status: research finding for Jev Controller v2; no runtime change is made by
 this note.
 
+Follow-up source review: [`jev-oss-architecture-deep-dive-20260922.md`](jev-oss-architecture-deep-dive-20260922.md)
+pins upstream commits and expands this note into a source-level comparison of
+Jev Ultrafast, Stanley, JevWire, pi-jev, pi-typesafe, pi-jev-tools, TypeSafe
+Router, and the TypeSafe playground.
+
 ## Executive finding
 
 Jev is a decision-only component. It does not open files, inspect a browser,

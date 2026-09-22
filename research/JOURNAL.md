@@ -258,3 +258,32 @@ launch-blocked runs.
   keep the feeder/choices/models/fixtures/timeouts fixed, execute the
   baseline-equivalent feeder prompt on low-confidence Jev decisions while
   recording Jev as advisory, and rerun one fresh 60-turn development slice.
+
+## 2026-09-22 — Jev OSS architecture deep dive
+
+- Inspected source and architecture documentation for Jev Ultrafast,
+  Stanley, JevWire, pi-jev, pi-typesafe, pi-jev-tools, TypeSafe Router, and
+  the TypeSafe playground. Upstream `main` commit hashes and direct source
+  links are recorded in `research/jev-oss-architecture-deep-dive-20260922.md`.
+- The common architecture is host observation -> bounded evidence and closed
+  candidates -> typed Jev decision -> host validation/policy -> execution or
+  abstention -> independent verification -> refreshed observation. Jev does
+  not read files, discover project direction, or execute actions by itself.
+- Stanley is the closest coding-agent reference: deterministic workflow
+  registry and availability gates, exact checks before Jev, bounded hunk-level
+  questions, code-owned thresholds, `cannot_tell`/`notChecked`, and an
+  explicitly unverified Pi fallback for unsupported requests.
+- Jev Ultrafast contributes the strongest freshness pattern: code-owned
+  candidate IDs, state fingerprints, revalidation immediately before action,
+  and independent verification of `DONE`. JevWire contributes a provider-
+  neutral decision contract and whole-response validation. pi-jev-tools shows
+  local retrieval and provenance before Jev ranking. pi-jev shows how an
+  explicit state can route to a separate worker/scout/reviewer workflow.
+- This comparison exposed the exact remaining context gap in our own slice:
+  the feeder does not automatically read `CURRENT.md`, `HANDOFF.md`,
+  `ISSUES.md`, or the active issue body; its four candidate beads are generic
+  placeholders. That is a research finding, not an implementation change.
+- Reuse decision: port patterns first, and only copy code from confirmed MIT
+  repositories after commit/dependency/license review. Do not add a general
+  orchestration framework. Keep the authorized next experiment unchanged:
+  make low-confidence Jev advisory and rerun the matched slice.
