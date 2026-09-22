@@ -22,6 +22,114 @@ class HarnessRun:
     stderr_path: Path
 
 
+@dataclass(frozen=True)
+class AdapterEvent:
+    """Normalized event metadata; raw CLI bodies remain in ignored artifacts."""
+
+    event_kind: str
+    tool_name: str | None = None
+    status: str = "observed"
+    summary: str = ""
+
+    def to_payload(self) -> dict[str, str]:
+        payload = {
+            "event_kind": self.event_kind,
+            "status": self.status,
+            "summary": self.summary,
+        }
+        if self.tool_name:
+            payload["tool_name"] = self.tool_name
+        return payload
+
+
+def extract_event_seq(path: Path) -> list[AdapterEvent]:
+    """Read JSON/NDJSON event metadata for all three CLI adapters."""
+
+    if not path.is_file():
+        return []
+    text = path.read_text(encoding="utf-8", errors="replace")
+    values: list[object] = []
+    for line in text.splitlines():
+        try:
+            values.append(json.loads(line))
+        except json.JSONDecodeError:
+            continue
+    if not values:
+        try:
+            values = [json.loads(text)]
+        except json.JSONDecodeError:
+            return []
+    result: list[AdapterEvent] = []
+    for value in values:
+        if not isinstance(value, dict):
+            continue
+        event_kind = next(
+            (
+                str(value[key]).strip()
+                for key in ("event", "event_type", "type", "kind", "name")
+                if value.get(key) not in (None, "") and isinstance(value.get(key), (str, int))
+            ),
+            "json_event",
+        )
+        tool_names: list[str] = []
+        _collect_tool_names(value, tool_names)
+        status_value = value.get("status")
+        status = str(status_value).strip() if status_value not in (None, "") else "observed"
+        summary_value = value.get("summary")
+        summary = str(summary_value).strip()[:500] if summary_value not in (None, "") else ""
+        result.append(
+            AdapterEvent(
+                event_kind=event_kind,
+                tool_name=tool_names[0] if tool_names else None,
+                status=status,
+                summary=summary,
+            )
+        )
+    return result
+
+
+def extract_session_id(path: Path) -> str | None:
+    """Return a session identifier only when the adapter emitted one."""
+
+    if not path.is_file():
+        return None
+    text = path.read_text(encoding="utf-8", errors="replace")
+    values: list[object] = []
+    for line in text.splitlines():
+        try:
+            values.append(json.loads(line))
+        except json.JSONDecodeError:
+            continue
+    if not values:
+        try:
+            values = [json.loads(text)]
+        except json.JSONDecodeError:
+            return None
+
+    def find(value: object) -> str | None:
+        if isinstance(value, dict):
+            for key in ("session_id", "sessionId", "sessionID"):
+                candidate = value.get(key)
+                if isinstance(candidate, str) and candidate.strip():
+                    return candidate.strip()
+            for nested in value.values():
+                found = find(nested)
+                if found:
+                    return found
+        elif isinstance(value, list):
+            for nested in value:
+                found = find(nested)
+                if found:
+                    return found
+        return None
+
+    for value in values:
+        found = find(value)
+        if found:
+            return found
+    return None
+
+
 def extract_tool_seq(path: Path) -> list[str]:
     """Extract tool names from JSON or JSON-lines output without retaining bodies."""
 
@@ -85,6 +193,11 @@ class HarnessAdapter:
         """Write adapter-local ignored configuration when a harness needs it."""
 
         return None
+
+    def stream_events(self, events_path: Path) -> list[AdapterEvent]:
+        """Return normalized event metadata without exposing raw event bodies."""
+
+        return extract_event_seq(events_path)
 
     def run(
         self,
@@ -327,10 +440,13 @@ class PiAdapter(HarnessAdapter):
 
 
 __all__ = [
+    "AdapterEvent",
     "GrokBuildAdapter",
     "HarnessAdapter",
     "HarnessRun",
     "OpenCodeAdapter",
     "PiAdapter",
+    "extract_event_seq",
+    "extract_session_id",
     "extract_tool_seq",
 ]

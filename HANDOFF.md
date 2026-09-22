@@ -33,13 +33,30 @@ The next session should:
 
 1. Read `AGENTS.md`, `PLAN.md`, `HANDOFF.md`,
    `research/jev-controller-v2-research.md`, and `spec/jev-controller-v2.md`.
-2. Inspect the current `src/hos/controller` module and preserve the v1 pilot.
-3. Add the reusable `DecisionContext` and repeated `JevDecisionLoop` with fake
-   adapter tests before live calls.
-4. Audit OpenCode, Grok Build, and Pi event streaming/session behavior.
-5. Run one OpenCode smoke task, then a matched baseline-versus-loop slice on
-   existing develop Work hashes.
-6. Update `checkpoints/CURRENT.md` with measured results and one next action.
+2. Inspect the completed v2 implementation and preserve the v1 pilot.
+3. Run only the single intake-action hypothesis recorded in
+   `checkpoints/CURRENT.md` on the same frozen develop hashes and adapters.
+4. Compare the fresh result against
+   `reports/matched-replay-jev-v2-20260921.md`; do not tune on holdout or
+   claim variance from task differences.
+5. Update `checkpoints/CURRENT.md` with the measured result and one next
+   action.
+
+## v2 implementation checkpoint — 2026-09-21
+
+The first reusable v2 slice is now implemented. `src/hos/controller/core.py`
+contains `DecisionContext`, typed question construction and parsing, legal
+phase/action validation, deterministic fallback, and `JevDecisionLoop`;
+`src/hos/controller/adapters.py` contains normalized event and native-session
+metadata extraction. The v1 APIs and pilot remain intact.
+
+Focused tests cover the fake three-round loop, context accumulation, provider
+answer parsing, fallback safety, and independent OpenCode/Grok Build/Pi event
+handling. A fresh matched three-hash run is recorded in
+`reports/matched-replay-jev-v2-20260921.md`; it found 6/9 low-confidence Jev
+fallbacks, 7/9 baseline timeouts, no Work matches, and repeated two-decision
+loops on one hash per adapter. Variance is explicitly unclaimed because this
+was one repetition. The exact next hypothesis is in `checkpoints/CURRENT.md`.
 
 Jev remains OpenRouter-only. It receives no tool authority. The adapters own
 CLI execution, event capture, and normalized tool observations.

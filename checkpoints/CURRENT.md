@@ -23,12 +23,45 @@ again. The previous one-shot hint pilot is only v1 smoke evidence.
 - Kilo Codex v0 = positive-control prompt baseline.
 - Existing Kilo/OpenCode R1-R6, 22-thread replay, morph, and outcome notes = v0 historical/prototype evidence.
 
+## Last verified v2 result — 2026-09-21
+
+Implemented and tested the smallest reusable v2 loop:
+
+- `DecisionContext` carries the owner ask, relevant conversation, beads,
+  adapter observations, evidence, repository facts, changes, test results,
+  constraints, phase, retries, and user-input status with deterministic
+  32K-budget compaction.
+- Jev receives nine typed Choice/Score/Noul questions through the OpenRouter
+  Decisions API. The live schema was probed and corrected to the provider's
+  `criteria` shape; native Noul and Score answers are parsed into booleans and
+  legend labels.
+- `JevDecisionLoop` validates phase-legal actions, rejects low-confidence,
+  unknown, unavailable, or unavailable-bead decisions, executes one bounded
+  adapter step, folds normalized observations back into context, and asks Jev
+  again. Fake tests prove three-round context accumulation and no adapter call
+  on fallback.
+- OpenCode, Grok Build, and Pi each have normalized event/session extraction
+  tests. Native session IDs are recorded only when emitted; the runner uses
+  explicit context replay and does not invent continuation IDs.
+- Fresh matched run: `reports/matched-replay-jev-v2-20260921.md`, run id
+  `jev-v2-matched-20260921`, three development hashes across all three
+  available adapters. It produced repeated decisions on one hash per adapter
+  (two decisions each), while 6/9 Jev arms stopped on low confidence. Baseline
+  arms timed out 7/9 times; none of the 18 arms reached a Work match. A single
+  repetition does not establish variance.
+
+All focused tests and ruff checks pass. Raw prompts, stderr, and adapter event
+bodies remain in ignored `.controller-runs/` artifacts only.
+
 ## Next action
 
-**Current next action:** implement and test `spec/jev-controller-v2.md` as a
-small reusable decision loop. Add the durable research/spec/issue record first,
-then run one fake-adapter loop, one OpenCode smoke task, and one matched
-baseline-versus-Jev slice across the available adapters.
+**Exactly one next control-layer hypothesis:** remove `CLASSIFY_REQUEST` from
+the intake `next_action` choice set and make the first Jev action question
+prefer evidence-producing inspection actions, while leaving the confidence
+fallback threshold, adapters, and loop unchanged. This tests whether the
+observed first-step ambiguity (including the three executed loops selecting
+`CLASSIFY_REQUEST`) is causing premature escalation without adding runtime
+machinery.
 
 **Historical baseline note:** a blocking defect was found and fixed first
 (2026-09-22, `reports/versions/v66/README.md`).

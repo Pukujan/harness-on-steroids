@@ -141,3 +141,25 @@ How this project actually proceeds. Append-only. No message bodies.
   by OpenCode, Grok Build, and Pi adapter audits and a fresh matched replay.
 - v66 re-run (first valid controller rows): `replay-fix-20260922` OpenCode/Qwen, 150s, real ask in both arms. `0d6ca4607eaf` (ask_shifted, previously boilerplate-only) baseline **ok/6 tools** where the pre-fix arm logged 0 — the signature of the fixed prompt, not of routing. Control `1a415bc257e5` baseline ok/0, Jev 14. Both Jev rows timed out at the cap; one raised tool count, one did not; no work-match gain established. Two tasks = smoke test only. Table added to `reports/jev-controller-pilot.md` under "First valid comparison"; pre-fix cells stay under the invalid banner. Gates green (pytest 134, ruff/mypy `src`). No bodies or prompts committed.
 - v66 blast radius beyond the controller: the same first-turn bug is in the long-running OpenCode replay path, so `reports/replay-scores.md`'s **opencode column is prompt-contaminated for 11 of 22 hashes** (`0d6ca4607eaf`, `28372e365066`, `2bde00530ddd`, `6e412585c223`, `8d42bc26b8ea`, `b7e6393f4c14`, `bd179678f540`, `f37de8488162`, `1442d08cf2d3`, `555f9c94ba8e`, `55fd1ef9b613`) — all 11 have ndjson with 2–102 calls, so cells look healthy but the prompt had no ask; extra `-c` turns can carry a real ask later, which masks it. Rows **not** rewritten: `tests/test_replay_scores.py` pins those exact cells and mandatory owner-gate tests are not edited to hide a defect. Additive "prompt-contaminated" section + `test_replay_scores_flags_contaminated_opencode_cells` fails if a context-only hash goes unflagged. Work column (own JSONL) and Kilo column (sqlite copies) unaffected. OpenCode evidence stays **open** for those 11. Gates green. NOTE (post-rebase): the owner's harness-agnostic reset renumbered ISSUES.md, so the local '### 19' added here was dropped during conflict resolution and the blocker now lives under active GitHub issue #2; the v0 no-stop governance block was deliberately NOT re-added over the owner's rewritten chat-first section.
+
+## 2026-09-21 — Jev v2 first implementation and matched slice
+
+- Added `DecisionContext`, typed Choice/Score/Noul request construction and
+  parsing, phase/action legality checks, explicit fallback, and the bounded
+  repeated `JevDecisionLoop` while preserving the v1 pilot APIs.
+- Added normalized adapter event/session metadata extraction and fake tests
+  proving three context-aware decisions, observation folding, and no adapter
+  execution after an unavailable or low-confidence decision.
+- The live OpenRouter probe initially returned schema errors; the provider
+  response identified `criteria` as the required question field, and Score/Noul
+  answer shapes were captured and tested. No provider credentials or response
+  bodies were committed.
+- Fresh three-development-hash replay across OpenCode, Grok Build, and Pi:
+  baseline timed out 7/9 arms; Jev stopped 6/9 arms on low action confidence;
+  the remaining three adapter loops made two decisions each but timed out, and
+  no arm reached a Work match. OpenCode emitted a native session identifier;
+  Grok Build and Pi did not. This single repetition does not establish
+  variance. Report: `reports/matched-replay-jev-v2-20260921.md`.
+- The next and only selected hypothesis is to remove `CLASSIFY_REQUEST` from
+  the intake next-action choices and prefer evidence-producing inspection in
+  that first decision, with threshold/adapters/loop held constant.

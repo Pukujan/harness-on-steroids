@@ -62,6 +62,17 @@ Historical needle retained for old regression tests: 18. Repo modules, lint, typ
 The research and contract are the durable issue record for this slice. A
 future session should begin with them and `checkpoints/CURRENT.md`.
 
+**First implementation slice (2026-09-21):** the reusable context/loop,
+provider schema parser, legal-action fallback, and independent adapter event
+normalizers are implemented and tested. Fresh replay
+`jev-v2-matched-20260921` covers three development hashes across OpenCode,
+Grok Build, and Pi. Six of nine Jev arms stopped at the low-confidence gate;
+the three executed arms made two decisions each but timed out, and no arm
+reached a Work match. Baselines timed out 7/9 times. The result is recorded in
+`reports/matched-replay-jev-v2-20260921.md`; variance is not claimed because
+the slice has one repetition. The next controlled hypothesis is the intake
+`CLASSIFY_REQUEST` choice-set change recorded in `checkpoints/CURRENT.md`.
+
 ### GitHub issue #2 - Baseline multi-harness Work behavior replay
 
 - **Status:** open

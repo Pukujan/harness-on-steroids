@@ -53,5 +53,20 @@ the next bounded invocation and record that limitation in the run report.
 5. Expand to the frozen develop slice only after the smoke results are valid.
 6. Write a hash-only report and update `checkpoints/CURRENT.md`.
 
+## Completed first slice
+
+The reusable implementation is in `src/hos/controller/core.py` and the
+fresh matched runner is `research/run_jev_controller_v2.py`. A representative
+run is:
+
+```powershell
+python research/run_jev_controller_v2.py 0d6ca4607eaf 1a415bc257e5 28372e365066 --adapters opencode,grok-build,pi --timeout 15 --max-steps 3 --run-id <fresh-id> --report reports/<fresh-report>.md
+```
+
+The first run is recorded at
+`reports/matched-replay-jev-v2-20260921.md`. It is one repetition only, so
+task-to-task differences are not reported as variance. The next experiment is
+the single intake-action hypothesis in `checkpoints/CURRENT.md`.
+
 Jev calls must stay on OpenRouter. Do not print or commit credentials, raw
 transcript bodies, or raw CLI event bodies.
