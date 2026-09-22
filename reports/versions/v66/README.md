@@ -92,7 +92,8 @@ If morphs are regenerated later, strip the blocks then — and change
 ## Not done
 
 The 11 contaminated OpenCode replay cells have **not** been re-run with the fixed
-runner, so issue 13's OpenCode evidence is still open for those hashes. The larger
+runner, so the OpenCode evidence for those hashes is still open (tracked under active
+GitHub issue #2; v0 issue 13 is history). The larger
 matched set (develop 16, fixed adapters, per-step state) has still not been re-run,
 so there is no valid baseline-vs-Jev conclusion yet. Never compare new cells to the
 pre-v66 numbers.

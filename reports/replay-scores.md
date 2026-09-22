@@ -53,4 +53,4 @@ Rows are left as-is because `tests/test_replay_scores.py` pins them as a CI cont
 and gate tests are not deleted to hide a defect. The Work and Kilo columns are
 unaffected (Work is scored from its own JSONL; Kilo cells come from sqlite copies).
 Re-run these 11 OpenCode replays with the fixed runner before quoting the column as
-issue 13 evidence.
+GitHub issue #2 baseline evidence (v0 issue 13 is history).

@@ -45,6 +45,18 @@ Historical needle retained for old regression tests: 18. Repo modules, lint, typ
 - **Intervention:** none initially.
 - **Pass:** comparable traces or explicit non-comparable reasons; largest recurring deviations identified; exactly one smallest next control hypothesis selected.
 - **Scope:** do not turn this into a general state-machine/protocol framework.
+- **Blocking defect found (v66):** the replay runners sent the raw first user turn, which
+  in these Work transcripts is the `<recommended_plugins>` / `<environment_context>`
+  preamble. For **11 of the 22** develop+holdout hashes that turn contains no ask at all,
+  so any baseline trace on those hashes measures behaviour on a **task-free prompt**,
+  and a controller/hint arm that adds a directive would look effective purely because it
+  supplied the only instruction. Extraction is fixed (`research/replay_lib.py`
+  `strip_context_blocks` / `first_ask` / `ask_turns`, gate
+  `tests/test_replay_prompt_hygiene.py`). Before this issue's baseline is trusted: move
+  the old `data/replay/<hash>/opencode.ndjson` aside per hash (the runner **appends**, so
+  re-running in place mixes old and new evidence) and regenerate
+  `reports/replay-scores.md`, whose OpenCode column is flagged contaminated for those 11
+  in `reports/versions/v66/README.md`.
 
 ## Rules for future issues
 
