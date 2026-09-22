@@ -128,18 +128,19 @@ to separate action-selection value from confidence-gate under-execution.
 
 **Timeout policy correction (2026-09-22):** the first advisory rerun was
 stopped before interpretation because the runner still imposed a 60-second
-hard wall-clock kill. The adapter now uses a 3-minute default inactivity
+hard wall-clock kill. The adapter now uses a 2-minute default inactivity
 timeout reset by stream progress plus a two-hour absolute cap; timeout reasons
 are retained.
 The advisory slice `jev-long-ab-advisory-20260922-v2` was later stopped before
 interpretation when the owner shortened the default inactivity boundary to
-3 minutes. Its partial folders are not evidence; a fresh run ID is required.
-Fresh run `jev-long-ab-advisory-20260922-v3` is now running under the 180-second
+2 minutes. Its partial folders are not evidence; a fresh run ID is required.
+Fresh run `jev-long-ab-advisory-20260922-v3` had run under the 180-second
 policy with the same matched fixtures; its partial run was stopped before
 interpretation when Windows process-tree cleanup was tightened. Start a fresh
 run after that correction; do not mix v3 artifacts into its aggregate. Fresh
-run `jev-long-ab-advisory-20260922-v4` is now active under the corrected policy
-and is the only run eligible for interpretation.
+run `jev-long-ab-advisory-20260922-v4` was stopped before interpretation after
+the first end-to-end handoff still included Windows cleanup overhead. The
+default is now 2 minutes; start a fresh run and keep v4 excluded.
 
 ### Issue 23 - Reusable analytical machine v0
 

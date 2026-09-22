@@ -556,3 +556,14 @@ launch-blocked runs.
 - Fresh run `jev-long-ab-advisory-20260922-v4` was launched at 18:13 with the
   same matched fixtures and the corrected process-tree cleanup path. Its
   aggregate is pending; v2 and v3 remain excluded.
+
+## 2026-09-22 — two-minute owner boundary
+
+- V4 reduced the OpenCode silent-child handoff from the earlier v3 delay, but
+  the first measured transition still took about 3 minutes 52 seconds end to
+  end after the 180-second host boundary. To honor the owner's 2–3 minute
+  maximum in observed wall time, the default host/provider idle boundary is now
+  120 seconds; the two-hour total cap remains unchanged.
+- V4 was stopped before interpretation so the policy change is not mixed into
+  its artifacts. Focused tests and mypy pass after the two-minute change; a
+  fresh run is required.

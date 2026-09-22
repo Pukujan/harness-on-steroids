@@ -105,22 +105,24 @@ holdout remains sealed.
 
 The attempted advisory A/B was stopped before interpretation when the owner
 identified the old 60-second hard process timeout as unsuitable for active
-streaming. The adapter policy is now a configurable 3-minute default
+streaming. The adapter policy is now a configurable 2-minute default
 inactivity timeout reset by stdout/stderr progress plus a two-hour absolute
 safety cap. An actively streaming one-hour task is allowed; elapsed task time
 alone is not a kill reason. OpenCode and Pi
-provider-side idle/header/chunk settings use the 3-minute boundary while
+provider-side idle/header/chunk settings use the 2-minute boundary while
 total request ceilings use the two-hour cap, so active streams are not cut off
 at the idle threshold. Timeout reasons are typed and reported; see
 `docs/harness-timeout-policy.md`. The owner later shortened the default
-inactivity boundary to 3 minutes; the partial old-policy advisory rerun was
+inactivity boundary to 2 minutes; the partial old-policy advisory rerun was
 stopped before interpretation and must be rerun with a fresh run ID.
 That fresh run is now `jev-long-ab-advisory-20260922-v3`; do not mix its
 results with the stopped v2 artifacts. V3 was also stopped before
 interpretation after the Windows process-tree cleanup path was tightened; start
 a fresh run after the change and do not mix v3 artifacts into its aggregate.
-Fresh run `jev-long-ab-advisory-20260922-v4` is now active under the corrected
-process-tree cleanup and 3-minute inactivity policy.
+Fresh run `jev-long-ab-advisory-20260922-v4` was stopped before interpretation
+after the first end-to-end handoff still included Windows cleanup overhead. The
+default is now 2 minutes so observed silent-turn handoffs remain within the
+owner's 2–3 minute maximum; start a fresh run after this change.
 
 ## Active issue
 

@@ -210,9 +210,9 @@ combine the two hypotheses.
 
 The previous long-horizon runner used a 60-second hard wall-clock kill. That
 was rejected as unreliable for an actively streaming TUI/CLI agent. The adapter
-now uses a 180-second default inactivity timeout that resets when stdout or
+now uses a 120-second default inactivity timeout that resets when stdout or
 stderr advances, plus a 7,200-second absolute safety cap. OpenCode provider
-request/header/chunk settings and Pi HTTP/provider settings use 180,000 ms for
+request/header/chunk settings and Pi HTTP/provider settings use 120,000 ms for
 idle/header/chunk silence, while total request ceilings remain 7,200,000 ms.
 Timeout reason is recorded as `inactivity` or `max_runtime`; active streaming
 within the idle boundary is not timed out by the watchdog. See
@@ -244,9 +244,9 @@ one fresh matched 60-turn slice under a new `run_id`.
 
 The prior rerun `jev-long-ab-advisory-20260922-v2` was intentionally stopped
 before interpretation after the owner shortened the default inactivity policy
-from 20 minutes to 3 minutes. It had produced liveness evidence only, no
+from 20 minutes to 2 minutes. It had produced liveness evidence only, no
 aggregate report, and its partial turn folders remain ignored diagnostics.
-The next action is a fresh matched slice under the 180-second policy; do not
+The next action is a fresh matched slice under the 120-second policy; do not
 combine it with the stopped run.
 
 Fresh run `jev-long-ab-advisory-20260922-v3` was launched at 17:37 with the
@@ -259,8 +259,10 @@ pending. The partial v3 run was then stopped before interpretation after a
 direct silent-child test showed the host timer was correct but Windows
 process-tree cleanup could add excess handoff delay. The adapter now terminates
 the timed-out CLI tree explicitly. Fresh run
-`jev-long-ab-advisory-20260922-v4` was launched at 18:13 and is the only run
-eligible for interpretation; its aggregate is pending.
+`jev-long-ab-advisory-20260922-v4` was stopped before interpretation after the
+first end-to-end handoff still included Windows cleanup overhead. The default
+is now 120 seconds so observed handoffs stay within the owner's 2–3 minute
+maximum; a fresh run is required.
 
 ## Long-horizon A/B contract
 

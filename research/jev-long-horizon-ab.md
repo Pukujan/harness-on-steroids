@@ -162,7 +162,7 @@ versus 4/16 Jev, Grok Build 0/16 versus 0/16, and Pi 0/16 versus 0/16. Jev's
 executed Jev turns. This is the measured under-execution failure to address;
 it is not evidence that Jev can inspect files or act without the host feeder.
 
-The harness liveness boundary is now a 3-minute default inactivity timeout reset by
+The harness liveness boundary is now a 2-minute default inactivity timeout reset by
 stdout/stderr progress, with a two-hour absolute safety cap. Timeout reasons
 are retained as `inactivity` or `max_runtime`; see
 `docs/harness-timeout-policy.md`.
