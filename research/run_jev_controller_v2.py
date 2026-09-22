@@ -404,9 +404,9 @@ def _write_report(result: dict[str, Any], path: Path) -> None:
             "",
             "## Per-task observations",
             "",
-            "| Adapter | Hash | Mode | status | decisions | tools | work-match | outcome | "
-            "actions | sessions observed |",
-            "|---|---|---|---|---:|---:|---:|---|---|---:|",
+            "| Adapter | Hash | Mode | status | decisions | tools | R1-R6 fail mask | "
+            "work-match | outcome | actions | sessions observed |",
+            "|---|---|---|---|---:|---:|---|---:|---|---|---:|",
         ]
     )
     for row in result["rows"]:
@@ -414,7 +414,7 @@ def _write_report(result: dict[str, Any], path: Path) -> None:
         lines.append(
             f"| {row['adapter']} | `{row['task_hash']}` | {row['mode']} | "
             f"{row['harness_status']} | {row['decision_count']} | {row['tool_count']} | "
-            f"{'yes' if row['work_match'] else 'no'} | {row['outcome']} | "
+            f"{row['fail_mask']} | {'yes' if row['work_match'] else 'no'} | {row['outcome']} | "
             f"{actions} | {row['native_session_ids_observed']} |"
         )
     lines.extend(

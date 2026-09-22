@@ -24,26 +24,26 @@ This hash-only report compares one baseline invocation with a repeated Jev decis
 
 ## Per-task observations
 
-| Adapter | Hash | Mode | status | decisions | tools | work-match | outcome | actions | sessions observed |
-|---|---|---|---|---:|---:|---:|---|---|---:|
-| opencode | `0d6ca4607eaf` | baseline | timeout | 0 | 0 | no | no | disabled | 1 |
-| opencode | `0d6ca4607eaf` | jev-loop | fallback | 1 | 0 | no | no | ESCALATE | 0 |
-| opencode | `1a415bc257e5` | baseline | timeout | 0 | 0 | no | no | disabled | 1 |
-| opencode | `1a415bc257e5` | jev-loop | fallback | 1 | 0 | no | no | ESCALATE | 0 |
-| opencode | `28372e365066` | baseline | timeout | 0 | 1 | no | no | disabled | 1 |
-| opencode | `28372e365066` | jev-loop | timeout | 2 | 1 | no | no | CLASSIFY_REQUEST, ESCALATE | 1 |
-| grok-build | `0d6ca4607eaf` | baseline | timeout | 0 | 0 | no | no | disabled | 0 |
-| grok-build | `0d6ca4607eaf` | jev-loop | fallback | 1 | 0 | no | no | ESCALATE | 0 |
-| grok-build | `1a415bc257e5` | baseline | timeout | 0 | 0 | no | no | disabled | 0 |
-| grok-build | `1a415bc257e5` | jev-loop | fallback | 1 | 0 | no | no | ESCALATE | 0 |
-| grok-build | `28372e365066` | baseline | timeout | 0 | 0 | no | no | disabled | 0 |
-| grok-build | `28372e365066` | jev-loop | timeout | 2 | 0 | no | no | CLASSIFY_REQUEST, ESCALATE | 0 |
-| pi | `0d6ca4607eaf` | baseline | timeout | 0 | 0 | no | no | disabled | 0 |
-| pi | `0d6ca4607eaf` | jev-loop | fallback | 1 | 0 | no | no | ESCALATE | 0 |
-| pi | `1a415bc257e5` | baseline | fail_1 | 0 | 0 | no | no | disabled | 0 |
-| pi | `1a415bc257e5` | jev-loop | fallback | 1 | 0 | no | no | ESCALATE | 0 |
-| pi | `28372e365066` | baseline | ok | 0 | 10 | no | no | disabled | 0 |
-| pi | `28372e365066` | jev-loop | timeout | 2 | 20 | no | partial | CLASSIFY_REQUEST, ESCALATE | 0 |
+| Adapter | Hash | Mode | status | decisions | tools | R1-R6 fail mask | work-match | outcome | actions | sessions observed |
+|---|---|---|---|---:|---:|---|---:|---|---|---:|
+| opencode | `0d6ca4607eaf` | baseline | timeout | 0 | 0 | empty | no | no | disabled | 1 |
+| opencode | `0d6ca4607eaf` | jev-loop | fallback | 1 | 0 | empty | no | no | ESCALATE | 0 |
+| opencode | `1a415bc257e5` | baseline | timeout | 0 | 0 | empty | no | no | disabled | 1 |
+| opencode | `1a415bc257e5` | jev-loop | fallback | 1 | 0 | empty | no | no | ESCALATE | 0 |
+| opencode | `28372e365066` | baseline | timeout | 0 | 1 | R3 | no | no | disabled | 1 |
+| opencode | `28372e365066` | jev-loop | timeout | 2 | 1 | R3 | no | no | CLASSIFY_REQUEST, ESCALATE | 1 |
+| grok-build | `0d6ca4607eaf` | baseline | timeout | 0 | 0 | empty | no | no | disabled | 0 |
+| grok-build | `0d6ca4607eaf` | jev-loop | fallback | 1 | 0 | empty | no | no | ESCALATE | 0 |
+| grok-build | `1a415bc257e5` | baseline | timeout | 0 | 0 | empty | no | no | disabled | 0 |
+| grok-build | `1a415bc257e5` | jev-loop | fallback | 1 | 0 | empty | no | no | ESCALATE | 0 |
+| grok-build | `28372e365066` | baseline | timeout | 0 | 0 | empty | no | no | disabled | 0 |
+| grok-build | `28372e365066` | jev-loop | timeout | 2 | 0 | empty | no | no | CLASSIFY_REQUEST, ESCALATE | 0 |
+| pi | `0d6ca4607eaf` | baseline | timeout | 0 | 0 | empty | no | no | disabled | 0 |
+| pi | `0d6ca4607eaf` | jev-loop | fallback | 1 | 0 | empty | no | no | ESCALATE | 0 |
+| pi | `1a415bc257e5` | baseline | fail_1 | 0 | 0 | empty | no | no | disabled | 0 |
+| pi | `1a415bc257e5` | jev-loop | fallback | 1 | 0 | empty | no | no | ESCALATE | 0 |
+| pi | `28372e365066` | baseline | ok | 0 | 10 | R3 | no | no | disabled | 0 |
+| pi | `28372e365066` | jev-loop | timeout | 2 | 20 | R3 | no | partial | CLASSIFY_REQUEST, ESCALATE | 0 |
 
 ## Interpretation boundary
 
