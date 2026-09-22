@@ -80,6 +80,15 @@ Jev Ultrafast and TypeSafe playground implementations follow this same
 boundary. Our matched A/B did not show an outcome gain and was heavily
 under-executed by the confidence gate.
 
+The first live Jev shadow-classification probe is recorded in
+`reports/jev-shadow-annotation-20260922.md`. It used eight body-free pilot
+events and eight independent Noul predicates (64 valid probabilities): 62/64
+matched direct canonical-field labels at a 0.50 threshold; a 0.75 acceptance
+band accepted 59/64 with zero errors and five abstentions. This is a small
+structural wire/behavior probe, not semantic-quality evidence. The v3 holdout
+remained sealed, and the next annotation step still requires owner/human
+adjudication plus a larger repeated semantic-label study.
+
 ## Active issue
 
 Local issue **22 - Jev long-horizon matched A/B**. The durable research
