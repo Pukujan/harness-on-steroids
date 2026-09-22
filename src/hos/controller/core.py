@@ -355,6 +355,9 @@ class DecisionContext:
     retry_count: int = 0
     user_input_status: str = "not_required"
     current_bead_id: str | None = None
+    current_user_turn: str = ""
+    turn_index: int = 0
+    turn_budget: int | None = None
 
     @classmethod
     def from_ask(
@@ -364,12 +367,15 @@ class DecisionContext:
         *,
         constraints: Sequence[str] = (),
         timeout_budget_s: float | None = None,
+        turn_budget: int | None = None,
     ) -> "DecisionContext":
         return cls(
             task_hash=task_hash,
             original_ask=original_ask,
             constraints=tuple(constraints),
             timeout_budget_s=timeout_budget_s,
+            current_user_turn=original_ask,
+            turn_budget=turn_budget,
         )
 
     def legal_actions(self) -> tuple[str, ...]:
@@ -381,6 +387,7 @@ class DecisionContext:
     def add_conversation(self, turn: str) -> None:
         if turn:
             self.relevant_conversation += (turn,)
+            self.current_user_turn = turn
 
     def add_evidence(self, *items: str) -> None:
         self.evidence += tuple(item for item in items if item)
@@ -409,6 +416,9 @@ class DecisionContext:
         payload: dict[str, Any] = {
             "task_hash": self.task_hash,
             "original_ask": self.original_ask,
+            "current_user_turn": self.current_user_turn,
+            "turn_index": self.turn_index,
+            "turn_budget": self.turn_budget,
             "relevant_conversation": list(self.relevant_conversation),
             "phase": self.phase.value,
             "allowed_actions": list(self.legal_actions()),

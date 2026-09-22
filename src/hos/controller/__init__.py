@@ -35,6 +35,7 @@ from .core import (
     phase_after_action,
     validate_jev_decision,
 )
+from .feeder import FeederSnapshot, RepositoryContextFeeder
 
 __all__ = [
     "ACTION_DESCRIPTIONS",
@@ -51,6 +52,7 @@ __all__ = [
     "DecisionBead",
     "DecisionContext",
     "DecisionValidation",
+    "FeederSnapshot",
     "GrokBuildAdapter",
     "HarnessAdapter",
     "HarnessRun",
@@ -60,6 +62,7 @@ __all__ = [
     "JevLoopResult",
     "OpenCodeAdapter",
     "PiAdapter",
+    "RepositoryContextFeeder",
     "build_initial_state",
     "build_typed_questions",
     "controller_directive",

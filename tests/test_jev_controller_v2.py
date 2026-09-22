@@ -17,6 +17,7 @@ from src.hos.controller import (
     JevDecisionLoop,
     OpenCodeAdapter,
     PiAdapter,
+    RepositoryContextFeeder,
     build_typed_questions,
     validate_jev_decision,
 )
@@ -73,6 +74,42 @@ def test_context_contains_full_relevant_decision_inputs() -> None:
     assert "The target file exists." in payload["evidence"]
     assert "INSPECT_REPO" in payload["allowed_actions"]
     assert "raw" not in json.dumps(payload).lower()
+
+
+def test_context_tracks_current_turn_and_budget() -> None:
+    context = DecisionContext.from_ask("task-hash", "Initial request", turn_budget=60)
+    context.add_conversation("Owner clarified the target.")
+
+    payload = context.to_payload()
+
+    assert payload["current_user_turn"] == "Owner clarified the target."
+    assert payload["turn_index"] == 0
+    assert payload["turn_budget"] == 60
+
+
+def test_repository_feeder_adds_live_workspace_facts_and_candidates(tmp_path: Path) -> None:
+    (tmp_path / "README.md").write_text("fixture\n", encoding="utf-8")
+    (tmp_path / "src").mkdir()
+    (tmp_path / "src" / "target.py").write_text("VALUE = 1\n", encoding="utf-8")
+    context = DecisionContext.from_ask(
+        "task-hash", "Update src/target.py and verify it.", turn_budget=60
+    )
+
+    snapshot = RepositoryContextFeeder().update(
+        context,
+        tmp_path,
+        user_turn="Update src/target.py and verify it.",
+        turn_index=1,
+    )
+
+    assert snapshot.digest
+    assert "relevant_file:src/target.py" in snapshot.facts
+    assert len(snapshot.candidate_beads) == 4
+    assert context.current_user_turn.endswith("verify it.")
+    assert context.turn_index == 1
+    assert context.candidate_beads[0].bead_id == "inspect-context"
+    assert "CLASSIFY_REQUEST" not in context.allowed_actions
+    assert "INSPECT_REPO" in context.allowed_actions
 
 
 def test_typed_questions_use_choice_score_and_noul() -> None:
