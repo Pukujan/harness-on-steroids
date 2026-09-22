@@ -242,12 +242,12 @@ feeder prompt as baseline while recording the Jev answer as advisory, and run
 one fresh matched 60-turn slice under a new `run_id`.
 
 That rerun is currently active as `jev-long-ab-advisory-20260922-v2`.
-At the latest observation, OpenCode has created 12 baseline and 11 Jev turn
-directories, with Jev turn 3 live and no final report yet. Silent baseline turn
-4 and Jev turns 1 and 2 each reached the 20-minute inactivity boundary and the
-runner advanced to the next turn; event/stderr files stayed unchanged during
-those waits. This is liveness evidence only, not a behavioral result. Do not
-interpret the slice until the runner writes its aggregate.
+At the latest observation, OpenCode has created 12 baseline and 12 Jev turn
+directories, with Jev turn 4 live and no final report yet. Silent baseline turn
+4 and Jev turns 1, 2, and 3 each reached the 20-minute inactivity boundary and
+the runner advanced to the next turn; event/stderr files stayed unchanged
+during those waits. This is liveness evidence only, not a behavioral result.
+Do not interpret the slice until the runner writes its aggregate.
 
 ## Long-horizon A/B contract
 

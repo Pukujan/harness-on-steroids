@@ -505,3 +505,8 @@ launch-blocked runs.
 - Jev turn 2 subsequently reached the same unchanged-file inactivity boundary
   and the runner advanced to Jev turn 3 at approximately 16:46. The report is
   still absent; this remains watchdog/continuation evidence only.
+
+- Jev turn 3 also reached the unchanged-file inactivity boundary and the runner
+  advanced to Jev turn 4 at approximately 17:06. Four consecutive silent
+  invocations across the baseline and Jev arms have now been observed without
+  a premature 60-second kill; this still does not measure task quality.
