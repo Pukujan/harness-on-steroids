@@ -81,6 +81,30 @@ The repeated-run result also separates two properties that should not be
 collapsed: thresholded label stability was perfect on this sample, while
 probability values varied slightly. Both should be measured in future runs.
 
+## Expanded structural repeat — 2026-09-22
+
+The selector was corrected so `--max-events` fills the requested deterministic
+budget after predicate coverage is satisfied; previously it stopped at the
+minimum eight-event coverage sample. Three fresh runs used the same expanded
+32-event sample from the v3 pilot (`v4-32`, `v5-32`, and `v6-32`), still with
+the holdout sealed and only body-free canonical fields sent to Jev.
+
+- Each run returned 256/256 valid probabilities and 254/256 correct labels
+  (**99.219%** against the direct structural labels).
+- The only errors in each run were one mutation false negative at
+  `p(true)=0.41` and one research false positive at `p(true)=0.62`.
+- Every thresholded prediction was identical across all three runs.
+- Mean per-question probability range was `0.0100`; the maximum range was
+  `0.11`.
+- At the two-sided `0.75` acceptance band, 243/256 questions were accepted,
+  13 abstained, and none of the accepted predictions was wrong in this sample.
+
+This is stronger structural wire evidence than the initial eight-event probe,
+but it is still not semantic-quality evidence: the labels are directly
+computable from the canonical fields and therefore do not test whether Jev can
+reliably judge UX, planning proportionality, research sufficiency, provenance
+correctness, or outcome quality.
+
 ## Interpretation
 
 This probe supports Jev as a potentially useful **semantic annotation

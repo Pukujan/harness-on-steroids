@@ -414,3 +414,18 @@ launch-blocked runs.
   were stable across the three runs; probability values varied modestly, with
   mean per-question range 0.0112 and maximum range 0.08. This is sample-local
   stability evidence, not a broad variance claim.
+
+## 2026-09-22 — expanded Jev structural repeat
+
+- Fixed the research selector so a requested `--max-events` budget is filled
+  after the minimum predicate-coverage sample is complete; added a regression
+  test for this deterministic behavior.
+- Three fresh 32-event runs (`v4-32` through `v6-32`) produced 256 valid
+  probabilities and 254/256 direct structural-label matches on every run.
+  The same two boundary errors repeated: mutation false negative at 0.41 and
+  research false positive at 0.62.
+- All 256 thresholded predictions were stable across the three runs. Mean
+  probability range was 0.0100 and maximum range 0.11. At a 0.75 two-sided
+  acceptance band, 243 were accepted, 13 abstained, and zero accepted labels
+  were wrong in this sample. This remains structural sidecar evidence, not a
+  semantic gold result.

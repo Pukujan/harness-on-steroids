@@ -90,7 +90,7 @@ def _coverage(event: dict[str, Any]) -> set[tuple[str, bool]]:
 
 
 def select_events(rows: Iterable[dict[str, Any]], max_events: int) -> list[dict[str, Any]]:
-    """Select a deterministic small sample covering positive and negative predicates."""
+    """Select a deterministic sample covering predicates, then fill the budget."""
 
     if max_events <= 0:
         raise ValueError("max_events must be positive")
@@ -110,6 +110,11 @@ def select_events(rows: Iterable[dict[str, Any]], max_events: int) -> list[dict[
         remaining.remove(choice)
         selected.append(choice)
         covered.update(_coverage(choice["event"]))
+    # Coverage is a minimum requirement, not a reason to silently ignore a
+    # caller's larger sample budget.  The remaining candidates are already in
+    # stable event-id order, so filling from the front preserves repeatability.
+    while remaining and len(selected) < max_events:
+        selected.append(remaining.pop(0))
     return selected
 
 

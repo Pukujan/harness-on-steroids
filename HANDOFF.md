@@ -91,6 +91,15 @@ adjudication plus a larger repeated semantic-label study. Two additional
 repeats produced the same thresholded predictions for all 64 questions, while
 probabilities varied modestly (mean range 0.0112, maximum 0.08).
 
+The selector was then fixed to fill a requested sample budget beyond the
+minimum coverage set. Three fresh 32-event structural repeats returned
+256/256 valid probabilities and 254/256 direct-label matches each; all
+thresholded predictions were identical across runs. Mean probability range
+was 0.0100 and maximum 0.11. A 0.75 acceptance band accepted 243/256, with
+13 abstentions and zero wrong accepted labels in this sample. This remains
+structural sidecar evidence; semantic labels still require owner/human
+adjudication and the holdout remains sealed.
+
 ## Active issue
 
 Local issue **22 - Jev long-horizon matched A/B**. The durable research

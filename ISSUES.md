@@ -166,7 +166,10 @@ to separate action-selection value from confidence-gate under-execution.
 - **Jev sidecar probe:** a separate eight-event structural Noul probe is
   recorded in `reports/jev-shadow-annotation-20260922.md`; it is not gold or a
   controller result. Keep the holdout sealed and benchmark semantic Jev labels
-  only after owner/human adjudication.
+  only after owner/human adjudication. The selector now honors larger sample
+  budgets; three fresh 32-event repeats produced 254/256 direct structural
+  matches each with identical thresholded predictions. This strengthens the
+  mechanical sidecar result but does not promote semantic labels.
 - **Stop:** do not promote ontology terms, add a graph database, or build
   Power BI views before the bounded pilot is annotated and inspected.
 - **Privacy:** raw JSONL/SQLite and local derived exports remain ignored;

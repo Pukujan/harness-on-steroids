@@ -44,6 +44,30 @@ def test_selection_is_deterministic_and_covers_predicates() -> None:
     assert len(first) == 8
 
 
+def test_selection_fills_requested_budget_after_coverage() -> None:
+    rows = [
+        _event(event_id, kind="message")
+        for event_id in ("a", "b", "c", "d", "e", "f", "g", "h", "i", "j")
+    ]
+    rows.extend(
+        [
+            _event("k", kind="citation"),
+            _event("l", kind="unknown"),
+            _event("m", kind="research", tool_family="research"),
+            _event("n", kind="tool_call", tool_family="inspect"),
+            _event("o", kind="tool_call", tool_family="mutate"),
+            _event("p", kind="tool_call", tool_family="verify"),
+            _event("q", kind="message", attributes={"content_type": "code"}),
+            _event("r", kind="message", attributes={"content_type": "execution_output"}),
+        ]
+    )
+    selected = select_events(rows, 12)
+    assert len(selected) == 12
+    selected_ids = {row["event"]["event_id"] for row in selected}
+    assert {"k", "l", "m", "n", "o", "p", "q", "r"}.issubset(selected_ids)
+    assert len(selected_ids) == 12
+
+
 def test_parse_answers_accepts_noul_probabilities() -> None:
     payload = {
         "answers": {

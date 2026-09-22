@@ -137,7 +137,14 @@ thresholded predictions; probability ranges varied slightly (mean 0.0112,
 maximum 0.08). This is a tiny structural wire/behavior probe, not
 semantic-quality evidence. The v3 holdout remained sealed and no raw response
 was written. The next Jev annotation step still requires owner/human
-adjudication and a larger repeated semantic-label study.
+adjudication and a larger repeated semantic-label study. Before that semantic
+step, the selector was corrected to honor a larger requested sample budget.
+Three fresh 32-event structural repeats returned 256 valid probabilities and
+254/256 direct-label matches each, with identical thresholded predictions;
+mean probability range was 0.0100 and maximum 0.11. At a 0.75 acceptance band
+243 were accepted, 13 abstained, and zero accepted labels were wrong in this
+sample. This is still not semantic-quality evidence and does not open the
+holdout.
 
 ## Baselines to preserve
 
