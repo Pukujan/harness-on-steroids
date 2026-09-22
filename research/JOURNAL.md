@@ -501,3 +501,7 @@ launch-blocked runs.
   inactivity rule to both arms and continues the matched sequence after the
   child is closed. It is still liveness evidence only; no behavioral or
   outcome conclusion is valid until the final aggregate is written.
+
+- Jev turn 2 subsequently reached the same unchanged-file inactivity boundary
+  and the runner advanced to Jev turn 3 at approximately 16:46. The report is
+  still absent; this remains watchdog/continuation evidence only.
