@@ -11,7 +11,7 @@ from dataclasses import dataclass
 from pathlib import Path
 from shutil import which
 
-HARNESS_TIMEOUT_SECONDS = 20 * 60
+HARNESS_INACTIVITY_TIMEOUT_SECONDS = 20 * 60
 HARNESS_MAX_RUNTIME_SECONDS = 2 * 60 * 60
 STREAM_POLL_SECONDS = 0.25
 
@@ -257,7 +257,7 @@ class HarnessAdapter:
         events_path: Path,
         stderr_path: Path,
         title: str,
-        timeout: float = HARNESS_TIMEOUT_SECONDS,
+        timeout: float = HARNESS_INACTIVITY_TIMEOUT_SECONDS,
         max_runtime: float = HARNESS_MAX_RUNTIME_SECONDS,
     ) -> HarnessRun:
         prompt_file.write_text(prompt, encoding="utf-8")
@@ -537,7 +537,7 @@ __all__ = [
     "AdapterEvent",
     "GrokBuildAdapter",
     "HARNESS_MAX_RUNTIME_SECONDS",
-    "HARNESS_TIMEOUT_SECONDS",
+    "HARNESS_INACTIVITY_TIMEOUT_SECONDS",
     "HarnessAdapter",
     "HarnessRun",
     "OpenCodeAdapter",

@@ -46,7 +46,7 @@ from src.hos.controller import (  # noqa: E402
 )
 from src.hos.controller.adapters import (  # noqa: E402
     HARNESS_MAX_RUNTIME_SECONDS,
-    HARNESS_TIMEOUT_SECONDS,
+    HARNESS_INACTIVITY_TIMEOUT_SECONDS,
     extract_session_id,
     extract_tool_seq,
 )
@@ -767,7 +767,7 @@ def main() -> int:
     parser.add_argument(
         "--timeout",
         type=float,
-        default=HARNESS_TIMEOUT_SECONDS,
+        default=HARNESS_INACTIVITY_TIMEOUT_SECONDS,
         help="inactivity timeout; active stdout/stderr progress resets it",
     )
     parser.add_argument("--jev-timeout", type=float, default=30.0)
