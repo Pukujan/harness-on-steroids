@@ -251,7 +251,9 @@ combine it with the stopped run.
 
 Fresh run `jev-long-ab-advisory-20260922-v3` was launched at 17:37 with the
 same 60-turn matched configuration. It is the only run eligible for later
-behavioral interpretation; its aggregate is pending.
+behavioral interpretation; its aggregate is pending. Its first silent baseline
+child transitioned to baseline turn 2 at 17:41 under the 180-second policy,
+confirming the shortened live boundary.
 
 ## Long-horizon A/B contract
 

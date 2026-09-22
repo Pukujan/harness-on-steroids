@@ -535,3 +535,7 @@ launch-blocked runs.
   new policy with the same fixtures, adapters, models, Jev threshold, and
   advisory fallback. Its aggregate remains pending; the stopped v2 run is not
   being mixed into it.
+- The first silent OpenCode baseline child in v3 began at 17:37:47 and the
+  runner advanced to baseline turn 2 at 17:41:26. With unchanged event/stderr
+  files, this confirms the 180-second inactivity budget in the live runner;
+  the extra seconds are process cleanup and turn setup, not a 20-minute wait.
