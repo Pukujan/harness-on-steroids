@@ -87,7 +87,9 @@ matched direct canonical-field labels at a 0.50 threshold; a 0.75 acceptance
 band accepted 59/64 with zero errors and five abstentions. This is a small
 structural wire/behavior probe, not semantic-quality evidence. The v3 holdout
 remained sealed, and the next annotation step still requires owner/human
-adjudication plus a larger repeated semantic-label study.
+adjudication plus a larger repeated semantic-label study. Two additional
+repeats produced the same thresholded predictions for all 64 questions, while
+probabilities varied modestly (mean range 0.0112, maximum 0.08).
 
 ## Active issue
 

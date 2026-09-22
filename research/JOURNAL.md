@@ -409,3 +409,8 @@ launch-blocked runs.
   so probability was treated as the score. The durable report is
   `reports/jev-shadow-annotation-20260922.md`; owner/human semantic
   adjudication and a larger repeated study remain required.
+- Two additional repeats of the exact same sample and schema each returned
+  62/64 correct with 64 valid probabilities. All 64 thresholded predictions
+  were stable across the three runs; probability values varied modestly, with
+  mean per-question range 0.0112 and maximum range 0.08. This is sample-local
+  stability evidence, not a broad variance claim.

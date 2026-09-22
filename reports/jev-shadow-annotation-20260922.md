@@ -35,6 +35,13 @@ All 64 answers were valid probabilities. The two errors were:
 - one false-positive `research_observed` prediction at `p(true)=0.58`;
 - one false-negative `mutation_action` prediction at `p(true)=0.38`.
 
+The exact same sample and schema were run three times (`v1`, `v2`, and `v3`).
+Each run returned 64 valid probabilities and 62/64 correct labels. Every one
+of the 64 thresholded predictions was identical across all three runs. The
+mean per-question probability range across runs was 0.0112 and the maximum
+range was 0.08. This is a useful stability signal for this tiny probe, not a
+general variance estimate.
+
 | Predicate | Questions | Expected positives | Correct | Accuracy |
 | --- | ---: | ---: | ---: | ---: |
 | `citation_event_present` | 8 | 1 | 8 | 100% |
@@ -69,6 +76,10 @@ This is the desired fast-classification tradeoff in miniature: Jev can provide
 a quick score, while host policy chooses whether to accept or abstain. It does
 not establish that `0.75` is the correct production threshold; threshold and
 calibration must be measured on a larger adjudicated sample.
+
+The repeated-run result also separates two properties that should not be
+collapsed: thresholded label stability was perfect on this sample, while
+probability values varied slightly. Both should be measured in future runs.
 
 ## Interpretation
 
