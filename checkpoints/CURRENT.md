@@ -266,7 +266,9 @@ maximum; a fresh run is required.
 
 Fresh run `jev-long-ab-advisory-20260922-v5` was launched at 18:20 with the
 same 60-turn matched configuration. It is the only run eligible for
-interpretation; its aggregate is pending.
+interpretation; its aggregate is pending. Its first silent baseline child
+transitioned to baseline turn 2 at 18:25 under the 120-second policy, an
+approximately 2:38 end-to-end handoff.
 
 ## Long-horizon A/B contract
 

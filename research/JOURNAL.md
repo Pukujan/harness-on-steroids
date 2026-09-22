@@ -570,3 +570,7 @@ launch-blocked runs.
 - Fresh run `jev-long-ab-advisory-20260922-v5` was launched at 18:20 with the
   120-second host/provider boundary and process-tree cleanup. Its aggregate is
   pending; v2 through v4 remain excluded.
+- V5's first silent baseline child began at 18:22:29 and the runner advanced to
+  baseline turn 2 at 18:25:07, an approximately 2:38 end-to-end handoff. This
+  is within the owner's 2–3 minute maximum and confirms the final host plus
+  Windows cleanup policy live.
