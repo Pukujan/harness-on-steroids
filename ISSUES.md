@@ -38,6 +38,30 @@ Historical needle retained for old regression tests: 18. Repo modules, lint, typ
 
 ## Active GitHub work
 
+### Issue 21 - Jev persistent decision controller
+
+- **Status:** open; owner approved implementation on 2026-09-21.
+- **Research:** `research/jev-controller-v2-research.md`.
+- **Contract:** `spec/jev-controller-v2.md`.
+- **Problem:** the first Jev replay used one compact state request and one
+  prompt hint per task. It did not test Jev as a context-aware classifier,
+  bead selector, or repeated decision controller.
+- **Intervention:** add a persistent context accumulator, typed Jev questions,
+  candidate bead selection, legal transition validation, repeated decisions,
+  and adapter event feedback. Keep the old pilot as v1 smoke evidence.
+- **Fixtures:** existing develop Work hashes; Pi, OpenCode, and Grok Build in
+  the same matched slices where technically possible.
+- **Pass condition:** the v2 runner makes repeated decisions from updated
+  context, passes fake-adapter and adapter-stream tests, and produces a
+  hash-only baseline-versus-Jev report with R1-R6, work-match, outcome, and
+  timeout measurements.
+- **Stop condition:** stop after the smallest working loop and one matched
+  replay; do not expand into a general protocol framework without a measured
+  failure that requires it.
+
+The research and contract are the durable issue record for this slice. A
+future session should begin with them and `checkpoints/CURRENT.md`.
+
 ### GitHub issue #2 - Baseline multi-harness Work behavior replay
 
 - **Status:** open

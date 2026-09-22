@@ -121,5 +121,23 @@ How this project actually proceeds. Append-only. No message bodies.
 
 
 - v66 replay prompt hygiene: runners fed `user_turns()[0]`, which in Work transcripts is the `<recommended_plugins>`/`<environment_context>` preamble. Over 22 develop+holdout hashes, 19 turn-1s carry a context block and **11 are context-only**, so those replays ran with **no owner ask**. Consequence: every prior baseline-vs-Jev cell is confounded — baseline got boilerplate (0 tool calls on all three adapters) while the Jev arm's directive was its only actionable text (Pi up to 306 calls). That measures instruction-present vs absent, not routing. Fix: `strip_context_blocks`/`first_ask`/`ask_turns` in `research/replay_lib.py` (`user_turns` keeps raw shape for counts/old tables), both runners use the real ask and record `ask_present`/`ask_shifted`; `--turn N` keeps raw indices and returns `empty-ask` rather than running boilerplate; `build_initial_state` reports `user_request_missing` + `user_input_required` instead of claiming a request. New gate `tests/test_replay_prompt_hygiene.py`; also wired `test_jev_controller_module.py` into owner-gate (it existed but was never in CI) and fixed `src/hos/__init__.py` import order that broke `ruff check src`. Banner added to `reports/jev-controller-pilot.md`; snapshot `reports/versions/v66/`. Full pytest green. **Set not re-run yet: no valid controller comparison exists.** Did not commit `data/` or bodies.
+
+## 2026-09-21 — Jev Controller v2 approved for implementation
+
+- Researched TypeSafe's official System One documentation and OpenRouter's Jev
+  integration. Jev evaluates supplied state against typed Choice, Score, and
+  Noul questions; it does not replace the coding-agent LLM, call tools, write
+  code, or hold a conversational session.
+- Corrected the controller hypothesis: Jev should receive the full relevant
+  decision context, including the owner ask, relevant conversation, adapter
+  events, repository facts, open beads, candidate work, and verification
+  evidence. The harness owns the repeated context-update loop.
+- Durable records added: `research/jev-controller-v2-research.md`,
+  `spec/jev-controller-v2.md`, `docs/jev-controller-v2-runbook.md`, and
+  Issue 21 in `ISSUES.md`. `HANDOFF.md` and `checkpoints/CURRENT.md` now point
+  the next session at v2 implementation.
+- The old three-harness Jev run remains v1 smoke evidence only. The next code
+  slice is a fake-adapter-tested `DecisionContext`/`JevDecisionLoop`, followed
+  by OpenCode, Grok Build, and Pi adapter audits and a fresh matched replay.
 - v66 re-run (first valid controller rows): `replay-fix-20260922` OpenCode/Qwen, 150s, real ask in both arms. `0d6ca4607eaf` (ask_shifted, previously boilerplate-only) baseline **ok/6 tools** where the pre-fix arm logged 0 — the signature of the fixed prompt, not of routing. Control `1a415bc257e5` baseline ok/0, Jev 14. Both Jev rows timed out at the cap; one raised tool count, one did not; no work-match gain established. Two tasks = smoke test only. Table added to `reports/jev-controller-pilot.md` under "First valid comparison"; pre-fix cells stay under the invalid banner. Gates green (pytest 134, ruff/mypy `src`). No bodies or prompts committed.
 - v66 blast radius beyond the controller: the same first-turn bug is in the long-running OpenCode replay path, so `reports/replay-scores.md`'s **opencode column is prompt-contaminated for 11 of 22 hashes** (`0d6ca4607eaf`, `28372e365066`, `2bde00530ddd`, `6e412585c223`, `8d42bc26b8ea`, `b7e6393f4c14`, `bd179678f540`, `f37de8488162`, `1442d08cf2d3`, `555f9c94ba8e`, `55fd1ef9b613`) — all 11 have ndjson with 2–102 calls, so cells look healthy but the prompt had no ask; extra `-c` turns can carry a real ask later, which masks it. Rows **not** rewritten: `tests/test_replay_scores.py` pins those exact cells and mandatory owner-gate tests are not edited to hide a defect. Additive "prompt-contaminated" section + `test_replay_scores_flags_contaminated_opencode_cells` fails if a context-only hash goes unflagged. Work column (own JSONL) and Kilo column (sqlite copies) unaffected. OpenCode evidence stays **open** for those 11. Gates green. NOTE (post-rebase): the owner's harness-agnostic reset renumbered ISSUES.md, so the local '### 19' added here was dropped during conflict resolution and the blocker now lives under active GitHub issue #2; the v0 no-stop governance block was deliberately NOT re-added over the owner's rewritten chat-first section.

@@ -1,13 +1,22 @@
 # Jev controller module
 
-The harness now has a separate `src.hos.controller` module. It treats Jev as a
-bounded routing adviser: Jev receives compact structured state and proposes one
-next action from the shared 35-action taxonomy. Jev is hard-wired to the
-OpenRouter Decisions API and a Typesafe Jev model; OpenCode Zen, CKFF, and
-generic chat models are rejected by configuration. The selected harness still
-owns tool execution, filesystem writes, verification, and escalation. This
-keeps a state machine useful without granting a classifier authority over side
-effects.
+The harness has a separate `src.hos.controller` module. The original v1 pilot
+treated Jev as a bounded routing adviser: it received compact structured state
+and proposed one next action from the shared 35-action taxonomy. That pilot is
+preserved as smoke evidence only. The approved v2 design is documented in
+`research/jev-controller-v2-research.md` and `spec/jev-controller-v2.md`.
+
+In v2, Jev receives the full relevant decision context, including conversation
+turns, coding-agent events, repository facts, open beads, candidate tasks, and
+verification evidence. It answers typed Choice/Score/Noul questions. The
+controller validates the answer, executes one bounded adapter step, folds the
+observed result back into context, and asks Jev again. Jev never owns tools,
+filesystem writes, subprocesses, or side effects.
+
+Jev is hard-wired to the OpenRouter Decisions API and a Typesafe Jev model;
+OpenCode Zen, CKFF, and generic chat models are rejected by configuration. The
+selected harness still owns tool execution, filesystem writes, verification,
+and escalation.
 
 The module includes adapters for OpenCode, Grok Build, and Pi. OpenCode uses
 the existing `codex` agent, Grok Build uses its JSON output mode and isolated
@@ -43,7 +52,12 @@ user turn from each existing replay, and stores raw prompt/event files below
 controller labels, tool names, scorer cells, and adapter status only. Do not
 copy prompts, message bodies, or secret values into reports.
 
-This first pilot tests Jev as an initial routing hint. It does not claim that a
-single hint is a full closed-loop state machine. The next experiment should
-feed verified post-step state back into Jev and compare the same matched tasks
-with and without that additional decision point.
+This first pilot tested Jev as an initial routing hint. It does not claim that
+a single hint is a full closed-loop controller. The next experiment is the v2
+loop described above.
+
+## Next-session implementation entrypoint
+
+Start from `HANDOFF.md` and `checkpoints/CURRENT.md`. The first code slice is
+the reusable context/decision loop plus fake-adapter tests. Do not delete or
+rewrite the v1 pilot while the v2 behavior is being measured.

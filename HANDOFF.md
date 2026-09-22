@@ -14,11 +14,35 @@ Kilo Codex v0 remains a positive-control baseline and historical proof that beha
 
 ## Active issue
 
-GitHub issue **#2 - Baseline multi-harness Work behavior replay**.
+Local issue **21 - Jev persistent decision controller**. The durable research
+and contract are `research/jev-controller-v2-research.md` and
+`spec/jev-controller-v2.md`; `ISSUES.md` contains the issue mapping.
 
-Start with 3-5 existing long Work-derived development tasks. No new intervention initially. Run Pi, OpenCode, and Grok Build, capture all observable behavior available, and identify the largest recurring deviations plus one smallest next hypothesis.
+The old three-adapter Jev run is complete as a v1 routing smoke test. It used
+one compact decision and one prompt hint per task. Do not treat it as evidence
+that Jev can decompose tasks or control a long horizon.
 
-Do not turn issue #2 into a protocol/framework implementation.
+Historical active issue label: GitHub issue **#2 - Baseline multi-harness Work behavior replay**.
+
+The next implementation is Jev Controller v2: assemble the full relevant
+decision context, ask typed Choice/Score/Noul questions, validate the selected
+bead/action against legal transitions, execute one bounded adapter step, fold
+the resulting events back into context, and ask Jev again.
+
+The next session should:
+
+1. Read `AGENTS.md`, `PLAN.md`, `HANDOFF.md`,
+   `research/jev-controller-v2-research.md`, and `spec/jev-controller-v2.md`.
+2. Inspect the current `src/hos/controller` module and preserve the v1 pilot.
+3. Add the reusable `DecisionContext` and repeated `JevDecisionLoop` with fake
+   adapter tests before live calls.
+4. Audit OpenCode, Grok Build, and Pi event streaming/session behavior.
+5. Run one OpenCode smoke task, then a matched baseline-versus-loop slice on
+   existing develop Work hashes.
+6. Update `checkpoints/CURRENT.md` with measured results and one next action.
+
+Jev remains OpenRouter-only. It receives no tool authority. The adapters own
+CLI execution, event capture, and normalized tool observations.
 
 ## Reference evidence
 

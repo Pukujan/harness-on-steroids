@@ -6,13 +6,16 @@ Owner spec: spec/owner.v2.json
 
 ## Active experiment
 
-GitHub issue #2 - **Baseline multi-harness Work behavior replay**
+Issue 21 - **Jev persistent decision controller**
 
-Purpose: establish the first baseline under the new plan before changing the control layer.
+Purpose: implement the smallest context-aware Jev controller and measure it
+against the preserved v1 hint pilot and existing Work behavior evidence.
 
 ## Current hypothesis
 
-No new control hypothesis yet. First measure the baseline across Pi, OpenCode, and Grok Build on the same small set of existing long Work-derived development tasks.
+Jev should classify and select the next bounded bead/action from the full
+relevant task context, then receive the resulting adapter events and decide
+again. The previous one-shot hint pilot is only v1 smoke evidence.
 
 ## Baselines to preserve
 
@@ -22,7 +25,13 @@ No new control hypothesis yet. First measure the baseline across Pi, OpenCode, a
 
 ## Next action
 
-**Blocking defect found and fixed first (2026-09-22, `reports/versions/v66/README.md`).**
+**Current next action:** implement and test `spec/jev-controller-v2.md` as a
+small reusable decision loop. Add the durable research/spec/issue record first,
+then run one fake-adapter loop, one OpenCode smoke task, and one matched
+baseline-versus-Jev slice across the available adapters.
+
+**Historical baseline note:** a blocking defect was found and fixed first
+(2026-09-22, `reports/versions/v66/README.md`).
 The replay runners passed the raw first user turn to the harness. In these Work
 transcripts that turn is the prepended `<recommended_plugins>` / `<environment_context>`
 block, and for **11 of the 22** develop+holdout hashes it contains no ask at all, so a
@@ -38,9 +47,9 @@ both runners now send the real ask and record `ask_present` / `ask_shifted`, plu
 flagged contaminated for those 11 hashes (rows kept because `tests/test_replay_scores.py`
 pins them).
 
-Before selecting the 3-5 tasks: move the old `data/replay/<hash>/opencode.ndjson` aside
-per hash (the runner **appends**, so re-running in place mixes old and new evidence and
-silently corrupts the pinned cells), then take fresh traces on the real ask.
+The v1 pilot is already recorded in `reports/matched-replay-20260921.md`.
+Before a new matched run, move old per-run artifacts aside or use a fresh
+`run_id`; do not append fresh traces to an old evidence directory.
 
 Then proceed as planned: select 3-5 representative tasks from the existing **development** replay set, not holdout. Freeze their acceptance/environment notes, then run the current configuration through:
 
@@ -52,7 +61,15 @@ in the same slice where technically possible.
 
 Record exact model/provider/harness/control version and capture all observable interaction, tool/result, wait/failure, verification/provenance, output, continuity, and outcome signals that each harness exposes.
 
-**Do not change prompts/control before this baseline.**
+The next v2 slice is now explicitly authorized by the owner. Keep the old
+baseline for comparison and change only the Jev decision-loop behavior in the
+first implementation run.
+
+Historical v1 baseline: **Baseline multi-harness Work behavior replay**.
+Historical v1 baseline contract: **Do not change prompts/control before this baseline.**
+The old slice also stated: **Do not build a general state machine or protocol framework in this slice.** Those sentences remain here as the
+preserved v1 baseline boundary; Issue 21 is the separately authorized v2
+experiment.
 
 ## Stop condition for this slice
 
@@ -62,7 +79,9 @@ Return with:
 - the largest recurring behavioral deviations;
 - exactly one smallest next control-layer hypothesis.
 
-Do not build a general state machine or protocol framework in this slice.
+Do not build a general protocol framework in this slice. The v2 loop may use a
+narrow runtime phase/transition gate because the owner explicitly approved
+this controller experiment; expand it only if the measured replay requires it.
 
 ## Continuity rule
 
