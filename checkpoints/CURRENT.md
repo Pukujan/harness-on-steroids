@@ -264,7 +264,10 @@ transitioned to baseline turn 2 at 18:25 under the 120-second policy, an
 approximately 2:38 end-to-end handoff.
 During baseline turn 4, the child became silent after 18:29:20 and was gone by
 18:31:28 while the experiment parent remained alive. This verifies the final
-inactivity kill-and-continue path; the aggregate is still pending.
+inactivity kill-and-continue path. A second silent baseline handoff, from turn
+1 at 18:40:38 to turn 2 at 18:43:18, took approximately 2:40 end-to-end and
+also stayed within the owner's 2–3 minute boundary. The aggregate is still
+pending.
 
 ## Long-horizon A/B contract
 

@@ -578,3 +578,8 @@ launch-blocked runs.
   absent by 18:31:28 while the experiment parent remained alive. This is the
   final two-minute kill-and-continue path operating in the live run; it is
   liveness evidence only, and the behavioral aggregate remains pending.
+- A second V5 silent baseline handoff began at 18:40:38 and advanced from
+  baseline turn 1 to turn 2 at 18:43:18, approximately 2:40 end-to-end. The
+  repeated transition remains within the owner's 2–3 minute maximum and again
+  confirms process-tree cleanup plus parent continuation; no task-quality
+  interpretation is valid until the aggregate report is written.
