@@ -205,3 +205,26 @@ How this project actually proceeds. Append-only. No message bodies.
   remain sealed. R1-R6 and the existing taxonomy are diagnostic signals,
   supplemented by verification, provenance, continuity, outcome, and honest
   reporting measures.
+
+## 2026-09-22 — long A/B launch blocker: prompt must not travel in argv
+
+The first context-fed long A/B runs (`jev-long-smoke-seed-20260922`,
+`jev-long-ab-20260922-pi`) showed many `fail_1` cells at 0 tools with empty
+events. Diagnosis: the Pi and OpenCode adapters passed the whole context-pack
+prompt as a command-line argument, and Windows aborted the process with "The
+command line is too long" before the harness started. Dead cells therefore
+measured a launch failure, not model behavior — the same contamination class as
+the pre-v66 task-free prompts. The `git archive` seed materialization itself
+worked, and turns that did launch showed the harness working (33-68 tools/task,
+including a real baseline Work-match).
+
+Control-layer fix, held the decision loop/schema/fixtures constant: adapters now
+deliver the prompt over stdin (Pi/OpenCode) and keep Grok on `--prompt-file`;
+the prompt no longer appears in argv, and a harness that dies before draining
+stdin no longer raises a spurious launch_error. Two regression tests pin that the
+prompt is absent from argv and that a 40k-char prompt is delivered over a pipe
+with zero positional args. All 152 tests and ruff pass; a real Pi call with a
+40k-char prompt returns status ok with events and no "too long". Both affected
+reports are flagged launch-blocked. Next action: one fresh matched A/B slice on
+the frozen development hashes under a new run_id; do not compare new cells to the
+launch-blocked runs.
