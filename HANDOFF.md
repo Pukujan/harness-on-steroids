@@ -95,10 +95,11 @@ The selector was then fixed to fill a requested sample budget beyond the
 minimum coverage set. Three fresh 32-event structural repeats returned
 256/256 valid probabilities and 254/256 direct-label matches each; all
 thresholded predictions were identical across runs. Mean probability range
-was 0.0100 and maximum 0.11. A 0.75 acceptance band accepted 243/256, with
-13 abstentions and zero wrong accepted labels in this sample. This remains
-structural sidecar evidence; semantic labels still require owner/human
-adjudication and the holdout remains sealed.
+was 0.0100 and maximum 0.11. At a 0.75 acceptance band the first run accepted
+243/256 with 13 abstentions; each repeat accepted 240/256 with 16 abstentions.
+No accepted label was wrong in any run. This remains structural sidecar
+evidence; semantic labels still require owner/human adjudication and the
+holdout remains sealed.
 
 ## Active issue
 

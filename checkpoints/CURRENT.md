@@ -142,9 +142,9 @@ step, the selector was corrected to honor a larger requested sample budget.
 Three fresh 32-event structural repeats returned 256 valid probabilities and
 254/256 direct-label matches each, with identical thresholded predictions;
 mean probability range was 0.0100 and maximum 0.11. At a 0.75 acceptance band
-243 were accepted, 13 abstained, and zero accepted labels were wrong in this
-sample. This is still not semantic-quality evidence and does not open the
-holdout.
+the first run accepted 243 and abstained on 13; each repeat accepted 240 and
+abstained on 16. Zero accepted labels were wrong in any run. This is still not
+semantic-quality evidence and does not open the holdout.
 
 ## Baselines to preserve
 

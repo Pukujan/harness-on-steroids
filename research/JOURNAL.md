@@ -426,6 +426,6 @@ launch-blocked runs.
   research false positive at 0.62.
 - All 256 thresholded predictions were stable across the three runs. Mean
   probability range was 0.0100 and maximum range 0.11. At a 0.75 two-sided
-  acceptance band, 243 were accepted, 13 abstained, and zero accepted labels
-  were wrong in this sample. This remains structural sidecar evidence, not a
-  semantic gold result.
+  acceptance band, the first run accepted 243 and abstained on 13; each repeat
+  accepted 240 and abstained on 16. Zero accepted labels were wrong in any
+  run. This remains structural sidecar evidence, not a semantic gold result.

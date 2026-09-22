@@ -96,8 +96,9 @@ the holdout sealed and only body-free canonical fields sent to Jev.
 - Every thresholded prediction was identical across all three runs.
 - Mean per-question probability range was `0.0100`; the maximum range was
   `0.11`.
-- At the two-sided `0.75` acceptance band, 243/256 questions were accepted,
-  13 abstained, and none of the accepted predictions was wrong in this sample.
+- At the two-sided `0.75` acceptance band, the first run accepted 243/256
+  questions and abstained on 13; each repeat accepted 240/256 and abstained on
+  16. None of the accepted predictions was wrong in any of the three runs.
 
 This is stronger structural wire evidence than the initial eight-event probe,
 but it is still not semantic-quality evidence: the labels are directly
