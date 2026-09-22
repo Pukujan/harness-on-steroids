@@ -465,3 +465,20 @@ launch-blocked runs.
 - The runner already accepts a per-run inactivity override for workloads with
   an expected sparse-output phase. This preserves the same liveness semantics
   without making a short default timeout a hard policy for every task.
+
+## 2026-09-22 — inference model catalog boundary
+
+- The correct adjacent repository is `D:\claude\inference-recommendation-engine`.
+  It is a provider-neutral ranking core, not a live model catalog or credential
+  store. Its checked-in/local recommendation currently contains synthetic
+  example routes (`example-fast-route` and `example-cheap-route`).
+- The live-looking route catalog is in the adjacent `D:\claude\inferhub`
+  workspace: its current guide documents 118 provider-qualified routes and a
+  separate long-horizon streaming policy. That catalog is not automatically
+  wired into this harness's OpenCode/Pi/Grok adapters; this repository's
+  current matched slice remains fixed to its configured Qwen/Grok arms.
+- Historical CKFF/LiteLLM fleet evidence in
+  `D:\claude\stupidly-simple-cortex` includes useful multi-model probes, but
+  it is dated diagnostic evidence rather than proof of current route
+  availability. Do not splice those models into the active matched A/B; use a
+  separate fixed-model slice after an adapter/credential contract is proven.
