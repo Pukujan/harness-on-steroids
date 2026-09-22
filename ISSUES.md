@@ -79,6 +79,32 @@ and a closed candidate set. The next controlled hypothesis is therefore the
 bounded context-feeder preflight recorded in `checkpoints/CURRENT.md`; the
 `CLASSIFY_REQUEST` choice-set change is paused until that feeder is present.
 
+### Issue 22 - Jev long-horizon matched A/B
+
+- **Status:** active; owner authorized a 50-60-turn A/B benchmark on 2026-09-21.
+- **Research contract:** `research/jev-long-horizon-ab.md`.
+- **Question:** does Jev improve observable Work-aligned behavior and outcome
+  when the no-Jev and Jev arms receive the same context, harness, model,
+  workspace, and user turns?
+- **Gold/reference:** local ChatGPT Work/Codex transcripts; 16 development
+  hashes for tuning and six hidden holdout hashes sealed. Work-derived
+  taxonomy and R1-R6 remain diagnostic signals, not exact tool-order rules.
+- **Matrix:** OpenCode + Pi use the configured `yolo-auto/qwen3.8-flash`;
+  Grok Build uses configured `grok-4.7`; Jev is the separate
+  `typesafe/jev-1.13` OpenRouter Decisions call.
+- **Scale:** exactly 60 matched development user turns per arm and available
+  harness, preserving per-hash long-running context. At least three turns are
+  allocated to every development hash before filling the remaining budget in
+  frozen order.
+- **Intervention:** add only the validated Jev decision between the shared
+  context feeder and the harness invocation. Baseline gets the same feeder
+  pack without the Jev answer.
+- **Pass/stop:** produce comparable hash-only aggregates for all available
+  harnesses, then retain Jev only if outcome/behavior improves without harming
+  verification, safety, continuity, scope, or truthful reporting.
+- **Privacy:** raw prompts, transcript bodies, event bodies, credentials, and
+  private files remain ignored/local.
+
 ### GitHub issue #2 - Baseline multi-harness Work behavior replay
 
 - **Status:** open

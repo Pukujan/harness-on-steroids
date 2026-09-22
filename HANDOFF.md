@@ -14,9 +14,10 @@ Kilo Codex v0 remains a positive-control baseline and historical proof that beha
 
 ## Active issue
 
-Local issue **21 - Jev persistent decision controller**. The durable research
+Local issue **22 - Jev long-horizon matched A/B**. The durable research
 and contract are `research/jev-controller-v2-research.md`,
-`research/jev-ecosystem-evidence.md`, and `spec/jev-controller-v2.md`;
+`research/jev-ecosystem-evidence.md`, `research/jev-long-horizon-ab.md`, and
+`spec/jev-controller-v2.md`;
 `ISSUES.md` contains the issue mapping.
 
 The old three-adapter Jev run is complete as a v1 routing smoke test. It used
@@ -25,24 +26,23 @@ that Jev can decompose tasks or control a long horizon.
 
 Historical active issue label: GitHub issue **#2 - Baseline multi-harness Work behavior replay**.
 
-The next implementation is Jev Controller v2: assemble the full relevant
-decision context, ask typed Choice/Score/Noul questions, validate the selected
-bead/action against legal transitions, execute one bounded adapter step, fold
-the resulting events back into context, and ask Jev again.
+The next implementation is the long-horizon matched A/B: add the shared
+context feeder, run 60 Work-derived development turns with and without the
+validated Jev decision on each available harness, and compare against the
+ChatGPT Work behavioral reference.
 
 The next session should:
 
 1. Read `AGENTS.md`, `PLAN.md`, `HANDOFF.md`,
    `research/jev-controller-v2-research.md`,
-   `research/jev-ecosystem-evidence.md`, and `spec/jev-controller-v2.md`.
-2. Inspect the completed v2 implementation and preserve the v1 pilot.
-3. Run only the single context-feeder hypothesis recorded in
-   `checkpoints/CURRENT.md` on the same frozen develop hashes and adapters.
-4. Compare the fresh result against
-   `reports/matched-replay-jev-v2-20260921.md`; do not tune on holdout or
-   claim variance from task differences.
-5. Update `checkpoints/CURRENT.md` with the measured result and one next
-   action.
+   `research/jev-ecosystem-evidence.md`,
+   `research/jev-long-horizon-ab.md`, and `spec/jev-controller-v2.md`.
+2. Add and test the shared context feeder and long-horizon runner.
+3. Run a smoke cell, then the frozen 60-turn development A/B matrix across
+   OpenCode, Pi, and Grok Build where available.
+4. Compare only against the ChatGPT Work reference and keep the six holdout
+   hashes sealed.
+5. Update `checkpoints/CURRENT.md` with measured results and one next action.
 
 ## v2 implementation checkpoint — 2026-09-21
 

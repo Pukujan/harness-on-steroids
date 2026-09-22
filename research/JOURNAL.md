@@ -190,3 +190,18 @@ How this project actually proceeds. Append-only. No message bodies.
   add the smallest bounded context-feeder preflight while holding Jev schema,
   threshold, and adapters constant; the earlier `CLASSIFY_REQUEST` choice-set
   change is paused until that feeder exists.
+
+## 2026-09-21 — owner authorizes 60-turn matched Jev A/B
+
+- The next experiment is now Issue 22, not another context-poor Jev smoke
+  run: 60 matched Work-derived development user turns per arm and available
+  harness, preserving per-hash long-running context.
+- Arm A receives the shared context-feeder pack and no Jev decision. Arm B
+  receives the identical pack, then one validated Jev action choice. OpenCode
+  and Pi currently use `yolo-auto/qwen3.8-flash`; Grok Build uses `grok-4.7`;
+  Jev remains a separate `typesafe/jev-1.13` OpenRouter call.
+- The local ChatGPT Work/Codex corpus remains the behavioral gold/reference;
+  the 16 development hashes are tunable fixtures and the six holdout hashes
+  remain sealed. R1-R6 and the existing taxonomy are diagnostic signals,
+  supplemented by verification, provenance, continuity, outcome, and honest
+  reporting measures.

@@ -6,16 +6,18 @@ Owner spec: spec/owner.v2.json
 
 ## Active experiment
 
-Issue 21 - **Jev persistent decision controller**
+Issue 22 - **Jev long-horizon matched A/B**
 
-Purpose: implement the smallest context-aware Jev controller and measure it
-against the preserved v1 hint pilot and existing Work behavior evidence.
+Purpose: test whether a validated Jev decision layer improves a shared,
+context-fed coding harness over a matched no-Jev baseline across 60
+Work-derived development turns and the available Pi/OpenCode/Grok Build arms.
 
 ## Current hypothesis
 
-Jev should classify and select the next bounded bead/action from the full
-relevant task context, then receive the resulting adapter events and decide
-again. The previous one-shot hint pilot is only v1 smoke evidence.
+Jev should improve bounded action selection only when it receives the same
+live repository/task context made available to the no-Jev baseline. The
+previous one-shot hint pilot and context-poor v2 replay are historical smoke
+evidence only.
 
 ## Baselines to preserve
 
@@ -74,6 +76,17 @@ acceptance criteria. Hold the Jev schema, confidence threshold, adapters, and
 loop constant, then rerun the same frozen hashes. The earlier
 `CLASSIFY_REQUEST` choice-set hypothesis is paused until the decision context
 is populated, so the two interventions are not confounded.
+
+## Long-horizon A/B contract
+
+The executable contract is `research/jev-long-horizon-ab.md`. The next slice
+must first add the shared deterministic context feeder and a 60-turn matched
+runner. A and B must use the same Work-derived development turn fixtures,
+fresh equivalent workspaces, feeder pack, timeout, and harness/model. B adds
+only the Jev decision, typed validation, and bounded action hint. OpenCode and
+Pi currently use `yolo-auto/qwen3.8-flash`; Grok Build uses `grok-4.7`; Jev is
+the separate `typesafe/jev-1.13` OpenRouter call. The ChatGPT Work corpus
+remains the behavioral reference and holdout remains sealed.
 
 **Historical baseline note:** a blocking defect was found and fixed first
 (2026-09-22, `reports/versions/v66/README.md`).
