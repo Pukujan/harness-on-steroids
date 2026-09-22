@@ -241,6 +241,13 @@ fixed, change only low-confidence handling so the Jev arm executes the same
 feeder prompt as baseline while recording the Jev answer as advisory, and run
 one fresh matched 60-turn slice under a new `run_id`.
 
+That rerun is currently active as `jev-long-ab-advisory-20260922-v2`.
+At the latest observation, OpenCode had created 10 baseline and 8 Jev turn
+directories, with baseline turn 2 live and no final report yet. One silent
+baseline turn reached the 20-minute inactivity boundary and the runner
+advanced to the next turn; this is liveness evidence only, not a behavioral
+result. Do not interpret the slice until the runner writes its aggregate.
+
 ## Long-horizon A/B contract
 
 The executable contract is `research/jev-long-horizon-ab.md`. The completed

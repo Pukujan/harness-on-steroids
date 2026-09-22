@@ -154,8 +154,10 @@ The next session should:
 3. Implement only the one follow-up hypothesis in `checkpoints/CURRENT.md`:
    low-confidence Jev handling should execute the baseline-equivalent feeder
    prompt while recording the Jev answer as advisory.
-4. Rerun one fresh matched 60-turn development A/B slice under a new `run_id`;
-   keep the six holdout hashes sealed and compare only with the Work reference.
+4. The fresh matched 60-turn development A/B slice is currently running as
+   `jev-long-ab-advisory-20260922-v2`; keep the six holdout hashes sealed and
+   compare only with the Work reference. Do not restart or interpret partial
+   turn directories as final evidence.
 5. Update `checkpoints/CURRENT.md` with the measured result and one next action.
 
 ## v2 implementation checkpoint — 2026-09-21

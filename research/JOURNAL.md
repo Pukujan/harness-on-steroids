@@ -482,3 +482,11 @@ launch-blocked runs.
   it is dated diagnostic evidence rather than proof of current route
   availability. Do not splice those models into the active matched A/B; use a
   separate fixed-model slice after an adapter/credential contract is proven.
+
+## 2026-09-22 — advisory rerun liveness observation
+
+- The fresh run `jev-long-ab-advisory-20260922-v2` is live under the corrected
+  policy. A silent OpenCode baseline turn began at 14:43:54 and the next
+  baseline turn began at 15:04:34, demonstrating the typed inactivity boundary
+  and continuation behavior. This is not a task-quality result; the aggregate
+  report remains pending.
