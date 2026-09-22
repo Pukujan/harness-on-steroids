@@ -443,3 +443,15 @@ launch-blocked runs.
   1,200,000 ms. Focused tests prove a continuously streaming child survives a
   short test inactivity window while a silent child receives an inactivity
   timeout. The advisory A/B must be rerun under this policy.
+
+## 2026-09-22 — provider total-runtime correction
+
+- Follow-up audit found that setting a provider's total request timeout to the
+  same 20-minute value could still cut off an actively streaming request.
+- OpenCode/Pi now use 1,200,000 ms for idle/header/chunk silence but
+  7,200,000 ms for the provider total request ceiling, matching the host's
+  two-hour absolute cap. The host watchdog remains the authoritative typed
+  `inactivity`/`max_runtime` boundary.
+- Focused tests and the full pytest suite pass after this correction. The
+  live advisory run is still the empirical validation of the host behavior;
+  its final aggregate remains pending.
