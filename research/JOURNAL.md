@@ -542,3 +542,14 @@ launch-blocked runs.
 - V3 then completed baseline turns 2 through 4 on the same boundary and entered
   Jev turn 1 at 17:50:52. This shows the shortened watchdog continues across
   multiple matched turns and into the Jev arm; the aggregate is still pending.
+
+## 2026-09-22 — Windows process-tree cleanup correction
+
+- A direct silent-child test returned an `inactivity` timeout in 0.85 seconds,
+  confirming the host watchdog itself honors the configured budget. The live
+  OpenCode v3 handoffs sometimes took longer because Windows CLI descendants
+  were not terminated with the parent process.
+- Added Windows process-tree termination via `taskkill /T /F` for timed-out
+  harness children, with the existing direct kill fallback elsewhere. The
+  partial v3 run was stopped before interpretation so this correction is not
+  mixed into its evidence. A fresh run is required.

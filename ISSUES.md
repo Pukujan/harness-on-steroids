@@ -135,7 +135,9 @@ The advisory slice `jev-long-ab-advisory-20260922-v2` was later stopped before
 interpretation when the owner shortened the default inactivity boundary to
 3 minutes. Its partial folders are not evidence; a fresh run ID is required.
 Fresh run `jev-long-ab-advisory-20260922-v3` is now running under the 180-second
-policy with the same matched fixtures; its aggregate remains pending.
+policy with the same matched fixtures; its partial run was stopped before
+interpretation when Windows process-tree cleanup was tightened. Start a fresh
+run after that correction; do not mix v3 artifacts into its aggregate.
 
 ### Issue 23 - Reusable analytical machine v0
 

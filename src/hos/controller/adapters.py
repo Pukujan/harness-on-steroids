@@ -210,6 +210,23 @@ class HarnessAdapter:
         return extract_event_seq(events_path)
 
     @staticmethod
+    def _terminate_process_tree(process: subprocess.Popen[str]) -> None:
+        """Stop a timed-out CLI and descendants, especially on Windows."""
+
+        if os.name == "nt":
+            result = subprocess.run(
+                ["taskkill", "/PID", str(process.pid), "/T", "/F"],
+                capture_output=True,
+                check=False,
+            )
+            if result.returncode == 0:
+                return
+        try:
+            process.kill()
+        except ProcessLookupError:
+            pass
+
+    @staticmethod
     def _stream_signature(paths: tuple[Path, ...]) -> tuple[tuple[bool, int, int], ...]:
         signature: list[tuple[bool, int, int]] = []
         for path in paths:
@@ -301,7 +318,7 @@ class HarnessAdapter:
                     max_runtime=max_runtime,
                 )
                 if timeout_reason is not None:
-                    process.kill()
+                    self._terminate_process_tree(process)
                     process.wait()
                     return HarnessRun(
                         self.name,

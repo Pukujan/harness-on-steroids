@@ -255,7 +255,10 @@ behavioral interpretation; its aggregate is pending. Its first silent baseline
 child transitioned to baseline turn 2 at 17:41 under the 180-second policy,
 confirming the shortened live boundary. It subsequently completed baseline
 turns 2 through 4 and entered Jev turn 1 at 17:50; the aggregate remains
-pending.
+pending. The partial v3 run was then stopped before interpretation after a
+direct silent-child test showed the host timer was correct but Windows
+process-tree cleanup could add excess handoff delay. The adapter now terminates
+the timed-out CLI tree explicitly; a fresh run is required.
 
 ## Long-horizon A/B contract
 

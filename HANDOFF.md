@@ -116,7 +116,9 @@ at the idle threshold. Timeout reasons are typed and reported; see
 inactivity boundary to 3 minutes; the partial old-policy advisory rerun was
 stopped before interpretation and must be rerun with a fresh run ID.
 That fresh run is now `jev-long-ab-advisory-20260922-v3`; do not mix its
-results with the stopped v2 artifacts.
+results with the stopped v2 artifacts. V3 was also stopped before
+interpretation after the Windows process-tree cleanup path was tightened; start
+a fresh run after the change and do not mix v3 artifacts into its aggregate.
 
 ## Active issue
 
