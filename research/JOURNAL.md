@@ -590,3 +590,16 @@ launch-blocked runs.
   not a behavioral failure or a completed A/B result: v5 remains liveness-only,
   its ignored raw directory remains local diagnostics, and a future Issue 22
   continuation must use a fresh run ID.
+
+## 2026-09-22 — analytical-machine owner-review handoff
+
+- Resumed Issue 23 from `checkpoints/CURRENT.md` and revalidated the existing
+  deterministic review packet. It contains 24 pilot episodes, balanced at 12
+  Codex / 12 ChatGPT, with 2,559 and 6,371 body-free events respectively.
+- The packet contains no body-bearing keys and no holdout rows. The focused
+  packet/analysis tests pass (13 tests), and Ruff passes for the touched
+  analysis surfaces.
+- No ontology labels were promoted. The next action is owner/human
+  adjudication under `spec/analysis-codebook-v0.md`; quality, UX, outcome,
+  provenance-correctness, and planning labels remain abstained, and the sealed
+  holdout remains report-only.

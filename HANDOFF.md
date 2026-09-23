@@ -135,48 +135,26 @@ session should begin by reading `checkpoints/CURRENT.md`, this file, and Issue
 
 ## Active issue
 
-Local issue **22 - Jev long-horizon matched A/B**. The durable research
-and contract are `research/jev-controller-v2-research.md`,
-`research/jev-ecosystem-evidence.md`, `research/jev-long-horizon-ab.md`, and
-`spec/jev-controller-v2.md`;
-`ISSUES.md` contains the issue mapping.
+Local issue **23 - Reusable analytical machine v0**. The implementation and
+full structural pass are complete; the current handoff is owner/human
+adjudication of the lane-balanced structural pilot. The durable contract and
+review record are `docs/analytical-machine-v0-plan.md`,
+`research/analysis-ontology-pilot-v3-review-20260922.md`, and
+`spec/analysis-codebook-v0.md`.
 
-The old three-adapter Jev run is complete as a v1 routing smoke test. It used
-one compact decision and one prompt hint per task. Do not treat it as evidence
-that Jev can decompose tasks or control a long horizon.
+The deterministic packet is available in the ignored local evidence plane at
+`data/derived/analysis-machine/ontology-review-packet-v3/`. It contains 24
+pilot episodes, balanced at 12 Codex / 12 ChatGPT, and 8,930 body-free events.
+It has been revalidated with 13 focused tests and clean Ruff checks; no
+holdout rows or body-bearing keys are present. The eight-episode holdout stays
+sealed and report-only.
 
-The clean Issue 22 long-horizon A/B is now complete. OpenCode, Grok Build, and
-Pi each ran 60 matched Work-derived development turns per arm across 16
-development hashes with the shared feeder and sealed six-hash holdout. The
-current Jev policy did not win: Jev executed only 13, 13, and 12 turns after
-47, 47, and 48 low-confidence fallbacks respectively. OpenCode fell from
-8/16 to 4/16 Work-match; Grok Build and Pi were 0/16 in both arms. See
-`reports/jev-long-ab-20260922.md` and its three per-harness reports.
-
-Historical active issue label: GitHub issue **#2 - Baseline multi-harness Work behavior replay**.
-
-The completed implementation was the long-horizon matched A/B: the shared
-context feeder ran 60 Work-derived development turns with and without the
-validated Jev decision on each available harness. The follow-up is limited to
-the low-confidence fallback hypothesis below.
-
-The next session should:
-
-1. Read `AGENTS.md`, `PLAN.md`, `HANDOFF.md`,
-   `research/jev-controller-v2-research.md`,
-   `research/jev-ecosystem-evidence.md`, `research/jev-long-horizon-ab.md`,
-   `research/jev-oss-architecture-deep-dive-20260922.md`, and
-   `spec/jev-controller-v2.md`.
-2. Read the combined result `reports/jev-long-ab-20260922.md` and the three
-   per-harness reports before changing code.
-3. Implement only the one follow-up hypothesis in `checkpoints/CURRENT.md`:
-   low-confidence Jev handling should execute the baseline-equivalent feeder
-   prompt while recording the Jev answer as advisory.
-4. The fresh matched 60-turn development A/B slice is currently running as
-   `jev-long-ab-advisory-20260922-v2`; keep the six holdout hashes sealed and
-   compare only with the Work reference. Do not restart or interpret partial
-   turn directories as final evidence.
-5. Update `checkpoints/CURRENT.md` with the measured result and one next action.
+The next required action is for the owner/human to adjudicate the packet with
+the codebook. Do not promote quality, UX, outcome, provenance-correctness, or
+planning labels; do not combine this review with the Jev controller follow-up;
+and do not add a graph database or dashboard yet. Issue 22's Jev result and
+follow-up remain preserved as historical/currently separate work in
+`checkpoints/CURRENT.md` and `ISSUES.md`.
 
 ## v2 implementation checkpoint — 2026-09-21
 
