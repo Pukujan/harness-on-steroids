@@ -1,7 +1,9 @@
 from __future__ import annotations
 
 from collections import Counter
+from pathlib import Path
 
+import pytest
 from research.replay_lib import develop_hashes
 from research.run_jev_long_ab import _fixture_turns, _should_run_advisory_baseline
 from src.hos.controller import ControllerAction, DecisionValidation, JevDecision
@@ -9,6 +11,15 @@ from src.hos.controller import ControllerAction, DecisionValidation, JevDecision
 
 def test_long_ab_fixture_plan_has_60_turns_and_covers_every_develop_hash() -> None:
     hashes = develop_hashes()
+    replay_root = Path(__file__).resolve().parents[1] / "data" / "replay"
+    missing = [
+        task_hash
+        for task_hash in hashes
+        if not (replay_root / task_hash / "user.md").is_file()
+    ]
+    if missing:
+        pytest.skip("requires the ignored local data/replay corpus")
+
     turns = _fixture_turns(hashes, 60)
     counts = Counter(turn.task_hash for turn in turns)
 
