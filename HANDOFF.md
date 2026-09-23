@@ -4,6 +4,9 @@
 
 ## Current direction
 
+GitHub issue **#2** remains the open multi-harness baseline work item; Issue 23
+is the separate active analytical-machine slice recorded in the checkpoint.
+
 The owner accepted the model- and harness-agnostic behavioral-control reset on **2026-09-21**.
 
 The project now learns from the complete observable behavior in local ChatGPT Work/Codex transcripts and transfers those supported behaviors through the smallest effective control-layer changes. Prompt/context engineering remains the first intervention. A general runtime state machine is not pre-authorized; runtime guards are added only when repeated evidence earns them.

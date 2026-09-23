@@ -1,5 +1,6 @@
-from src.score_session import score_seq, summarize
 from pathlib import Path
+
+from src.score_session import score_seq, summarize
 
 ROOT = Path(__file__).resolve().parents[1]
 
@@ -100,8 +101,9 @@ def test_skip_plan_agent() -> None:
 
 
 def test_skip_study_os_prefix() -> None:
-    from src.score_session import summarize
     from unittest.mock import patch
+
+    from src.score_session import summarize
 
     fake = {
         "a": ["read", "edit"],

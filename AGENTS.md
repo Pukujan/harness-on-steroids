@@ -89,6 +89,22 @@ Do not treat the chat as project memory. GitHub and the repository are authorita
 
 checkpoints/CURRENT.md names the active issue, current hypothesis/baseline, last verified result, and exact next action. Update it after a real slice. GitHub Issues hold executable experiments and their acceptance criteria. research/JOURNAL.md remains an append-only research trail; it is not source-of-truth state.
 
+## Windows workspace, runtime, and cleanup policy
+
+- On this host, `D:\claude\harness-on-steroids` is the canonical checkout and stays on D:. Use that checkout for routine work; do not create Codex-managed C: worktrees for this repository. Codex's managed-worktree root is app/user-level, not configurable by this repository's instructions, so select **current checkout** in Codex unless a verified D:-resident isolation path is available.
+- Create an isolated worktree only for a concrete safety or parallelism need, and only when its actual location is on D:. Keep at most one temporary HOS worktree per active task. After verification, publish durable non-private changes, update the canonical D: checkout after merge, and retire the temporary worktree. Preserve or archive every dirty/unpushed change before retiring it; never clean another repository's worktrees under this rule.
+- HOS Windows experiments use the single pinned portable OpenCode executable installed by `tools/install-opencode.ps1` at `.tools/opencode/opencode.exe`. Do not use an NVM/PATH OpenCode fallback, install OpenCode globally, or install it separately in a task workspace.
+- OpenCode config, its generated plugin dependency tree, data, cache, state, and temporary files for HOS runs belong in the single ignored `.harness-cache/opencode/` directory on D:. The adapter stages tracked `.opencode/agent` and `.opencode/command` there. Per-task workspaces must exclude `.opencode`, `node_modules`, and `.venv`; do not copy or recreate these dependencies per task/run.
+- Controller-run outputs default to the ignored `.controller-runs/` directory in the D: checkout. Raw prompts, traces, account data, credentials, and reproducible dependency trees are not committed. Only the shared plugin dependency tree may be regenerated, once, for the pinned runtime; remove it when reclaiming space, and do not remove shared runtimes owned by other projects.
+- A pushed-but-unmerged branch is still durable work, not grounds to discard its checkout; retire a task worktree only after its changes are merged or explicitly archived. The checkpoint policy below governs when publishable changes must be pushed.
+
+## Checkpoint publication and merge gate
+
+- A checkpoint is a verified implementation or research slice with an issue-linked result and an updated `checkpoints/CURRENT.md`. Commit and push each completed, publishable checkpoint to its issue branch and open/update its pull request in the same work session. Do not accumulate multiple completed checkpoints locally; publish before pausing, handing off, or retiring a worktree, and at least once per active workday when publishable changes exist.
+- Every checkpoint intended for the project must merge to `main` through a pull request before the next independent slice begins. `main` is protected: direct pushes and force pushes are disabled, and admin bypass is disabled. The merge is blocked until the branch is current and the required `lint`, `typecheck`, `tests`, `windows-tests`, and `checkpoint-record` checks pass.
+- The required `checkpoint-record` check rejects a pull request unless it changes `checkpoints/CURRENT.md`. Keep the GitHub issue and PR aligned with the checkpoint; the PR template records the issue and verification.
+- Never publish raw transcripts, prompts, account data, credentials, `.env` files, or private/reversible identifiers to satisfy cadence. Record only a safe redacted status when an artifact cannot be committed.
+
 ## Existing code and history
 
 The old code is disposable; evidence and lessons are not.

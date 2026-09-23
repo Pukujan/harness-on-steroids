@@ -25,7 +25,11 @@ def test_current_docs_pass_untransformed() -> None:
 
 def test_kilo_and_opencode_modes_stay_paired() -> None:
     """Once one imitate-mode exists, the other must exist (metamorphic pair)."""
-    kilo = list((ROOT / ".kilo" / "agent").glob("*.md")) if (ROOT / ".kilo" / "agent").is_dir() else []
+    kilo = (
+        list((ROOT / ".kilo" / "agent").glob("*.md"))
+        if (ROOT / ".kilo" / "agent").is_dir()
+        else []
+    )
     oc = list((ROOT / ".opencode").glob("**/*")) if (ROOT / ".opencode").is_dir() else []
     kilo_mode = [p for p in kilo if "codex" in p.name.lower() or "imitate" in p.name.lower()]
     if kilo_mode and not oc:

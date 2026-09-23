@@ -1,7 +1,7 @@
 import json
 from pathlib import Path
 
-from research.extract_replay import user_text_from_payload, write_session
+from research.extract_replay import user_text_from_payload
 
 
 def test_user_text_from_payload_string_and_list() -> None:
@@ -30,5 +30,9 @@ def test_write_session_does_not_belong_in_git(tmp_path: Path, monkeypatch) -> No
     assert meta["user_turns"] == 1
     assert meta["first"] == "exec"
     assert meta["patch"] is False
-    gitignore = Path(__file__).resolve().parents[1].joinpath(".gitignore").read_text(encoding="utf-8")
+    gitignore = (
+        Path(__file__).resolve().parents[1]
+        .joinpath(".gitignore")
+        .read_text(encoding="utf-8")
+    )
     assert "data/" in gitignore

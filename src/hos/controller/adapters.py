@@ -5,6 +5,7 @@ from __future__ import annotations
 import json
 import os
 import shlex
+import shutil
 import subprocess
 import time
 from dataclasses import dataclass
@@ -15,6 +16,18 @@ HARNESS_INACTIVITY_TIMEOUT_SECONDS = 2 * 60
 HARNESS_INACTIVITY_TIMEOUT_MILLISECONDS = HARNESS_INACTIVITY_TIMEOUT_SECONDS * 1000
 HARNESS_MAX_RUNTIME_SECONDS = 2 * 60 * 60
 STREAM_POLL_SECONDS = 0.25
+REPO_ROOT = Path(__file__).resolve().parents[3]
+OPENCODE_VERSION = (REPO_ROOT / "tools" / "opencode-version.txt").read_text(
+    encoding="utf-8"
+).strip()
+
+
+def _default_opencode_executable() -> str:
+    """Use the one repository-owned runtime instead of an ambient install."""
+
+    if os.name == "nt":
+        return str(REPO_ROOT / ".tools" / "opencode" / "opencode.exe")
+    return which("opencode") or "opencode"
 
 
 @dataclass(frozen=True)
@@ -204,6 +217,16 @@ class HarnessAdapter:
 
         return None
 
+    def prepare_runtime(self) -> None:
+        """Prepare shared adapter state once, outside task workspaces."""
+
+        return None
+
+    def process_environment(self, workdir: Path) -> dict[str, str]:
+        """Return process-local overrides without mutating the parent process."""
+
+        return {}
+
     def stream_events(self, events_path: Path) -> list[AdapterEvent]:
         """Return normalized event metadata without exposing raw event bodies."""
 
@@ -283,8 +306,11 @@ class HarnessAdapter:
         max_runtime: float = HARNESS_MAX_RUNTIME_SECONDS,
     ) -> HarnessRun:
         prompt_file.write_text(prompt, encoding="utf-8")
+        self.prepare_runtime()
         self.prepare_workdir(workdir)
         command = self.command(prompt_file=prompt_file, workdir=workdir, title=title)
+        child_env = os.environ.copy()
+        child_env.update(self.process_environment(workdir))
         started = time.perf_counter()
         use_stdin = self.prompt_via_stdin
         stdin_stream = subprocess.DEVNULL
@@ -298,6 +324,7 @@ class HarnessAdapter:
                     stdin=subprocess.PIPE if use_stdin else stdin_stream,
                     stdout=events,
                     stderr=errors,
+                    env=child_env,
                     text=True,
                     encoding="utf-8",
                     errors="replace",
@@ -379,9 +406,71 @@ class OpenCodeAdapter(HarnessAdapter):
 
     prompt_via_stdin = True
 
-    def __init__(self, executable: str | None = None, model: str | None = None) -> None:
-        self.executable = executable or _windows_node_command("opencode", "opencode")
+    def __init__(
+        self,
+        executable: str | None = None,
+        model: str | None = None,
+        *,
+        runtime_root: Path | None = None,
+        config_source: Path | None = None,
+    ) -> None:
+        self.executable = executable or _default_opencode_executable()
         self.model = model or os.environ.get("OPENCODE_MODEL", "")
+        self.runtime_root = runtime_root or REPO_ROOT / ".harness-cache" / "opencode"
+        self.config_source = config_source or REPO_ROOT / ".opencode"
+
+    @property
+    def config_dir(self) -> Path:
+        return self.runtime_root / "config"
+
+    def prepare_runtime(self) -> None:
+        self.config_dir.mkdir(parents=True, exist_ok=True)
+        # Only the tracked control directories are copied. OpenCode's generated
+        # package files and node_modules stay in this single shared directory.
+        for name in ("agent", "command"):
+            source = self.config_source / name
+            destination = self.config_dir / name
+            if source.is_dir():
+                shutil.copytree(source, destination, dirs_exist_ok=True)
+
+    def process_environment(self, workdir: Path) -> dict[str, str]:
+        """Keep OpenCode's mutable config, packages, sessions and caches on D:."""
+
+        root = self.runtime_root
+        config_home = root / "xdg-config"
+        user_config = Path(
+            os.environ.get("XDG_CONFIG_HOME") or (Path.home() / ".config")
+        ) / "opencode"
+        config_file = next(
+            (
+                candidate
+                for candidate in (
+                    user_config / "opencode.jsonc",
+                    user_config / "opencode.json",
+                    user_config / "config.json",
+                )
+                if candidate.is_file()
+            ),
+            None,
+        )
+        env = {
+            "OPENCODE_CONFIG_DIR": str(self.config_dir),
+            "XDG_CONFIG_HOME": str(config_home),
+            "XDG_DATA_HOME": str(root / "xdg-data"),
+            "XDG_CACHE_HOME": str(root / "xdg-cache"),
+            "XDG_STATE_HOME": str(root / "xdg-state"),
+            "OPENCODE_TEST_HOME": str(root / "home"),
+            "OPENCODE_DISABLE_PROJECT_CONFIG": "1",
+            "OPENCODE_DISABLE_AUTOUPDATE": "1",
+            "TEMP": str(root / "tmp"),
+            "TMP": str(root / "tmp"),
+            "TMPDIR": str(root / "tmp"),
+        }
+        # Preserve existing provider configuration as a read-only overlay;
+        # credentials continue to come from the user's configured env/auth.
+        if config_file is not None and not os.environ.get("OPENCODE_CONFIG"):
+            env["OPENCODE_CONFIG"] = str(config_file)
+        return env
 
     def available(self) -> bool:
         return Path(self.executable).is_file() or which(self.executable) is not None
@@ -418,7 +507,8 @@ class OpenCodeAdapter(HarnessAdapter):
                 }
             },
         }
-        (workdir / "opencode.json").write_text(
+        self.config_dir.mkdir(parents=True, exist_ok=True)
+        (self.config_dir / "opencode.json").write_text(
             json.dumps(config, indent=2) + "\n", encoding="utf-8"
         )
 
