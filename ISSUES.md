@@ -222,8 +222,8 @@ resumed.
 
 ### GitHub issue #3 - One D:-resident OpenCode runtime and bounded worktree lifecycle
 
-- **Status:** open; the cause is confirmed and the targeted runtime/workspace
-  fix is under implementation.
+- **Status:** reopened for a narrow follow-up after PR #4's post-merge audit
+  found two legacy replay entrypoints still selecting NVM/PATH OpenCode.
 - **Cause:** the long-horizon runner copied the tracked `.opencode` control
   directory into every arm/mode/task workspace. OpenCode v1.18.31 installs
   `@opencode-ai/plugin` into every discovered config directory, multiplying
@@ -259,6 +259,19 @@ resumed.
   with PR-only merges and no admin bypass. Publish each verified checkpoint,
   and merge it before the next independent slice; raw/private artifacts
   remain local.
+- **Post-merge cleanup (2026-09-23):** all nine registered HOS worktrees on
+  C: were removed after auditing exact targets. Dirty changes from the three
+  unique dirty worktree states were backed up and hash-verified outside the
+  repository on D:. All 74 generated `.opencode/node_modules` trees under
+  `.controller-runs` were pruned with npm; controller-run records and outputs
+  were preserved, and verification found no remaining
+  `@opencode-ai/plugin` package. D: free space increased by 46.59 GiB during
+  the 74-tree cleanup. The canonical checkout is back on merged `main` with
+  the owner's preexisting uncommitted changes preserved.
+- **Follow-up:** `research/run_opencode_morph.py` and
+  `research/run_opencode_replay.py` now resolve the adapter's shared pinned
+  executable instead of selecting the NVM/PATH install. The required CI/PR
+  gate is active and verified on `main`.
 
 ## Rules for future issues
 

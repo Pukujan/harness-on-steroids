@@ -3,8 +3,9 @@ from __future__ import annotations
 import os
 from pathlib import Path
 
+from research import run_opencode_morph, run_opencode_replay
 from research.run_jev_long_ab import _clone_workspace
-from src.hos.controller.adapters import OpenCodeAdapter
+from src.hos.controller.adapters import OpenCodeAdapter, default_opencode_executable
 
 
 def test_task_workspace_clone_excludes_reproducible_runtime_state(tmp_path: Path) -> None:
@@ -88,3 +89,10 @@ def test_windows_opencode_default_is_repo_owned_not_nvm() -> None:
     assert Path(adapter.executable) == (
         Path(__file__).resolve().parents[1] / ".tools" / "opencode" / "opencode.exe"
     )
+
+
+def test_research_entrypoints_use_the_shared_opencode_runtime() -> None:
+    expected = default_opencode_executable()
+
+    assert run_opencode_morph.OPENCODE == expected
+    assert run_opencode_replay.OPENCODE == expected

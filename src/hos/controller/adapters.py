@@ -22,7 +22,7 @@ OPENCODE_VERSION = (REPO_ROOT / "tools" / "opencode-version.txt").read_text(
 ).strip()
 
 
-def _default_opencode_executable() -> str:
+def default_opencode_executable() -> str:
     """Use the one repository-owned runtime instead of an ambient install."""
 
     if os.name == "nt":
@@ -390,14 +390,9 @@ def _windows_node_command(name: str, fallback: str) -> str:
     if configured:
         return configured
     if os.name == "nt":
-        candidates = (
-            (Path(r"C:\nvm4w\nodejs\node_modules\opencode-ai\bin\opencode.exe"),)
-            if name == "opencode"
-            else (Path(rf"C:\nvm4w\nodejs\{name}.cmd"),)
-        )
-        for candidate in candidates:
-            if candidate.is_file():
-                return str(candidate)
+        candidate = Path(rf"C:\nvm4w\nodejs\{name}.cmd")
+        if candidate.is_file():
+            return str(candidate)
     return which(fallback) or fallback
 
 
@@ -414,7 +409,7 @@ class OpenCodeAdapter(HarnessAdapter):
         runtime_root: Path | None = None,
         config_source: Path | None = None,
     ) -> None:
-        self.executable = executable or _default_opencode_executable()
+        self.executable = executable or default_opencode_executable()
         self.model = model or os.environ.get("OPENCODE_MODEL", "")
         self.runtime_root = runtime_root or REPO_ROOT / ".harness-cache" / "opencode"
         self.config_source = config_source or REPO_ROOT / ".opencode"
