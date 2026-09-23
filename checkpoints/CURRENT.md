@@ -1,8 +1,21 @@
 # Current
 
-Updated: 2026-09-22
+Updated: 2026-09-23
 Plan status: **owner accepted / frozen operating direction**
 Owner spec: spec/owner.v2.json
+
+## Repository durability checkpoint — Issue #3
+
+The storage/worktree remediation is tracked separately from the active Issue
+23 experiment. `main` previously had no branch protection; the prior CI ran a
+manually maintained subset of tests, and its latest run failed because the
+handoff omitted the Issue #2 owner-contract reference. The replacement CI
+defines separate lint, type-check, complete Linux and Windows test-suite, and
+checkpoint-record checks. Pull requests to `main` must update this file;
+branch protection must require all five checks and a current base before
+merge. Verified, publishable checkpoints are to be pushed as issue branches
+and merged before advancing to the next independent slice. Raw/private
+artifacts remain local.
 
 ## Active experiment
 

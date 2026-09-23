@@ -232,11 +232,16 @@ def test_pi_yolo_model_writes_project_local_provider_config(tmp_path: Path, monk
 
 def test_opencode_local_model_writes_isolated_provider_config(tmp_path: Path, monkeypatch) -> None:
     monkeypatch.setenv("LOCAL_MODEL_BASE_URL", "http://100.79.248.88:8080/v1")
-    adapter = OpenCodeAdapter(executable="opencode-test", model="local-bonsai/bonsai")
+    adapter = OpenCodeAdapter(
+        executable="opencode-test",
+        model="local-bonsai/bonsai",
+        runtime_root=tmp_path / "runtime",
+    )
 
     adapter.prepare_workdir(tmp_path)
 
-    config = json.loads((tmp_path / "opencode.json").read_text(encoding="utf-8"))
+    config = json.loads((adapter.config_dir / "opencode.json").read_text(encoding="utf-8"))
+    assert not (tmp_path / "opencode.json").exists()
     assert config["provider"]["local-bonsai"]["options"]["baseURL"].endswith("/v1")
     assert config["provider"]["local-bonsai"]["options"]["timeout"] == 7200000
     assert config["provider"]["local-bonsai"]["options"]["chunkTimeout"] == 120000

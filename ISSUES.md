@@ -220,6 +220,46 @@ resumed.
   `reports/replay-scores.md`, whose OpenCode column is flagged contaminated for those 11
   in `reports/versions/v66/README.md`.
 
+### GitHub issue #3 - One D:-resident OpenCode runtime and bounded worktree lifecycle
+
+- **Status:** open; the cause is confirmed and the targeted runtime/workspace
+  fix is under implementation.
+- **Cause:** the long-horizon runner copied the tracked `.opencode` control
+  directory into every arm/mode/task workspace. OpenCode v1.18.31 installs
+  `@opencode-ai/plugin` into every discovered config directory, multiplying
+  the same reproducible dependency tree. One observed tree had about 52.5 MiB
+  logical data but about 930 MiB allocated on D:'s 256 KiB-cluster exFAT
+  volume. This is distinct from the much larger retained controller-run
+  folders.
+- **Worktree finding:** nine Codex-managed HOS worktrees were under the C:
+  profile; all were detached at commits already reachable from D:'s `main`.
+  Six were clean. Three had dirty changes that must be preserved on D: before
+  removal. The D: checkout was at `origin/main` with separate uncommitted owner
+  work. Do not mistake pushing a Git commit for deleting its worktree folder.
+- **Policy:** routine HOS work uses the canonical D: checkout. Use a temporary
+  D: worktree only for a concrete isolation/concurrency need. Validate and
+  publish durable non-private changes, update the canonical checkout after
+  merge, then retire the temporary worktree only after its changes are merged
+  or explicitly archived. The repository cannot set Codex's app-level
+  worktree root; select the current checkout unless a D: path is verified.
+- **Runtime fix:** one pinned portable Windows executable at
+  `.tools/opencode/opencode.exe`; one shared ignored
+  `.harness-cache/opencode/` for control config and generated plugin
+  dependencies; D:-resident OpenCode data/cache/state/temp; no per-workspace
+  `.opencode`, `node_modules`, or `.venv`. Keep shared NVM installs belonging
+  to other tools/projects untouched. Never copy credentials into the shared
+  config cache or commit local experiment evidence.
+- **Acceptance:** tests establish that cloned workspaces exclude reproducible
+  dependencies and that OpenCode uses the same shared D: paths; the exact HOS
+  C: worktrees and generated dependency trees are audited, dirty changes are
+  preserved on D:, and cleanup is verified without touching other projects.
+- **Publication gate:** every checkpoint pull request updates
+  `checkpoints/CURRENT.md`; `main` requires passing `lint`, `typecheck`, full
+  Linux `tests`, full Windows `windows-tests`, and `checkpoint-record` checks,
+  with PR-only merges and no admin bypass. Publish each verified checkpoint,
+  and merge it before the next independent slice; raw/private artifacts
+  remain local.
+
 ## Rules for future issues
 
 - Keep only a small number of active issues.

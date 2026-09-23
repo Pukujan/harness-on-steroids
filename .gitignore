@@ -29,3 +29,5 @@ Thumbs.db
 .sol/
 .controller-runs/
 data/provenance/
+/.tools/opencode/
+/.harness-cache/opencode/

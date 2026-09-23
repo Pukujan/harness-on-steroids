@@ -47,6 +47,7 @@ from src.hos.controller import (  # noqa: E402
 from src.hos.controller.adapters import (  # noqa: E402
     HARNESS_MAX_RUNTIME_SECONDS,
     HARNESS_INACTIVITY_TIMEOUT_SECONDS,
+    OPENCODE_VERSION,
     extract_session_id,
     extract_tool_seq,
 )
@@ -113,9 +114,11 @@ def _load_env(path: Path) -> None:
             os.environ[key.strip()] = value.strip().strip('"').strip("'")
 
 
-def _adapter(name: str) -> HarnessAdapter:
+def _adapter(
+    name: str, *, opencode_config_source: Path | None = None
+) -> HarnessAdapter:
     if name == "opencode":
-        return OpenCodeAdapter()
+        return OpenCodeAdapter(config_source=opencode_config_source)
     if name == "grok-build":
         return GrokBuildAdapter()
     if name == "pi":
@@ -225,7 +228,12 @@ def _materialize_seed(seed: Path) -> None:
 
 def _clone_workspace(destination: Path, seed: Path) -> None:
     destination.parent.mkdir(parents=True, exist_ok=True)
-    shutil.copytree(seed, destination)
+    excluded = {".opencode", "node_modules", ".venv"}
+
+    def ignore_reproducible_state(_: str, names: list[str]) -> set[str]:
+        return {name for name in names if name.casefold() in excluded}
+
+    shutil.copytree(seed, destination, ignore=ignore_reproducible_state)
 
 
 def _new_context(
@@ -520,6 +528,7 @@ def _model_config() -> dict[str, str]:
     return {
         "jev_model": os.environ.get("JEV_OPENROUTER_MODEL", "typesafe/jev-1.13"),
         "opencode_model": os.environ.get("OPENCODE_MODEL", "configured-default"),
+        "opencode_version": OPENCODE_VERSION,
         "pi_model": os.environ.get("PI_MODEL", "configured-default"),
         "grok_build_model": os.environ.get("GROK_BUILD_MODEL", "configured-default"),
         "grok_build_max_turns": os.environ.get("GROK_BUILD_MAX_TURNS", "configured-default"),
@@ -670,7 +679,10 @@ def run_experiment(
     task_summaries: list[dict[str, Any]] = []
     turn_rows: list[dict[str, Any]] = []
     for adapter_name in adapter_names:
-        adapter = _adapter(adapter_name)
+        adapter = _adapter(
+            adapter_name,
+            opencode_config_source=seed / ".opencode" if adapter_name == "opencode" else None,
+        )
         for task_hash in task_hashes:
             if not by_task[task_hash]:
                 continue

@@ -28,7 +28,9 @@ def test_dropping_reference_evidence_snippet_is_caught(tmp_path: Path, monkeypat
     fake_agents.write_text(mutated, encoding="utf-8")
     monkeypatch.setattr(
         "src.owner_invariants.read_doc",
-        lambda name: fake_agents.read_text(encoding="utf-8") if name == "AGENTS.md" else _real(name),
+        lambda name: (
+            fake_agents.read_text(encoding="utf-8") if name == "AGENTS.md" else _real(name)
+        ),
     )
     assert check_snippets_contains(spec), "removing reference-evidence clause must fail"
 

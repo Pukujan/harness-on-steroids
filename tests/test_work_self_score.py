@@ -1,5 +1,6 @@
-from src.score_session import map_work_seq, score_seq
 from pathlib import Path
+
+from src.score_session import map_work_seq, score_seq
 
 ROOT = Path(__file__).resolve().parents[1]
 
