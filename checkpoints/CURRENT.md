@@ -17,16 +17,20 @@ merge. Verified, publishable checkpoints are to be pushed as issue branches
 and merged before advancing to the next independent slice. Raw/private
 artifacts remain local.
 
-The initial storage/runtime checkpoint merged as PR #4 on 2026-09-23. The
-post-merge audit removed the audited HOS worktrees from C: after backing up
-dirty content on D:, and pruned 74 per-run OpenCode plugin dependency trees
-without deleting their run records. A follow-up audit found two legacy replay
-entrypoints still selecting the NVM/PATH executable. Issue #3 was reopened for
-this narrow correction. This checkpoint makes the replay scripts use the
-adapter's single pinned runtime and adds a regression test. Exact next action:
-run the required CI checks and merge this follow-up PR before advancing to the
-next independent slice. The canonical D: checkout has separate uncommitted
-owner changes; leave them untouched.
+The storage/runtime remediation is complete and merged as PR #4 and follow-up
+PR #5 on 2026-09-23. All nine registered HOS worktrees on C: were retired
+after preserving and hash-verifying unique dirty work on D:. All 74 generated
+per-run OpenCode plugin dependency trees were pruned while retaining controller
+run records and results; D: free space increased by 46.59 GiB during this
+cleanup. PR #5 routed both legacy replay scripts through the same pinned
+repo-owned OpenCode executable and passed `lint`, `typecheck`, `tests`,
+`windows-tests`, and `checkpoint-record`. Main's required PR checks and
+no-bypass protection are active. The existing user-level NVM installation was
+left untouched; HOS no longer selects it. No storage/runtime work remains.
+
+Exact next action: follow the active experiment's `Next action` section below.
+The canonical D: checkout is on the merged `main`; its separate uncommitted
+owner changes are preserved and must remain untouched.
 
 ## Active experiment
 
