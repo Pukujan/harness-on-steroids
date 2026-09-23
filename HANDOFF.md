@@ -122,11 +122,16 @@ Fresh run `jev-long-ab-advisory-20260922-v4` was stopped before interpretation
 after the first end-to-end handoff still included Windows cleanup overhead. The
 default is now 2 minutes so observed silent-turn handoffs remain within the
 owner's 2–3 minute maximum; v4 remains excluded.
-Fresh run `jev-long-ab-advisory-20260922-v5` is now active under the final
-120-second inactivity policy and process-tree cleanup. It is the only eligible
-run; v2 through v4 remain excluded. A silent baseline child in v5 was
-terminated after the two-minute boundary while its parent continued, confirming
-the kill-and-continue path; the aggregate is still pending.
+Fresh run `jev-long-ab-advisory-20260922-v5` was launched under the final
+120-second inactivity policy and process-tree cleanup. It was paused by the
+owner at approximately 20:11 before its aggregate report was written; v2
+through v4 remain excluded, and v5 is liveness evidence only. The last observed
+child was fixture `633c140546c0`, Jev turn 4, started at 20:09:16. The complete
+process tree was stopped intentionally because the session had become too old;
+no v5 behavioral interpretation is valid. Its ignored raw directory remains
+local and must not be committed or mixed into a future aggregate. A fresh
+session should begin by reading `checkpoints/CURRENT.md`, this file, and Issue
+22, then choose a new run ID or a smaller bounded validation slice.
 
 ## Active issue
 

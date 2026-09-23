@@ -258,8 +258,9 @@ default is now 120 seconds so observed handoffs stay within the owner's 2–3
 minute maximum; both partial runs remain excluded.
 
 Fresh run `jev-long-ab-advisory-20260922-v5` was launched at 18:20 with the
-same 60-turn matched configuration. It is the only run eligible for
-interpretation; its aggregate is pending. Its first silent baseline child
+same 60-turn matched configuration. It was the only run eligible for later
+interpretation, but the owner paused this stale session at approximately 20:11
+before its aggregate report was written. Its first silent baseline child
 transitioned to baseline turn 2 at 18:25 under the 120-second policy, an
 approximately 2:38 end-to-end handoff.
 During baseline turn 4, the child became silent after 18:29:20 and was gone by
@@ -267,7 +268,15 @@ During baseline turn 4, the child became silent after 18:29:20 and was gone by
 inactivity kill-and-continue path. A second silent baseline handoff, from turn
 1 at 18:40:38 to turn 2 at 18:43:18, took approximately 2:40 end-to-end and
 also stayed within the owner's 2–3 minute boundary. The aggregate is still
-pending.
+pending and v5 must not be interpreted as a completed A/B.
+
+The last observed v5 child was `633c140546c0` Jev turn 4, started at 20:09:16;
+the owner then stopped the complete process tree at approximately 20:11 to
+avoid carrying this long session forward. No v5 report exists. The raw ignored
+run directory remains local for diagnostics, but it is not evidence and must
+not be mixed into a future aggregate. The next action is to start a fresh
+session, reread this checkpoint and `HANDOFF.md`, then decide whether to resume
+Issue 22 with a new run ID or run a smaller bounded validation slice first.
 
 ## Long-horizon A/B contract
 

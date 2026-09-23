@@ -141,10 +141,14 @@ artifacts into the aggregate. Fresh
 run `jev-long-ab-advisory-20260922-v4` was stopped before interpretation after
 the first end-to-end handoff still included Windows cleanup overhead. The
 default is now 2 minutes; keep v4 excluded.
-Fresh run `jev-long-ab-advisory-20260922-v5` is now active under the final
-120-second policy and is the only run eligible for interpretation. V5 has also
-verified a silent-child termination after the two-minute boundary with the
-experiment parent continuing; its aggregate remains pending.
+Fresh run `jev-long-ab-advisory-20260922-v5` was run under the final 120-second
+policy and process-tree cleanup, but the owner paused it at approximately 20:11
+before the aggregate report was written. V5 verified repeated silent-child
+termination and parent continuation, so it is liveness evidence only. Its last
+observed child was fixture `633c140546c0`, Jev turn 4; v2 through v5 remain
+excluded from behavioral interpretation. Keep the ignored raw directory local,
+do not mix it into a future aggregate, and use a fresh run ID when Issue 22 is
+resumed.
 
 ### Issue 23 - Reusable analytical machine v0
 

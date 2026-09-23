@@ -583,3 +583,10 @@ launch-blocked runs.
   repeated transition remains within the owner's 2–3 minute maximum and again
   confirms process-tree cleanup plus parent continuation; no task-quality
   interpretation is valid until the aggregate report is written.
+- At approximately 20:11 the owner paused the long v5 session to avoid carrying
+  a stale conversation forward. The last observed child was fixture
+  `633c140546c0`, Jev turn 4, started at 20:09:16; the complete Windows process
+  tree was intentionally terminated and no aggregate report existed. This is
+  not a behavioral failure or a completed A/B result: v5 remains liveness-only,
+  its ignored raw directory remains local diagnostics, and a future Issue 22
+  continuation must use a fresh run ID.
