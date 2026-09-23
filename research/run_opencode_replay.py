@@ -8,7 +8,6 @@ import subprocess
 import sys
 import threading
 from pathlib import Path
-from shutil import which
 
 ROOT = Path(__file__).resolve().parents[1]
 sys.path.insert(0, str(ROOT))
@@ -21,14 +20,9 @@ from research.replay_lib import (  # noqa: E402
     tool_seq,
     user_turns,
 )
+from src.hos.controller.adapters import default_opencode_executable  # noqa: E402
 
-_EXE = Path(r"C:\nvm4w\nodejs\node_modules\opencode-ai\bin\opencode.exe")
-_CMD = Path(r"C:\nvm4w\nodejs\opencode.cmd")
-OPENCODE = (
-    str(_EXE)
-    if _EXE.is_file()
-    else (str(_CMD) if _CMD.is_file() else (which("opencode") or "opencode"))
-)
+OPENCODE = default_opencode_executable()
 
 
 def already_done(dest: Path) -> bool:
@@ -143,8 +137,14 @@ def main() -> None:
     p = argparse.ArgumentParser()
     p.add_argument("hashes", nargs="*", help="hash12 list; default = pending develop")
     p.add_argument("--max-turns", type=int, default=1)
-    p.add_argument("--model", default="", help="opencode --model override, e.g. openrouter/inclusionai/ling-3.0-flash-fin:free")
-    p.add_argument("--extra", action="store_true", help="one more -c turn even if tools already exist")
+    p.add_argument(
+        "--model",
+        default="",
+        help="opencode --model override, e.g. openrouter/inclusionai/ling-3.0-flash-fin:free",
+    )
+    p.add_argument(
+        "--extra", action="store_true", help="one more -c turn even if tools already exist"
+    )
     p.add_argument("--turn", type=int, default=0, help="1-based user turn; implies -c when >1")
     args = p.parse_args()
     want = args.hashes or develop_hashes()

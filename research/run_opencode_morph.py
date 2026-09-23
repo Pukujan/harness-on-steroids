@@ -7,19 +7,13 @@ import subprocess
 import sys
 import threading
 from pathlib import Path
-from shutil import which
 
 ROOT = Path(__file__).resolve().parents[1]
 sys.path.insert(0, str(ROOT))
 from research.replay_lib import REPLAY, tool_seq  # noqa: E402
+from src.hos.controller.adapters import default_opencode_executable  # noqa: E402
 
-_EXE = Path(r"C:\nvm4w\nodejs\node_modules\opencode-ai\bin\opencode.exe")
-_CMD = Path(r"C:\nvm4w\nodejs\opencode.cmd")
-OPENCODE = (
-    str(_EXE)
-    if _EXE.is_file()
-    else (str(_CMD) if _CMD.is_file() else (which("opencode") or "opencode"))
-)
+OPENCODE = default_opencode_executable()
 
 
 def run_morph(h: str, model: str = "") -> str:

@@ -17,6 +17,17 @@ merge. Verified, publishable checkpoints are to be pushed as issue branches
 and merged before advancing to the next independent slice. Raw/private
 artifacts remain local.
 
+The initial storage/runtime checkpoint merged as PR #4 on 2026-09-23. The
+post-merge audit removed the audited HOS worktrees from C: after backing up
+dirty content on D:, and pruned 74 per-run OpenCode plugin dependency trees
+without deleting their run records. A follow-up audit found two legacy replay
+entrypoints still selecting the NVM/PATH executable. Issue #3 was reopened for
+this narrow correction. This checkpoint makes the replay scripts use the
+adapter's single pinned runtime and adds a regression test. Exact next action:
+run the required CI checks and merge this follow-up PR before advancing to the
+next independent slice. The canonical D: checkout has separate uncommitted
+owner changes; leave them untouched.
+
 ## Active experiment
 
 Issue 23 - **Reusable analytical machine v0**
