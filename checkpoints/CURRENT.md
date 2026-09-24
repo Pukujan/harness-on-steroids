@@ -6,8 +6,8 @@ Owner spec: spec/owner.v2.json
 
 ## Repository durability checkpoint — Issue #3
 
-The storage/worktree remediation is tracked separately from the active Issue
-23 experiment. `main` previously had no branch protection; the prior CI ran a
+The storage/worktree remediation is tracked separately from active GitHub
+issue #7. `main` previously had no branch protection; the prior CI ran a
 manually maintained subset of tests, and its latest run failed because the
 handoff omitted the Issue #2 owner-contract reference. The replacement CI
 defines separate lint, type-check, complete Linux and Windows test-suite, and
@@ -34,27 +34,46 @@ owner changes are preserved and must remain untouched.
 
 ## Active experiment
 
-Issue 23 - **Reusable analytical machine v0**
+GitHub issue #7 - **Automate issue-backed checkpoint publishing and worktree closeout**
 
-Purpose: build and immediately exercise a repeatable, exportable,
-body-minimized analysis machine over separate Codex execution and ChatGPT
-chat/research lanes, while preserving one shared evidence contract.
+Purpose: agents publish only issue branches, open/update linked PRs, and let
+GitHub merge asynchronously after its five required checks pass. A local D:
+coordinator confirms the merge, fast-forwards the canonical checkout, and
+retires only clean, merged task worktrees.
 
 ## Current hypothesis
 
-A small deterministic normalizer plus lane-specific analyzers can expose more
-useful transcript evidence than tool-order scoring alone, provided that event
-identity, missing-data policy, provenance, ontology version, and analyzer
-version are explicit. The first implementation must remain tables-and-JSONL;
-graph/database/dashboard machinery is deferred until a measured question needs
-it.
+An idempotent local publisher/reconciler that delegates merge authority to
+protected GitHub checks can remove routine checkpoint work without weakening
+privacy, issue linkage, or dirty-work preservation. The first implementation
+uses the existing `gh` and `git` tools; it adds no general workflow service or
+database.
+
+## Last verified Issue #7 implementation result
+
+`src/hos/checkpoint_publisher.py` and `tools/checkpoint.py` implement the local
+publish/reconcile path. Publication validates the issue and required branch
+protection, freezes the issue body by digest, stages only explicit paths,
+rejects private/generated artifacts and common credential formats, and opens
+or updates the linked PR. An eligible PR is queued for GitHub auto-merge and
+returns `pending_ci_merge` while checks run. Reconciliation verifies the
+confirmed merge and validates the exact clean worktree before fast-forwarding
+or cleanup; dirty or ambiguous work is preserved.
+
+The focused publisher/CI-contract suites pass (52 checks). The complete
+Windows test suite passes (225 passed, 4 skipped); the four skipped checks
+require the ignored local replay corpus, which is absent from this worktree.
+Repository-wide Ruff and mypy pass.
+The real GitHub-backed CLI dry-run returned `would_publish` without committing,
+pushing, or creating a PR. The work remains uncommitted and unpublished.
 
 ## Last verified analytical-machine result — 2026-09-22
 
-The first reusable slice is implemented in `src/hos/analysis_machine/` with
-Codex and ChatGPT JSONL adapters, body-free canonical events, separate lane
-summaries, deterministic export, contract validation, and focused tests. The
-durable plan and bead ledger are `docs/analytical-machine-v0-plan.md`.
+The completed local research track formerly labeled “Issue 23” is implemented
+in `src/hos/analysis_machine/` with Codex and ChatGPT JSONL adapters, body-free
+canonical events, separate lane summaries, deterministic export, contract
+validation, and focused tests. The durable plan and bead ledger are
+`docs/analytical-machine-v0-plan.md`.
 
 The first bounded pilot used one Codex session and one ChatGPT provenance
 conversation: 5,525 events across three episodes, zero parse errors, zero
@@ -70,6 +89,13 @@ used a 600,000-ID cap and found zero duplicate IDs and zero validation issues.
 28,565 events remained unknown and zero parse errors were observed. The summary-only output
 is local and ignored; its committed aggregate interpretation is
 `reports/analysis-machine-full-corpus-20260922.md`.
+
+The owner approved the structural packet and operating rules on 2026-09-22;
+this did not promote an ontology category. The former local “Issue 22” Jev
+advisory follow-up is paused: the later attempts have no valid aggregate and
+are not behavioral evidence. These two labels are historical local research
+tracks, not GitHub issues. GitHub #2 remains open for the multi-harness
+baseline and is queued behind the issue #7 merge/reconciliation gate.
 
 The current provider boundary is explicit: Sol is CKFF-only through the local
 Sol worker, while Luna is native Codex/ChatGPT subagent-only and never CKFF.
@@ -101,7 +127,7 @@ On resume, the packet was revalidated: 24 pilot episodes remain balanced at
 the packet contains no body-bearing keys or holdout rows. Focused analysis and
 packet tests pass (13 tests), and Ruff is clean.
 
-## Completed Issue 22 baseline
+## Completed local research-track 22 baseline
 
 Issue 22's clean matched A/B is complete. Its Jev policy was not promoted;
 the result remains preserved below as historical controller evidence.
@@ -228,17 +254,14 @@ tested loop mechanics and fallback, not observation-derived coding decisions.
 
 ## Next action
 
-For Issue 23, the lane-balanced structural annotation packet is prepared and
-verified at `data/derived/analysis-machine/ontology-review-packet-v3/`.
-The next required action is owner/human adjudication of that packet using
-`spec/analysis-codebook-v0.md`; model annotations remain advisory. Keep
-quality, UX, outcome, provenance-correctness, and planning labels abstained
-until their evidence surface is defined. Preserve the sealed-holdout result as
-report-only verification; do not add a graph database or dashboard yet.
-
-The Jev low-confidence advisory follow-up remains preserved as the next Jev
-experiment after this measurement substrate is verified; do not silently
-combine the two hypotheses.
+Publish this verified issue #7 checkpoint from
+`codex/issue-7-checkpoint-automation` with the exact changed-path list. The
+publisher must commit/push only this issue branch, open the linked PR, enable
+repository auto-merge, and return `pending_ci_merge` without waiting for CI.
+After GitHub confirms the merge, reconcile from the canonical D: checkout. Its
+pre-existing owner edits must be preserved and reported if they prevent a
+fast-forward or worktree cleanup. Issue #2 remains queued until this checkpoint
+is merged and reconciled; the behavioral holdout remains closed.
 
 ## Harness timeout reliability policy — 2026-09-22
 
@@ -308,9 +331,9 @@ The last observed v5 child was `633c140546c0` Jev turn 4, started at 20:09:16;
 the owner then stopped the complete process tree at approximately 20:11 to
 avoid carrying this long session forward. No v5 report exists. The raw ignored
 run directory remains local for diagnostics, but it is not evidence and must
-not be mixed into a future aggregate. The next action is to start a fresh
-session, reread this checkpoint and `HANDOFF.md`, then decide whether to resume
-Issue 22 with a new run ID or run a smaller bounded validation slice first.
+not be mixed into a future aggregate. This local research track is paused;
+these historical run notes do not authorize a new run. GitHub issue #7 is the
+active work item, with issue #2 queued behind its merge/reconciliation gate.
 
 ## Long-horizon A/B contract
 
@@ -354,15 +377,16 @@ in the same slice where technically possible.
 
 Record exact model/provider/harness/control version and capture all observable interaction, tool/result, wait/failure, verification/provenance, output, continuity, and outcome signals that each harness exposes.
 
-The next v2 slice is authorized by the measured Issue 22 result. Keep the
-completed baseline for comparison and change only low-confidence fallback
-handling in the first follow-up run.
+Historical v2 plan: the next slice was authorized by the measured local
+research-track 22 result. The later advisory attempts produced no valid
+aggregate, so this is not current run authorization. GitHub issue #7 is active;
+issue #2 follows after its merge/reconciliation gate.
 
 Historical v1 baseline: **Baseline multi-harness Work behavior replay**.
 Historical v1 baseline contract: **Do not change prompts/control before this baseline.**
 The old slice also stated: **Do not build a general state machine or protocol framework in this slice.** Those sentences remain here as the
-preserved v1 baseline boundary; Issue 21 is the separately authorized v2
-experiment.
+preserved v1 baseline boundary; the research track formerly labeled 21 was a
+separate v2 experiment and is not current authorization.
 
 ## Stop condition for this slice
 
