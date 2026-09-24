@@ -39,11 +39,17 @@ Historical needle retained for old regression tests: 18. Repo modules, lint, typ
 
 ## Active GitHub work
 
-- **GitHub issue #7 (active):** automate issue-backed checkpoint publishing,
-  asynchronous PR auto-merge after required checks, and safe local worktree
-  closeout. Its frozen scope and acceptance criteria are on GitHub.
-- **GitHub issue #2 (queued):** run the first Pi/OpenCode/Grok Build baseline
-  after issue #7's merge and local reconciliation gate.
+- **GitHub issue #7 (complete):** the checkpoint publisher, asynchronous
+  auto-merge, and safe local worktree closeout were implemented in PR #8.
+  PR #8 passed all five required checks, merged on 2026-09-24, and its local
+  reconciliation completed at merge commit
+  `cd8abd0a92514ed2d6ec8275e5874b9ac4c23e79`.
+- **GitHub issue #9 (handoff correction):** repair the stale post-merge
+  checkpoint pointers left by PR #8. This is documentation and continuity
+  work, not a new behavioral experiment.
+- **GitHub issue #2 (next experiment):** run the first Pi/OpenCode/Grok Build
+  baseline after issue #9's checkpoint PR merges. No control intervention is
+  authorized during that baseline.
 
 ## Historical local research tracks (these are not GitHub issues)
 
