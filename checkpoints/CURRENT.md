@@ -1,13 +1,14 @@
 # Current
 
-Updated: 2026-09-23
+Updated: 2026-09-24
 Plan status: **owner accepted / frozen operating direction**
 Owner spec: spec/owner.v2.json
 
 ## Repository durability checkpoint — Issue #3
 
-The storage/worktree remediation is tracked separately from active GitHub
-issue #7. `main` previously had no branch protection; the prior CI ran a
+The storage/worktree remediation is tracked separately from GitHub
+issue #7, which is now complete. `main` previously had no branch protection;
+the prior CI ran a
 manually maintained subset of tests, and its latest run failed because the
 handoff omitted the Issue #2 owner-contract reference. The replacement CI
 defines separate lint, type-check, complete Linux and Windows test-suite, and
@@ -28,26 +29,37 @@ repo-owned OpenCode executable and passed `lint`, `typecheck`, `tests`,
 no-bypass protection are active. The existing user-level NVM installation was
 left untouched; HOS no longer selects it. No storage/runtime work remains.
 
-Exact next action: follow the active experiment's `Next action` section below.
-The canonical D: checkout is on the merged `main`; its separate uncommitted
-owner changes are preserved and must remain untouched.
+The canonical D: checkout is reconciled to PR #8's merge commit
+`cd8abd0a92514ed2d6ec8275e5874b9ac4c23e79`. The merged issue #7 task worktree
+was clean and has been retired. Pre-existing owner changes were archived
+locally before reconciliation and remain outside the repository.
 
-## Active experiment
+## Completed checkpoint automation — GitHub issue #7
 
-GitHub issue #7 - **Automate issue-backed checkpoint publishing and worktree closeout**
+GitHub issue #7, **Automate issue-backed checkpoint publishing and worktree
+closeout**, is complete. PR #8 merged on 2026-09-24 as
+`cd8abd0a92514ed2d6ec8275e5874b9ac4c23e79`; all five required checks passed.
+Repository auto-merge is enabled, `main` requires an up-to-date branch, and
+administrators are subject to branch protection. The publisher/reconciler
+confirmed the merge, fast-forwarded the canonical D: checkout, removed the
+clean merged task worktree, and marked PR #8's durable closeout state
+`complete`.
 
-Purpose: agents publish only issue branches, open/update linked PRs, and let
-GitHub merge asynchronously after its five required checks pass. A local D:
-coordinator confirms the merge, fast-forwards the canonical checkout, and
-retires only clean, merged task worktrees.
+The implementation is in `src/hos/checkpoint_publisher.py`,
+`tools/checkpoint.py`, and `docs/checkpoint-publisher.md`. The publisher commits
+only explicitly selected safe paths on an issue branch, creates or updates
+the linked PR, queues auto-merge, and reports pending CI asynchronously. The
+local reconciler updates the canonical checkout only after GitHub confirms a
+protected merge and retires only a clean, merged D: task worktree. Owner-local
+changes were preserved separately and were not included in PR #8.
 
-## Current hypothesis
+## Next experiment — GitHub issue #2
 
-An idempotent local publisher/reconciler that delegates merge authority to
-protected GitHub checks can remove routine checkpoint work without weakening
-privacy, issue linkage, or dirty-work preservation. The first implementation
-uses the existing `gh` and `git` tools; it adds no general workflow service or
-database.
+Baseline 3–5 representative existing development tasks through Pi, OpenCode,
+and Grok Build with no control intervention. Capture comparable observable
+trajectories or explicit non-comparable reasons, identify the largest recurring
+deviations from Work references, and select exactly one smallest next control
+hypothesis. Keep the behavioral holdout sealed.
 
 ## Last verified Issue #7 implementation result
 
@@ -60,12 +72,12 @@ returns `pending_ci_merge` while checks run. Reconciliation verifies the
 confirmed merge and validates the exact clean worktree before fast-forwarding
 or cleanup; dirty or ambiguous work is preserved.
 
-The focused publisher/CI-contract suites pass (52 checks). The complete
-Windows test suite passes (225 passed, 4 skipped); the four skipped checks
-require the ignored local replay corpus, which is absent from this worktree.
-Repository-wide Ruff and mypy pass.
-The real GitHub-backed CLI dry-run returned `would_publish` without committing,
-pushing, or creating a PR. The work remains uncommitted and unpublished.
+The focused publisher/CI-contract suites passed (52 checks). The complete
+Windows suite passed (225 passed, 4 skipped because ignored local replay data
+was absent); repository-wide Ruff and mypy passed. A GitHub-backed dry-run
+returned `would_publish`. PR #8 then passed `lint`, `typecheck`, `tests`,
+`windows-tests`, and `checkpoint-record` and merged through auto-merge. Local
+reconciliation completed after the owner changes were safely archived.
 
 ## Last verified analytical-machine result — 2026-09-22
 
@@ -254,14 +266,15 @@ tested loop mechanics and fallback, not observation-derived coding decisions.
 
 ## Next action
 
-Publish this verified issue #7 checkpoint from
-`codex/issue-7-checkpoint-automation` with the exact changed-path list. The
-publisher must commit/push only this issue branch, open the linked PR, enable
-repository auto-merge, and return `pending_ci_merge` without waiting for CI.
-After GitHub confirms the merge, reconcile from the canonical D: checkout. Its
-pre-existing owner edits must be preserved and reported if they prevent a
-fast-forward or worktree cleanup. Issue #2 remains queued until this checkpoint
-is merged and reconciled; the behavioral holdout remains closed.
+Merge the documentation-only handoff correction tracked by issue #9 through
+the five required checks. Then begin GitHub issue #2: freeze 3–5 representative
+development fixtures and their acceptance/environment notes, keeping the Work
+holdout sealed. Before trusting the baseline, follow issue #2's replay hygiene
+precondition for the contaminated pre-v66 OpenCode traces. Run the unchanged
+current configuration through Pi, OpenCode, and Grok Build in the same slice
+where possible; capture comparable observable trajectories and outcomes, then
+select exactly one smallest next control hypothesis. Make no control
+intervention during the baseline.
 
 ## Harness timeout reliability policy — 2026-09-22
 
@@ -333,7 +346,8 @@ avoid carrying this long session forward. No v5 report exists. The raw ignored
 run directory remains local for diagnostics, but it is not evidence and must
 not be mixed into a future aggregate. This local research track is paused;
 these historical run notes do not authorize a new run. GitHub issue #7 is the
-active work item, with issue #2 queued behind its merge/reconciliation gate.
+completed work item, with issue #2 next after the issue #9 handoff-correction
+PR merges.
 
 ## Long-horizon A/B contract
 
@@ -379,8 +393,9 @@ Record exact model/provider/harness/control version and capture all observable i
 
 Historical v2 plan: the next slice was authorized by the measured local
 research-track 22 result. The later advisory attempts produced no valid
-aggregate, so this is not current run authorization. GitHub issue #7 is active;
-issue #2 follows after its merge/reconciliation gate.
+aggregate, so this is not current run authorization. GitHub issue #7 is
+complete; issue #2 is next after the issue #9 checkpoint PR merges and the
+owner starts that experiment.
 
 Historical v1 baseline: **Baseline multi-harness Work behavior replay**.
 Historical v1 baseline contract: **Do not change prompts/control before this baseline.**

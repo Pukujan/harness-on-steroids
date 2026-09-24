@@ -4,16 +4,26 @@
 
 ## Fresh-session entry point
 
-Follow `AGENTS.md`'s read order, then inspect GitHub issue #7 and
-`checkpoints/CURRENT.md`. GitHub issue **#7** is the active delivery-process
-work item. GitHub issue **#2** remains open for the multi-harness baseline and
-follows #7's merge/reconciliation gate. The former local labels #22 and #23
+Follow `AGENTS.md`'s read order, then inspect GitHub issue #2 and
+`checkpoints/CURRENT.md`. GitHub issue **#7** is complete: PR #8 merged and
+the canonical D: checkout and clean task worktree were reconciled. Issue #9
+tracks this post-merge handoff correction; start issue #2's multi-harness
+baseline after its correction PR merges. The former local labels #22 and #23
 are research-track labels, not GitHub issues.
 
 ## Current direction
 
-Use issue #7 for checkpoint publication, PR creation, async auto-merge after
-required checks, and safe local worktree reconciliation.
+Use the issue #7 checkpoint publisher for future issue-backed publication,
+PR creation, asynchronous auto-merge after required checks, and safe local
+worktree reconciliation. That delivery-process work is complete. The next
+behavior experiment is issue #2, with no control intervention in its baseline.
+
+PR #8 passed `lint`, `typecheck`, `tests`, `windows-tests`, and
+`checkpoint-record`, then merged as
+`cd8abd0a92514ed2d6ec8275e5874b9ac4c23e79`. The publisher confirmed the merge,
+fast-forwarded the canonical D: checkout, retired the clean merged task
+worktree, and marked the PR closeout state `complete`. Pre-existing owner
+changes were archived locally and were not included in the PR.
 
 The owner accepted the model- and harness-agnostic behavioral-control reset on **2026-09-21**.
 
@@ -146,20 +156,21 @@ session should begin with `checkpoints/CURRENT.md` and this file. This former
 local research track (historical label 22) is paused and does not authorize a
 new run.
 
-## Active GitHub issue #7
+## Completed GitHub issue #7
 
-Automate issue-backed checkpoint publishing, asynchronous PR merge after
-required checks, and safe local worktree closeout. Acceptance criteria:
-https://github.com/Pukujan/harness-on-steroids/issues/7. The implementation is
-on `codex/issue-7-checkpoint-automation` in the approved D: task worktree. The
-canonical checkout's pre-existing owner edits are preserved separately.
+Issue #7 and its implementation PR #8 are complete. The publisher, CLI,
+runbook, and failure-state tests are merged. The 52 focused publisher/CI
+checks, repository-wide Ruff and mypy, and GitHub-backed dry-run passed; the
+Windows suite reported 225 passed and four skips requiring ignored replay
+data. PR #8 passed all five required GitHub checks and merged as
+`cd8abd0a92514ed2d6ec8275e5874b9ac4c23e79`. Local reconciliation then
+fast-forwarded the canonical checkout and retired the clean merged task
+worktree. The owner-local edits were preserved separately and were not
+published.
 
-The publisher, CLI, runbook, and failure-state tests are drafted. Fifty-two
-focused publisher/CI-contract checks pass; the full Windows suite reports 225
-passed and four corpus-dependent skips because ignored replay data is absent
-from this worktree. Repository-wide Ruff and mypy and a real GitHub-backed
-dry-run pass. No commit or PR has been published yet; issue #2 remains queued
-until #7 merges and local state is reconciled.
+Issue #9 tracks the post-merge checkpoint-pointer correction. Issue #2 is the
+next behavior experiment after that correction PR merges; it starts with no
+control intervention and keeps the holdout sealed.
 
 The completed analytical-machine research track formerly labeled “Issue 23”
 produced a full structural pass and an owner-reviewed lane-balanced packet,
