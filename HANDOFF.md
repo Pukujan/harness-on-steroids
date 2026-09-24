@@ -4,7 +4,7 @@
 
 ## Fresh-session entry point
 
-Follow `AGENTS.md`'s read order, then inspect GitHub issue #2 and
+Follow `AGENTS.md`'s read order, then inspect GitHub issue **#2** and
 `checkpoints/CURRENT.md`. GitHub issue **#7** is complete: PR #8 merged and
 the canonical D: checkout and clean task worktree were reconciled. Issue #9
 tracks this post-merge handoff correction; start issue #2's multi-harness

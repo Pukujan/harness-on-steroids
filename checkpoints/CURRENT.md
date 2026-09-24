@@ -267,7 +267,7 @@ tested loop mechanics and fallback, not observation-derived coding decisions.
 ## Next action
 
 Merge the documentation-only handoff correction tracked by issue #9 through
-the five required checks. Then begin GitHub issue #2: freeze 3–5 representative
+the five required checks. Then begin GitHub issue **#2**: freeze 3–5 representative
 development fixtures and their acceptance/environment notes, keeping the Work
 holdout sealed. Before trusting the baseline, follow issue #2's replay hygiene
 precondition for the contaminated pre-v66 OpenCode traces. Run the unchanged
