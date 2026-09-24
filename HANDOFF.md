@@ -2,10 +2,18 @@
 
 **Owner precedence:** AGENTS.md -> PLAN.md -> checkpoints/CURRENT.md -> active GitHub issue -> HANDOFF.md -> ISSUES.md.
 
+## Fresh-session entry point
+
+Follow `AGENTS.md`'s read order, then inspect GitHub issue #7 and
+`checkpoints/CURRENT.md`. GitHub issue **#7** is the active delivery-process
+work item. GitHub issue **#2** remains open for the multi-harness baseline and
+follows #7's merge/reconciliation gate. The former local labels #22 and #23
+are research-track labels, not GitHub issues.
+
 ## Current direction
 
-GitHub issue **#2** remains the open multi-harness baseline work item; Issue 23
-is the separate active analytical-machine slice recorded in the checkpoint.
+Use issue #7 for checkpoint publication, PR creation, async auto-merge after
+required checks, and safe local worktree reconciliation.
 
 The owner accepted the model- and harness-agnostic behavioral-control reset on **2026-09-21**.
 
@@ -15,11 +23,11 @@ Normal development runs **Pi + OpenCode + Grok Build in the same slice** where t
 
 Kilo Codex v0 remains a positive-control baseline and historical proof that behavior prompting can materially improve a harness.
 
-## Analytical machine checkpoint — 2026-09-22
+## Completed analytical-machine research track — 2026-09-22
 
-The current bounded implementation slice is Issue 23, documented in
-`docs/analytical-machine-v0-plan.md` and tracked in `ISSUES.md`. The reusable
-module is `src/hos/analysis_machine/`.
+The completed local research track formerly labeled “Issue 23” is documented
+in `docs/analytical-machine-v0-plan.md` and `ISSUES.md`; it was not a GitHub
+issue. The reusable module is `src/hos/analysis_machine/`.
 
 It normalizes the imported Codex envelope JSONL and existing ChatGPT
 provenance normalized views into body-minimized, versioned `CanonicalEvent`
@@ -43,8 +51,9 @@ holdout checks are now recorded in
 `research/analysis-ontology-pilot-20260922.md`; no quality or outcome labels
 were promoted. AM-06b's larger pilot and advisory review are recorded in
 `research/analysis-ontology-pilot-v3-review-20260922.md`; the exact next action
-is owner/human adjudication of that source-linked structural batch. Do not
-build a graph database/dashboard yet.
+was owner-approved on 2026-09-22. This clears the packet-review gate without
+promoting ontology categories. Do not build a graph database/dashboard without
+a measured question.
 
 Sol reviewed the design through the repository's bounded CKFF worker. The
 useful warning was that deterministic output is not automatically valid:
@@ -133,15 +142,29 @@ child was fixture `633c140546c0`, Jev turn 4, started at 20:09:16. The complete
 process tree was stopped intentionally because the session had become too old;
 no v5 behavioral interpretation is valid. Its ignored raw directory remains
 local and must not be committed or mixed into a future aggregate. A fresh
-session should begin by reading `checkpoints/CURRENT.md`, this file, and Issue
-22, then choose a new run ID or a smaller bounded validation slice.
+session should begin with `checkpoints/CURRENT.md` and this file. This former
+local research track (historical label 22) is paused and does not authorize a
+new run.
 
-## Active issue
+## Active GitHub issue #7
 
-Local issue **23 - Reusable analytical machine v0**. The implementation and
-full structural pass are complete; the current handoff is owner/human
-adjudication of the lane-balanced structural pilot. The durable contract and
-review record are `docs/analytical-machine-v0-plan.md`,
+Automate issue-backed checkpoint publishing, asynchronous PR merge after
+required checks, and safe local worktree closeout. Acceptance criteria:
+https://github.com/Pukujan/harness-on-steroids/issues/7. The implementation is
+on `codex/issue-7-checkpoint-automation` in the approved D: task worktree. The
+canonical checkout's pre-existing owner edits are preserved separately.
+
+The publisher, CLI, runbook, and failure-state tests are drafted. Fifty-two
+focused publisher/CI-contract checks pass; the full Windows suite reports 225
+passed and four corpus-dependent skips because ignored replay data is absent
+from this worktree. Repository-wide Ruff and mypy and a real GitHub-backed
+dry-run pass. No commit or PR has been published yet; issue #2 remains queued
+until #7 merges and local state is reconciled.
+
+The completed analytical-machine research track formerly labeled “Issue 23”
+produced a full structural pass and an owner-reviewed lane-balanced packet,
+with no ontology category promoted. Its durable contract and review record are
+`docs/analytical-machine-v0-plan.md`,
 `research/analysis-ontology-pilot-v3-review-20260922.md`, and
 `spec/analysis-codebook-v0.md`.
 
@@ -152,11 +175,9 @@ It has been revalidated with 13 focused tests and clean Ruff checks; no
 holdout rows or body-bearing keys are present. The eight-episode holdout stays
 sealed and report-only.
 
-The next required action is for the owner/human to adjudicate the packet with
-the codebook. Do not promote quality, UX, outcome, provenance-correctness, or
-planning labels; do not combine this review with the Jev controller follow-up;
-and do not add a graph database or dashboard yet. Issue 22's Jev result and
-follow-up remain preserved as historical/currently separate work in
+The packet-review gate is complete. Do not promote quality, UX, outcome,
+provenance-correctness, or planning labels. The Jev track formerly labeled
+“Issue 22” is paused with no valid aggregate and remains historical in
 `checkpoints/CURRENT.md` and `ISSUES.md`.
 
 ## v2 implementation checkpoint — 2026-09-21
@@ -185,9 +206,10 @@ state. The host or a worker must feed Jev the current observations and closed
 candidate set. Our first v2 runner did not have that context-feeder preflight:
 it sent the owner ask, a synthetic bead, generic constraints, and mostly empty
 state fields, then folded back adapter metadata after execution. The prior
-`CLASSIFY_REQUEST`-only hypothesis was therefore paused. Issue 22 subsequently
-added the smallest bounded feeder and reran the full matched slice; its result
-and the one remaining hypothesis are recorded above and in `CURRENT.md`.
+`CLASSIFY_REQUEST`-only hypothesis was therefore paused. The local Jev track
+formerly labeled “Issue 22” subsequently added the smallest bounded feeder and
+reran the full matched slice; its result and the one remaining hypothesis are
+recorded above and in `CURRENT.md`.
 
 ## Reference evidence
 

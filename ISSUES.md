@@ -34,13 +34,23 @@ Historical needle retained for old regression tests: 18. Repo modules, lint, typ
 - **Status:** done
 - **Goal:** make the accepted direction authoritative and remove the old Kilo/OpenCode-only governance conflict.
 - **Files:** AGENTS.md, PLAN.md, spec/owner.v2.*, HANDOFF.md, CONTINUE.md, checkpoints/CURRENT.md, governance tests.
-- **Pass:** owner docs/tests point to v2; v1 remains history; active work is GitHub issue #2.
+- **Pass:** owner docs/tests point to v2; v1 remains history; GitHub issue #2
+  was the active work item at that point.
 
 ## Active GitHub work
 
-### Issue 21 - Jev persistent decision controller
+- **GitHub issue #7 (active):** automate issue-backed checkpoint publishing,
+  asynchronous PR auto-merge after required checks, and safe local worktree
+  closeout. Its frozen scope and acceptance criteria are on GitHub.
+- **GitHub issue #2 (queued):** run the first Pi/OpenCode/Grok Build baseline
+  after issue #7's merge and local reconciliation gate.
 
-- **Status:** open; owner approved implementation on 2026-09-21.
+## Historical local research tracks (these are not GitHub issues)
+
+### Local research track (historical label 21) - Jev persistent decision controller
+
+- **Status:** historical; no GitHub issue #21 exists. The controller research
+  and implementation remain evidence, not current scheduled work.
 - **Research:** `research/jev-controller-v2-research.md`.
 - **External evidence:** `research/jev-ecosystem-evidence.md` records public
   Jev integrations and the required context-feeder boundary.
@@ -86,10 +96,15 @@ and a closed candidate set. The next controlled hypothesis is therefore the
 bounded context-feeder preflight recorded in `checkpoints/CURRENT.md`; the
 `CLASSIFY_REQUEST` choice-set change is paused until that feeder is present.
 
-### Issue 22 - Jev long-horizon matched A/B
+### Local research track (historical label 22) - Jev long-horizon matched A/B
 
-- **Status:** active; first 60-turn A/B slice complete, follow-up hypothesis
-  retained below.
+This label is retained from local research notes; GitHub issue #22 does not
+exist in this repository. The matched A/B is complete, Jev was not promoted,
+and the later advisory attempts remain incomplete with no valid aggregate.
+This follow-up is paused and is not an active executable issue.
+
+- **Status:** paused historical track; first 60-turn A/B complete; advisory
+  follow-up incomplete and excluded from behavioral interpretation.
 - **Research contract:** `research/jev-long-horizon-ab.md`.
 - **Question:** does Jev improve observable Work-aligned behavior and outcome
   when the no-Jev and Jev arms receive the same context, harness, model,
@@ -121,7 +136,7 @@ vs 0/16, and Pi 0/16 vs 0/16. Jev executed only 13, 13, and 12 turns after
 47, 47, and 48 low-confidence fallbacks. The current policy is therefore not
 promoted; see `reports/jev-long-ab-20260922.md`.
 
-**Next hypothesis:** keep the feeder, choices, models, fixtures, and timeouts
+**Historical next hypothesis (not scheduled):** keep the feeder, choices, models, fixtures, and timeouts
 fixed, but make a low-confidence Jev result advisory while executing the same
 feeder prompt as baseline. Rerun one fresh matched 60-turn development slice
 to separate action-selection value from confidence-gate under-execution.
@@ -147,14 +162,17 @@ before the aggregate report was written. V5 verified repeated silent-child
 termination and parent continuation, so it is liveness evidence only. Its last
 observed child was fixture `633c140546c0`, Jev turn 4; v2 through v5 remain
 excluded from behavioral interpretation. Keep the ignored raw directory local,
-do not mix it into a future aggregate, and use a fresh run ID when Issue 22 is
-resumed.
+do not mix it into a future aggregate. This local research track is paused; a
+new run requires a real GitHub issue and fresh owner authorization.
 
-### Issue 23 - Reusable analytical machine v0
+### Local research track (historical label 23) - Reusable analytical machine v0
 
-- **Status:** active; implementation, full structural pass, and the larger
-  advisory ontology pilot/holdout review are complete; owner/human
-  adjudication is next.
+This label is retained from local research notes; GitHub issue #23 does not
+exist in this repository. The implementation, structural pass, and owner
+review gate are complete.
+
+- **Status:** completed local research/implementation track; full structural
+  pass and larger advisory ontology pilot/holdout review are complete.
 - **Goal:** create a repeatable and exportable analysis machine that can be
   reused for future agent datasets, with separate Codex execution and
   ChatGPT chat/research analyzers over one body-minimized evidence contract.
@@ -165,8 +183,9 @@ resumed.
   validation issues.
 - **Beads:** AM-01 through AM-05 are complete; AM-06 advisory ontology
   pilot/holdout review is complete with no category promotion; AM-06b's larger
-  deterministic sample and four native Luna advisory reviews are complete,
-  while owner/human adjudication remains. The deterministic review packet
+  deterministic sample and four native Luna advisory reviews are complete.
+  The owner approved the packet's structural interpretation and operating
+  rules on 2026-09-22 without promoting categories. The deterministic review packet
   builder is `research/build_analysis_review_packet.py`; AM-07 graph projection
   and AM-08 dashboard are explicitly deferred.
 - **Validation:** contract, golden fixture, order invariance, unknown-field,
@@ -183,14 +202,12 @@ resumed.
   events remained unknown and zero parse errors were observed. This is adapter/coverage
   evidence, not a quality claim. See
   `reports/analysis-machine-full-corpus-20260922.md`.
-- **Next pass:** owner/human-adjudicate the v3 source-linked structural batch
-  recorded in `research/analysis-ontology-pilot-v3-review-20260922.md`, with
-  quality/UX/outcome/planning labels remaining abstained until their evidence
-  surface is defined.
+- **Disposition:** packet review is complete; quality/UX/outcome/planning
+  labels remain abstained until their evidence surface is defined.
 - **Jev sidecar probe:** a separate eight-event structural Noul probe is
   recorded in `reports/jev-shadow-annotation-20260922.md`; it is not gold or a
   controller result. Keep the holdout sealed and benchmark semantic Jev labels
-  only after owner/human adjudication. The selector now honors larger sample
+  only after a separately scoped owner-approved study. The selector now honors larger sample
   budgets; three fresh 32-event repeats produced 254/256 direct structural
   matches each with identical thresholded predictions. This strengthens the
   mechanical sidecar result but does not promote semantic labels.
